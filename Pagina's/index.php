@@ -13,7 +13,7 @@ and open the template in the editor.
     <body>
     <center><div id="wrapper">
             <div id="header">
-                <h2>Header</h2>
+                <h2>Header1</h2>
 
             </div>
 
