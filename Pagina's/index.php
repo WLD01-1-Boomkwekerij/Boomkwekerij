@@ -13,7 +13,7 @@ and open the template in the editor.
     <body>
     <center><div id="wrapper">
             <div id="header">
-                <h2>Header1</h2>
+                <h2>Header</h2>
 
             </div>
 
@@ -21,10 +21,13 @@ and open the template in the editor.
                 <nav>
                     <ul>
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">Klimplanten</a></li>
-                        <li><a href="#">Cytisus</a></li>
-                        <li><a href="#">Ilex</a></li>
-                        <li><a href="#">Heesters</a></li>
+                        <li><a href="#">Catalogus</a>
+                            <ul>
+                                <li><a href="#">Soort 1</a></li>
+                            </ul>
+                        
+                        </li>
+                        <li><a href="#">Nieuws</a></li>
                         <li><a href="#">Contact</a></li>
 
 
@@ -44,7 +47,7 @@ and open the template in the editor.
             
             </div>
             
-            <div id="footer"></div>
+            <div id="footer"><h5>Footer</h5></div>
 
         </div>
     </center>
