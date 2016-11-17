@@ -73,7 +73,7 @@
 {
     width: 150px;
     float: right;
-    height: 100%;
+    height: auto;
     border: solid 2px black;
     padding-left: 10px;
     margin-left: 10px;  
