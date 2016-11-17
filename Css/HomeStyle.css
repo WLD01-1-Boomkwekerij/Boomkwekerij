@@ -1,0 +1,78 @@
+#wrapper
+{
+    width: 80%;
+    margin: auto;
+    border: solid 4px black;
+}
+
+#top
+{
+    height: 200px;
+    border-bottom: solid 1px black;
+}
+
+#header
+{
+    height: 60%;
+}
+
+#topmenu
+{
+    height: 40%;
+}
+
+#topmenu ul
+{
+    background-color: cornflowerblue;
+    height: 40px;
+    width: auto;
+    text-align: center;
+    line-height: 40px
+}
+
+#topmenu ul li
+{
+    display: inline;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#topmenu ul li a
+{
+     font-size: 20px;
+     text-decoration: none;
+     text-shadow: 1px 1px blue;
+}
+
+#mid
+{
+    border: solid 1px black;
+    height: 300px;
+    margin-top: 0px;
+    padding: 0px;
+}
+
+#maincontent
+{
+    width: 80%;
+    float: left;
+    height: 100%;
+}
+
+#rightmenu
+{
+    width: 20%;
+    float: right;
+    height: 100%;
+}
+
+
+#footer
+{
+    width: 100%;
+    border-top: solid 2px black;
+    position: absolute;
+    margin-top: 100%;
+}
+
