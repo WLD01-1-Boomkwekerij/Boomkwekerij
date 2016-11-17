@@ -1,7 +1,7 @@
-body{
+body
+{
     background-color:#8D99C8;
 }
-
 
 #wrapper
 {
@@ -87,7 +87,6 @@ body{
     margin-left: 10px;
     background-color:#ccccff;
 }
-
 
 #footer
 {
