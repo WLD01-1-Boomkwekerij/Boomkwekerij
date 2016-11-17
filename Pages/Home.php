@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Boomkwekerij</title>
-        <link href="../Css/MainStyle.css" rel="stylesheet" type=text/css"">
+        <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/HomeStyle.css" rel="stylesheet" type="text/css">
     </head>
     <body>
