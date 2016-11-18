@@ -1,6 +1,19 @@
+html{
+    height: 100%;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
 body
 {
     background-color:#8D99C8;
+    min-height: 100%;
+    padding: 20px;
+    padding-bottom: 60px;
+    margin:0;
+        position: relative;
 }
 
 #wrapper
@@ -21,8 +34,12 @@ body
 #header
 {
     height: 153px;
+<<<<<<< HEAD
     border-radius:7px;
     
+=======
+
+>>>>>>> 49970175d12e586e62911ba47ad555a3140b32a2
 }
 
 #topmenu
@@ -64,7 +81,6 @@ body
 
 #mid
 {
-    height: 300px;
     margin-top: 10px;
     padding: 0px;
     border-radius:7px;
@@ -95,6 +111,19 @@ body
     border-radius:7px;
 }
 
+<<<<<<< HEAD
+=======
+#footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0 15px;
+    height: 50px;
+    line-height: 50px;
+    background: red;
+}
+>>>>>>> 49970175d12e586e62911ba47ad555a3140b32a2
 
 #contact_name, #contact_subject, #contact_email, #contact_website, #contact_content{
     border-radius:8px;
@@ -120,6 +149,7 @@ body
 #btn1:hover{
     background-color:royalblue;
     color:white;
+<<<<<<< HEAD
     
 }
 
@@ -134,4 +164,13 @@ body
     border-radius:8px;
     border-color:white:
    
+=======
+
+}
+
+#contact_information{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+>>>>>>> 49970175d12e586e62911ba47ad555a3140b32a2
 }

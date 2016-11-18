@@ -12,7 +12,7 @@
                 <section id="topmenu">
                     <ul>
                         <li><a href="../pages/home.php">Home</a></li>
-                        <li><a href="../pages/News.php">Nieuws</a></li>
+                        <li><a href="../pages/news.php">Nieuws</a></li>
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
@@ -22,7 +22,7 @@
             <section id="mid">
                 <section id="rightmenu">
                     <h3>Contact informatie</h3>
-                    <ul id="contact_informatie">
+                    <ul id="contact_information">
                         <li>Fa. P. Boer</li>
                         <li>Rijneveld 125<br>2771 XV Boskoop</li>
                         <li>B.G.G:<br>0031 (0)172217308</li>
