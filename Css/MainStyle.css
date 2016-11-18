@@ -1,6 +1,19 @@
+html{
+    height: 100%;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
 body
 {
     background-color:#8D99C8;
+    min-height: 100%;
+    padding: 20px;
+    padding-bottom: 60px;
+    margin:0;
+        position: relative;
 }
 
 #wrapper
@@ -20,7 +33,7 @@ body
 #header
 {
     height: 153px;
-    
+
 }
 
 #topmenu
@@ -60,7 +73,6 @@ body
 
 #mid
 {
-    height: 300px;
     margin-top: 10px;
     padding: 0px;
 
@@ -88,12 +100,15 @@ body
     background-color:#ccccff;
 }
 
-#footer
-{
-    position: fixed;
+#footer {
+    position: absolute;
+    right: 0;
     bottom: 0;
-    width: 100%;
-    align: center;  
+    left: 0;
+    padding: 0 15px;
+    height: 50px;
+    line-height: 50px;
+    background: red;
 }
 
 #contact_name, #contact_subject, #contact_email, #contact_website, #contact_content{
@@ -120,9 +135,11 @@ body
 #btn1:hover{
     background-color:royalblue;
     color:white;
-    
+
 }
 
-p{
-      
+#contact_information{
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }

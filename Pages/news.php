@@ -2,9 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Boomkwekerij - Home</title>
+        <title>Boomkwekerij - Nieuws</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link href="../Css/HomeStyle.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <section id="wrapper">
@@ -13,7 +12,7 @@
                 <section id="topmenu">
                     <ul>
                         <li><a href="../pages/home.php">Home</a></li>
-                        <li><a href="../pages/News.php">Nieuws</a></li>
+                        <li><a href="../pages/news.php">Nieuws</a></li>
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
@@ -23,7 +22,7 @@
             <section id="mid">
                 <section id="rightmenu">
                     <h3>Contact informatie</h3>
-                    <ul id="contact_informatie">
+                    <ul id="contact_information">
                         <li>Fa. P. Boer</li>
                         <li>Rijneveld 125<br>2771 XV Boskoop</li>
                         <li>B.G.G:<br>0031 (0)172217308</li>
@@ -37,7 +36,7 @@
                     <a href="http://www.groen-direkt.nl/home-nl">link</a>
                 </section>
                 <section id="maincontent">
-                    <h1>Welkom op de site</h1>
+                    <h1>Nieuwsartikel</h1>
                     Bku iej fioejfoeifj dsiofjdsif jdsoi j
 
                     <h2>Lorem ipsum</h2>
@@ -49,6 +48,8 @@
                     <p>Nam pretium turpis et arcu. Duis arcu <br> tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestibulum volutpat pretium libero. Cras id dui. Aenean ut eros et nisl sagittis vestibulum. Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed lectus. Donec mollis hendrerit risus. Phasellus nec sem in justo pellentesque facilisis. Etiam imperdiet imperdiet orci. Nunc nec neque. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>
 
                     <p>Curabitur ligula sapien, tincidunt non, </p>> 
+                    <h1>Nieuwsartikel2</h1>
+                    <p>euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa. Sed cursus turpis vitae tortor. Donec posuere vulputate arcu. Phasellus accumsan cursus velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. Phasellus consectetuer vestibulum elit. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Vestibulu</p>
                 </section>
             </section>
         </section>
