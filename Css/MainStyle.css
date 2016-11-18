@@ -15,11 +15,13 @@ body
     border: solid 3px white;
     background-image: url(../images/banner.jpg);
     background-repeat: no-repeat;
+     border-radius:7px;
 }
 
 #header
 {
     height: 153px;
+    border-radius:7px;
     
 }
 
@@ -27,6 +29,7 @@ body
 {
     height: 40px;
     box-shadow:  0px 10px 101px 0px rgba(0,0,0,0.75);
+    border-radius:7px;
 }
 
 #topmenu ul
@@ -35,6 +38,7 @@ body
     width: auto;
     text-align: center;
     line-height: 40px; 
+    border-radius:7px;
 }
 
 #topmenu ul li
@@ -63,6 +67,7 @@ body
     height: 300px;
     margin-top: 10px;
     padding: 0px;
+    border-radius:7px;
 
 }
 
@@ -75,6 +80,7 @@ body
     background-color:#d0e6fa;
     padding: 10px;
     margin-bottom: 10px;
+   border-radius:8px;
 }
 
 #rightmenu
@@ -86,15 +92,9 @@ body
     padding: 10px;
     margin-left: 10px;
     background-color:#ccccff;
+    border-radius:7px;
 }
 
-#footer
-{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    align: center;  
-}
 
 #contact_name, #contact_subject, #contact_email, #contact_website, #contact_content{
     border-radius:8px;
@@ -121,4 +121,17 @@ body
     background-color:royalblue;
     color:white;
     
+}
+
+.footer{
+    width:auto;
+    height:25px;
+    margin-top: auto;
+    margin-left:auto;
+    background-color:royalblue;
+    border-style:solid;
+    border-width:2px;
+    border-radius:8px;
+    border-color:white:
+   
 }

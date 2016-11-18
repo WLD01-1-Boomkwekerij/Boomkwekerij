@@ -50,9 +50,10 @@
                     Curabitur ligula sapien, tincidunt non, <br> euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa. Sed cursus turpis vitae tortor. Donec posuere vulputate arcu. Phasellus accumsan cursus velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. Phasellus consectetuer vestibulum elit. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Vestibulu
                 </section>
             </section>
+            
         </section>
-        <section id="footer">
-            nog meer sampletekst
-        </section>
+        <div class="footer" >
+            JDKJFSLKFJSLKDFJLKSJFLKSJF
+        </div>
     </body>
 </html>
