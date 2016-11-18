@@ -36,7 +36,15 @@
                     <a href="http://www.groen-direkt.nl/home-nl">link</a>
                 </section>
                 <section id="maincontent">
-                    nog meer contactinfo
+                    <h1>Aanvraag</h1>
+                    <form method="post">
+                        Naam: <br><input type="text" name="contact_name"><br>
+                        Onderwerp: <br><input type="text" name="contact_subject"><br>
+                        E-mail: <br><input type="email" name="contact_email"><br>
+                        Website:<br><input type="text" name="contact_website"><br>
+                        Reactie: <br><textarea name="contact_content"></textarea><br>
+                        <input type="submit" name="submit" value="verstuur" /> 
+                    </form>
                 </section>
             </section>
         </section>
