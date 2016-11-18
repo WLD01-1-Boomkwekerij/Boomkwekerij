@@ -30,18 +30,17 @@ body
     background-image: url(../images/banner.jpg);
     background-repeat: no-repeat;
     padding:0px;
-    
-    border-radius:7px;   
+    border-radius:7px;
 }
 
 #header
 {
-    height: 153px;
+    height: 152px;
 }
 
 #topmenu
 {
-    height: auto; 
+    height: 42px; 
     box-shadow:  0px 10px 101px 0px rgba(0,0,0,0.75);
 }
 
@@ -64,8 +63,8 @@ body
 {
     font-size: 20px;
     text-decoration: none;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #topmenu ul li a:hover{
