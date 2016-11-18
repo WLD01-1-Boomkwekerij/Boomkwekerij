@@ -96,4 +96,29 @@ body
     align: center;  
 }
 
+#contact_name, #contact_subject, #contact_email, #contact_website, #contact_content{
+    border-radius:8px;
+}
 
+#contact_content{
+    min-width:400px;
+    min-height:200px;
+}
+
+#contact_email,#contact_website{
+    min-width:300px;
+}
+
+#btn1{
+    width:200px;
+    height:35px;
+    border-radius:12px;
+    background-color:#5175b3;
+    color:white;
+}
+
+#btn1:hover{
+    background-color:royalblue;
+    color:white;
+    
+}

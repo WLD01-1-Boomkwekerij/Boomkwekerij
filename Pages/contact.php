@@ -38,12 +38,12 @@
                 <section id="maincontent">
                     <h1>Aanvraag</h1>
                     <form method="post">
-                        Naam: <br><input type="text" name="contact_name"><br>
-                        Onderwerp: <br><input type="text" name="contact_subject"><br>
-                        E-mail: <br><input type="email" name="contact_email"><br>
-                        Website:<br><input type="text" name="contact_website"><br>
-                        Reactie: <br><textarea name="contact_content"></textarea><br>
-                        <input type="submit" name="submit" value="verstuur" /> 
+                        Naam: <br><input id="contact_name" placeholder="Uw naam" type="text" name="contact_name" required><br>
+                        Onderwerp: <br><input  id="contact_subject" placeholder="Onderwerp" type="text" name="contact_subject" required><br>
+                        E-mail: <br><input id="contact_email" placeholder="Op welke email kunnen we u contacteren?" type="tekst" name="contact_email" required><br>
+                        Website:<br><input id="contact_website" placeholder="Optionele website" type="text" name="contact_website"><br>
+                        Reactie: <br><textarea id="contact_content" placeholder="Vul hier uw aanvraag in" name="contact_content" required></textarea><br>
+                        <input type="submit" ID="btn1" name="submit" value="Aanvraag indienen" /> 
                     </form>
                 </section>
             </section>
