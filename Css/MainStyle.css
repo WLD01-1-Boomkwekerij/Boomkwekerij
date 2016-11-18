@@ -14,7 +14,6 @@ body
     padding: 20px;
     padding-bottom: 60px;
     margin:0;
-        position: relative;
     position: relative;
 }
 
@@ -30,28 +29,17 @@ body
     border: solid 3px white;
     background-image: url(../images/banner.jpg);
     background-repeat: no-repeat;
-     border-radius:7px;
 }
 
 #header
 {
     height: 153px;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    border-radius:7px;
-    
-=======
-
->>>>>>> 49970175d12e586e62911ba47ad555a3140b32a2
->>>>>>> 5650d5f8f6aec51926308c549205ceca4659e4a2
 }
 
 #topmenu
 {
     height: 40px;
     box-shadow:  0px 10px 101px 0px rgba(0,0,0,0.75);
-    border-radius:7px;
 }
 
 #topmenu ul
@@ -60,7 +48,6 @@ body
     width: auto;
     text-align: center;
     line-height: 40px; 
-    border-radius:7px;
 }
 
 #topmenu ul li
@@ -87,7 +74,6 @@ body
 {
     margin-top: 10px;
     padding: 0px;
-    border-radius:7px;
 
 }
 
@@ -100,7 +86,6 @@ body
     background-color:#d0e6fa;
     padding: 10px;
     margin-bottom: 10px;
-   border-radius:8px;
 }
 
 #rightmenu
@@ -112,11 +97,8 @@ body
     padding: 10px;
     margin-left: 10px;
     background-color:#ccccff;
-    border-radius:7px;
 }
 
-<<<<<<< HEAD
-=======
 #footer {
     position: absolute;
     right: 0;
@@ -127,7 +109,6 @@ body
     line-height: 50px;
     background: red;
 }
->>>>>>> 49970175d12e586e62911ba47ad555a3140b32a2
 
 #contact_name, #contact_subject, #contact_email, #contact_website, #contact_content{
     border-radius:8px;
@@ -153,31 +134,10 @@ body
 #btn1:hover{
     background-color:royalblue;
     color:white;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    
-}
-
-.footer{
-    width:auto;
-    height:25px;
-    margin-top: auto;
-    margin-left:auto;
-    background-color:royalblue;
-    border-style:solid;
-    border-width:2px;
-    border-radius:8px;
-    border-color:white:
-   
-=======
-
->>>>>>> 5650d5f8f6aec51926308c549205ceca4659e4a2
 }
 
 #contact_information{
     list-style: none;
     margin: 0;
     padding: 0;
->>>>>>> 49970175d12e586e62911ba47ad555a3140b32a2
 }

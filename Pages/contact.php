@@ -48,8 +48,8 @@
                 </section>
             </section>
         </section>
-        <div class="footer" >
-            JDKJFSLKFJSLKDFJLKSJFLKSJF
-        </div>
+        <section id="footer">
+            nog meer sampletekst
+        </section>
     </body>
 </html>
