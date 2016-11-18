@@ -6,6 +6,7 @@ html{
 *:after {
     box-sizing: inherit;
 }
+
 body
 {
     background-color:#8D99C8;
@@ -13,7 +14,7 @@ body
     padding: 20px;
     padding-bottom: 60px;
     margin:0;
-        position: relative;
+    position: relative;
 }
 
 #wrapper
@@ -33,7 +34,6 @@ body
 #header
 {
     height: 153px;
-
 }
 
 #topmenu
@@ -61,7 +61,6 @@ body
 {
     font-size: 20px;
     text-decoration: none;
-
     padding-left: 30px;
     padding-right: 30px;
 }
@@ -135,7 +134,6 @@ body
 #btn1:hover{
     background-color:royalblue;
     color:white;
-
 }
 
 #contact_information{
