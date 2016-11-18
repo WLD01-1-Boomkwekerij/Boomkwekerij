@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Boomkwekerij</title>
+        <title>Boomkwekerij - Home</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/HomeStyle.css" rel="stylesheet" type="text/css">
     </head>
@@ -12,17 +12,18 @@
                 <section id="header"></section>
                 <section id="topmenu">
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Nieuws</a></li>
-                        <li><a href="#">Catalogus</a></li>
-                        <li><a href="#">Prijslijst</a></li> 
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="../pages/home.php">Home</a></li>
+                        <li><a href="../pages/News.php">Nieuws</a></li>
+                        <li><a href="../pages/catalog.php">Catalogus</a></li>
+                        <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
+                        <li><a href="../pages/contact.php">Contact</a></li>
                     </ul>
                 </section>
             </section>
-            <section id="mid"><section id="rightmenu">
+            <section id="mid">
+                <section id="rightmenu">
                     <h3>Contact informatie</h3>
-                    <ul id="contact informatie">
+                    <ul id="contact_informatie">
                         <li>Fa. P. Boer</li>
                         <li>Rijneveld 125<br>2771 XV Boskoop</li>
                         <li>B.G.G:<br>0031 (0)172217308</li>
