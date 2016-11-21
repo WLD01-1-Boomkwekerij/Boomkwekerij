@@ -9,7 +9,6 @@ include'/../Functions/Email.php';
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <p> halalalala </p>
         <section id="wrapper">
             <section id="top">
                 <section id="header"></section>
