@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+      <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -24,14 +36,25 @@
                 <section id="rightmenu">
                     <h3>Catalogus</h3>
                     <ul id="catalogus">
-                        <li>Plant1</li>
-                        <li>Plant2</li>
-                        <li>plant3</li>
-                        <li>plant4</li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
                     </ul>
                 </section>
                 <section id="maincontent">
-                    planten en plaatjes
+                    <center> <form method="post" action="">
+                            <table border="1">
+                                <td>Gebruikersnaam:</td>
+                                <td><input type="text" id="user" name="user"</td>
+                                <tr>
+                                <td>Wachtwoord:</td>
+                                <td><input type="password" id="pass" name="pass"</td>
+                            </table><br>
+                            <input type="submit" id="btn2" name="btn2" value="Inloggen">
+                                
+                    </form>
+                    </center>
                 </section>
             </section>
         </section>
@@ -42,3 +65,6 @@
 </html>
 
 
+
+    </body>
+</html>
