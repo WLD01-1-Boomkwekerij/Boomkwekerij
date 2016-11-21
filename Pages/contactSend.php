@@ -52,7 +52,7 @@ include'/../Functions/Email.php';
                     echo '<br>';
                     echo $_POST['contact_content'];
                     echo '<br>';
-                    SendMail($_POST['contact_email'],$_POST['contact_subject'],$_POST['contact_content'],$_POST['contact_name'],$_POST['contact_website']);
+                    SendMail($_POST['contact_email'], $_POST['contact_subject'],$_POST['contact_content'],$_POST['contact_name'],$_POST['contact_website']);
                     ?>
                 </section>
             </section>
