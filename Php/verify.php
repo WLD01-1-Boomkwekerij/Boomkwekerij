@@ -13,8 +13,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(isset($_POST['user'], $_POST['pass'])) 
     {     
         // Overbodige spaties verwijderen 
-        $sGebruiker = trim($_POST['user']); 
-        $sWachtwoord = trim($_POST['pass']); 
+        $sGebruiker = htmlentities(trim($_POST['user'])); 
+        $sWachtwoord = htmlentities(trim($_POST['pass'])); 
          
         // Gebruikersnaam en wachtwoord controleren 
         if($sGebruiker == $sGebruikerControle && $sWachtwoord == $sWachtwoordControle) 

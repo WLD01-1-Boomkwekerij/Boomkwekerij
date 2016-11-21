@@ -110,7 +110,7 @@ body
     padding: 0 15px;
     height: 50px;
     line-height: 50px;
-    background: red;
+    background: #5175b3;
 }
 
 #contact_name, #contact_subject, #contact_email, #contact_website, #contact_content{
