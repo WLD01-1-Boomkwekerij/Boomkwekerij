@@ -9,8 +9,7 @@ if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false)
     exit(); 
 } 
 
-// Een welkomst tekst weergeven 
-echo 'Welkom '.$_SESSION['gebruiker'].' wat leuk dat je er weer bent.'; 
+
 ?>
 
 

@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 else 
 { 
     // Terug naar het formulier 
-    header('Location: login_form.php'); 
+    header('Location: login.php'); 
     exit(); 
 } 
 ?>
