@@ -1,12 +1,5 @@
 <?php session_start() ?>
-
-
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -46,7 +39,7 @@ and open the template in the editor.
                     </ul>
                 </section>
                 <section id="maincontent">
-                    <center> <form method="post" action="verify.php.php">
+                    <center> <form method="post" action="../Php/verify.php">
                             <table border="1">
                                 <td>Gebruikersnaam:</td>
                                 <td><input type="text" id="user" name="user"</td>

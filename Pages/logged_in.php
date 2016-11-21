@@ -14,11 +14,6 @@ if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false)
 
 
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -31,6 +26,9 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title>Boomkwekerij - Catalogus</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript">
+            alert("Vergeet niet om uit te loggen!");
+        </script>
     </head>
     <body>
         <section id="wrapper">
@@ -54,7 +52,7 @@ and open the template in the editor.
             </section>
         </section>
         <section id="footer">
-            <li><a href="../pages/loggout.php">Uitloggen</a></li>
+            <li><a href="../Php/loggout.php">Uitloggen</a></li>
         </section>
     </body>
 </html>
