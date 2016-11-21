@@ -2,7 +2,7 @@
 
 <?php
 
-if(isset($_POST[''])){
+
 $user = $_POST['user'];
 $pass = $_POST['pass'];
 
@@ -13,6 +13,6 @@ if($user == 'Antoinnette' && $pass == 1234){
     header('Refresh: 4; url=/pages/login.php');
     echo "Foutief wachtwoord! U wordt doorverwezen naar het beginscherm";
 }
-}
+
 
 ?>
