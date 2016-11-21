@@ -1,3 +1,19 @@
+<?php 
+// We werken ook hier met sessies 
+session_start(); 
+
+// Controleren of de bezoeker ingelogd is 
+if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) 
+{ 
+    header('Location:login.php'); 
+    exit(); 
+} 
+
+// Een welkomst tekst weergeven 
+echo 'Welkom '.$_SESSION['gebruiker'].' wat leuk dat je er weer bent.'; 
+?>
+
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
