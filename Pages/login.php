@@ -1,3 +1,6 @@
+<?php session_start() ?>
+
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -28,7 +31,7 @@ and open the template in the editor.
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
-                        <li><a href="../pages/login.php">Inloggen</a></li>
+                        
                     </ul>
                 </section>
             </section>
@@ -43,7 +46,7 @@ and open the template in the editor.
                     </ul>
                 </section>
                 <section id="maincontent">
-                    <center> <form method="post" action="">
+                    <center> <form method="post" action="verifry.php">
                             <table border="1">
                                 <td>Gebruikersnaam:</td>
                                 <td><input type="text" id="user" name="user"</td>
@@ -59,7 +62,7 @@ and open the template in the editor.
             </section>
         </section>
         <section id="footer">
-            nog meer sampletekst
+            <li><a href="../pages/login.php">Inloggen</a></li>
         </section>
     </body>
 </html>

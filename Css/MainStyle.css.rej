@@ -1,9 +1,0 @@
-diff a/Css/MainStyle.css b/Css/MainStyle.css	(rejected hunks)
-@@ -14,7 +14,6 @@
-     padding: 20px;
-     padding-bottom: 60px;
-     margin:0;
--        position: relative;
-     position: relative;
- }
- 
