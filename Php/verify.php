@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         else 
         { 
             // Terugsturen en foutmelding geven 
-            header('Refresh: 3; url=login.php'); 
+            header('Refresh: 3; url=/pages/login.php'); 
             echo 'Deze combinatie van gebruikersnaam en wachtwoord is niet juist!'; 
         } 
     } 
