@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
 include'/../Functions/Email.php';
-SendMail("hey","doei");
 ?>
 <html>
     <head>
@@ -41,15 +40,21 @@ SendMail("hey","doei");
                     <a href="http://www.groen-direkt.nl/home-nl">link</a>
                 </section>
                 <section id="maincontent">
-                    <h1>Aanvraag</h1>
-                    <form action="contactSend.php" method="post">
-                        Naam: <br><input id="contact_name" placeholder="Uw naam" type="text" name="contact_name" required><br>
-                        Onderwerp: <br><input  id="contact_subject" placeholder="Onderwerp" type="text" name="contact_subject" required><br>
-                        E-mail: <br><input id="contact_email" placeholder="Op welke email kunnen we u contacteren?" type="tekst" name="contact_email" required><br>
-                        Website:<br><input id="contact_website" placeholder="Optionele website" type="text" name="contact_website"><br>
-                        Reactie: <br><textarea id="contact_content" placeholder="Vul hier uw aanvraag in" name="contact_content" required></textarea><br>
-                        <input type="submit" ID="btn1" name="submit" value="Aanvraag indienen" /> 
-                    </form>
+                    <h1>Dank u wel voor uw verzoek.</h1>
+                    <h1>Uw mail is verzonden.</h1>
+                    <?php
+                    echo $_POST['contact_name'];
+                    echo '<br>';
+                    echo $_POST['contact_subject'];
+                    echo '<br>';
+                    echo $_POST['contact_email'];
+                    echo '<br>';
+                    echo $_POST['contact_website'];
+                    echo '<br>';
+                    echo $_POST['contact_content'];
+                    echo '<br>';
+                    SendMail($_POST['contact_email'],$_POST['contact_subject'],$_POST['contact_content'],$_POST['contact_name'],$_POST['contact_website']);
+                    ?>
                 </section>
             </section>
         </section>
