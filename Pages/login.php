@@ -46,7 +46,7 @@ and open the template in the editor.
                     </ul>
                 </section>
                 <section id="maincontent">
-                    <center> <form method="post" action="verifry.php">
+                    <center> <form method="post" action="verify.php.php">
                             <table border="1">
                                 <td>Gebruikersnaam:</td>
                                 <td><input type="text" id="user" name="user"</td>
