@@ -144,3 +144,7 @@ body
     margin: 0;
     padding: 0;
 }
+
+#user,#pass{
+    border-radius:8px;
+}
