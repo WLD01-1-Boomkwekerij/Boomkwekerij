@@ -13,9 +13,6 @@ if($user == 'Antoinnette' && $pass == 1234){
     header('Refresh: 4; url=/pages/login.php');
     echo "Foutief wachtwoord! U wordt doorverwezen naar het beginscherm";
 }
-}else{
-    echo "U heeft niet ingelogd! U wordt doorverwezen naar de loginpagina.";
-    header('refresh:4; url=/pages/login.php');
 }
 
 ?>
