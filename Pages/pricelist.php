@@ -39,6 +39,7 @@
                 <section id="maincontent">
                     <table>
                         <tr>
+                            <th>Plantnaam</th>
                             <th>potmaat</th>
                             <th>hoogte</th>
                             <th>prijs (€)</th>
@@ -48,12 +49,34 @@
                         </tr>
                         <tr>
                             <td></td>
+                            <td></td>
                             <td>(cm)</td>
-                            <td>af kwekerij</td>
+                            <td>af<br>kwekerij</td>
                             <td>via VBA</td>
                             <td>cc</td>
                             <td>laag</td>
                             <td>tray</td>
+                        </tr>
+                        <td><h3>Aucuba</h3></td>
+                        <tr>
+                            <td>j.Variegeta</td>
+                            <td>P13</td>
+                            <td>20/25</td>
+                            <td>1,45</td>
+                            <td>1,55</td>
+                            <td>200</td>
+                            <td>40</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>j.Variegeta</td>
+                            <td>C3</td>
+                            <td>30/35</td>
+                            <td>2,50</td>
+                            <td>2,75</td>
+                            <td>96</td>
+                            <td>24</td>
+                            <td></td>
                         </tr>
                     </table>
                 </section>
