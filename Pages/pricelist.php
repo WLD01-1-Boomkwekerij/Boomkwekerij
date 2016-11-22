@@ -37,13 +37,34 @@
                     <a href="http://www.groen-direkt.nl/home-nl">link</a>
                 </section>
                 <section id="maincontent">
-                    planten zonder plaatjes<br>
-                    maar wel in kleur!
+                    <table>
+                        <tr>
+                            <th>potmaat</th>
+                            <th>hoogte</th>
+                            <th>prijs (€)</th>
+                            <th>per</th>
+                            <th>per</th>
+                            <th>per</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>(cm)</td>
+                            <td>af kwekerij</td>
+                            <td>via VBA</td>
+                            <td>cc</td>
+                            <td>laag</td>
+                            <td>tray</td>
+                        </tr>
+                    </table>
                 </section>
             </section>
         </section>
         <section id="footer">
-            <li><a href="../pages/login.php">Inloggen</a></li>
+            <a href="../pages/login.php">Inloggen</a>
+            <br>Jelle zegt BOOM BOOM BOOM <br>
+            <h1>
+                ALL HAIL OUR SUPREME LEADER KEVIN!!!
+            </h1>
         </section>
     </body>
 </html>
