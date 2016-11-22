@@ -16,7 +16,7 @@
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
-                       
+
                     </ul>
                 </section>
             </section>
@@ -43,9 +43,7 @@
             </section>
         </section>
         <section id="footer">
-           <li><a href="../pages/login.php">Inloggen</a></li>
+            <li><a href="../pages/login.php">Inloggen</a></li>
         </section>
     </body>
 </html>
-
-
