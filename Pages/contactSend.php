@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <?php
-include'/../Functions/Email.php';
+
+function SendMail($to, $subject, $message, $Naam, $Email) {
+    $headers = 'From: test@boomkwekerij.pe.hu' . "\r\n" .
+            'Reply-To: ' . $to . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+    $message = "Naam: " . $Naam . " Website: " . $Email . $message;
+    mail($to, $subject, $message, $headers);
+}
 ?>
 <html>
     <head>
@@ -41,19 +48,19 @@ include'/../Functions/Email.php';
                 <section id="maincontent">
                     <h1>Dank u wel voor uw verzoek.</h1>
                     <h1>Uw mail is verzonden.</h1>
-                    <?php
-                    echo $_POST['contact_name'];
-                    echo '<br>';
-                    echo $_POST['contact_subject'];
-                    echo '<br>';
-                    echo $_POST['contact_email'];
-                    echo '<br>';
-                    echo $_POST['contact_website'];
-                    echo '<br>';
-                    echo $_POST['contact_content'];
-                    echo '<br>';
-                    SendMail($_POST['contact_email'], $_POST['contact_subject'],$_POST['contact_content'],$_POST['contact_name'],$_POST['contact_website']);
-                    ?>
+<?php
+echo $_POST['contact_name'];
+echo '<br>';
+echo $_POST['contact_subject'];
+echo '<br>';
+echo $_POST['contact_email'];
+echo '<br>';
+echo $_POST['contact_website'];
+echo '<br>';
+echo $_POST['contact_content'];
+echo '<br>';
+SendMail($_POST['contact_email'], $_POST['contact_subject'], $_POST['contact_content'], $_POST['contact_name'], $_POST['contact_website']);
+?>
                 </section>
             </section>
         </section>
