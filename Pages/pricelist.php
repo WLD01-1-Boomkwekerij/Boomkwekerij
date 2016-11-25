@@ -38,20 +38,29 @@
                     <a href="http://www.groen-direkt.nl/home-nl">link</a>
                 </section>
                 <section id="maincontent">
-                    <table id="pricelist">
-                        <h1>Prijslijst</h1>
+                    <h1>Prijslijst</h1>
+                    <table class="pricelist">
+                        <colgroup>
+                            <col class="name"/>
+                            <col class="name"/>
+                            <col class="blue"/>
+                            <col class="white"/>
+                            <col class="blue"/>
+                            <col class="white"/>
+                            <col class="blue"/>
+                            <col class="white"/>
+                            <col class="blue"/>
+                        </colgroup>
                         <tr>
-                            <th>Plantnaam</th>
-                            <th>potmaat</th>
+                            <th rowspan="2" colspan="2"><h2>Plantnaam</h2></th>
+                            <th rowspan="2">potmaat</th>
                             <th>hoogte</th>
-                            <th>prijs (€)</th>
+                            <th colspan="2" class="white">prijs (€)</th>
                             <th>per</th>
                             <th>per</th>
                             <th>per</th>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
+                        <tr> 
                             <td>(cm)</td>
                             <td>af<br>kwekerij</td>
                             <td>via VBA</td>
@@ -59,9 +68,9 @@
                             <td>laag</td>
                             <td>tray</td>
                         </tr>
-                        <tr><td><h3>Aucuba</h3></td></tr>
+                        <tr><td class="name" colspan="9"><h2><a href="../Pages/catalog.php">Aucuba</a></h2></td></tr>
                         <tr>
-                            <td>j.Variegeta</td>
+                            <td colspan="2">j.Variegeta</td>
                             <td>P13</td>
                             <td>20/25</td>
                             <td>1,45</td>
@@ -71,7 +80,7 @@
                             <td>8</td>
                         </tr>
                         <tr>
-                            <td>j.Variegeta</td>
+                            <td colspan="2">j.Variegeta</td>
                             <td>C3</td>
                             <td>30/35</td>
                             <td>2,50</td>
