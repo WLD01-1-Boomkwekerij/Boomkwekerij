@@ -20,6 +20,12 @@
     width: 50%;
 }
 
+#wrapper
+{
+    max-width: 750px;
+}
+
+
 .item img
 {
     width: 100%;

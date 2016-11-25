@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <title>Boomkwekerij - Catalogus</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link href="../Css/CatalogStyle.css" rel="stylesheet" type="text/css">
+        <link media="screen and (max-width:1287px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
+        <link media="screen and (min-width:1287px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <section id="wrapper">
@@ -17,7 +18,6 @@
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
-
                     </ul>
                 </section>
             </section>
