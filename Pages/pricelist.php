@@ -35,7 +35,7 @@
                     </ul>
                     <h3>Groen-Direkt Boskoop</h3>
                     Geen opkomende evenementen<br>
-                    <a href="http://www.groen-direkt.nl/home-nl">link</a>
+                    <a href="http://www.groen-direkt.nl/home-nl" TARGET="_blank">link</a>
                 </section>
                 <section id="maincontent">
                     <?php
