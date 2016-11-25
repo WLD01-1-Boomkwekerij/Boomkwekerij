@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Boomkwekerij - Prijslijst</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+        <link href="../Css/PricelistStyle.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <section id="wrapper">
@@ -37,7 +38,8 @@
                     <a href="http://www.groen-direkt.nl/home-nl">link</a>
                 </section>
                 <section id="maincontent">
-                    <table>
+                    <table id="pricelist">
+                        <h1>Prijslijst</h1>
                         <tr>
                             <th>Plantnaam</th>
                             <th>potmaat</th>
@@ -57,7 +59,7 @@
                             <td>laag</td>
                             <td>tray</td>
                         </tr>
-                        <td><h3>Aucuba</h3></td>
+                        <tr><td><h3>Aucuba</h3></td></tr>
                         <tr>
                             <td>j.Variegeta</td>
                             <td>P13</td>
