@@ -38,6 +38,18 @@
                     <a href="http://www.groen-direkt.nl/home-nl">link</a>
                 </section>
                 <section id="maincontent">
+                    <?php
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = "usbw";
+                    $dbname = "boomkwekerij";
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+                    $sql = "SELECT * FROM Category WHERE CategoryID IN(SELECT distinct CategoryID FROM prijs)";
+                    $result = $conn->query($sql);
+                    ?>
                     <h1>Prijslijst</h1>
                     <table class="pricelist">
                         <colgroup>
@@ -68,27 +80,37 @@
                             <td>laag</td>
                             <td>tray</td>
                         </tr>
-                        <tr><td class="name" colspan="9"><h2><a href="../Pages/catalog.php">Aucuba</a></h2></td></tr>
-                        <tr>
-                            <td colspan="2">j.Variegeta</td>
-                            <td>P13</td>
-                            <td>20/25</td>
-                            <td>1,45</td>
-                            <td>1,55</td>
-                            <td>200</td>
-                            <td>40</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">j.Variegeta</td>
-                            <td>C3</td>
-                            <td>30/35</td>
-                            <td>2,50</td>
-                            <td>2,75</td>
-                            <td>96</td>
-                            <td>24</td>
-                            <td></td>
-                        </tr>
+                        <?php
+                        while ($row = $result->fetch_assoc()) {
+                            print ("<tr><td class = 'name' colspan = '9'><h2><a href = '../Pages/catalog.php'>" . $row["CategoryNaam"] . "</a></h2></td></tr>");
+                            $sql2 = "SELECT * FROM prijs WHERE CategoryID=" . $row['CategoryID'];
+                            $result2 = $conn->query($sql2);
+                            while ($row2 = $result2->fetch_assoc()) {
+                                ?>
+                                <tr>
+                                    <?php
+                                    if (isset($row2['ExtraBeschrijving'])) {
+                                        print("<td>" . $row2['Naam'] . "</td>");
+                                        print("<td>" . $row2['ExtraBeschrijving'] . "</td>");
+                                    } else {
+                                        ?> 
+                                        <td colspan = "2"><?php print($row2['Naam']); ?></td>
+                                        <?php
+                                    }
+                                    ?>
+                                    <td><?php print($row2['Potmaat']); ?></td>
+                                    <td><?php print($row2['Hoogte_min'] . "/" . $row2['Hoogte_max']); ?></td>
+                                    <td><?php print($row2['PrijsKwekerij']); ?></td>
+                                    <td><?php print($row2['PrijsVBA']); ?></td>
+                                    <td><?php print($row2['ProductenCC']); ?></td>
+                                    <td><?php print($row2['ProductenLaag']); ?></td>
+                                    <td><?php print($row2['ProductenTray']); ?></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        $conn->close();
+                        ?>
                     </table>
                 </section>
             </section>
