@@ -19,25 +19,11 @@ body
     font-family: arial;
 }
 
-.item{
-    min-width:450px;
-    height: 225px;
-    background-color: blue;
-    display: inline-block;
-    margin:10px;
-}
-
-.item img{
-    float:left;
-    width:225px;
-    height:225px;
-}
-
 #wrapper
 {
     margin: auto;
     /*max-width: 1000px;*/
-    min-width: 700px;
+    min-width: 750px;
 }
 
 #top
