@@ -1,13 +1,29 @@
-#pricelist {
-    
-}
-#pricelist, th, td{
+.pricelist, th, td{
     border: 3px solid white;
     border-collapse: collapse;
+    text-align: center;    
 }
-h3{
+
+h2{
     font-size: 20px;
     line-height: 20px;
     margin: 3px;
+    padding-left: 4px;
 }
 
+.name{
+    width: 100px;
+    background-color:#d0e6fa; 
+    text-align: left;
+}
+
+.white{
+    width: 60px;
+    background-color:#d0e6fa; 
+    
+}
+
+.blue{
+    width: 60px;
+    background-color: aqua; 
+}
