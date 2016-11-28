@@ -4,7 +4,7 @@ function connectToDatabase() {
 
     $username = "root";
     $password = "usbw";
-    $servername = "mysql:host=localhost;dbname=Boomkwekerij;port=3307";
+    $servername = "mysql:host=localhost;dbname=boomkwekerij;port=3307";
     $connection = new PDO($servername, $username, $password);
     return $connection;
 }
