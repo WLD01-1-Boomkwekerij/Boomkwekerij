@@ -5,11 +5,12 @@
         <title>Boomkwekerij - Home</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/HomeStyle.css" rel="stylesheet" type="text/css"> 
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         <?php
         session_start();
-        
-        include '../Php/DatabaseInformation.php';        
-        
+
+        include '../Php/DatabaseInformation.php';
+
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
         print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
         print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
@@ -36,11 +37,12 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
-                    <div id="google_translate_element"></div><script type="text/javascript">
+                    <div id="google_translate_element"></div>
+                    <script type="text/javascript">
                         function googleTranslateElementInit() {
                             new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
                         }
-                    </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    </script>
                     <h3>Contact informatie</h3>
                     <ul id="contact_information">
                         <li>Fa. P. Boer</li>
@@ -58,16 +60,11 @@
                 </section>
                 <section id="maincontent">
 
-
-                    <h1>Welkom op de site</h1>
-                    <h2>Lorem ipsum</h2>
-
-
+                    <!-- Hierin moet de tekst van de site, het id moet het TextID bevatten om text op te slaan -->
                     <div class="ContentEditable" id="textID1">
                         <?php
-                        
-                            print(loadTextFromDB(1));
-                        
+                                //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
+                                print(loadTextFromDB(1));
                         ?>
                     </div>
                 </section>

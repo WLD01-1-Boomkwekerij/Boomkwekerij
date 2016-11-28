@@ -10,14 +10,15 @@ function loadTextFromDB($textID) {
 
     while ($row = $statement->fetch()) {
         $text = $row["Text"];
-        return $text;
+        return htmlspecialchars_decode($text);
     }
 }
 
 function saveTextToDB($textID, $text){
     
     $connection = connectToDatabase();
-    $statement = $connection->prepare("UPDATE PaginaTekst SET Text='".$text."' WHERE ID=".$textID);
+    $statement = $connection->prepare("UPDATE PaginaTekst SET Text='".  htmlentities($text)."' WHERE ID=".$textID);
     $statement->execute();
     $connection = null;
+    
 }

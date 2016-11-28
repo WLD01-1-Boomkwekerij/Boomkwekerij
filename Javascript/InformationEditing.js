@@ -3,8 +3,6 @@ $(document).ready(function () {
     $(".ContentEditable").one("click", function () {
         SetContentEditable($(this)[0]);
     });
-    
-    
 });
 
 function SetContentEditable(element) {
