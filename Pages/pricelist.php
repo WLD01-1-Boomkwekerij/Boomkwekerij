@@ -93,20 +93,16 @@
                                         print("<td>" . $row2['Naam'] . "</td>");
                                         print("<td>" . $row2['ExtraBeschrijving'] . "</td>");
                                     } else {
-                                        ?> 
-                                        <td colspan = "2"><?php print($row2['Naam']); ?></td>
-                                        <?php
+                                        print("<td colspan = '2'>".$row2['Naam']."</td>");
                                     }
-                                    ?>
-                                    <td><?php print($row2['Potmaat']); ?></td>
-                                    <td><?php print($row2['Hoogte_min'] . "/" . $row2['Hoogte_max']); ?></td>
-                                    <td><?php print($row2['PrijsKwekerij']); ?></td>
-                                    <td><?php print($row2['PrijsVBA']); ?></td>
-                                    <td><?php print($row2['ProductenCC']); ?></td>
-                                    <td><?php print($row2['ProductenLaag']); ?></td>
-                                    <td><?php print($row2['ProductenTray']); ?></td>
-                                </tr>
-                                <?php
+                                    print("<td>".$row2['Potmaat']."</td>
+                                    <td>".$row2['Hoogte_min'] . "/" . $row2['Hoogte_max']."</td>
+                                    <td>".$row2['PrijsKwekerij']."</td>
+                                    <td>".$row2['PrijsVBA']."</td>
+                                    <td>".$row2['ProductenCC']."</td>
+                                    <td>".$row2['ProductenLaag']."</td>
+                                    <td>".$row2['ProductenTray']."</td>
+                                </tr>");
                             }
                         }
                         $conn->close();
