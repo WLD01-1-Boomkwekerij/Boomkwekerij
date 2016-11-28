@@ -26,17 +26,18 @@ body
     min-width: 750px;
 }
 
-div.goog-te-gadget-simple{
+div.goog-te-gadget-simple
+{
     border-radius:8px;
     background-color: #ccccff;
 }
 
-a.goog-te-menu-value > span{
+a.goog-te-menu-value > span
+{
     color:black;
     border-radius:8px;
-    
-
 }
+
 #top
 {
     border: solid 3px white;
@@ -80,7 +81,8 @@ a.goog-te-menu-value > span{
     padding-right: 10px;
 }
 
-#topmenu ul li a:hover{
+#topmenu ul li a:hover
+{
     background-color: royalblue;
     color:white;
 }
@@ -115,7 +117,8 @@ a.goog-te-menu-value > span{
     border-radius:7px;
 }
 
-#footer {
+#footer 
+{
     position: absolute;
     right: 0;
     bottom: 0;
@@ -126,20 +129,24 @@ a.goog-te-menu-value > span{
     background: #5175b3;
 }
 
-#contact_name, #contact_subject, #contact_email, #contact_website, #contact_content{
+#contact_name, #contact_subject, #contact_email, #contact_website, #contact_content
+{
     border-radius:8px;
 }
 
-#contact_content{
+#contact_content
+{
     min-width:400px;
     min-height:200px;
 }
 
-#contact_email,#contact_website{
+#contact_email,#contact_website
+{
     min-width:300px;
 }
 
-#btn1{
+#btn1
+{
     width:200px;
     height:35px;
     border-radius:12px;
@@ -147,17 +154,20 @@ a.goog-te-menu-value > span{
     color:white;
 }
 
-#btn1:hover{
+#btn1:hover
+{
     background-color:royalblue;
     color:white;
 }
 
-#contact_information{
+#contact_information
+{
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-#user,#pass{
+#user,#pass
+{
     border-radius:8px;
 }

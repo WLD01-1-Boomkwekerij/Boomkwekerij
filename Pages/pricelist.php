@@ -23,11 +23,11 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
-                     <div id="google_translate_element"></div><script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    <div id="google_translate_element"></div><script type="text/javascript">
+                        function googleTranslateElementInit() {
+                            new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                        }
+                    </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                     <h3>Contact informatie</h3>
                     <ul id="contact_information">
                         <li>Fa. P. Boer</li>
@@ -98,20 +98,20 @@ function googleTranslateElementInit() {
                                         print("<td>" . $row2['Naam'] . "</td>");
                                         print("<td>" . $row2['ExtraBeschrijving'] . "</td>");
                                     } else {
-                                        print("<td colspan = '2'>".$row2['Naam']."</td>");
+                                        print("<td colspan = '2'>" . $row2['Naam'] . "</td>");
                                     }
-                                    print("<td>".$row2['Potmaat']."</td>
-                                    <td>".$row2['Hoogte_min'] . "/" . $row2['Hoogte_max']."</td>
-                                    <td>".$row2['PrijsKwekerij']."</td>
-                                    <td>".$row2['PrijsVBA']."</td>
-                                    <td>".$row2['ProductenCC']."</td>
-                                    <td>".$row2['ProductenLaag']."</td>
-                                    <td>".$row2['ProductenTray']."</td>
+                                    print("<td>" . $row2['Potmaat'] . "</td>
+                                    <td>" . $row2['Hoogte_min'] . "/" . $row2['Hoogte_max'] . "</td>
+                                    <td>" . $row2['PrijsKwekerij'] . "</td>
+                                    <td>" . $row2['PrijsVBA'] . "</td>
+                                    <td>" . $row2['ProductenCC'] . "</td>
+                                    <td>" . $row2['ProductenLaag'] . "</td>
+                                    <td>" . $row2['ProductenTray'] . "</td>
                                 </tr>");
+                                }
                             }
-                        }
-                        $conn->close();
-                        ?>
+                            $conn->close();
+                            ?>
                     </table>
                 </section>
             </section>
