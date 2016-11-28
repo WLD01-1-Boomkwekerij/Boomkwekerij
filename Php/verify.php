@@ -22,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['gebruiker'] = $sGebruiker;
 
             // Doorsturen en melding geven 
-            header('Refresh: 3; url=/pages/logged_in.php');
+            header('Refresh: 3; url=../Pages/logged_in.php');
             echo 'Je bent succesvol ingelogd. Je wordt doorgestuurd.';
         } else {
             // Terugsturen en foutmelding geven 
-            header('Refresh: 3; url=/pages/login.php');
+            header('Refresh: 3; url=/Pages/login.php');
             echo 'Deze combinatie van gebruikersnaam en wachtwoord is niet juist!';
         }
     } else {
