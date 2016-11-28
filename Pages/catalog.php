@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <title>Boomkwekerij - Catalogus</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link media="screen and (max-width:1287px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
-        <link media="screen and (min-width:1287px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
+        <link media="screen and (max-width:1288px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
+        <link media="screen and (min-width:1288px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <section id="wrapper">
@@ -23,6 +23,11 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
+                     <div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                     <h3>Catalogus</h3>
                     <ul id="catalogus">
                         <li>Plant1</li>

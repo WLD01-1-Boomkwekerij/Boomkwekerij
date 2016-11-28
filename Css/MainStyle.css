@@ -26,6 +26,17 @@ body
     min-width: 750px;
 }
 
+div.goog-te-gadget-simple{
+    border-radius:8px;
+    background-color: #ccccff;
+}
+
+a.goog-te-menu-value > span{
+    color:black;
+    border-radius:8px;
+    
+
+}
 #top
 {
     border: solid 3px white;
