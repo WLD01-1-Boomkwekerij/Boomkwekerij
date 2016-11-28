@@ -1,3 +1,8 @@
+//Variables
+
+//Saved Selection
+var savedSel;
+
 /**
  * Saves the provided text to the database
  * @param {type} text
@@ -86,12 +91,15 @@ function insertLink() {
 }
 
 //TODO
-function setFontSize(element, size) {
-
-    var sel = window.getSelection();
-    var text = element.innerHTML;
-    element.innerHTML = text.replace(sel, '<p fontSize="' + size + '">' + sel + '</p>');
-}
+/*
+ function setFontSize(element, size) {
+ var sel = window.getSelection().toString();
+ var text = document.getElementById(element).innerHTML.toString();
+ console.log(text);
+ element.innerHTML = text.replace(text, '<p>' + sel + '</p>');
+ text.style.fontSize = size;
+ }
+ */
 
 //Get image url from database
 function selectImage(imageID) {
@@ -106,9 +114,9 @@ function selectImage(imageID) {
             img.className = "editableImage";
             img.style.width = "300px";
             img.style.border = "solid 2px black";
-            img.onclick = function () {
-                editImage(this);
-            };
+            //img.onclick = function () {
+            //    editImage(this);
+            //  };
             document.body.appendChild(img);
         }
     };
@@ -119,7 +127,7 @@ var map = {};
 onkeydown = onkeyup = function (e) {
     e = e || event;
     map[e.keyCode] = e.type === "keydown";
-    
+
     //Redo and Undo
     if (map[17] && map[90] && map[16]) {
         document.execCommand("redo", false);
@@ -128,7 +136,7 @@ onkeydown = onkeyup = function (e) {
         document.execCommand("undo", false);
         return false;
     }
-    
+
     //Enter
     if (map[13]) {
         markupText("insertHTML", "<br><br>");
@@ -147,4 +155,14 @@ $(document).ready(function () {
     $(".ContentEditable").one("click", function () {
         setContentEditable($(this)[0]);
     });
+
+    /*
+     $(function () {
+     var select = $(".numberPicker");
+     for (var i = 1; i <= 7; i++) {
+     select.append($("<option onclick='setFontSize()'></option>").val(i).html(i));
+     }
+     });
+     */
+
 });
