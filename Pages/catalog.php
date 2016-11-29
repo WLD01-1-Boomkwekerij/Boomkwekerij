@@ -8,6 +8,17 @@
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link media="screen and (max-width:1288px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
         <link media="screen and (min-width:1288px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
+          <?php
+        session_start();
+
+        include '../Php/DatabaseInformation.php';
+
+        //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
+        print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
+        print("<script src='../Javascript/InformationEditing.js'></script>");
+        // }
+        ?>
     </head>
     <body>
         <section id="wrapper">
@@ -20,6 +31,11 @@
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
+                            <?php
+                        if(isset($_SESSION['logged_in'])){
+                            print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
+                        }
+                         ?>
                     </ul>
                 </section>
             </section>
@@ -83,7 +99,13 @@
             </section>
         </section>
         <section id="footer">
-            <li><a href="../pages/login.php">Inloggen</a></li>
+              <?php
+            if(isset($_SESSION['logged_in'])){
+                print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
+            }else{
+                print("<li><a href='../pages/login.php'>Inloggen</a></li>");
+            }
+            ?>
         </section>
     </body>
 </html>
