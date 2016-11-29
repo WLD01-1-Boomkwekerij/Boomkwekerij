@@ -176,14 +176,16 @@ a.goog-te-menu-value > span
 #editkader{
     border-style:solid;
     border-width:2px;
-    height:;
-    width:;
+   
 }
 
-#potmaat, #hoogte, #prijskwek,#prijsvba, #prijscc, #pertray, #perlaag, #percc{
+#potmaat, #hoogte, #prijscc, #pertray, #perlaag, #percc{
     width:60px;
 }
 
+#prijskwek, #prijsvba{
+    width:80px;
+}
 #nr{
     width:30px;
 }
@@ -200,4 +202,13 @@ a.goog-te-menu-value > span
     box-shadow: none !important;
 }
 .goog-te-banner-frame.skiptranslate {display: none !important;} 
+<<<<<<< HEAD
 body { top: 0px !important; }
+=======
+body { top: 0px !important; }
+
+
+table,#editkader{
+   min-width:700px; 
+}
+>>>>>>> cf2d79fb354a06953b873a51bf0bfc53aee6bc4c

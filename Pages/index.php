@@ -17,7 +17,7 @@
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
         print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
         print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
-        print("<script src='../Javascript/InformationEditing.js'></script>");
+        //print("<script src='../Javascript/InformationEditing.js'></script>");
         // }
         ?>
         <link href="../Css/HomeStyle.css" rel="stylesheet" type="text/css">
@@ -66,21 +66,6 @@
                     <a href="http://www.groen-direkt.nl/home-nl" TARGET="_blank">link</a>
                 </section>
                 <section id="maincontent">
-
-                    <!-- Hierin moet de tekst van de site, het id moet het TextID bevatten om text op te slaan -->
-
-                    <div>
-                        <button class="fa fa-bold" onclick="markupText('bold')"></button>
-                        <button class="fa fa-italic" onclick="markupText('italic')"></button>
-                        <button class="fa fa-underline" onclick="markupText('underline')"></button>
-                        <button class="fa fa-align-left" onclick="markupText('justifyLeft')"></button>
-                        <button class="fa fa-align-justify" onclick="markupText('justifyCenter')"></button>
-                        <button class="fa fa-align-right" onclick="markupText('justifyRight')"></button>
-                        <button class="fa fa-list-ol" onclick="markupText('insertOrderedList')"></button>
-                        <button class="fa fa-list-ul" onclick="markupText('insertUnorderedList')"></button>
-                        <!--<select class="numberPicker" onchange="setFontSize('textID1', 5)"></select>-->
-                        <!--<button class="fa fa-link" onclick="createLink(this)"></button>-->
-                    </div>
 
                     <div class="ContentEditable" id="textID1">
                         <?php
