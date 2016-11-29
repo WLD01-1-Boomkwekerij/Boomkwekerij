@@ -12,7 +12,7 @@
             <meta charset="UTF-8">
             <title>Boomkwekerij - Catalogus</title>
             <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-          
+
         </head>
         <body>
             <section id="wrapper">
@@ -25,11 +25,11 @@
                             <li><a href="../pages/catalog.php">Catalogus</a></li>
                             <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                             <li><a href="../pages/contact.php">Contact</a></li>
-                        <?php
-                        if(isset($_SESSION['logged_in'])){
-                            print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
-                        }
-                         ?>
+                            <?php
+                            if (isset($_SESSION['logged_in'])) {
+                                print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
+                            }
+                            ?>
                         </ul>
                     </section>
                 </section>
@@ -49,29 +49,28 @@
                         </ul>
                     </section>
                     <section id="maincontent">
-                        <center> <form method="post" action="../Php/verify.php">
-                                <table border="1">
-                                    <td>Gebruikersnaam:</td>
-                                    <td><input type="text" id="user" name="user"</td>
-                                    <tr>
-                                        <td>Wachtwoord:</td>
-                                        <td><input type="password" id="pass" name="pass"</td>
-                                </table><br>
-                                <input type="submit" id="btn2" name="btn2" value="Inloggen">
+                        <form method="post" action="../Php/verify.php">
+                            <table border="1">
+                                <td>Gebruikersnaam:</td>
+                                <td><input type="text" id="user" name="user"</td>
+                                <tr>
+                                    <td>Wachtwoord:</td>
+                                    <td><input type="password" id="pass" name="pass"</td>
+                            </table><br>
+                            <input type="submit" id="btn2" name="btn2" value="Inloggen">
 
-                            </form>
-                        </center>
+                        </form>
                     </section>
                 </section>
             </section>
             <section id="footer">
-                <?php
-            if(isset($_SESSION['logged_in'])){
-                print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
-            }else{
-                print("<li><a href='../pages/login.php'>Inloggen</a></li>");
-            }
-            ?>
+<?php
+if (isset($_SESSION['logged_in'])) {
+    print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
+} else {
+    print("<li><a href='../pages/login.php'>Inloggen</a></li>");
+}
+?>
             </section>
         </body>
     </html>

@@ -57,7 +57,7 @@ function createButton(type) {
     switch (type) {
         case "image":
             button.onclick = function () {
-                insertImage();
+               // insertImage();
             };
             break;
         default:
@@ -79,7 +79,6 @@ function createButton(type) {
  * @param {type} element
  */
 function setContentEditable(element) {
-    console.log(element);
     element.contentEditable = true;
     element.style.backgroundColor = "white";
     element.className = "";
@@ -134,7 +133,7 @@ function saveSelectorPoint() {
 function restoreSelectorPoint(savedSel) {
     if (savedSel) {
         if (window.getSelection) {
-            sel = window.getSelection();
+            var sel = window.getSelection();
             sel.removeAllRanges();
             for (var i = 0, len = savedSel.length; i < len; ++i) {
                 sel.addRange(savedSel[i]);
@@ -151,7 +150,7 @@ function restoreSelectorPoint(savedSel) {
 function insertLink() {
 
     var url = document.getElementById("url").value;
-    restoreSelectorPoint(savedSel);
+    restoreSelectorPoint(savedSelectorPoint);
     document.execCommand("CreateLink", false, url);
 }
 
@@ -163,7 +162,7 @@ function selectImage(imageID) {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             //Create image
-            var img = document.createElement('img');
+            var img = document.createElement("img");
             img.src = "../images/" + xhttp.responseText;
             img.className = "editableImage";
             img.style.width = "300px";
