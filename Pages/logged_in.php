@@ -63,47 +63,61 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     document.getElementById('spoiler1').style.display = ''
                                 } else {
                                     document.getElementById('spoiler1').style.display = 'none'
-                                }">Catalogus bewerken</button>
+                                }">Catalogusproduct toevoegen</button>
 
                         <button title="Click to show/hide content" type="button" onclick="if (document.getElementById('spoiler2').style.display == 'none') {
                                     document.getElementById('spoiler2').style.display = ''
                                 } else {
                                     document.getElementById('spoiler2').style.display = 'none'
+                                }">Catalogusproduct verwijderen</button>
+
+                        <button title="Click to show/hide content" type="button" onclick="if (document.getElementById('spoiler3').style.display == 'none') {
+                                    document.getElementById('spoiler3').style.display = ''
+                                } else {
+                                    document.getElementById('spoiler3').style.display = 'none'
                                 }">Nieuwsartikel toevoegen</button>
+
+                        <button title="Click to show/hide content" type="button" onclick="if (document.getElementById('spoiler4').style.display == 'none') {
+                                    document.getElementById('spoiler4').style.display = ''
+                                } else {
+                                    document.getElementById('spoiler4').style.display = 'none'
+                                }">Gebruikers beheren</button>
+
+
 
                         <section id="editkader">
 
                             <div id="spoiler1" style="display:none"> 
-                                <form method="post" action="../Php/config.php">
-                                    <table border="1">
-                                        <th>Nr.</th>
-                                        <th>Potmaat</th>
-                                        <th>Hoogte</th>
-                                        <th>Prijs Kwek.</th>
-                                        <th>Prijs VBA</th>
-                                        <th>Per cc</th>
-                                        <th>Per laag</th>
-                                        <th>Per tray</th>
-                                        <th>Afbeelding</th>
-                                        <tr>
-                                            <td><input name="nr" type="tekst"></td>
-                                            <td><input name="potmaat" type="tekst"></td>
-                                            <td><input name="hoogte" type="tekst"></td>
-                                            <td><input name="prijskwek" type="tekst"></td>
-                                            <td><input name="prijsvba" type="tekst"></td>
-                                            <td><input name="percc" type="tekst"></td>
-                                            <td><input name="perlaag" type="tekst"></td>
-                                            <td><input name="pertray" type="tekst"></td>
-                                            <td><button type="button" onclick="chooseFile();">Afbeelding uploaden</button>
-                                            </td>
+                                <center> <h4><u>Catalogusproduct toevoegen</u></h4>
+                                    <form method="post" action="../Php/config.php">
+                                        <table border="1">
+                                            <th>Nr.</th>
+                                            <th>Potmaat</th>
+                                            <th>Hoogte</th>
+                                            <th>Prijs Kwek.</th>
+                                            <th>Prijs VBA</th>
+                                            <th>Per cc</th>
+                                            <th>Per laag</th>
+                                            <th>Per tray</th>
+                                            <th>Afbeelding</th>
+                                            <tr>
+                                                <td><input name="nr" id="nr" type="tekst"></td>
+                                                <td><input name="potmaat"  id="potmaat" type="tekst"></td>
+                                                <td><input name="hoogte" id="hoogte" type="tekst"></td>
+                                                <td><input name="prijskwek" id="prijskwek" type="tekst"></td>
+                                                <td><input name="prijsvba" id="prijsvba" type="tekst"></td>
+                                                <td><input name="percc" id="percc" type="tekst"></td>
+                                                <td><input name="perlaag" id="perlaag" type="tekst"></td>
+                                                <td><input name="pertray" id="pertray" type="tekst"></td>
+                                                <td><button type="button"  onclick="chooseFile();">Afbeelding uploaden</button>
+                                                </td>
 
 
-                                    </table>
-                                    <br>
-                                    <input type="submit" id="btntoevoegen" value="Toevoegen">
-                                </form>
-                            </div> 
-
+                                        </table>
+                                        <br>
+                                        <input type="submit" id="btntoevoegen" value="Toevoegen">
+                                    </form>
+                            </div>
 
                             <div id="spoiler2" style="display:none"> 
                                 <form>
@@ -113,6 +127,29 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     </table>
                                 </form>
                             </div> 
+
+                            <div id="spoiler3" style="display:none"> 
+
+                            </div>
+
+                            <div id="spoiler4" style="display:none"> 
+                                <center><h4><u>Gebruikers beheren</u></h4>  
+                                    <forum>
+                                        <table border="1">
+                                            <th>ID</th>
+                                            <th>Naam</th>
+                                            <th>Email</th>
+                                            <th>Type</th>
+                                            <th>Verwijderen</th>
+                                            <tr>
+                                                <td><input name="gebr_id" id="gebr_id" type="tekst"></td>
+                                                <td><input name="gebr_naam" id="gebr_naam" type="tekst"></td>
+                                                <td><input name="gebr_email" id="gebr_email" type="tekst"></td>
+                                                <td><input name="gebr_type" id="gebr_type" type="tekst"></td>
+
+                                        </table>    
+                                    </forum>
+                            </div>
 
                         </section>
                     </section>
@@ -126,6 +163,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                     print("<li><a href='../pages/login.php'>Inloggen</a></li>");
                 }
                 ?>
-            </section>
-        </body>
-    </html>
+            </section></center>
+    </div> 
+</body>
+</html>
