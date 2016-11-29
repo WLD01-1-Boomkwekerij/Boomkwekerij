@@ -19,7 +19,7 @@ function loadTextFromDB($textID) {
     $statement->execute();
 
     while ($row = $statement->fetch()) {
-        $text = $row["Text"];
+        $text = $row["Tekst"];
         return htmlspecialchars_decode($text);
     }
 }
@@ -30,7 +30,7 @@ function saveTextToDB($textID, $text) {
 
     if (checkForItem($connection, "text", "ID=" . $textID, "text") > 0) {
 
-        $statement = $connection->prepare("UPDATE PaginaTekst SET Text='" . htmlentities($text) . "' WHERE ID=" . $textID);
+        $statement = $connection->prepare("UPDATE PaginaTekst SET Tekst='" . htmlentities($text) . "' WHERE ID=" . $textID);
         $statement->execute();
         $connection = null;
     }
