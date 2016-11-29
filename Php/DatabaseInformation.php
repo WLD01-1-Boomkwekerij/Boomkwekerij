@@ -30,7 +30,7 @@ function saveTextToDB($textID, $text) {
 
     if (checkForItem($connection, "text", "ID=" . $textID, "text") > 0) {
 
-        $statement = $connection->prepare("UPDATE PaginaTekst SET Tekst='" . htmlentities($text) . "' WHERE ID=" . $textID);
+        $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlentities($text) . "' WHERE ID=" . $textID);
         $statement->execute();
         $connection = null;
     }
