@@ -31,6 +31,16 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                     <section id="header"></section>
 
                 </section>
+                 <section id="topmenu">
+                        <ul>
+                            <li><a href="../pages/index.php">Home</a></li>
+                            <li><a href="../pages/news.php">Nieuws</a></li>
+                            <li><a href="../pages/catalog.php">Catalogus</a></li>
+                            <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
+                            <li><a href="../pages/contact.php">Contact</a></li>
+
+                        </ul>
+                    </section>
                 <section id="mid">
                     <section id="rightmenu">
                         <h3>Catalogus</h3>
