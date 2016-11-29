@@ -21,26 +21,28 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
             <meta charset="UTF-8">
             <title>Boomkwekerij - Catalogus</title>
             <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-            <script type="text/javascript">
-                alert("Vergeet niet om uit te loggen!");
-            </script>
+            
         </head>
         <body>
             <section id="wrapper">
                 <section id="top">
                     <section id="header"></section>
-
-                </section>
-                 <section id="topmenu">
+                     <section id="topmenu">
                         <ul>
                             <li><a href="../pages/index.php">Home</a></li>
                             <li><a href="../pages/news.php">Nieuws</a></li>
                             <li><a href="../pages/catalog.php">Catalogus</a></li>
                             <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                             <li><a href="../pages/contact.php">Contact</a></li>
-
+                        <?php
+                        if(isset($_SESSION['logged_in'])){
+                            print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
+                        }
+                         ?>
                         </ul>
                     </section>
+                </section>
+                
                 <section id="mid">
                     <section id="rightmenu">
                         <h3>Catalogus</h3>
@@ -57,7 +59,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                 </section>
             </section>
             <section id="footer">
-                <li><a href="../Php/loggout.php">Uitloggen</a></li>
+                  <?php
+            if(isset($_SESSION['logged_in'])){
+                print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
+            }else{
+                print("<li><a href='../pages/login.php'>Inloggen</a></li>");
+            }
+            ?>
             </section>
         </body>
     </html>

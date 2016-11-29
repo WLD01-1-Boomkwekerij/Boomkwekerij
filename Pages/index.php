@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="google" value="notranslate">
         <title>Boomkwekerij - Home</title>
         <!-- Icon Pack -->
         <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
@@ -34,7 +35,11 @@
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
-
+                        <?php
+                        if(isset($_SESSION['logged_in'])){
+                            print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
+                        }
+                         ?>
                     </ul>
                 </section>
             </section>
@@ -88,7 +93,13 @@
             </section>
         </section>
         <section id="footer">
-            <li><a href="../pages/login.php">Inloggen</a></li>
+            <?php
+            if(isset($_SESSION['logged_in'])){
+                print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
+            }else{
+                print("<li><a href='../pages/login.php'>Inloggen</a></li>");
+            }
+            ?>
         </section>
     </body>
 </html>

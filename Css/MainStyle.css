@@ -171,3 +171,17 @@ a.goog-te-menu-value > span
 {
     border-radius:8px;
 }
+
+.goog-tooltip {
+    display: none !important;
+}
+.goog-tooltip:hover {
+    display: none !important;
+}
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important; 
+    box-shadow: none !important;
+}
+.goog-te-banner-frame.skiptranslate {display: none !important;} 
+body { top: 0px !important; }
