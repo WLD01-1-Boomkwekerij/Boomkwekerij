@@ -2,10 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Boomkwekerij - Prijslijst</title>
+        <title class="notranslate">Boomkwekerij - Prijslijst</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/PricelistStyle.css" rel="stylesheet" type="text/css">
-          <?php
+        <?php
         session_start();
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
         print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
@@ -18,7 +18,7 @@
         <section id="wrapper">
             <section id="top">
                 <section id="header"></section>
-                 <section id="topmenu">
+                <section id="topmenu">
                     <ul>
                         <li><a href="../pages/index.php">Home</a></li>
                         <li><a href="../pages/news.php">Nieuws</a></li>
@@ -26,10 +26,10 @@
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
                         <?php
-                        if(isset($_SESSION['logged_in'])){
+                        if (isset($_SESSION['logged_in'])) {
                             print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
                         }
-                         ?>
+                        ?>
                     </ul>
                 </section>
             </section>
@@ -41,7 +41,7 @@
                         }
                     </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                     <h3>Contact informatie</h3>
-                    <ul id="contact_information">
+                    <ul class="notranslate" id="contact_information">
                         <li>Fa. P. Boer</li>
                         <li>Rijneveld 125<br>2771 XV Boskoop</li>
                         <li>B.G.G:<br>0031 (0)172217308</li>
@@ -68,6 +68,7 @@
                     $result = $conn->query($sql);
                     ?>
                     <h1>Prijslijst</h1>
+                    
                     <table class="pricelist">
                         <colgroup>
                             <col class="name"/>
@@ -99,12 +100,12 @@
                         </tr>
                         <?php
                         while ($row = $result->fetch_assoc()) {
-                            print ("<tr><td class = 'name' colspan = '9'><h2><a href = '../Pages/catalog.php'>" . $row["CategoryNaam"] . "</a></h2></td></tr>");
+                            print ("<tr  class='notranslate' ><td class = 'name' colspan = '9'><h2><a href = '../Pages/catalog.php'>" . $row["CategoryNaam"] . "</a></h2></td></tr>");
                             $sql2 = "SELECT * FROM prijs WHERE CategoryID=" . $row['CategoryID'];
                             $result2 = $conn->query($sql2);
                             while ($row2 = $result2->fetch_assoc()) {
                                 ?>
-                                <tr>
+                                <tr class="notranslate">
                                     <?php
                                     if (isset($row2['ExtraBeschrijving'])) {
                                         print("<td>" . $row2['Naam'] . "</td>");
@@ -128,15 +129,15 @@
                 </section>
             </section>
         </section>
-        <section id="footer">
-              <?php
-            if(isset($_SESSION['logged_in'])){
+        <section  class="notranslate" id="footer">
+            <?php
+            if (isset($_SESSION['logged_in'])) {
                 print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
-            }else{
+            } else {
                 print("<li><a href='../pages/login.php'>Inloggen</a></li>");
             }
             ?>
-            </h1>
-        </section>
-    </body>
+        </h1>
+    </section>
+</body>
 </html>

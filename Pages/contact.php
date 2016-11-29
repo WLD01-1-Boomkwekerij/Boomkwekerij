@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Boomkwekerij - Contact</title>
+        <title class="notranslate">Boomkwekerij - Contact</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-          <?php
+        <?php
         session_start();
 
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
@@ -25,11 +25,11 @@
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
-                            <?php
-                        if(isset($_SESSION['logged_in'])){
+                        <?php
+                        if (isset($_SESSION['logged_in'])) {
                             print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
                         }
-                         ?>
+                        ?>
                     </ul>
                 </section>
             </section>
@@ -41,7 +41,7 @@
                         }
                     </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                     <h3>Contact informatie</h3>
-                    <ul id="contact_information">
+                    <ul class="notranslate" id="contact_information">
                         <li>Fa. P. Boer</li>
                         <li>Rijneveld 125<br>2771 XV Boskoop</li>
                         <li>B.G.G:<br>0031 (0)172217308</li>
@@ -67,11 +67,11 @@
                 </section>
             </section>
         </section>
-        <section id="footer">
-              <?php
-            if(isset($_SESSION['logged_in'])){
+        <section  class="notranslate" id="footer">
+            <?php
+            if (isset($_SESSION['logged_in'])) {
                 print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
-            }else{
+            } else {
                 print("<li><a href='../pages/login.php'>Inloggen</a></li>");
             }
             ?>
