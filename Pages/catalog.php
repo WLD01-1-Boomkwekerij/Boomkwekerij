@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<?php include'/../Php/Database.php';
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -37,9 +39,12 @@
                     </ul>
                 </section>
                 <section id="maincontent">
-                    <div class="item">
+                    <?php
+                    $sql = getSQLArray("SELECT * FROM prijs");
+                    while ($row = $sql->fetch()) {
+                        echo "<div class='item'>
                         <div>
-                            <img src="/Catalogus foto's/Heesters/aucuba tray p13.jpg">  
+                            <img src='/Catalogu's fotos/Heesters/aucuba tray p13.jpg'>  
                         </div>
                         <table>
                             <tr>
@@ -71,217 +76,9 @@
                                 <td>8</td>
                             </tr>
                         </table>
-                    </div>
-                    <div class="item">
-                        <div>
-                            <img src="/Catalogus foto's/Heesters/aucuba tray p13.jpg">  
-                        </div>
-                        <table>
-                            <tr>
-                                <td>potmaat:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>hoogte:</td>
-                                <td>30cm/25cm</td>
-                            </tr>
-                            <tr>
-                                <td>prijs kwekerij:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>prijs VBA:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>per cc:</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>per laag:</td>
-                                <td>40</td>
-                            </tr>
-                            <tr>
-                                <td>per tray:</td>
-                                <td>8</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="item">
-                        <div>
-                            <img src="/Catalogus foto's/Heesters/aucuba tray p13.jpg">  
-                        </div>
-                        <table>
-                            <tr>
-                                <td>potmaat:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>hoogte:</td>
-                                <td>30cm/25cm</td>
-                            </tr>
-                            <tr>
-                                <td>prijs kwekerij:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>prijs VBA:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>per cc:</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>per laag:</td>
-                                <td>40</td>
-                            </tr>
-                            <tr>
-                                <td>per tray:</td>
-                                <td>8</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="item">
-                        <div>
-                            <img src="/Catalogus foto's/Heesters/aucuba tray p13.jpg">  
-                        </div>
-                        <table>
-                            <tr>
-                                <td>potmaat:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>hoogte:</td>
-                                <td>30cm/25cm</td>
-                            </tr>
-                            <tr>
-                                <td>prijs kwekerij:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>prijs VBA:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>per cc:</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>per laag:</td>
-                                <td>40</td>
-                            </tr>
-                            <tr>
-                                <td>per tray:</td>
-                                <td>8</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="item">
-                        <div>
-                            <img src="/Catalogus foto's/Heesters/aucuba tray p13.jpg">  
-                        </div>
-                        <table>
-                            <tr>
-                                <td>potmaat:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>hoogte:</td>
-                                <td>30cm/25cm</td>
-                            </tr>
-                            <tr>
-                                <td>prijs kwekerij:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>prijs VBA:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>per cc:</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>per laag:</td>
-                                <td>40</td>
-                            </tr>
-                            <tr>
-                                <td>per tray:</td>
-                                <td>8</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="item">
-                        <div>
-                            <img src="/Catalogus foto's/Heesters/aucuba tray p13.jpg">  
-                        </div>
-                        <table>
-                            <tr>
-                                <td>potmaat:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>hoogte:</td>
-                                <td>30cm/25cm</td>
-                            </tr>
-                            <tr>
-                                <td>prijs kwekerij:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>prijs VBA:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>per cc:</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>per laag:</td>
-                                <td>40</td>
-                            </tr>
-                            <tr>
-                                <td>per tray:</td>
-                                <td>8</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="item">
-                        <div>
-                            <img src="/Catalogus foto's/Heesters/aucuba tray p13.jpg">  
-                        </div>
-                        <table>
-                            <tr>
-                                <td>potmaat:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>hoogte:</td>
-                                <td>30cm/25cm</td>
-                            </tr>
-                            <tr>
-                                <td>prijs kwekerij:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>prijs VBA:</td>
-                                <td>P13</td>
-                            </tr>
-                            <tr>
-                                <td>per cc:</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>per laag:</td>
-                                <td>40</td>
-                            </tr>
-                            <tr>
-                                <td>per tray:</td>
-                                <td>8</td>
-                            </tr>
-                        </table>
-                    </div>
+                    </div>";
+                    }
+                    ?>   
                 </section>
             </section>
         </section>

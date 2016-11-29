@@ -19,6 +19,15 @@ function getSQL($sqlCode, $rowName) {
         $text = $row[$rowName];
         return $text;
     }
+}  
+
+function getSQLArray($sqlCode) {
+
+    $connection = connectToDatabase();
+    $statement = $connection->prepare($sqlCode);
+    $statement->execute();
+
+    return $statement;
 }
 
 function doSQL($sqlCode) {
