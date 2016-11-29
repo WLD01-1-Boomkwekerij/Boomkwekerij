@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Contact</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+        <link href="../Css/contactStyle.css" rel="stylesheet" type="text/css">
         <?php
         session_start();
 
@@ -57,11 +58,11 @@
                 <section id="maincontent">
                     <h1>Aanvraag</h1>
                     <form action="contactSend.php" method="post">
-                        Naam: <br><input id="contact_name" placeholder="Uw naam" type="text" name="contact_name" required><br>
-                        Onderwerp: <br><input  id="contact_subject" placeholder="Onderwerp" type="text" name="contact_subject" required><br>
-                        E-mail: <br><input id="contact_email" placeholder="Op welke email kunnen we u contacteren?" type="tekst" name="contact_email" required><br>
-                        Website:<br><input id="contact_website" placeholder="Optionele website" type="text" name="contact_website"><br>
-                        Reactie: <br><textarea id="contact_content" placeholder="Vul hier uw aanvraag in" name="contact_content" required></textarea><br>
+                        Naam: <br><input class="contact" placeholder="Uw naam" type="text" name="contact_name" required><br>
+                        Onderwerp: <br><input  class="contact" placeholder="Onderwerp" type="text" name="contact_subject" required><br>
+                        E-mail: <br><input class="contact contact_minWidth" placeholder="Op welke email kunnen we u contacteren?" type="tekst" name="contact_email" required><br>
+                        Website:<br><input class="contact contact_minWidth" placeholder="Optionele website" type="text" name="contact_website"><br>
+                        Reactie: <br><textarea class="contact contact_content" placeholder="Vul hier uw aanvraag in" name="contact_content" required></textarea><br>
                         <input type="submit" ID="btn1" name="submit" value="Aanvraag indienen" /> 
                     </form>
                 </section>
