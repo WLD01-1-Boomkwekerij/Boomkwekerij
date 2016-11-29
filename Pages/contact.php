@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Contact</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link href="../Css/contactStyle.css" rel="stylesheet" type="text/css">
+        <link href="../Css/ContactStyle.css" rel="stylesheet" type="text/css">
         <?php
         session_start();
 

@@ -31,7 +31,7 @@ function saveTextToDatabase(text, textID) {
 
 function createButton(type) {
 
-    var button = document.createElement("div");
+    var button = document.createElement("button");
 
     switch (type) {
         case "justifyLeft":
@@ -54,25 +54,24 @@ function createButton(type) {
             break;
     }
 
-    //  switch (type) {
-    //      case "image": 
-    //          button.onclick = function (){
-    //              insertImage();
-    //          };
-    //           break;
-    //      default:
-    button.onclick = function () {
-        markupText(type);
-    };
-    //           break;
-    //   }
+    switch (type) {
+        case "image":
+            button.onclick = function () {
+                insertImage();
+            };
+            break;
+        default:
+            button.onclick = function () {
+                markupText(type);
+            };
+            break;
+    }
 
     return button;
 }
 
 /*
- <!--<button class="fa fa-link" onclick="createLink(this)"></button>-->
- </div>
+ <button class="fa fa-link" onclick="createLink(this)"></button>
  */
 
 /**
@@ -98,11 +97,11 @@ function setContentEditable(element) {
         "insertOrderedList", "insertUnorderedList",
         "image"
     ];
-    
-    for(var i = 0; i < buttonArray.length; i++){
+
+    for (var i = 0; i < buttonArray.length; i++) {
         editorDiv.appendChild(createButton(buttonArray[i]));
     }
-    
+
 
     var saveButton = document.createElement("button");
     saveButton.innerHTML = "Save";
