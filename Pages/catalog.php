@@ -11,8 +11,6 @@
           <?php
         session_start();
 
-        include '../Php/DatabaseInformation.php';
-
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
         print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
         print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
