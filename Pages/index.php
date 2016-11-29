@@ -44,6 +44,7 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
+               
                     <div id="google_translate_element"></div>
                     <script type="text/javascript">
                         function googleTranslateElementInit() {

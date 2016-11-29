@@ -171,3 +171,18 @@ a.goog-te-menu-value > span
 {
     border-radius:8px;
 }
+
+#editkader{
+    border-style:solid;
+    border-width:2px;
+    height:;
+    width:;
+}
+
+#potmaat, #hoogte, #prijskwek,#prijsvba, #prijscc, #pertray, #perlaag, #percc{
+    width:60px;
+}
+
+#nr{
+    width:30px;
+}
