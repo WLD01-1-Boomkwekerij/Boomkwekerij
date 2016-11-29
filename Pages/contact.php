@@ -22,6 +22,11 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
+                    <div id="google_translate_element"></div><script type="text/javascript">
+                        function googleTranslateElementInit() {
+                            new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                        }
+                    </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                     <h3>Contact informatie</h3>
                     <ul id="contact_information">
                         <li>Fa. P. Boer</li>
@@ -34,7 +39,7 @@
                     </ul>
                     <h3>Groen-Direkt Boskoop</h3>
                     Geen opkomende evenementen<br>
-                    <a href="http://www.groen-direkt.nl/home-nl">link</a>
+                    <a href="http://www.groen-direkt.nl/home-nl" TARGET="_blank">link</a>
                 </section>
                 <section id="maincontent">
                     <h1>Aanvraag</h1>
