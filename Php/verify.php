@@ -4,7 +4,7 @@
 session_start();
 
 // Gebruikersnaam en wachtwoord instellen 
-$sGebruikerControle = 'Antoinnette';
+$sGebruikerControle = 'Admin';
 $sWachtwoordControle = '1234';
 
 // Controle of het formulier verzonden is 
