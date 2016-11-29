@@ -36,10 +36,10 @@
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
                         <?php
-                        if(isset($_SESSION['logged_in'])){
+                        if (isset($_SESSION['logged_in'])) {
                             print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
                         }
-                         ?>
+                        ?>
                     </ul>
                 </section>
             </section>
@@ -79,11 +79,10 @@
                         <div class="fa fa-align-right" onclick="markupText('justifyRight')"></div>
                         <div class="fa fa-list-ol" onclick="markupText('insertOrderedList')"></div>
                         <div class="fa fa-list-ul" onclick="markupText('insertUnorderedList')"></div>
-                        <!--<select class="numberPicker" onchange="setFontSize('textID1', 5)"></select>-->
                         <!--<button class="fa fa-link" onclick="createLink(this)"></button>-->
                     </div>
 
-                    <div class="ContentEditable" id="textID1">
+                    <div class="ContentEditable" id="textID1" onfocusout="saveSelectorPoint()">
                         <?php
                         //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
                         print(loadTextFromDB(1));
@@ -94,9 +93,9 @@
         </section>
         <section id="footer">
             <?php
-            if(isset($_SESSION['logged_in'])){
+            if (isset($_SESSION['logged_in'])) {
                 print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
-            }else{
+            } else {
                 print("<li><a href='../pages/login.php'>Inloggen</a></li>");
             }
             ?>

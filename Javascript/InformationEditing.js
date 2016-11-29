@@ -1,7 +1,7 @@
 //Variables
 
 //Saved Selection
-var savedSel;
+var savedSelectorPoint;
 
 /**
  * Saves the provided text to the database
@@ -51,7 +51,7 @@ function markupText(type, parameter) {
 /**
  * Save the current position of the cursor when called
  */
-function saveSelection() {
+function saveSelectorPoint() {
     if (window.getSelection) {
         var sel = window.getSelection();
         if (sel.getRangeAt && sel.rangeCount) {
@@ -59,14 +59,14 @@ function saveSelection() {
             for (var i = 0, len = sel.rangeCount; i < len; ++i) {
                 ranges.push(sel.getRangeAt(i));
             }
-            savedSel = ranges;
+            savedSelectorPoint = ranges;
         }
     } else if (document.selection && document.selection.createRange) {
-        savedSel = document.selection.createRange();
+        savedSelectorPoint = document.selection.createRange();
     }
 }
 
-function restoreSelection(savedSel) {
+function restoreSelectorPoint(savedSel) {
     if (savedSel) {
         if (window.getSelection) {
             sel = window.getSelection();
@@ -86,20 +86,9 @@ function restoreSelection(savedSel) {
 function insertLink() {
 
     var url = document.getElementById("url").value;
-    restoreSelection(savedSel);
+    restoreSelectorPoint(savedSel);
     document.execCommand("CreateLink", false, url);
 }
-
-//TODO
-/*
- function setFontSize(element, size) {
- var sel = window.getSelection().toString();
- var text = document.getElementById(element).innerHTML.toString();
- console.log(text);
- element.innerHTML = text.replace(text, '<p>' + sel + '</p>');
- text.style.fontSize = size;
- }
- */
 
 //Get image url from database
 function selectImage(imageID) {
@@ -155,14 +144,4 @@ $(document).ready(function () {
     $(".ContentEditable").one("click", function () {
         setContentEditable($(this)[0]);
     });
-
-    /*
-     $(function () {
-     var select = $(".numberPicker");
-     for (var i = 1; i <= 7; i++) {
-     select.append($("<option onclick='setFontSize()'></option>").val(i).html(i));
-     }
-     });
-     */
-
 });
