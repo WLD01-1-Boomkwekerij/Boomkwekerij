@@ -88,7 +88,7 @@
             </section>
         </section>
         <section id="footer">
-            <li><a href="../pageslogin.php">Inloggen</a></li>
+            <li><a href="../pages/login.php">Inloggen</a></li>
         </section>
     </body>
 </html>
