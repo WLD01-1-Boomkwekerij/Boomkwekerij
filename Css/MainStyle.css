@@ -172,6 +172,24 @@ a.goog-te-menu-value > span
     border-radius:8px;
 }
 
+
+#editkader{
+    border-style:solid;
+    border-width:2px;
+   
+}
+
+#potmaat, #hoogte, #prijscc, #pertray, #perlaag, #percc{
+    width:60px;
+}
+
+#prijskwek, #prijsvba{
+    width:80px;
+}
+#nr{
+    width:30px;
+}
+
 .goog-tooltip {
     display: none !important;
 }
@@ -185,3 +203,8 @@ a.goog-te-menu-value > span
 }
 .goog-te-banner-frame.skiptranslate {display: none !important;} 
 body { top: 0px !important; }
+
+
+table,#editkader{
+   min-width:700px; 
+}

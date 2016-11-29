@@ -4,11 +4,11 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Boomkwekerij - Catalogus</title>
+        <title class="notranslate">Boomkwekerij - Catalogus</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link media="screen and (max-width:1288px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
         <link media="screen and (min-width:1288px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
-          <?php
+        <?php
         session_start();
 
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
@@ -29,11 +29,11 @@
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
-                            <?php
-                        if(isset($_SESSION['logged_in'])){
+                        <?php
+                        if (isset($_SESSION['logged_in'])) {
                             print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
                         }
-                         ?>
+                        ?>
                     </ul>
                 </section>
             </section>
@@ -56,7 +56,7 @@
                     <?php
                     $sql = getSQLArray("SELECT * FROM prijs");
 
-                          
+
                     while ($row = $sql->fetch()) {
                         $potmaat = $row["Potmaat"];
                         $hoogte = $row["Potmaat"];
@@ -105,11 +105,11 @@
                 </section>
             </section>
         </section>
-        <section id="footer">
-              <?php
-            if(isset($_SESSION['logged_in'])){
+        <section  class="notranslate"  id="footer">
+            <?php
+            if (isset($_SESSION['logged_in'])) {
                 print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
-            }else{
+            } else {
                 print("<li><a href='../pages/login.php'>Inloggen</a></li>");
             }
             ?>

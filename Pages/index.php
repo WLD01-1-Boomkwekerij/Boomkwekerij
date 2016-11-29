@@ -2,8 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="google" value="notranslate">
-        <title>Boomkwekerij - Home</title>
+        <title class="notranslate">Boomkwekerij - Home</title>
         <!-- Icon Pack -->
         <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
 
@@ -45,6 +44,7 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
+
                     <div id="google_translate_element"></div>
                     <script type="text/javascript">
                         function googleTranslateElementInit() {
@@ -52,7 +52,7 @@
                         }
                     </script>
                     <h3>Contact informatie</h3>
-                    <ul id="contact_information">
+                    <ul class="notranslate" id="contact_information">
                         <li>Fa. P. Boer</li>
                         <li>Rijneveld 125<br>2771 XV Boskoop</li>
                         <li>B.G.G:<br>0031 (0)172217308</li>
@@ -60,7 +60,6 @@
                         <li>Robert Boer:<br>0031(0)622442190</li>
                         <li>fax:<br>0031 (0)172216827</li>
                         <li>E-mail:<br>info@boomkwekerijpboer.nl</li>
-
                     </ul>
                     <h3>Groen-Direkt Boskoop</h3>
                     Geen opkomende evenementen<br>
@@ -68,8 +67,7 @@
                 </section>
                 <section id="maincontent">
 
-                    <!-- Hierin moet de tekst van de site, het id moet het TextID bevatten om text op te slaan -->
-                    <div class="ContentEditable" id="textID1" onfocusout="saveSelectorPoint()">
+                    <div class="ContentEditable" id="textID1">
                         <?php
                         //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
                         print(loadTextFromDB(1));
@@ -78,7 +76,7 @@
                 </section>
             </section>
         </section>
-        <section id="footer">
+        <section  class="notranslate" id="footer">
             <?php
             if (isset($_SESSION['logged_in'])) {
                 print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
