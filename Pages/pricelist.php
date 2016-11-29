@@ -68,7 +68,7 @@
                     $result = $conn->query($sql);
                     ?>
                     <h1>Prijslijst</h1>
-                    
+
                     <table class="pricelist">
                         <colgroup>
                             <col class="name"/>
@@ -113,9 +113,15 @@
                                     } else {
                                         print("<td colspan = '2'>" . $row2['Naam'] . "</td>");
                                     }
-                                    print("<td>" . $row2['Potmaat'] . "</td>
-                                    <td>" . $row2['Hoogte_min'] . "/" . $row2['Hoogte_max'] . "</td>
-                                    <td>" . $row2['PrijsKwekerij'] . "</td>
+                                    print("<td>" . $row2['Potmaat'] . "</td>");
+                                    if ($row2['Hoogte_min'] == 0 && $row2['Hoogte_min'] == 0) {
+                                        print("<td></td>");
+                                    } elseif ($row2['Hoogte_min'] == $row2['Hoogte_max']) {
+                                        print("<td>" . $row2['Hoogte_min'] . "</td>");
+                                    } else {
+                                        print("<td>" . $row2['Hoogte_min'] . "/" . $row2['Hoogte_max'] . "</td>");
+                                    }
+                                    print("<td>" . $row2['PrijsKwekerij'] . "</td>
                                     <td>" . $row2['PrijsVBA'] . "</td>
                                     <td>" . $row2['ProductenCC'] . "</td>
                                     <td>" . $row2['ProductenLaag'] . "</td>

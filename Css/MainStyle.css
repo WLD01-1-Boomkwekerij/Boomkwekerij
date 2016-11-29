@@ -172,7 +172,7 @@ a.goog-te-menu-value > span
     border-radius:8px;
 }
 
-<<<<<<< HEAD
+
 #editkader{
     border-style:solid;
     border-width:2px;
@@ -187,7 +187,7 @@ a.goog-te-menu-value > span
 #nr{
     width:30px;
 }
-=======
+
 .goog-tooltip {
     display: none !important;
 }
@@ -201,4 +201,3 @@ a.goog-te-menu-value > span
 }
 .goog-te-banner-frame.skiptranslate {display: none !important;} 
 body { top: 0px !important; }
->>>>>>> 6527e0043e01b3737d6ec45f628e1aff374ddd00
