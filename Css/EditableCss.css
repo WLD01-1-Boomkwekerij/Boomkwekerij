@@ -3,3 +3,32 @@
     cursor: pointer;
     box-shadow: 0px 0px 5px 3px red;
 }
+
+#Editor
+{
+    border: solid 1px black;
+    width: 350px;
+    padding: 5px;
+    background-color: lightcoral;
+    margin-bottom: 10px;
+}
+
+#Editor div
+{
+    background-color: white;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    box-shadow: 0px 0px 1px 1px black;
+}
+
+#Editor div:hover
+{
+    cursor: pointer;
+    background-color: #BCBCBC;
+}
+
+#Editor div:active
+{
+    background-color: #787878;
+}

@@ -5,7 +5,7 @@
         <title>Boomkwekerij - Home</title>
         <!-- Icon Pack -->
         <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
-        
+
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/HomeStyle.css" rel="stylesheet" type="text/css"> 
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
@@ -64,24 +64,24 @@
                 <section id="maincontent">
 
                     <!-- Hierin moet de tekst van de site, het id moet het TextID bevatten om text op te slaan -->
-                    
-                    <div>
-                        <button class="fa fa-bold" onclick="markupText('bold')"></button>
-            <button class="fa fa-italic" onclick="markupText('italic')"></button>
-            <button class="fa fa-underline" onclick="markupText('underline')"></button>
-            <button class="fa fa-align-left" onclick="markupText('justifyLeft')"></button>
-            <button class="fa fa-align-justify" onclick="markupText('justifyCenter')"></button>
-            <button class="fa fa-align-right" onclick="markupText('justifyRight')"></button>
-            <button class="fa fa-list-ol" onclick="markupText('insertOrderedList')"></button>
-            <button class="fa fa-list-ul" onclick="markupText('insertUnorderedList')"></button>
-            <!--<select class="numberPicker" onchange="setFontSize('textID1', 5)"></select>-->
-            <!--<button class="fa fa-link" onclick="createLink(this)"></button>-->
+
+                    <div id="Editor">
+                        <div class="fa fa-bold" onclick="markupText('bold')"></div>
+                        <div class="fa fa-italic" onclick="markupText('italic')"></div>
+                        <div class="fa fa-underline" onclick="markupText('underline')"></div>
+                        <div class="fa fa-align-left" onclick="markupText('justifyLeft')"></div>
+                        <div class="fa fa-align-justify" onclick="markupText('justifyCenter')"></div>
+                        <div class="fa fa-align-right" onclick="markupText('justifyRight')"></div>
+                        <div class="fa fa-list-ol" onclick="markupText('insertOrderedList')"></div>
+                        <div class="fa fa-list-ul" onclick="markupText('insertUnorderedList')"></div>
+                        <!--<select class="numberPicker" onchange="setFontSize('textID1', 5)"></select>-->
+                        <!--<button class="fa fa-link" onclick="createLink(this)"></button>-->
                     </div>
-                    
+
                     <div class="ContentEditable" id="textID1">
                         <?php
-                                //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
-                                print(loadTextFromDB(1));
+                        //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
+                        print(loadTextFromDB(1));
                         ?>
                     </div>
                 </section>
