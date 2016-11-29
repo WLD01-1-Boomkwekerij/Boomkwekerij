@@ -12,6 +12,7 @@
             <meta charset="UTF-8">
             <title>Boomkwekerij - Catalogus</title>
             <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+          
         </head>
         <body>
             <section id="wrapper">
@@ -24,7 +25,11 @@
                             <li><a href="../pages/catalog.php">Catalogus</a></li>
                             <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                             <li><a href="../pages/contact.php">Contact</a></li>
-
+                        <?php
+                        if(isset($_SESSION['logged_in'])){
+                            print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
+                        }
+                         ?>
                         </ul>
                     </section>
                 </section>
@@ -60,7 +65,13 @@
                 </section>
             </section>
             <section id="footer">
-                <li><a href="../pages/login.php">Inloggen</a></li>
+                <?php
+            if(isset($_SESSION['logged_in'])){
+                print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
+            }else{
+                print("<li><a href='../pages/login.php'>Inloggen</a></li>");
+            }
+            ?>
             </section>
         </body>
     </html>

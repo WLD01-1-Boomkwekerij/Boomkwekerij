@@ -8,6 +8,15 @@
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link media="screen and (max-width:1288px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
         <link media="screen and (min-width:1288px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
+          <?php
+        session_start();
+
+        //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
+        print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
+        print("<script src='../Javascript/InformationEditing.js'></script>");
+        // }
+        ?>
     </head>
     <body>
         <section id="wrapper">
@@ -20,6 +29,11 @@
                         <li><a href="../pages/catalog.php">Catalogus</a></li>
                         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
                         <li><a href="../pages/contact.php">Contact</a></li>
+                            <?php
+                        if(isset($_SESSION['logged_in'])){
+                            print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
+                        }
+                         ?>
                     </ul>
                 </section>
             </section>
@@ -41,39 +55,48 @@
                 <section id="maincontent">
                     <?php
                     $sql = getSQLArray("SELECT * FROM prijs");
+
+                          
                     while ($row = $sql->fetch()) {
+                        $potmaat = $row["Potmaat"];
+                        $hoogte = $row["Potmaat"];
+                        $prijsKwekerij = $row["PrijsKwekerij"];
+                        $prijsVBA = $row["PrijsVBA"];
+                        $perCC = $row["ProductenCC"];
+                        $perLaag = $row["ProductenLaag"];
+                        $perTray = $row["ProductenTray"];
                         echo "<div class='item'>
                         <div>
-                            <img src='/Catalogu's fotos/Heesters/aucuba tray p13.jpg'>  
+                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
                         </div>
                         <table>
                             <tr>
                                 <td>potmaat:</td>
-                                <td>P13</td>
+                                <td>$potmaat</td>
                             </tr>
                             <tr>
                                 <td>hoogte:</td>
-                                <td>30cm/25cm</td>
+                                <td>$hoogte</td>
                             </tr>
                             <tr>
                                 <td>prijs kwekerij:</td>
-                                <td>P13</td>
+                                <td>$prijsKwekerij</td>
                             </tr>
                             <tr>
                                 <td>prijs VBA:</td>
-                                <td>P13</td>
+                                <td>$prijsVBA</td>
                             </tr>
                             <tr>
                                 <td>per cc:</td>
-                                <td>200</td>
+                                <td>$perCC</td>
                             </tr>
                             <tr>
                                 <td>per laag:</td>
-                                <td>40</td>
+                                <td>$perLaag</td>
                             </tr>
                             <tr>
                                 <td>per tray:</td>
-                                <td>8</td>
+                                <td>$perTray</td>
                             </tr>
                         </table>
                     </div>";
@@ -83,7 +106,13 @@
             </section>
         </section>
         <section id="footer">
-            <li><a href="../pages/login.php">Inloggen</a></li>
+              <?php
+            if(isset($_SESSION['logged_in'])){
+                print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
+            }else{
+                print("<li><a href='../pages/login.php'>Inloggen</a></li>");
+            }
+            ?>
         </section>
     </body>
 </html>
