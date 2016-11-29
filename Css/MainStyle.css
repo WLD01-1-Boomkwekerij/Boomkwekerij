@@ -40,11 +40,10 @@ a.goog-te-menu-value > span
 
 #top
 {
-    border: solid 3px white;
+    box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
     background-image: url(../images/banner.jpg);
     background-repeat: no-repeat;
     padding:0px;
-    border-radius:7px;
 }
 
 #header
@@ -54,8 +53,7 @@ a.goog-te-menu-value > span
 
 #topmenu
 {
-    height: 42px; 
-    box-shadow:  0px 10px 101px 0px rgba(0,0,0,0.75);
+    height: 42px;
 }
 
 #topmenu ul
@@ -89,32 +87,30 @@ a.goog-te-menu-value > span
 
 #mid
 {
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 0px;
 }
 
 #maincontent
 {
+    box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
     width: auto;
     height: auto;
     margin-right: 260px;
-    border: solid 3px white; 
     background-color:#d0e6fa;
     padding: 10px;
     margin-bottom: 10px;
-    border-radius:7px;
 }
 
 #rightmenu
 {
+    box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
     width: 230px;
     float: right;
     height: auto;
-    border: solid 3px white;
     padding: 10px;
     margin-left: 10px;
     background-color:#ccccff;
-    border-radius:7px;
 }
 
 #footer 
@@ -173,13 +169,14 @@ a.goog-te-menu-value > span
 }
 
 
-#editkader{
+#editkader
+{
     border-style:solid;
     border-width:2px;
-   
 }
 
-#potmaat, #hoogte, #prijscc, #pertray, #perlaag, #percc{
+#potmaat, #hoogte, #prijscc, #pertray, #perlaag, #percc
+{
     width:60px;
 }
 
@@ -190,25 +187,21 @@ a.goog-te-menu-value > span
     width:30px;
 }
 
-.goog-tooltip {
-    display: none !important;
+.goog-tooltip 
+{
+    display: none;
 }
-.goog-tooltip:hover {
-    display: none !important;
+.goog-tooltip:hover 
+{
+    display: none;
 }
-.goog-text-highlight {
-    background-color: transparent !important;
-    border: none !important; 
-    box-shadow: none !important;
+.goog-text-highlight 
+{
+    background-color: transparent;
+    border: none; 
+    box-shadow: none;
 }
-.goog-te-banner-frame.skiptranslate {display: none !important;} 
-<<<<<<< HEAD
-body { top: 0px !important; }
-=======
-body { top: 0px !important; }
-
-
-table,#editkader{
-   min-width:700px; 
+.goog-te-banner-frame.skiptranslate 
+{
+    display: none;
 }
->>>>>>> cf2d79fb354a06953b873a51bf0bfc53aee6bc4c

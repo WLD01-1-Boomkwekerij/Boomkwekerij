@@ -92,15 +92,17 @@ function setContentEditable(element) {
     parent.insertBefore(editorDiv, parent.childNodes[0]);
 
     //Buttons
-    editorDiv.appendChild(createButton("bold"));
-    editorDiv.appendChild(createButton("italic"));
-    editorDiv.appendChild(createButton("underline"));
-    editorDiv.appendChild(createButton("justifyLeft"));
-    editorDiv.appendChild(createButton("justifyCenter"));
-    editorDiv.appendChild(createButton("justifyRight"));
-    editorDiv.appendChild(createButton("insertOrderedList"));
-    editorDiv.appendChild(createButton("insertUnorderedList"));
-    editorDiv.appendChild(createButton("image"));
+    var buttonArray = [
+        "bold", "italic", "underline",
+        "justifyLeft", "justifyCenter", "justifyRight",
+        "insertOrderedList", "insertUnorderedList",
+        "image"
+    ];
+    
+    for(var i = 0; i < buttonArray.length; i++){
+        editorDiv.appendChild(createButton(buttonArray[i]));
+    }
+    
 
     var saveButton = document.createElement("button");
     saveButton.innerHTML = "Save";
