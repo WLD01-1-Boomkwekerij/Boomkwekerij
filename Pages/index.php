@@ -69,19 +69,6 @@
                 <section id="maincontent">
 
                     <!-- Hierin moet de tekst van de site, het id moet het TextID bevatten om text op te slaan -->
-
-                    <div id="Editor">
-                        <div class="fa fa-bold" onclick="markupText('bold')"></div>
-                        <div class="fa fa-italic" onclick="markupText('italic')"></div>
-                        <div class="fa fa-underline" onclick="markupText('underline')"></div>
-                        <div class="fa fa-align-left" onclick="markupText('justifyLeft')"></div>
-                        <div class="fa fa-align-justify" onclick="markupText('justifyCenter')"></div>
-                        <div class="fa fa-align-right" onclick="markupText('justifyRight')"></div>
-                        <div class="fa fa-list-ol" onclick="markupText('insertOrderedList')"></div>
-                        <div class="fa fa-list-ul" onclick="markupText('insertUnorderedList')"></div>
-                        <!--<button class="fa fa-link" onclick="createLink(this)"></button>-->
-                    </div>
-
                     <div class="ContentEditable" id="textID1" onfocusout="saveSelectorPoint()">
                         <?php
                         //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken

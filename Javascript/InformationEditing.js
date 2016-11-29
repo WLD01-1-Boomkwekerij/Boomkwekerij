@@ -4,37 +4,6 @@
 var savedSelectorPoint;
 
 /**
- * Saves the provided text to the database
- * @param {type} text
- * @param {type} textID
- */
-function saveTextToDatabase(text, textID) {
-
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlText=" + text + "&textID=" + textID, true);
-    xmlhttp.send();
-}
-
-/**
- * Sets the clicked element editable and adds the editing system
- * @param {type} element
- */
-function setContentEditable(element) {
-    element.contentEditable = true;
-    element.style.backgroundColor = "white";
-    element.className = "";
-
-    var saveButton = document.createElement("button");
-    saveButton.innerHTML = "Save";
-    saveButton.onclick = function () {
-        saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
-        window.location.reload(false);
-    };
-
-    document.body.appendChild(saveButton);
-}
-
-/**
  * Inserts markup with execCommand
  * @param {type} type
  * @param {type} parameter
@@ -46,6 +15,101 @@ function markupText(type, parameter) {
     } else {
         document.execCommand(type, false, parameter);
     }
+}
+
+/**
+ * Saves the provided text to the database
+ * @param {type} text
+ * @param {type} textID
+ */
+function saveTextToDatabase(text, textID) {
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlText=" + text + "&textID=" + textID, true);
+    xmlhttp.send();
+}
+
+function createButton(type) {
+
+    var button = document.createElement("div");
+
+    switch (type) {
+        case "justifyLeft":
+            button.className = "fa fa-align-left";
+            break;
+        case "justifyCenter":
+            button.className = "fa fa-align-justify";
+            break;
+        case "justifyRight":
+            button.className = "fa fa-align-right";
+            break;
+        case "insertOrderedList":
+            button.className = "fa fa-list-ol";
+            break;
+        case "insertUnorderedList":
+            button.className = "fa fa-list-ul";
+            break;
+        default:
+            button.className = "fa fa-" + type;
+            break;
+    }
+
+    //  switch (type) {
+    //      case "image": 
+    //          button.onclick = function (){
+    //              insertImage();
+    //          };
+    //           break;
+    //      default:
+    button.onclick = function () {
+        markupText(type);
+    };
+    //           break;
+    //   }
+
+    return button;
+}
+
+/*
+ <!--<button class="fa fa-link" onclick="createLink(this)"></button>-->
+ </div>
+ */
+
+/**
+ * Sets the clicked element editable and adds the editing system
+ * @param {type} element
+ */
+function setContentEditable(element) {
+    console.log(element);
+    element.contentEditable = true;
+    element.style.backgroundColor = "white";
+    element.className = "";
+
+    var parent = element.parentNode;
+
+    var editorDiv = document.createElement("div");
+    editorDiv.id = "Editor";
+    parent.insertBefore(editorDiv, parent.childNodes[0]);
+
+    //Buttons
+    editorDiv.appendChild(createButton("bold"));
+    editorDiv.appendChild(createButton("italic"));
+    editorDiv.appendChild(createButton("underline"));
+    editorDiv.appendChild(createButton("justifyLeft"));
+    editorDiv.appendChild(createButton("justifyCenter"));
+    editorDiv.appendChild(createButton("justifyRight"));
+    editorDiv.appendChild(createButton("insertOrderedList"));
+    editorDiv.appendChild(createButton("insertUnorderedList"));
+    editorDiv.appendChild(createButton("image"));
+
+    var saveButton = document.createElement("button");
+    saveButton.innerHTML = "Save";
+    saveButton.onclick = function () {
+        saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
+        window.location.reload(false);
+    };
+
+    document.body.appendChild(saveButton);
 }
 
 /**
