@@ -106,7 +106,7 @@ function setContentEditable(element) {
     saveButton.innerHTML = "Save";
     saveButton.onclick = function () {
         saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
-        window.location.reload(false);
+        //window.location.reload(false);
     };
 
     document.body.appendChild(saveButton);

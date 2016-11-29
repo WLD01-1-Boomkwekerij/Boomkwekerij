@@ -27,8 +27,8 @@ function loadTextFromDB($textID) {
 function saveTextToDB($textID, $text) {
 
     $connection = connectToDatabase();
-
-    if (checkForItem($connection, "text", "ID=" . $textID, "text") > 0) {
+    
+    if (checkForItem($connection, "tekst", "ID=" . $textID, "Tekst") > 0) {
 
         $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlentities($text) . "' WHERE ID=" . $textID);
         $statement->execute();
