@@ -60,6 +60,11 @@ function createButton(type) {
                // insertImage();
             };
             break;
+        case "link":
+            button.onclick = function (){
+                createLink();
+            };
+            break;
         default:
             button.onclick = function () {
                 markupText(type);
@@ -70,9 +75,24 @@ function createButton(type) {
     return button;
 }
 
-/*
- <button class="fa fa-link" onclick="createLink(this)"></button>
- */
+function createLink(){
+    
+    var linkInput = document.createElement("input");
+    linkInput.setAttribute("type", "url");
+    linkInput.id = "url";
+    linkInput.style.position = "absolute";
+    linkInput.style.left = "175px";
+    linkInput.style.top = "-30px";
+    linkInput.style.border = "solid 3px red";
+    linkInput.style.boxShadow = "0px 0px 5px 3px black";
+    linkInput.onKeyDown = function(key){
+        if(key.keyCode === 13){
+            alert("hey");
+            insertLink();
+        }
+    };
+    document.getElementById("Editor").appendChild(linkInput);
+}
 
 /**
  * Sets the clicked element editable and adds the editing system
@@ -87,6 +107,7 @@ function setContentEditable(element) {
 
     var editorDiv = document.createElement("div");
     editorDiv.id = "Editor";
+    editorDiv.style.position = "relative";
     parent.insertBefore(editorDiv, parent.childNodes[0]);
 
     //Buttons
@@ -94,7 +115,7 @@ function setContentEditable(element) {
         "bold", "italic", "underline",
         "justifyLeft", "justifyCenter", "justifyRight",
         "insertOrderedList", "insertUnorderedList",
-        "image"
+        "link", "image"
     ];
 
     for (var i = 0; i < buttonArray.length; i++) {
@@ -177,7 +198,7 @@ function selectImage(imageID) {
 }
 
 var map = {};
-onkeydown = onkeyup = function (e) {
+document.onkeydown = document.onkeyup = function (e) {
     e = e || event;
     map[e.keyCode] = e.type === "keydown";
 
