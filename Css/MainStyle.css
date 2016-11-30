@@ -120,31 +120,41 @@ body
 
 div.goog-te-gadget-simple
 {
-    border-radius:8px;
-    background-color: #ccccff;
+    border-radius:8px !important;
+    background-color: #ccccff !important;
 }
 
 a.goog-te-menu-value > span
 {
-    color:black;
-    border-radius:8px;
+    color:black !important;
+    border-radius:8px !important;
 }
 
 .goog-tooltip 
 {
-    display: none;
+    display: none !important;
 }
 .goog-tooltip:hover 
 {
-    display: none;
+    display: none !important;
 }
-.goog-text-highlight 
-{
-    background-color: transparent;
-    border: none; 
-    box-shadow: none;
+ 
+.goog-text-highlight { 
+    background: none !important;
+    box-shadow: none !important;
 }
-.goog-te-banner-frame.skiptranslate 
-{
-    display: none;
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+    } 
+body {
+    top: 0px !important; 
+    }
+    
+.goog-logo-link {
+   display:none !important;
+} 
+
+.goog-te-gadget{
+   color: transparent !important;
 }
