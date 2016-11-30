@@ -5,7 +5,7 @@ include 'Database.php';
 function loadTextFromDB($textID) {
 
     $connection = connectToDatabase();
-    $statement = $connection->prepare("SELECT * FROM tekst WHERE ID=" . $textID);
+    $statement = $connection->prepare("SELECT * FROM tekst WHERE TEKSTID=" . $textID);
     $statement->execute();
 
     while ($row = $statement->fetch()) {
