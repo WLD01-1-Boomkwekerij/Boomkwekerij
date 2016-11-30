@@ -13,6 +13,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <?php
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+            print("<link href='../Css/EditableStyle.css' rel='stylesheet' type='text/css'>");
+            print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
+            print("<script src='../Javascript/InformationEditing.js'></script>");
+        }
+        ?>
     </head>
     <body>
         <!DOCTYPE html>
@@ -136,7 +143,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                 <center><h4><u>Gebruikers beheren</u></h4>  
                                     <forum>
                                         <table border="1">
-                                            <th>ID</th>
+                                            <th class="ContentEditable">ID</th>
                                             <th>Naam</th>
                                             <th>Email</th>
                                             <th>Type</th>
