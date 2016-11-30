@@ -17,7 +17,7 @@ function loadTextFromDB($textID) {
 function saveTextToDB($textID, $text) {
 
     $connection = connectToDatabase();
-    $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE ID=" . $textID);
+    $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE TEXTID=" . $textID);
     $statement->execute();
     $connection = null;
 }
