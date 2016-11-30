@@ -1,4 +1,4 @@
-html{
+html, body{
     height: 100%;
 }
 
@@ -24,6 +24,9 @@ body
     margin: auto;
     max-width: 1231px;
     min-width: 750px;
+    
+    margin: 0 auto 0px;
+    min-height: 100%;
 }
 
 #top
@@ -103,14 +106,16 @@ body
 
 #footer 
 {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    position: relative;
+    margin-top: 30px;
     padding: 0 15px;
     height: 50px;
     line-height: 50px;
     background: #5175b3;
+}
+
+#footer, .push {
+	height: 50px; /* .push must be the same height as .footer */
 }
 
 div.goog-te-gadget-simple

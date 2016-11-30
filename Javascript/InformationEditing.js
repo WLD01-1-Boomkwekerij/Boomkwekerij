@@ -57,11 +57,11 @@ function createButton(type) {
     switch (type) {
         case "image":
             button.onclick = function () {
-               // insertImage();
+                // insertImage();
             };
             break;
         case "link":
-            button.onclick = function (){
+            button.onclick = function () {
                 createLink();
             };
             break;
@@ -75,23 +75,31 @@ function createButton(type) {
     return button;
 }
 
-function createLink(){
-    
+function createLink() {
+
+    var editorDiv = document.getElementById("Editor");
+
     var linkInput = document.createElement("input");
-    linkInput.setAttribute("type", "url");
+    linkInput.setAttribute("type", "text");
     linkInput.id = "url";
     linkInput.style.position = "absolute";
     linkInput.style.left = "175px";
     linkInput.style.top = "-30px";
     linkInput.style.border = "solid 3px red";
     linkInput.style.boxShadow = "0px 0px 5px 3px black";
-    linkInput.onKeyDown = function(key){
-        if(key.keyCode === 13){
-            alert("hey");
-            insertLink();
-        }
+    editorDiv.appendChild(linkInput);
+
+    var submit = document.createElement("button");
+    submit.innerHTML = "Invoegen";
+    submit.style.position = "absolute";
+    submit.style.left = "350px";
+    submit.style.top = "-30px";
+    submit.onclick = function () {
+        insertLink();
+        linkInput.parentNode.removeChild(linkInput);
+        submit.parentNode.removeChild(submit);
     };
-    document.getElementById("Editor").appendChild(linkInput);
+    editorDiv.appendChild(submit);
 }
 
 /**
@@ -102,6 +110,7 @@ function setContentEditable(element) {
     element.contentEditable = true;
     element.style.backgroundColor = "white";
     element.className = "";
+    element.addEventListener("focusout", saveSelectorPoint());
 
     var parent = element.parentNode;
 
@@ -213,8 +222,8 @@ document.onkeydown = document.onkeyup = function (e) {
 
     //Enter
     if (map[13]) {
-        markupText("insertHTML", "<br><br>");
-        return false;
+        //  markupText("insertHTML", "<br><br>");
+        //  return false;
     }
     //Tab
     if (map[9]) {
