@@ -12,7 +12,6 @@ html, body{
 body
 {
     background-color:#8D99C8;
-    min-height: 100%;
     padding-bottom: 60px;
     margin:0;
     position: relative;
@@ -24,7 +23,7 @@ body
 {
     margin: 0 auto;
     max-width: 1231px;
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 #top
@@ -104,10 +103,8 @@ body
 
 #footer 
 {
+    top: 200px;
     position: relative;
-    right: 0;
-    bottom: 0;
-    left: 0;
     padding: 1rem;
     background: #5175b3;
     width: 100%;
