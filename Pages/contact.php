@@ -26,7 +26,6 @@
         </section>
         <section id="mid">
             <section id="rightmenu">
-                <div id="google_translate_element"></div>
                 <?php
                 include '../Php/rightmenu.php';
                 ?>
@@ -43,9 +42,8 @@
                 </form>
             </section>
         </section>
-    </section>
-    <?php
-    include '../Php/footer.php';
-    ?>
-</body>
+        <?php
+        include '../Php/footer.php';
+        ?>
+    </body>
 </html>
