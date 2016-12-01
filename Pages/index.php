@@ -57,7 +57,7 @@
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
                         print("class='ContentEditable'");
                     }
-                    print("id = 'textID1'>");
+                    print("id = 'textID2'>");
                     print(loadTextFromDB(2));
                     print("</div>");
                     ?>
