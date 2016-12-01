@@ -3,6 +3,14 @@
 //Saved Selection
 var savedSelectorPoint;
 
+function createElement(element){
+    return document.createElement(element);
+}
+
+function getElementById(id){
+    return document.getElementById(id);
+}
+
 /**
  * Inserts markup with execCommand
  * @param {type} type
@@ -31,7 +39,7 @@ function saveTextToDatabase(text, textID) {
 
 function createButton(type) {
 
-    var button = document.createElement("button");
+    var button = createElement("button");
 
     switch (type) {
         case "justifyLeft":
@@ -78,28 +86,38 @@ function createButton(type) {
 function createLink() {
 
     var editorDiv = document.getElementById("Editor");
+    
+    var linkDiv = createElement("div");
+    linkDiv.style.width = "300px";
+    linkDiv.style.height = "125px";
+    linkDiv.style.backgroundColor = "white";
+    linkDiv.style.position = "absolute";
+    linkDiv.style.top = "-60px";
+    editorDiv.appendChild(linkDiv);
 
-    var linkInput = document.createElement("input");
+    var linkInput = createElement("input");
     linkInput.setAttribute("type", "text");
     linkInput.id = "url";
-    linkInput.style.position = "absolute";
-    linkInput.style.left = "175px";
-    linkInput.style.top = "-30px";
     linkInput.style.border = "solid 3px red";
     linkInput.style.boxShadow = "0px 0px 5px 3px black";
-    editorDiv.appendChild(linkInput);
+    linkDiv.appendChild(linkInput);
 
-    var submit = document.createElement("button");
+    var linkName = createElement("input");
+    linkName.setAttribute("type","text");
+    linkName.style.border = "solix 3px red";
+    linkName.style.boxShadow = "0px 0px 5px 3px black";
+    linkDiv.appendChild(linkName);
+
+
+
+    var submit = createElement("button");
     submit.innerHTML = "Invoegen";
-    submit.style.position = "absolute";
-    submit.style.left = "350px";
-    submit.style.top = "-30px";
     submit.onclick = function () {
         insertLink();
         linkInput.parentNode.removeChild(linkInput);
         submit.parentNode.removeChild(submit);
     };
-    editorDiv.appendChild(submit);
+    linkDiv.appendChild(submit);
 }
 
 /**
@@ -114,7 +132,7 @@ function setContentEditable(element) {
 
     var parent = element.parentNode;
 
-    var editorDiv = document.createElement("div");
+    var editorDiv = createElement("div");
     editorDiv.id = "Editor";
     editorDiv.style.position = "relative";
     parent.insertBefore(editorDiv, parent.childNodes[0]);
@@ -132,7 +150,7 @@ function setContentEditable(element) {
     }
 
 
-    var saveButton = document.createElement("button");
+    var saveButton = createElement("button");
     saveButton.innerHTML = "Save";
     saveButton.onclick = function () {
         saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
@@ -179,7 +197,7 @@ function restoreSelectorPoint(savedSel) {
  */
 function insertLink() {
 
-    var url = document.getElementById("url").value;
+    var url = getElementById("url").value;
     restoreSelectorPoint(savedSelectorPoint);
     document.execCommand("CreateLink", false, url);
 }
@@ -192,7 +210,7 @@ function selectImage(imageID) {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             //Create image
-            var img = document.createElement("img");
+            var img = createElement("img");
             img.src = "../images/" + xhttp.responseText;
             img.className = "editableImage";
             img.style.width = "300px";
