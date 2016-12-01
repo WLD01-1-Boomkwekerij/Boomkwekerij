@@ -19,15 +19,9 @@ function SendMail($receiver, $subject, $message, $Naam, $Email) {
         <section id="wrapper">
             <section id="top">
                 <section id="header"></section>
-                <section id="topmenu">
-                    <ul>
-                        <li><a href="../pages/index.php">Home</a></li>
-                        <li><a href="../pages/news.php">Nieuws</a></li>
-                        <li><a href="../pages/catalog.php">Catalogus</a></li>
-                        <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
-                        <li><a href="../pages/contact.php">Contact</a></li>
-                    </ul>
-                </section>
+                <?php
+                include '../Php/menu.php';
+                ?>
             </section>
             <section id="mid">
                 <section id="rightmenu">
@@ -69,8 +63,8 @@ function SendMail($receiver, $subject, $message, $Naam, $Email) {
                 </section>
             </section>
         </section>
-        <section id="footer">
-            nog meer sampletekst
-        </section>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>

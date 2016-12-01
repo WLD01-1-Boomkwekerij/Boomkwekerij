@@ -22,20 +22,9 @@
         <section id="wrapper">
             <section id="top">
                 <section id="header"></section>
-                <section id="topmenu">
-                    <ul>
-                        <li><a href="../pages/index.php">Home</a></li>
-                        <li><a href="../pages/news.php">Nieuws</a></li>
-                        <li><a href="../pages/catalog.php">Catalogus</a></li>
-                        <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
-                        <li><a href="../pages/contact.php">Contact</a></li>
-                        <?php
-                        if (isset($_SESSION['logged_in'])) {
-                            print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
-                        }
-                        ?>
-                    </ul>
-                </section>
+                <?php
+                include '../Php/menu.php';
+                ?>
             </section>
             <section id="mid">
                 <section id="rightmenu">
@@ -105,14 +94,8 @@
                 </section>
             </section>
         </section>
-        <section  class="notranslate"  id="footer">
-            <?php
-            if (isset($_SESSION['logged_in'])) {
-                print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
-            } else {
-                print("<li><a href='../pages/login.php'>Inloggen</a></li>");
-            }
-            ?>
-        </section>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>
