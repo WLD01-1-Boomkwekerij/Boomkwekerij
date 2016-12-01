@@ -13,7 +13,6 @@ body
 {
     background-color:#8D99C8;
     min-height: 100%;
-    padding: 20px;
     padding-bottom: 60px;
     margin:0;
     position: relative;
@@ -105,7 +104,7 @@ body
 
 #footer 
 {
-    position: absolute;
+    position: relative;
     right: 0;
     bottom: 0;
     left: 0;
