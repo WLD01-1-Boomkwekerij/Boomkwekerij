@@ -139,7 +139,7 @@ function setContentEditable(element) {
         //window.location.reload(false);
     };
 
-    document.body.appendChild(saveButton);
+   parent.appendChild(saveButton);
 }
 
 /**
