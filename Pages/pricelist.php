@@ -78,9 +78,7 @@
                             <th rowspan="2">potmaat</th>
                             <th>hoogte</th>
                             <th colspan="2" class="white">prijs (€)</th>
-                            <th>per</th>
-                            <th>per</th>
-                            <th>per</th>
+                            <th colspan="3">per</th>
                         </tr>
                         <tr> 
                             <td>(cm)</td>
