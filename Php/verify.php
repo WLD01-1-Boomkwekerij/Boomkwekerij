@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['gebruiker'] = $sGebruiker;
 
             // Doorsturen en melding geven 
-            header('Refresh: 2; url=../Pages/logged_in.php');
-            echo 'Je bent succesvol ingelogd. Je wordt doorgestuurd.';
+            header('Refresh: 0; url=../Pages/logged_in.php');
+            
         } else {
             // Terugsturen en foutmelding geven 
             header('Refresh: 2; url=../Pages/login.php');

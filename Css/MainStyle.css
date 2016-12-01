@@ -1,5 +1,6 @@
-html{
+html, body{
     height: 100%;
+    box-sizing: border-box;
 }
 
 *,
@@ -12,18 +13,18 @@ body
 {
     background-color:#8D99C8;
     min-height: 100%;
-    padding: 20px;
     padding-bottom: 60px;
     margin:0;
     position: relative;
     font-family: arial;
+    min-width: 750px;
 }
 
 #wrapper
 {
-    margin: auto;
+    margin: 0 auto;
     max-width: 1231px;
-    min-width: 750px;
+    min-height: 100%;
 }
 
 #top
@@ -84,7 +85,7 @@ body
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
     width: auto;
     height: auto;
-    margin-right: 260px;
+    margin-right: 270px;
     background-color:#d0e6fa;
     padding: 10px;
     margin-bottom: 10px;
@@ -93,7 +94,7 @@ body
 #rightmenu
 {
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
-    width: 230px;
+    width: 260px;
     float: right;
     height: auto;
     padding: 10px;
@@ -103,43 +104,53 @@ body
 
 #footer 
 {
-    position: absolute;
+    position: relative;
     right: 0;
     bottom: 0;
     left: 0;
-    padding: 0 15px;
-    height: 50px;
-    line-height: 50px;
+    padding: 1rem;
     background: #5175b3;
+    width: 100%;
 }
 
+/* google translate css */
 div.goog-te-gadget-simple
 {
-    border-radius:8px;
-    background-color: #ccccff;
+    border-radius:8px !important;
+    background-color: #ccccff !important;
 }
 
 a.goog-te-menu-value > span
 {
-    color:black;
-    border-radius:8px;
+    color:black !important;
+    border-radius:8px !important;
 }
 
 .goog-tooltip 
 {
-    display: none;
+    display: none !important;
 }
 .goog-tooltip:hover 
 {
-    display: none;
+    display: none !important;
 }
-.goog-text-highlight 
-{
-    background-color: transparent;
-    border: none; 
-    box-shadow: none;
+
+.goog-text-highlight { 
+    background: none !important;
+    box-shadow: none !important;
 }
-.goog-te-banner-frame.skiptranslate 
-{
-    display: none;
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+} 
+body {
+    top: 0px !important; 
+}
+
+.goog-logo-link {
+    display:none !important;
+} 
+
+.goog-te-gadget{
+    color: transparent !important;
 }

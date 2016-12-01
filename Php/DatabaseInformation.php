@@ -5,7 +5,7 @@ include 'Database.php';
 function loadTextFromDB($textID) {
 
     $connection = connectToDatabase();
-    $statement = $connection->prepare("SELECT * FROM tekst WHERE ID=" . $textID);
+    $statement = $connection->prepare("SELECT * FROM tekst WHERE TEKSTID=" . $textID);
     $statement->execute();
 
     while ($row = $statement->fetch()) {
@@ -17,7 +17,7 @@ function loadTextFromDB($textID) {
 function saveTextToDB($textID, $text) {
 
     $connection = connectToDatabase();
-    $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlentities($text) . "' WHERE ID=" . $textID);
+    $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE TEKSTID=" . $textID);
     $statement->execute();
     $connection = null;
 }
