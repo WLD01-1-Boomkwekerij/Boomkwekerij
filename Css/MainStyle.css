@@ -99,6 +99,13 @@ body
     padding: 10px;
     margin-left: 10px;
     background-color:#ccccff;
+    list-style-type: none;
+}
+
+#rightmenu ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 #footer 
