@@ -103,9 +103,12 @@
                         </tr>
                         <?php
                         while ($row = $result->fetch_assoc()) {
-                            print ("<tr  class='notranslate' ><td class = 'name' colspan = '9'><h2><a href = '../Pages/catalog.php'>" . $row["CategoryNaam"] . "</a></h2></td></tr>");
+                            $CategoryID = $row['CategoryID'];
+                            print ("<tr  class='notranslate' ><td class = 'name' colspan = '9'><h2><a href = '../Pages/catalog.php?category=$CategoryID'>" . $row["CategoryNaam"] . "</a></h2></td></tr>");
+                            
                             $sql2 = "SELECT * FROM prijs WHERE CategoryID=" . $row['CategoryID'];
                             $result2 = $conn->query($sql2);
+                            
                             while ($row2 = $result2->fetch_assoc()) {
                                 ?>
                                 <tr class="notranslate">
