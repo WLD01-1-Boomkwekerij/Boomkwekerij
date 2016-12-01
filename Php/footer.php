@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <section  class="notranslate" id="footer">
     <?php
     if (isset($_SESSION['logged_in'])) {

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <section id="topmenu">
     <ul>
         <li><a href="../pages/index.php">Home</a></li>

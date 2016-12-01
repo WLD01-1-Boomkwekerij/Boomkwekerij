@@ -7,7 +7,6 @@
         <link href="../Css/PricelistStyle.css" rel="stylesheet" type="text/css">
         <?php
         session_start();
-        include '../Php/DatabaseInformation.php';
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
         print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
         print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
@@ -33,6 +32,7 @@
                     </script>
                     <h3>Contact informatie</h3>
                     <?php
+                    include '../Php/DatabaseInformation.php';
                     //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
                     print("<div ");
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
@@ -48,16 +48,8 @@
                 </section>
                 <section id="maincontent">
                     <?php
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "usbw";
-                    $dbname = "boomkwekerij";
-                    $conn = new mysqli($servername, $username, $password, $dbname);
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-                    $sql = "SELECT * FROM Category WHERE CategoryID IN(SELECT distinct CategoryID FROM prijs)";
-                    $result = $conn->query($sql);
+                    include '../Php/Database.php';
+                    $result = getSQLArray("SELECT * FROM Category WHERE CategoryID IN(SELECT distinct CategoryID FROM prijs)");
                     ?>
                     <h1>Prijslijst</h1>
 
@@ -91,11 +83,11 @@
                         <?php
                         while ($row = $result->fetch_assoc()) {
                             $CategoryID = $row['CategoryID'];
-                            print ("<tr  class='notranslate' ><td class = 'name' colspan = '9'><h2><a href = '../Pages/catalog.php?category=$CategoryID'>" . $row["CategoryNaam"] . "</a></h2></td></tr>");
-                            
-                            $sql2 = "SELECT * FROM prijs WHERE CategoryID=" . $row['CategoryID'];
-                            $result2 = $conn->query($sql2);
-                            
+                            print ("<tr  class='notranslate' >"
+                                    . "<td class = 'name' colspan = '9'>"
+                                    . "<h2><a href = '../Pages/catalog.php?category=$CategoryID'>" . $row["CategoryNaam"] . "</a></h2></td>"
+                                    . "</tr>");
+                            $result2 = getSQLArray("SELECT * FROM prijs WHERE CategoryID=" . $row['CategoryID']);
                             while ($row2 = $result2->fetch_assoc()) {
                                 ?>
                                 <tr class="notranslate">
