@@ -7,7 +7,7 @@
         <link href="../Css/ContactStyle.css" rel="stylesheet" type="text/css">
         <?php
         session_start();
-        include '../Php/DatabaseInformation.php';
+        include_once '../Php/DatabaseInformation.php';
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
         print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
         print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
@@ -27,25 +27,9 @@
         <section id="mid">
             <section id="rightmenu">
                 <div id="google_translate_element"></div>
-                <script type="text/javascript">
-                    function googleTranslateElementInit() {
-                        new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-                    }
-                </script>
-                <h3>Contact informatie</h3>
                 <?php
-                //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
-                print("<div ");
-                if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-                    print("class='ContentEditable'");
-                }
-                print("id = 'textID1'>");
-                print(loadTextFromDB(2));
-                print("</div>");
+                include '../Php/rightmenu.php';
                 ?>
-                <h3>Groen-Direkt Boskoop</h3>
-                Geen opkomende evenementen<br>
-                <a href="http://www.groen-direkt.nl/home-nl" TARGET="_blank">link</a>
             </section>
             <section id="maincontent">
                 <h1>Aanvraag</h1>

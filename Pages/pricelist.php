@@ -24,31 +24,12 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
-                    <div id="google_translate_element"></div>
-                    <script type="text/javascript">
-                        function googleTranslateElementInit() {
-                            new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-                        }
-                    </script>
-                    <h3>Contact informatie</h3>
                     <?php
-                    include '../Php/DatabaseInformation.php';
-                    //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
-                    print("<div ");
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-                        print("class='ContentEditable'");
-                    }
-                    print("id = 'textID1'>");
-                    print(loadTextFromDB(2));
-                    print("</div>");
+                    include '../Php/rightmenu.php';
                     ?>
-                    <h3>Groen-Direkt Boskoop</h3>
-                    Geen opkomende evenementen<br>
-                    <a href="http://www.groen-direkt.nl/home-nl" TARGET="_blank">link</a>
                 </section>
                 <section id="maincontent">
                     <?php
-                    include '../Php/Database.php';
                     $result = getSQLArray("SELECT * FROM Category WHERE CategoryID IN(SELECT distinct CategoryID FROM prijs)");
                     ?>
                     <h1>Prijslijst</h1>
@@ -81,14 +62,14 @@
                             <td>tray</td>
                         </tr>
                         <?php
-                        while ($row = $result->fetch_assoc()) {
-                            $CategoryID = $row['CategoryID'];
+                        while ($row = $result->fetch()) {
+                            $catID = $row['CategoryID'];
                             print ("<tr  class='notranslate' >"
                                     . "<td class = 'name' colspan = '9'>"
-                                    . "<h2><a href = '../Pages/catalog.php?category=$CategoryID'>" . $row["CategoryNaam"] . "</a></h2></td>"
+                                    . "<h2><a href = '../Pages/catalog.php?category=$catID'>" . $row["CategoryNaam"] . "</a></h2></td>"
                                     . "</tr>");
-                            $result2 = getSQLArray("SELECT * FROM prijs WHERE CategoryID=" . $row['CategoryID']);
-                            while ($row2 = $result2->fetch_assoc()) {
+                            $result2 = getSQLArray("SELECT * FROM prijs WHERE CategoryID=" . $catID);
+                            while ($row2 = $result2->fetch()) {
                                 ?>
                                 <tr class="notranslate">
                                     <?php
@@ -114,7 +95,6 @@
                                 </tr>");
                                 }
                             }
-                            $conn->close();
                             ?>
                     </table>
                 </section>
