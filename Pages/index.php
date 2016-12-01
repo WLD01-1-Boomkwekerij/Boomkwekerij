@@ -44,7 +44,6 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
-
                     <div id="google_translate_element"></div>
                     <script type="text/javascript">
                         function googleTranslateElementInit() {
@@ -52,15 +51,16 @@
                         }
                     </script>
                     <h3>Contact informatie</h3>
-                    <ul class="notranslate" id="contact_information">
-                        <li>Fa. P. Boer</li>
-                        <li>Rijneveld 125<br>2771 XV Boskoop</li>
-                        <li>B.G.G:<br>0031 (0)172217308</li>
-                        <li>Peter Boer:<br>0031 (0)657915055</li>
-                        <li>Robert Boer:<br>0031(0)622442190</li>
-                        <li>fax:<br>0031 (0)172216827</li>
-                        <li>E-mail:<br>info@boomkwekerijpboer.nl</li>
-                    </ul>
+                    <?php
+                    //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
+                    print("<div ");
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+                        print("class='ContentEditable'");
+                    }
+                    print("id = 'textID1'>");
+                    print(loadTextFromDB(2));
+                    print("</div>");
+                    ?>
                     <h3>Groen-Direkt Boskoop</h3>
                     Geen opkomende evenementen<br>
                     <a href="http://www.groen-direkt.nl/home-nl" TARGET="_blank">link</a>
