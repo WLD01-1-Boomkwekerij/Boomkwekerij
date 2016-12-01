@@ -38,26 +38,33 @@
                     ?>
                 </section>
                 <section id="maincontent">
+
+
+                    <section id="PlantInformation">
+
+                    </section>
+
+
+
                     <section id="PhotoFrame">
-                        <div>
-                            <img id="ImageFrame" src="../Catalogus fotos/Heesters/aucuba tray p13.jpg">
-                        </div>
-                        
-                        
-                        <!-- Left Arrow-->
-                        <div class="Arrow">
+                        <img id="ImageFrame" src="../Catalogus fotos/Heesters/aucuba tray p13.jpg">
 
-                        </div>
-                        <!-- Images-->                        
-                        <img style="width: 100px; box-shadow: 0px 0px 2px 1px black;" src="../Catalogus fotos/Clematis/alpina.jpg">  
-                        <img style="width: 100px; box-shadow: 0px 0px 2px 1px black;" src="../Catalogus fotos/Klimplanten/passiflora.jpg">                        
-                        <img style="width: 100px; box-shadow: 0px 0px 2px 1px black;" src="../Catalogus fotos/Klimplanten/toscaanse jasmijn.jpg">
+                        <div id="Positioner">
+                            <!-- Left Arrow-->
+                            <div class="Arrow"></div>
+                            <!-- Images, use php code here-->                        
+                            <img style="width: 100px; box-shadow: 0px 0px 2px 1px black;" src="../Catalogus fotos/Clematis/alpina.jpg">  
+                            <img style="width: 100px; box-shadow: 0px 0px 2px 1px black;" src="../Catalogus fotos/Klimplanten/passiflora.jpg">                        
+                            <img style="width: 100px; box-shadow: 0px 0px 2px 1px black;" src="../Catalogus fotos/Klimplanten/toscaanse jasmijn.jpg">
 
-                        <!-- Right Arrow-->
-                        <div class="Arrow">
-
+                            <!-- Right Arrow-->
+                            <div class="Arrow"></div>
                         </div>
                     </section>
+
+
+
+
 
                 </section>
             </section>
