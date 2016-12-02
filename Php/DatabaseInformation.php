@@ -10,7 +10,7 @@ function loadTextFromDB($textID) {
 
     while ($row = $statement->fetch()) {
         $text = $row["Tekst"];
-        return htmlspecialchars_decode($text);
+        print htmlspecialchars_decode($text). "<br>" ;
     }
 }
 
