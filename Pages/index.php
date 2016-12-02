@@ -2,23 +2,16 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title class="notranslate">Boomkwekerij - Home</title>
-        <!-- Icon Pack -->
-        <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
-
+        <title class="notranslate">Boomkwekerij - Aanbiedingen</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link href="../Css/HomeStyle.css" rel="stylesheet" type="text/css"> 
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         <?php
         session_start();
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-            print("<link href='../Css/EditableStyle.css' rel='stylesheet' type='text/css'>");
-            print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
-            print("<script src='../Javascript/InformationEditing.js'></script>");
-        }
+        //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
+        print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
+        print("<script src='../Javascript/InformationEditing.js'></script>");
+        // }
         ?>
-        <link href="../Css/HomeStyle.css" rel="stylesheet" type="text/css">
-
     </head>
     <body>
         <section id="wrapper">
@@ -30,13 +23,21 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
+<<<<<<< HEAD
+=======
+                    
+>>>>>>> origin/master
                     <?php
                     include '../Php/rightmenu.php';
                     ?>
                 </section>
                 <section id="maincontent">
+<<<<<<< HEAD
 
                     <?php
+=======
+                     <?php
+>>>>>>> origin/master
                     //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
                     print("<div ");
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
