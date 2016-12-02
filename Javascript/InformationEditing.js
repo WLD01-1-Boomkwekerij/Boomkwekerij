@@ -331,10 +331,10 @@ document.onkeydown = document.onkeyup = function (e)
         return false;
     }
     
-    //if(map[32]){
-    //    markupText("insertHTML", "&nbsp;");
-    //    return false;
-   // }
+    if(map[32]){
+        markupText("insertHTML", "&#8197;");
+        return false;
+    }
 };
 
 //Jquery Code
