@@ -62,7 +62,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                     }
                     ?>
 
-                    <h4>Gebruikers beheren</h4>   
+                    <h4>Gebruikers beheren</h4> 
+                    <h5>Nieuw gebruiker toevoegen</h5>
                     <form  action="logged_in.php" method="post">
                         <table>
                             <tr>
@@ -71,7 +72,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                 <th>Krijgt notifactie</th>
                                 <th>Wachtwoord</th>
                                 <th>Wachtwoord opnieuw</th>
-                                <th>Type</th>
+                                <th>Rechten</th>
                                 <th>Toevoegen</th>
                             </tr>
                             <tr>
@@ -94,8 +95,33 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                 </td>
                                 <td><input type="submit" name="submit" value="Toevoegen" tabindex="5"/></td>
                             <tr>
-                        </table>    
+                        </table>
                     </form>
+                    <?php
+                    include_once '../Php/Database.php';
+                    $gebruikers = getSQLArray('SELECT Naam, Rol FROM boomkwekerij.gebruiker');
+                    ?>
+                    <h5>Gebruikers wijzigen</h5>
+                    <?php
+                    ?>
+                    <table>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Email</th>
+                            <th>Rechten</th>
+                            <th>Bewerken</th>
+                        </tr>
+                        <?php
+                        while ($rij = $gebruikers->fetch()) {
+                            ?>
+                            <tr>
+                                <td> <?php print($rij['Naam']); ?> </td>
+                                <td> <?php print($rij['Email']); ?> </td>
+                                <td> <?php print($rij['Rol']); ?></td>
+                            <?php } ?>
+                            <td><form action="edit.php" method="post"><input type="submit" name="submit" value="Bewerken"/></form></td>
+                        </tr>
+                    </table>
                 </section>
             </section>
         </section>
