@@ -85,21 +85,21 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     </select> 
                                 </td>
                                 <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
-                                <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="4" required></td>
+                                <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
                                 <td> 
-                                    <select name="rol"tabindex="4">
+                                    <select name="rol"tabindex="6">
                                         <option value="beheerder">Beheerder</option>
                                         <option value="mederwerker">Medewerker</option>
                                         <option value="vertaler">Vertaler</option>
                                     </select> 
                                 </td>
-                                <td><input type="submit" name="submit" value="Toevoegen" tabindex="5"/></td>
+                                <td><input type="submit" name="submit" value="Toevoegen" tabindex="7    "/></td>
                             <tr>
                         </table>
                     </form>
                     <?php
                     include_once '../Php/Database.php';
-                    $gebruikers = getSQLArray('SELECT Naam, Rol FROM boomkwekerij.gebruiker');
+                    $gebruikers = getSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker');
                     ?>
                     <h5>Gebruikers wijzigen</h5>
                     <?php
@@ -117,9 +117,21 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                             <tr>
                                 <td> <?php print($rij['Naam']); ?> </td>
                                 <td> <?php print($rij['Email']); ?> </td>
-                                <td> <?php print($rij['Rol']); ?></td>
-                            <?php } ?>
-                            <td><form action="edit.php" method="post"><input type="submit" name="submit" value="Bewerken"/></form></td>
+                                <td> <?php
+                                    if ($rij['Rol'] == '1') {
+                                        $rij['Rol'] = 'Beheerder';
+                                    } elseif ($rij['Rol'] == '2') {
+                                        $rij['Rol'] = 'Medewerker';
+                                    } elseif ($rij['Rol'] == '3') {
+                                        $rij['Rol'] = 'Vertaler';
+                                    }
+                                    print($rij['Rol']);
+                                    ?></td>
+                                <td><form action="edit.php" method="POST">
+                                        <input type='hidden' name='gebruiker' value="<?php print($rij['GebruikerID']) ?>" />
+                                        <input type="submit" name="submit" value="Bewerken"/>
+                                    </form></td>
+<?php } ?>
                         </tr>
                     </table>
                 </section>
