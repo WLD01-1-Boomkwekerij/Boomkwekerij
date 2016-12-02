@@ -2,14 +2,30 @@
 
 //Saved Selection
 var savedSelectorPoint;
+var isLinkWindowOpen;
+
+window.onload = function ()
+{
+    isLinkWindowOpen = false;
+};
+
+function createElement(element)
+{
+    return document.createElement(element);
+}
+
+function getElementById(id)
+{
+    return document.getElementById(id);
+}
 
 /**
  * Inserts markup with execCommand
  * @param {type} type
  * @param {type} parameter
  */
-function markupText(type, parameter) {
-
+function markupText(type, parameter)
+{
     if (arguments.length === 1) {
         document.execCommand(type, false);
     } else {
@@ -22,18 +38,69 @@ function markupText(type, parameter) {
  * @param {type} text
  * @param {type} textID
  */
-function saveTextToDatabase(text, textID) {
-
+function saveTextToDatabase(text, textID)
+{
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlText=" + text + "&textID=" + textID, true);
     xmlhttp.send();
 }
 
-function createButton(type) {
+/**
+ * Save the current position of the cursor when called
+ */
+function saveSelectorPoint()
+{
+    if (window.getSelection)
+    {
+        var sel = window.getSelection();
+        if (sel.getRangeAt && sel.rangeCount)
+        {
+            var ranges = [];
+            for (var i = 0, len = sel.rangeCount; i < len; ++i)
+            {
+                ranges.push(sel.getRangeAt(i));
+            }
+            savedSelectorPoint = ranges;
+        }
+    } else if (document.selection && document.selection.createRange)
+    {
+        savedSelectorPoint = document.selection.createRange();
+    }
+}
 
-    var button = document.createElement("button");
+function restoreSelectorPoint(savedSel)
+{
+    if (savedSel)
+    {
+        if (window.getSelection)
+        {
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            for (var i = 0, len = savedSel.length; i < len; ++i)
+            {
+                sel.addRange(savedSel[i]);
+            }
+        } else if (document.selection && savedSel.select)
+        {
+            savedSel.select();
+        }
+    }
+}
 
-    switch (type) {
+
+function insertLink(name, url)
+{
+    var linkHTML = "<a href='"+url+"'>"+name+"</a>";
+    restoreSelectorPoint(savedSelectorPoint);    
+    document.execCommand("insertHTML", false, linkHTML);
+}
+
+function createButton(type)
+{
+    var button = createElement("button");
+
+    switch (type)
+    {
         case "justifyLeft":
             button.className = "fa fa-align-left";
             break;
@@ -54,19 +121,26 @@ function createButton(type) {
             break;
     }
 
-    switch (type) {
+    switch (type)
+    {
         case "image":
-            button.onclick = function () {
+            button.onclick = function ()
+            {
                 // insertImage();
             };
             break;
         case "link":
-            button.onclick = function () {
-                createLink();
+            button.onclick = function ()
+            {
+                if (!isLinkWindowOpen) {
+                    createLink();
+                }
+                isLinkWindowOpen = true;
             };
             break;
         default:
-            button.onclick = function () {
+            button.onclick = function ()
+            {
                 markupText(type);
             };
             break;
@@ -75,38 +149,82 @@ function createButton(type) {
     return button;
 }
 
-function createLink() {
+function createLink()
+{
 
-    var editorDiv = document.getElementById("Editor");
+    var editorDiv = getElementById("Editor");
 
-    var linkInput = document.createElement("input");
+    var linkDiv = createElement("div");
+    linkDiv.style.width = "235px";
+    linkDiv.style.height = "110px";
+    linkDiv.style.backgroundColor = "white";
+    linkDiv.style.position = "absolute";
+    linkDiv.style.top = "-130px";
+    linkDiv.style.left = "70px";
+    linkDiv.style.boxShadow = "0px 0px 5px 3px black";
+    editorDiv.appendChild(linkDiv);
+
+    var linkName = createElement("input");
+    linkName.setAttribute("type", "text");
+    linkName.style.marginRight = "0px";
+    linkName.style.float = "Right";
+    linkName.style.marginTop = "15px";
+    linkName.style.marginRight = "5px";
+    linkDiv.appendChild(linkName);
+
+    var linkInput = createElement("input");
     linkInput.setAttribute("type", "text");
     linkInput.id = "url";
-    linkInput.style.position = "absolute";
-    linkInput.style.left = "175px";
-    linkInput.style.top = "-30px";
-    linkInput.style.border = "solid 3px red";
-    linkInput.style.boxShadow = "0px 0px 5px 3px black";
-    editorDiv.appendChild(linkInput);
+    linkInput.style.marginTop = "12px";
+    linkInput.style.marginRight = "5px";
+    linkInput.style.float = "Right";
+    linkDiv.appendChild(linkInput);
 
-    var submit = document.createElement("button");
+    var linkText1 = createElement("p");
+    linkText1.innerHTML = "Naam:";
+    linkText1.style.marginLeft = "5px";
+    linkDiv.appendChild(linkText1);
+
+    var linkText2 = createElement("p");
+    linkText2.innerHTML = "Link:";
+    linkText2.style.marginLeft = "5px";
+    linkDiv.appendChild(linkText2);
+
+    var submit = createElement("button");
     submit.innerHTML = "Invoegen";
     submit.style.position = "absolute";
-    submit.style.left = "350px";
-    submit.style.top = "-30px";
-    submit.onclick = function () {
-        insertLink();
-        linkInput.parentNode.removeChild(linkInput);
-        submit.parentNode.removeChild(submit);
+    submit.style.right = "0px";
+    submit.style.top = "80px";
+    submit.style.marginRight = "5px";
+    submit.onclick = function ()
+    {
+        insertLink(linkName.value, linkInput.value);
+        console.log(linkName.value + " , " + linkInput.value);
+        linkDiv.parentNode.removeChild(linkDiv);
+        isLinkWindowOpen = false;
     };
-    editorDiv.appendChild(submit);
+    linkDiv.appendChild(submit);
+
+    var cancel = createElement("button");
+    cancel.innerHTML = "Cancel";
+    cancel.style.position = "absolute";
+    cancel.style.left = "0px";
+    cancel.style.top = "80px";
+    cancel.style.marginLeft = "5px";
+    cancel.onclick = function ()
+    {
+        linkDiv.parentNode.removeChild(linkDiv);
+        isLinkWindowOpen = false;
+    };
+    linkDiv.appendChild(cancel);
 }
 
 /**
  * Sets the clicked element editable and adds the editing system
  * @param {type} element
  */
-function setContentEditable(element) {
+function setContentEditable(element)
+{
     element.contentEditable = true;
     element.style.backgroundColor = "white";
     element.className = "";
@@ -114,85 +232,47 @@ function setContentEditable(element) {
 
     var parent = element.parentNode;
 
-    var editorDiv = document.createElement("div");
+    var editorDiv = createElement("div");
     editorDiv.id = "Editor";
     editorDiv.style.position = "relative";
     parent.insertBefore(editorDiv, parent.childNodes[0]);
 
     //Buttons
-    var buttonArray = [
-        "bold", "italic", "underline",
-        "justifyLeft", "justifyCenter", "justifyRight",
-        "insertOrderedList", "insertUnorderedList",
-        "link", "image"
-    ];
+    var buttonArray =
+            [
+                "bold", "italic", "underline",
+                "justifyLeft", "justifyCenter", "justifyRight",
+                "insertOrderedList", "insertUnorderedList",
+                "link", "image"
+            ];
 
-    for (var i = 0; i < buttonArray.length; i++) {
+    for (var i = 0; i < buttonArray.length; i++)
+    {
         editorDiv.appendChild(createButton(buttonArray[i]));
     }
 
 
-    var saveButton = document.createElement("button");
+    var saveButton = createElement("button");
     saveButton.innerHTML = "Save";
-    saveButton.onclick = function () {
+    saveButton.onclick = function ()
+    {
         saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
         //window.location.reload(false);
     };
 
-   parent.appendChild(saveButton);
-}
-
-/**
- * Save the current position of the cursor when called
- */
-function saveSelectorPoint() {
-    if (window.getSelection) {
-        var sel = window.getSelection();
-        if (sel.getRangeAt && sel.rangeCount) {
-            var ranges = [];
-            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
-                ranges.push(sel.getRangeAt(i));
-            }
-            savedSelectorPoint = ranges;
-        }
-    } else if (document.selection && document.selection.createRange) {
-        savedSelectorPoint = document.selection.createRange();
-    }
-}
-
-function restoreSelectorPoint(savedSel) {
-    if (savedSel) {
-        if (window.getSelection) {
-            var sel = window.getSelection();
-            sel.removeAllRanges();
-            for (var i = 0, len = savedSel.length; i < len; ++i) {
-                sel.addRange(savedSel[i]);
-            }
-        } else if (document.selection && savedSel.select) {
-            savedSel.select();
-        }
-    }
-}
-
-/**
- * Inserts a link at a saved cursor position
- */
-function insertLink() {
-
-    var url = document.getElementById("url").value;
-    restoreSelectorPoint(savedSelectorPoint);
-    document.execCommand("CreateLink", false, url);
+    parent.appendChild(saveButton);
 }
 
 //Get image url from database
-function selectImage(imageID) {
-
+function selectImage(imageID)
+{
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "../PHP/GetImages.php?imageList=" + imageID, true);
     xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
+        if (this.readyState === 4 && this.status === 200)
+        {
             //Create image
-            var img = document.createElement("img");
+            var img = createElement("img");
             img.src = "../images/" + xhttp.responseText;
             img.className = "editableImage";
             img.style.width = "300px";
@@ -207,35 +287,42 @@ function selectImage(imageID) {
 }
 
 var map = {};
-document.onkeydown = document.onkeyup = function (e) {
+document.onkeydown = document.onkeyup = function (e)
+{
     e = e || event;
     map[e.keyCode] = e.type === "keydown";
 
     //Redo and Undo
-    if (map[17] && map[90] && map[16]) {
+    if (map[17] && map[90] && map[16])
+    {
         document.execCommand("redo", false);
         return false;
-    } else if (map[17] && map[90]) {
+    } else if (map[17] && map[90])
+    {
         document.execCommand("undo", false);
         return false;
     }
 
     //Enter
-    if (map[13]) {
+    if (map[13])
+    {
         //  markupText("insertHTML", "<br><br>");
         //  return false;
     }
     //Tab
-    if (map[9]) {
+    if (map[9])
+    {
         markupText("insertHTML", "&emsp;");
         return false;
     }
 };
 
 //Jquery Code
-$(document).ready(function () {
+$(document).ready(function ()
+{
 
-    $(".ContentEditable").one("click", function () {
+    $(".ContentEditable").one("click", function ()
+    {
         setContentEditable($(this)[0]);
     });
 });

@@ -22,9 +22,7 @@
                 <?php
                 include '../Php/menu.php';
                 ?>
-            </section>
-        </section>
-        <section id="mid">
+            </section>        <section id="mid">
             <section id="rightmenu">
                 <?php
                 include '../Php/rightmenu.php';
@@ -35,12 +33,13 @@
                 <form action="contactSend.php" method="post">
                     Naam: <br><input class="contact" placeholder="Uw naam" type="text" name="contact_name" required><br>
                     Onderwerp: <br><input  class="contact" placeholder="Onderwerp" type="text" name="contact_subject" required><br>
-                    E-mail: <br><input class="contact contact_minWidth" placeholder="Op welke email kunnen we u contacteren?" type="tekst" name="contact_email" required><br>
+                    E-mail: <br><input class="contact contact_minWidth" placeholder="Op welke email kunnen we u contacteren?" type="email" name="contact_email" required><br>
                     Website:<br><input class="contact contact_minWidth" placeholder="Optionele website" type="text" name="contact_website"><br>
                     Reactie: <br><textarea class="contact contact_content" placeholder="Vul hier uw aanvraag in" name="contact_content" required></textarea><br>
                     <input type="submit" ID="btn1" name="submit" value="Aanvraag indienen" /> 
                 </form>
             </section>
+                    </section>
         </section>
         <?php
         include '../Php/footer.php';

@@ -10,9 +10,14 @@ print("<div ");
 if (isset($_SESSION['logged_in'])) {
     print("class='ContentEditable'");
 }
+<<<<<<< HEAD
 print("id = 'textID2'>" . loadTextFromDB(2) . "</div>");
 ?>
 <h3>Groen-Direkt Boskoop</h3>
 Geen opkomende evenementen<br>
 <a href="http://www.groen-direkt.nl/home-nl" TARGET="_blank">link</a>
 
+=======
+print("id = 'textID2'>".loadTextFromDB(2)."</div>");
+?>
+>>>>>>> 9330a76159ea439a259678dbcc4e702343de5b4e
