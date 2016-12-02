@@ -1,4 +1,4 @@
-!DOCTYPE html>
+
 <?php include'/../Php/Database.php';
 ?>
 <html>
@@ -69,11 +69,11 @@
                         $perTray = $row["ProductenTray"];
                         $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PrijsID = $prijsID");
                         while ($plant = $sqlPlant->fetch()) {
-                            
-                        
-                            
+
+
+
                             $naam = $plant['Naam'];
-                            
+
                             echo "<div class='item'>
                             <div>
                            <table>
@@ -89,12 +89,13 @@
                             </div>
                                
                             </div>";
-
-                            
                         }
-                        
-                        
                     }
+                    ?>
+                    <?php
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+
+
                     echo "<div class='item'>
                             <div>
                              <table>
@@ -104,16 +105,16 @@
                                 <td><label>Naam:</label></td>
                                 <td><input id='name' name='name'type='tekst'></td>
                                 <tr>
-                                <td><label>Soort:</label></td>
+                                <td><label>Groep:</label></td>
                                 <td>
                                 <select id='groep' name='groep'>";
-                                $sqlPrijs = getSQLArray("SELECT * FROM prijs");
-                                while ($row = $sqlPrijs->fetch()) {
-                                    $naamPrijs = $row["Naam"];
-                                    $IDPrijs = $row["PrijsID"];
-                                    echo "<option value='$IDPrijs'>$naamPrijs</option>";
-                                }
-                                 echo "</select>
+                    $sqlPrijs = getSQLArray("SELECT * FROM prijs");
+                    while ($row = $sqlPrijs->fetch()) {
+                    $naamPrijs = $row["Naam"];
+                    $IDPrijs = $row["PrijsID"];
+                    echo "<option value='$IDPrijs'>$naamPrijs</option>";
+                }
+                echo "</select>
                                 </td>
                                 <tr>
                                 <td>Min.Hoogte:</td>
@@ -132,7 +133,9 @@
                             </div>
                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
                             </div>";
-                    ?>   
+            }
+            ?>
+                   
 
 
                 </section>
