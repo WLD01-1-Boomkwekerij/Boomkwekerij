@@ -70,6 +70,7 @@
                                     . "<h2><a href = '../Pages/catalog.php?category=$catID'>" . $row["CategoryNaam"] . "</a></h2></td>"
                                     . "</tr>");
                             $result2 = getSQLArray("SELECT * FROM prijs WHERE CategoryID=" . $catID);
+                            
                             while ($row2 = $result2->fetch()) {
                                 ?>
                                 <tr class="notranslate">
@@ -81,12 +82,15 @@
                                         print("<td colspan = '2'>" . $row2['Naam'] . "</td>");
                                     }
                                     print("<td>" . $row2['Potmaat'] . "</td>");
-                                    if ($row2['Hoogte_min'] == 0 && $row2['Hoogte_min'] == 0) {
+                                    
+                                    $result3 = getSQLArray("SELECT Hoogte_min, Hoogte_max FROM plant WHERE PrijsID=" . $row2['PrijsID']);
+                                    $plantHoogte = $result3->fetch();
+                                    if ($plantHoogte['Hoogte_min'] == 0 && $plantHoogte['Hoogte_min'] == 0) {
                                         print("<td></td>");
-                                    } elseif ($row2['Hoogte_min'] == $row2['Hoogte_max']) {
-                                        print("<td>" . $row2['Hoogte_min'] . "</td>");
+                                    } elseif ($plantHoogte['Hoogte_min'] == $plantHoogte['Hoogte_max']) {
+                                        print("<td>" . $plantHoogte['Hoogte_min'] . "</td>");
                                     } else {
-                                        print("<td>" . $row2['Hoogte_min'] . "/" . $row2['Hoogte_max'] . "</td>");
+                                        print("<td>" . $plantHoogte['Hoogte_min'] . "/" . $plantHoogte['Hoogte_max'] . "</td>");
                                     }
                                     print("<td>" . $row2['PrijsKwekerij'] . "</td>
                                     <td>" . $row2['PrijsVBA'] . "</td>
