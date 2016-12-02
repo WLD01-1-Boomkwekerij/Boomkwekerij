@@ -40,19 +40,8 @@ function markupText(type, parameter)
  */
 function saveTextToDatabase(text, textID)
 {    
-    var xmlhttp = new XMLHttpRequest();
-    
-    var regex = new RegExp('&nbsp;', 'g');
-    text = text.replace(regex, ' ');
-    console.log(text);
-    
+    var xmlhttp = new XMLHttpRequest();    
     xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlText=" + text + "&textID=" + textID, true);
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            console.log(xmlhttp.responseText);
-        }
-    };
     xmlhttp.send();
 }
 
@@ -316,13 +305,6 @@ document.onkeydown = document.onkeyup = function (e)
     {
         document.execCommand("undo", false);
         return false;
-    }
-
-    //Enter
-    if (map[13])
-    {
-        //  markupText("insertHTML", "<br><br>");
-        //  return false;
     }
     //Tab
     if (map[9])
