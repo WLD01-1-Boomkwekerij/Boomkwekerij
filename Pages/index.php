@@ -2,12 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title class="notranslate">Boomkwekerij - Aanbiedingen</title>
+        <title class="notranslate">&#21328; Boomkwekerij - Aanbiedingen</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <?php
         session_start();
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
+        print("<link href='../Css/EditableStyle.css' rel='stylesheet' type='text/css'>");
         print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
         print("<script src='../Javascript/InformationEditing.js'></script>");
         // }

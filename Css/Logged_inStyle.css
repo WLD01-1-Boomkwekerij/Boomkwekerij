@@ -1,0 +1,21 @@
+h4{
+    text-decoration: underline;
+}
+
+#editkader{
+    align-content: center;
+}
+
+#maincontent{
+    width: 100%;
+}
+
+table, th, td {
+    border: black solid 1px ;
+    border-collapse: collapse;
+}
+
+input {
+    max-width: 200px;
+    min-width: 100px;
+}

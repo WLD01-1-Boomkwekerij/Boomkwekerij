@@ -35,9 +35,9 @@
                     </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                     <h3>Catalogus</h3>
                     <ul id="catalogus">
-                        <?php 
-                         $sqlCategory = getSQLArray("SELECT * FROM category");
-                        while($row = $sqlCategory->fetch()){
+                        <?php
+                        $sqlCategory = getSQLArray("SELECT * FROM category");
+                        while ($row = $sqlCategory->fetch()) {
                             $categoryNaam = $row["CategoryNaam"];
                             $id = $row["CategoryID"];
                             echo "<a href='http://localhost:8080/pages/catalog.php?category=$id'><li>$categoryNaam</li></a>";
@@ -47,16 +47,16 @@
                 </section>
                 <section id="maincontent">
                     <?php
-                    if(!isset($_GET['category'])){
+                    if (!isset($_GET['category'])) {
                         $category = 1;
-                    }else {
+                    } else {
                         $category = $_GET['category'];
                     }
                     $sqlCategory = getSQLArray("SELECT * FROM category WHERE CategoryID = $category");
                     $categoryRegel = $sqlCategory->fetch();
                     $categoryNaam = $categoryRegel["CategoryNaam"];
-                    echo "<h1>$categoryNaam</h1>";  
-                    
+                    echo "<h1>$categoryNaam</h1>";
+
                     $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE CategoryID = $category");
                     while ($row = $sqlPrijs->fetch()) {
                         $prijsID = $row["PrijsID"];
@@ -69,54 +69,65 @@
                         $perTray = $row["ProductenTray"];
                         $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PrijsID = $prijsID");
                         while ($plant = $sqlPlant->fetch()) {
+                            
+                        
+                            
                             $naam = $plant['Naam'];
+                            
                             echo "<div class='item'>
                             <div>
+                           <table>
+                                    <tr>
+                                        <td>Naam:</td>
+                                        <td>$naam</td>
+                                            <tr>
+                                        <td>Groep</td>
+                                        <td>...</td>
+                                  
+                                </table>
                             <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
                             </div>
-                                <table>
-                                    <tr>
-                                        <td>naam:</td>
-                                        <td>$naam</td>
-                                    </tr>
-                                    <tr>
-                                        <td>potmaat:</td>
-                                        <td>$potmaat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>hoogte:</td>
-                                        <td>$hoogte</td>
-                                    </tr>
-                                    <tr>
-                                        <td>prijs kwekerij:</td>
-                                        <td>$prijsKwekerij</td>
-                                    </tr>
-                                    <tr>
-                                        <td>prijs VBA:</td>
-                                        <td>$prijsVBA</td>
-                                    </tr>
-                                    <tr>
-                                        <td>per cc:</td>
-                                        <td>$perCC</td>
-                                    </tr>
-                                    <tr>
-                                        <td>per laag:</td>
-                                        <td>$perLaag</td>
-                                    </tr>
-                                    <tr>
-                                        <td>per tray:</td>
-                                        <td>$perTray</td>
-                                    </tr>
-                                </table>
+                               
                             </div>";
+
+                            
                         }
+                        
+                        
                     }
+                    echo "<div class='item'>
+                            <div>
+                             <table>
+                             <form method='post' action='../php/toevoegen.php'>
+                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
+                               
+                                <td><label>Naam:</label></td>
+                                <td><input id='name' name='name'type='tekst'></td>
+                                <tr>
+                                <td><label>Soort:</label></td>
+                                <td>
+                                <select name='groep'>";
+                                $sqlPrijs = getSQLArray("SELECT * FROM prijs");
+                                while ($row = $sqlPrijs->fetch()) {
+                                    $naamPrijs = $row["Naam"];
+                                    $IDPrijs = $row["PrijsID"];
+                                    echo "<option value='$IDPrijs'>$naamPrijs</option>";
+                                }
+                                 echo "</select>
+                                </td>
+                                 </table>
+                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
+                            </div>
+                               
+                            </div>";
                     ?>   
+
+
                 </section>
             </section>
         </section>
-        <?php
-        include '../Php/footer.php';
-        ?>
+<?php
+include '../Php/footer.php';
+?>
     </body>
 </html> 
