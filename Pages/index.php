@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title class="notranslate">&#127795; Boomkwekerij - Aanbiedingen</title>
+        <title class="notranslate">&#21328; Boomkwekerij - Aanbiedingen</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
         <?php
