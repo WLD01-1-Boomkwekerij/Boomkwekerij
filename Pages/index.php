@@ -2,8 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title class="notranslate">&#21328; Boomkwekerij - Aanbiedingen</title>
+        <title class="notranslate">Boomkwekerij - Aanbiedingen</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
