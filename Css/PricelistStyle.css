@@ -8,6 +8,10 @@
     padding-top: 2px;
 }
 
+.pricelist{
+    width: 100%;
+}
+
 h2{
     font-size: 20px;
     line-height: 20px;
@@ -31,3 +35,4 @@ h2{
     width: 60px;
     background-color: aqua; 
 }
+
