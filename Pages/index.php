@@ -30,12 +30,12 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
-                    <?php 
+                    <?php
                     include '../Php/rightmenu.php';
                     ?>
                 </section>
                 <section id="maincontent">
-                    
+
                     <?php
                     //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
                     print("<div ");
@@ -43,7 +43,7 @@
                         print("class='ContentEditable'");
                     }
                     print("id = 'textID1'>");
-                    print(loadTextFromDB(1));
+                    loadTextFromDB(1);
                     print("</div>");
                     ?>
                 </section>

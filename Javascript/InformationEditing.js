@@ -39,9 +39,20 @@ function markupText(type, parameter)
  * @param {type} textID
  */
 function saveTextToDatabase(text, textID)
-{
+{    
     var xmlhttp = new XMLHttpRequest();
+    
+    var regex = new RegExp('&nbsp;', 'g');
+    text = text.replace(regex, ' ');
+    console.log(text);
+    
     xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlText=" + text + "&textID=" + textID, true);
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            console.log(xmlhttp.responseText);
+        }
+    };
     xmlhttp.send();
 }
 
@@ -87,66 +98,16 @@ function restoreSelectorPoint(savedSel)
     }
 }
 
-
+/**
+ * Insert a link at the saved selector point
+ * @param {type} name
+ * @param {type} url
+ */
 function insertLink(name, url)
 {
     var linkHTML = "<a href='"+url+"'>"+name+"</a>";
     restoreSelectorPoint(savedSelectorPoint);    
-    document.execCommand("insertHTML", false, linkHTML);
-}
-
-function createButton(type)
-{
-    var button = createElement("button");
-
-    switch (type)
-    {
-        case "justifyLeft":
-            button.className = "fa fa-align-left";
-            break;
-        case "justifyCenter":
-            button.className = "fa fa-align-justify";
-            break;
-        case "justifyRight":
-            button.className = "fa fa-align-right";
-            break;
-        case "insertOrderedList":
-            button.className = "fa fa-list-ol";
-            break;
-        case "insertUnorderedList":
-            button.className = "fa fa-list-ul";
-            break;
-        default:
-            button.className = "fa fa-" + type;
-            break;
-    }
-
-    switch (type)
-    {
-        case "image":
-            button.onclick = function ()
-            {
-                // insertImage();
-            };
-            break;
-        case "link":
-            button.onclick = function ()
-            {
-                if (!isLinkWindowOpen) {
-                    createLink();
-                }
-                isLinkWindowOpen = true;
-            };
-            break;
-        default:
-            button.onclick = function ()
-            {
-                markupText(type);
-            };
-            break;
-    }
-
-    return button;
+    markupText("insertHTML", linkHTML);
 }
 
 function createLink()
@@ -217,6 +178,60 @@ function createLink()
         isLinkWindowOpen = false;
     };
     linkDiv.appendChild(cancel);
+}
+
+function createButton(type)
+{
+    var button = createElement("button");
+
+    switch (type)
+    {
+        case "justifyLeft":
+            button.className = "fa fa-align-left";
+            break;
+        case "justifyCenter":
+            button.className = "fa fa-align-justify";
+            break;
+        case "justifyRight":
+            button.className = "fa fa-align-right";
+            break;
+        case "insertOrderedList":
+            button.className = "fa fa-list-ol";
+            break;
+        case "insertUnorderedList":
+            button.className = "fa fa-list-ul";
+            break;
+        default:
+            button.className = "fa fa-" + type;
+            break;
+    }
+
+    switch (type)
+    {
+        case "image":
+            button.onclick = function ()
+            {
+                // insertImage();
+            };
+            break;
+        case "link":
+            button.onclick = function ()
+            {
+                if (!isLinkWindowOpen) {
+                    createLink();
+                }
+                isLinkWindowOpen = true;
+            };
+            break;
+        default:
+            button.onclick = function ()
+            {
+                markupText(type);
+            };
+            break;
+    }
+
+    return button;
 }
 
 /**
@@ -315,6 +330,11 @@ document.onkeydown = document.onkeyup = function (e)
         markupText("insertHTML", "&emsp;");
         return false;
     }
+    
+    //if(map[32]){
+    //    markupText("insertHTML", "&nbsp;");
+    //    return false;
+   // }
 };
 
 //Jquery Code
