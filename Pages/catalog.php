@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <?php include'/../Php/Database.php';
 ?>
 <html>
@@ -99,14 +99,14 @@
                             <div>
                              <table>
                              <form method='post' action='../php/toevoegen.php'>
-                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
+                                
                                
                                 <td><label>Naam:</label></td>
                                 <td><input id='name' name='name'type='tekst'></td>
                                 <tr>
                                 <td><label>Soort:</label></td>
                                 <td>
-                                <select name='groep'>";
+                                <select id='groep' name='groep'>";
                                 $sqlPrijs = getSQLArray("SELECT * FROM prijs");
                                 while ($row = $sqlPrijs->fetch()) {
                                     $naamPrijs = $row["Naam"];
@@ -115,10 +115,22 @@
                                 }
                                  echo "</select>
                                 </td>
+                                <tr>
+                                <td>Min.Hoogte:</td>
+                                <td><input name='hoogte_min' type='text'></td>
+                                <tr>
+                                <td>Max.Hoogte:</td>
+                                <td><input name='hoogte_max' type='text'></td>
+                                <tr>
+                                <td>Bloeitijd:</td>
+                                <td><input name='bloeitijd' type='text'> </td>
+                                <tr>
+                                <td>Bloeiwijze:</td>
+                                <td><input name='bloeiwijze' type='text'></td>
                                  </table>
                             <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
                             </div>
-                               
+                               <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
                             </div>";
                     ?>   
 
@@ -130,4 +142,4 @@
 include '../Php/footer.php';
 ?>
     </body>
-</html> 
+</html>

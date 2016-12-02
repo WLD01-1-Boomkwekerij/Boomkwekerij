@@ -3,10 +3,13 @@
 include'/../Php/Database.php';
 $Naam = $_POST['name'];
 $PrijsID = $_POST['groep'];
-$sql = "INSERT INTO plant (Naam, PrijsID, PlantGroepID) VALUES ('$Naam', $PrijsID,1)";
+$Hoogte_Min = $_POST['hoogte_min'];
+$Hoogte_Max = $_POST['hoogte_max'];
+$bloeitijd = $_POST['bloeitijd'];
+$bloeiwijze = $_POST['bloeiwijze'];
+$sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Bloeiwijze) VALUES ('$Naam', $PrijsID, $Hoogte_Min, $Hoogte_Max, '$bloeitijd', '$bloeiwijze')";
 
 // prepare sql and bind parameters
-echo $sql;
 doSQL($sql);
     
 ?>
