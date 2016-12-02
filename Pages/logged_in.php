@@ -62,7 +62,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                     }
                     ?>
 
-                    <h4>Gebruikers beheren</h4>   
+                    <h4>Gebruikers beheren</h4> 
+                    <h5>Nieuw gebruiker toevoegen</h5>
                     <form  action="logged_in.php" method="post">
                         <table>
                             <tr>
@@ -71,7 +72,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                 <th>Krijgt notifactie</th>
                                 <th>Wachtwoord</th>
                                 <th>Wachtwoord opnieuw</th>
-                                <th>Type</th>
+                                <th>Rechten</th>
                                 <th>Toevoegen</th>
                             </tr>
                             <tr>
@@ -84,18 +85,55 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     </select> 
                                 </td>
                                 <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
-                                <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="4" required></td>
+                                <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
                                 <td> 
-                                    <select name="rol"tabindex="4">
+                                    <select name="rol" tabindex="6">
                                         <option value="beheerder">Beheerder</option>
                                         <option value="mederwerker">Medewerker</option>
                                         <option value="vertaler">Vertaler</option>
                                     </select> 
                                 </td>
-                                <td><input type="submit" name="submit" value="Toevoegen" tabindex="5"/></td>
-                            <tr>
-                        </table>    
+                                <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td>
+                            </tr>
+                        </table>
                     </form>
+                    <?php
+                    include_once '../Php/Database.php';
+                    $gebruikers = getSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker');
+                    ?>
+                    <h5>Gebruikers wijzigen</h5>
+                    <?php
+                    ?>
+                    <table>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Email</th>
+                            <th>Rechten</th>
+                            <th>Bewerken</th>
+                        </tr>
+                        <?php
+                        while ($rij = $gebruikers->fetch()) {
+                            ?>
+                            <tr>
+                                <td> <?php print($rij['Naam']); ?> </td>
+                                <td> <?php print($rij['Email']); ?> </td>
+                                <td> <?php
+                                    if ($rij['Rol'] == '1') {
+                                        $rij['Rol'] = 'Beheerder';
+                                    } elseif ($rij['Rol'] == '2') {
+                                        $rij['Rol'] = 'Medewerker';
+                                    } elseif ($rij['Rol'] == '3') {
+                                        $rij['Rol'] = 'Vertaler';
+                                    }
+                                    print($rij['Rol']);
+                                    ?></td>
+                                <td><form action="edit.php" method="POST">
+                                        <input type='hidden' name='gebruiker' value="<?php print($rij['GebruikerID']) ?>" />
+                                        <input type="submit" name="submit" value="Bewerken"/>
+                                    </form></td>
+                            <?php } ?>
+                        </tr>
+                    </table>
                 </section>
             </section>
         </section>

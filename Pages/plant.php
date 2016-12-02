@@ -12,7 +12,7 @@
         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
         <?php
         session_start();
-        
+
         include_once '../Php/DatabaseInformation.php';
 
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
@@ -39,9 +39,9 @@
             <section id="mid">
                 <section id="rightmenu">
                     <?php
-                    if(isset($_GET["plant"])) {
+                    if (isset($_GET["plant"])) {
                         $plant = $_GET["plant"];
-                    }else {
+                    } else {
                         $plant = 3;
                     }
                     $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = $plant)");
@@ -95,18 +95,17 @@
                 <section id="maincontent">
                     <?php echo $naam; ?>
                     <section id="PhotoFrame">
-                        <?php 
+                        <?php
                         $EersteFoto = getSQLArray("SELECT * FROM plantfoto WHERE PlantenID = $plant AND TypeFoto = 1");
                         $EersteFotoRegel = $EersteFoto->fetch();
-                        $EersteFotoUrl = $EersteFotoRegel["FotoUrl"]; 
+                        $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
                         echo "<img id='ImageFrame' src='../Catalogus fotos/$EersteFotoUrl'>";
-                                
                         ?>
                         <div id="Positioner">             
                             <?php
                             $Fotoos = getSQLArray("SELECT * FROM plantfoto  WHERE PlantenID = $plant");
-                            while ($row = $Fotoos->fetch()){ 
-                                $url = $row["FotoUrl"]; 
+                            while ($row = $Fotoos->fetch()) {
+                                $url = $row["FotoUrl"];
                                 echo "<img onclick='ChangeImage()' class='UnderImage' src='../Catalogus fotos/$url'>";
                             }
                             ?>
