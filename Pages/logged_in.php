@@ -12,7 +12,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Boomkwekerij - Catalogus</title>
+        <title>Boomkwekerij - Beheerderspagina</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
         <?php
@@ -24,11 +24,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
         ?>
     </head>
     <body>
-        <script>
-            function chooseFile() {
-                $("#fileInput").click();
-            }
-        </script>
         <section id="wrapper">
             <section id="top">
                 <section id="header"></section>
@@ -37,98 +32,70 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                 ?>
             </section>
             <section id="mid">
-                <section id="rightmenu">
-                    <h3>Catalogus</h3>
-                    <ul id="catalogus">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </section>
                 <section id="maincontent">
-                    <button title="Click to show/hide content" type="button" onclick="if (document.getElementById('spoiler1').style.display === 'none') {
-                            document.getElementById('spoiler1').style.display = '';
+                    <h1>Beheerderspagina</h1>
+                    <?php
+                    if (isset($_POST['submit'])) {
+                        if ($_POST['Wachtwoord1'] != $_POST['Wachtwoord2']) {
+                            print ('Wachtwoorden zijn niet hetzelfde, probeer het opnieuw.');
                         } else {
-                            document.getElementById('spoiler1').style.display = 'none';
-                        }">Catalogusproduct toevoegen</button>
+                            print('Wilt u de volgende gebruiker toevoegen?<br>'
+                                    . 'Naam: ' . $_POST['gebr_naam'] . '<br>'
+                                    . 'Email: ' . $_POST['gebr_mail'] . '<br>'
+                                    . 'Krijgt mail: ');
+                            if ($_POST['krijgt_mail'] == 0) {
+                                print('nee <br>');
+                            } else {
+                                print('ja <br>');
+                            }
+                            print('Type gebruiker: ' . $_POST['rol'] . '<br>');
+                        }
+                        ?>
+                        <form action="add.php" method="post">
+                            <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
+                            <input type="submit" name="submit" value="Toevoegen"/>
+                        </form>
+                        <form action="logged_in.php" method="post">
+                            <input type="submit" name="cancel" value="Annuleren"/>
+                        </form>  
+                        <?php
+                    }
+                    ?>
 
-                    <button title="Click to show/hide content" type="button" onclick="if (document.getElementById('spoiler2').style.display === 'none') {
-                            document.getElementById('spoiler2').style.display = '';
-                        } else {
-                            document.getElementById('spoiler2').style.display = 'none';
-                        }">Catalogusproduct verwijderen</button>
-
-                    <button title="Click to show/hide content" type="button" onclick="if (document.getElementById('spoiler3').style.display === 'none') {
-                            document.getElementById('spoiler3').style.display = '';
-                        } else {
-                            document.getElementById('spoiler3').style.display = 'none';
-                        }">Nieuwsartikel toevoegen</button>
-
-                    <button title="Click to show/hide content" type="button" onclick="if (document.getElementById('spoiler4').style.display === 'none') {
-                            document.getElementById('spoiler4').style.display = '';
-                        } else {
-                            document.getElementById('spoiler4').style.display = 'none';
-                        }">Gebruikers beheren</button>
-                    <section id="editkader">
-                        <div id="spoiler1" style="display:none"> 
-                            <h4>Catalogusproduct toevoegen</h4>
-                                <form method="post" action="../Php/config.php">
-                                    <table border="1">
-                                        <th>Nr.</th>
-                                        <th>Potmaat</th>
-                                        <th>Hoogte</th>
-                                        <th>Prijs Kwek.</th>
-                                        <th>Prijs VBA</th>
-                                        <th>Per cc</th>
-                                        <th>Per laag</th>
-                                        <th>Per tray</th>
-                                        <th>Afbeelding</th>
-                                        <tr>
-                                            <td><input name="nr" id="nr" type="text"></td>
-                                            <td><input name="potmaat"  id="potmaat" type="text"></td>
-                                            <td><input name="hoogte" id="hoogte" type="text"></td>
-                                            <td><input name="prijskwek" id="prijskwek" type="text"></td>
-                                            <td><input name="prijsvba" id="prijsvba" type="text"></td>
-                                            <td><input name="percc" id="percc" type="text"></td>
-                                            <td><input name="perlaag" id="perlaag" type="text"></td>
-                                            <td><input name="pertray" id="pertray" type="text"></td>
-                                            <td><button type="button"  onclick="chooseFile();">Afbeelding uploaden</button>
-                                            </td>
-                                    </table>
-                                    <br>
-                                    <input type="submit" id="btntoevoegen" value="Toevoegen">
-                                </form>
-                        </div>
-                        <div id="spoiler2" style="display:none"> 
-                            <form>
-                                <table border="1">
-                                    <th>Test</th>
-
-                                </table>
-                            </form>
-                        </div> 
-                        <div id="spoiler3" style="display:none"> 
-                        </div>
-                        <div id="spoiler4" style="display:none"> 
-                            <center><h4><u>Gebruikers beheren</u></h4>  
-                                <forum>
-                                    <table border="1">
-                                        <th class="ContentEditable">ID</th>
-                                        <th>Naam</th>
-                                        <th>Email</th>
-                                        <th>Type</th>
-                                        <th>Verwijderen</th>
-                                        <tr>
-                                            <td><input name="gebr_id" id="gebr_id" type="text"></td>
-                                            <td><input name="gebr_naam" id="gebr_naam" type="text"></td>
-                                            <td><input name="gebr_email" id="gebr_email" type="text"></td>
-                                            <td><input name="gebr_type" id="gebr_type" type="text"></td>
-                                    </table>    
-                                </forum>
-                            </center>
-                        </div>
-                    </section>
+                    <h4>Gebruikers beheren</h4>   
+                    <form  action="logged_in.php" method="post">
+                        <table>
+                            <tr>
+                                <th>Naam</th>
+                                <th>Email</th>
+                                <th>Krijgt notifactie</th>
+                                <th>Wachtwoord</th>
+                                <th>Wachtwoord opnieuw</th>
+                                <th>Type</th>
+                                <th>Toevoegen</th>
+                            </tr>
+                            <tr>
+                                <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required></td>
+                                <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required></td>
+                                <td>
+                                    <select name="krijgt_mail" tabindex="3">
+                                        <option value="0">Nee</option>
+                                        <option value="1">Ja</option>
+                                    </select> 
+                                </td>
+                                <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
+                                <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="4" required></td>
+                                <td> 
+                                    <select name="rol"tabindex="4">
+                                        <option value="beheerder">Beheerder</option>
+                                        <option value="mederwerker">Medewerker</option>
+                                        <option value="vertaler">Vertaler</option>
+                                    </select> 
+                                </td>
+                                <td><input type="submit" name="submit" value="Toevoegen" tabindex="5"/></td>
+                            <tr>
+                        </table>    
+                    </form>
                 </section>
             </section>
         </section>
