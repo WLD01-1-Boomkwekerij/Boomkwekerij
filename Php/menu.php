@@ -1,4 +1,5 @@
 <section id="topmenu">
+    <link rel="plant icon" href="../Images/plant_icon.png">
     <ul>
         <li><a href="../pages/index.php">Home</a></li>
         <li><a href="../pages/news.php">Aanbiedingen</a></li>
