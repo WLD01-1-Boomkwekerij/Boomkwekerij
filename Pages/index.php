@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title class="notranslate">Boomkwekerij - Aanbiedingen</title>
+        <title class="notranslate">&#127795; Boomkwekerij - Aanbiedingen</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <?php
         session_start();
