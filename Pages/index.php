@@ -4,10 +4,11 @@
         <meta charset="UTF-8">
         <title class="notranslate">&#127795; Boomkwekerij - Aanbiedingen</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
         <?php
         session_start();
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
+        print("<link href='../Css/EditableStyle.css' rel='stylesheet' type='text/css'>");
         print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
         print("<script src='../Javascript/InformationEditing.js'></script>");
         // }
