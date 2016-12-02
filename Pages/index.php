@@ -41,7 +41,31 @@
                     loadTextFromDB(1);
                     print("</div>");
                     ?>
+                    <br>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <!--BESTANDS BEHEERDER -->
+                    <div>
+                        
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 </section>
+                
             </section>
         </section>
         <?php

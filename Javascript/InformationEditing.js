@@ -149,7 +149,6 @@ function createLink()
     submit.onclick = function ()
     {
         insertLink(linkName.value, linkInput.value);
-        console.log(linkName.value + " , " + linkInput.value);
         linkDiv.parentNode.removeChild(linkDiv);
         isLinkWindowOpen = false;
     };
