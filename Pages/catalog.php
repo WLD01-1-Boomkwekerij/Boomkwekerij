@@ -73,6 +73,7 @@
                         
                             
                             $naam = $plant['Naam'];
+                            
                             echo "<div class='item'>
                             <div>
                            <table>
@@ -89,28 +90,36 @@
                                
                             </div>";
 
-                            echo "<div class='item'>
+                            
+                        }
+                        
+                        
+                    }
+                    echo "<div class='item'>
                             <div>
                              <table>
-                             <form metho='post' action='../php/toevoegen.php'>
+                             <form method='post' action='../php/toevoegen.php'>
                                 <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
-                                
+                               
                                 <td><label>Naam:</label></td>
                                 <td><input id='name' name='name'type='tekst'></td>
                                 <tr>
                                 <td><label>Soort:</label></td>
                                 <td>
-                                <select>
-                                <option>SJIT1<option>
-                                </select>
+                                <select name='groep'>";
+                                $sqlPrijs = getSQLArray("SELECT * FROM prijs");
+                                while ($row = $sqlPrijs->fetch()) {
+                                    $naamPrijs = $row["Naam"];
+                                    $IDPrijs = $row["PrijsID"];
+                                    echo "<option value='$IDPrijs'>$naamPrijs</option>";
+                                }
+                                 echo "</select>
                                 </td>
                                  </table>
                             <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
                             </div>
                                
                             </div>";
-                        }
-                    }
                     ?>   
 
 
