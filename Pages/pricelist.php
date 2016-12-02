@@ -24,6 +24,7 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
+                    
                     <?php
                     include '../Php/rightmenu.php';
                     ?>
