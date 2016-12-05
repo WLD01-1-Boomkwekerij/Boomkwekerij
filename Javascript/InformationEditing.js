@@ -33,6 +33,11 @@ function markupText(type, parameter)
     }
 }
 
+function insertImage()
+{
+    createManager();
+}
+
 /**
  * Saves the provided text to the database
  * @param {type} text
@@ -199,7 +204,7 @@ function createButton(type)
         case "image":
             button.onclick = function ()
             {
-                // insertImage();
+                insertImage();
             };
             break;
         case "link":
