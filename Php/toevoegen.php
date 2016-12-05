@@ -9,7 +9,11 @@ $bloeitijd = $_POST['bloeitijd'];
 $bloeiwijze = $_POST['bloeiwijze'];
 $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Bloeiwijze) VALUES ('$Naam', $PrijsID, $Hoogte_Min, $Hoogte_Max, '$bloeitijd', '$bloeiwijze')";
 
+
+
 // prepare sql and bind parameters
 doSQL($sql);
+
+header('Refresh: 0; url=/pages/catalog.php');
     
 ?>
