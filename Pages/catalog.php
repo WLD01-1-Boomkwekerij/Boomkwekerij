@@ -107,7 +107,7 @@
                             <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
                             </form>
                             </div>
-                               <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2613'>
+                               <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>
                             </div>";
                         }
                     }
