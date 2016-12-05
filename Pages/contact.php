@@ -5,6 +5,7 @@
         <title class="notranslate">Boomkwekerij - Contact</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/ContactStyle.css" rel="stylesheet" type="text/css">
+        <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
         include_once '../Php/DatabaseInformation.php';

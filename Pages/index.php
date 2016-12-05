@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Aanbiedingen</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
@@ -43,84 +42,84 @@
                     ?>
                     <br>
                 </section>
-                
-                
-                
-                
-                <!--BESTANDS BEHEERDER -->
-                    <div id="FileManager">
-                        <div id="Files">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        <div id="BottomInfo">
-                            <button style="
-                                    position: absolute;
-                                    margin-left: 5px;
-                                    border: none;
-                                    bottom: 5px;
-                                    "
-                                    >Cancel</button>
-                            <button style="
-                                    position: absolute;
-                                    margin-right: 5px;
-                                    border: none;
-                                    bottom: 5px;
-                                    right: 5px;
-                                    " 
-                                    >Select</button>
-                            <div style="
-                                    position: absolute;
-                                    left: 50%;
-                                    top: 10px;
-                                 ">
-                                <div id="currentPathSelected" style="
-                                     position: relative;
-                                     background-color: beige;
-                                     width: 350px;
-                                     height: 30px;
-                                     box-shadow: 0px 0px 2px 0px black;
-                                     left: -50%;
-                                     "
-                                     ></div>
-                            </div>
 
+
+
+
+                <!--BESTANDS BEHEERDER -->
+                <div id="FileManager">
+                    <div id="Files">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div id="BottomInfo">
+                        <button style="
+                                position: absolute;
+                                margin-left: 5px;
+                                border: none;
+                                bottom: 5px;
+                                "
+                                >Cancel</button>
+                        <button style="
+                                position: absolute;
+                                margin-right: 5px;
+                                border: none;
+                                bottom: 5px;
+                                right: 5px;
+                                " 
+                                >Select</button>
+                        <div style="
+                             position: absolute;
+                             left: 50%;
+                             top: 10px;
+                             ">
+                            <div id="currentPathSelected" style="
+                                 position: relative;
+                                 background-color: beige;
+                                 width: 350px;
+                                 height: 30px;
+                                 box-shadow: 0px 0px 2px 0px black;
+                                 left: -50%;
+                                 "
+                                 >
+                            </div>
                         </div>
                     </div>
-                
-                
-                
-                
+                </div>
+
+
+
+
 
             </section>
         </section>

@@ -8,6 +8,7 @@
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link media="screen and (max-width:1288px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
         <link media="screen and (min-width:1288px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
+        <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
 
