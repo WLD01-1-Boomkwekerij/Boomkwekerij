@@ -71,7 +71,7 @@
                         while ($plant = $sqlPlant->fetch()) {
 
 
-
+                            $plantId = $plant['PlantID'];
                             $naam = $plant['Naam'];
                             $Hoogte_min = $plant['Hoogte_min'];
                             $Hoogte_max = $plant['Hoogte_max'];
@@ -82,7 +82,7 @@
                             <div>
                             <form method='post' action='delete.php'>
                            <table>
-                                    <tr>
+                                    <tr id='textid$plantId'>
                                         <td>Naam:</td>
                                         <td>$naam</td>
                                             <tr>
