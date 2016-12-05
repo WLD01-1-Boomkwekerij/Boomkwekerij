@@ -45,6 +45,7 @@ function createManager()
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function(){
         destroyManager();
+        document.body.style.overflow = "visible";
     };
     bottomInfo.appendChild(cancelButton);
 

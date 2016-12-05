@@ -241,11 +241,12 @@ function createButton(type)
  */
 function setContentEditable(element)
 {
-   
+
     if (!isEditorOpen) {
-         isEditorOpen = true;
+        isEditorOpen = true;
         element.contentEditable = true;
         element.className = "";
+        element.className = "ContentEditableOpen";
         element.style.backgroundColor = "white";
         element.style.border = "solid 2px black";
         element.addEventListener("focusout", saveSelectorPoint());
@@ -254,7 +255,7 @@ function setContentEditable(element)
 
         var editorDiv = createElement("div");
         editorDiv.id = "Editor";
-        
+
         editorDiv.style.position = "relative";
         parent.insertBefore(editorDiv, parent.childNodes[0]);
 
@@ -272,16 +273,6 @@ function setContentEditable(element)
             editorDiv.appendChild(createButton(buttonArray[i]));
         }
 
-        var saveButton = createElement("button");
-        saveButton.innerHTML = "Save";
-        saveButton.onclick = function ()
-        {
-            saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
-            //window.location.reload(false);
-        };
-        parent.appendChild(saveButton);
-        
-        
         var cancelButton = createElement("button");
         cancelButton.innerHTML = "Cancel";
         cancelButton.onclick = function ()
@@ -295,9 +286,16 @@ function setContentEditable(element)
             element.className = "ContentEditable";
             isEditorOpen = false;
         };
-        parent.appendChild(cancelButton);
 
-        
+        parent.appendChild(cancelButton);
+        var saveButton = createElement("button");
+        saveButton.innerHTML = "Save";
+        saveButton.onclick = function ()
+        {
+            saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
+            //window.location.reload(false);
+        };
+        parent.appendChild(saveButton);
     }
 }
 
@@ -327,8 +325,10 @@ function selectImage(imageID)
 var map = {};
 document.onkeydown = document.onkeyup = function (e)
 {
+
     e = e || event;
     map[e.keyCode] = e.type === "keydown";
+    console.log(map[e.keyCode]);
 
     //Redo and Undo
     if (map[17] && map[90] && map[16])
@@ -347,7 +347,9 @@ document.onkeydown = document.onkeyup = function (e)
         return false;
     }
 
-    if (map[32]) {
+    //Space
+    if (map[32] && e.target.className === "ContentEditableOpen") {
+        e.preventDefault();
         markupText("insertHTML", "&#8197;");
         return false;
     }
@@ -359,10 +361,10 @@ $(document).ready(function ()
 
     $(".ContentEditable").click(function ()
     {
-        if(!isEditorOpen){
+        if (!isEditorOpen) {
             setContentEditable($(this)[0]);
             isEditorOpen = true;
         }
-        
+
     });
 });
