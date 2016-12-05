@@ -9,11 +9,25 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
-function createManager() {
+function createManager()
+{
+    document.body.style.overflow = "hidden";
+
+    var backgroundColor = createElement("div");
+    backgroundColor.id = "BackgroundColor";
+    backgroundColor.style.backgroundColor = "Gray";
+    backgroundColor.style.opacity = "0.7";
+    backgroundColor.style.width = "100vw";
+    backgroundColor.style.height = "100vh";
+    backgroundColor.style.zIndex = "100";
+    backgroundColor.style.top = "0";
+    backgroundColor.style.left = "0";
+    backgroundColor.style.position = "fixed";
+    document.body.appendChild(backgroundColor);
 
     var managerDiv = createElement("div");
     managerDiv.id = "FileManager";
-    getElementById("wrapper").appendChild(managerDiv);
+    document.body.appendChild(managerDiv);
 
     var filesDiv = createElement("div");
     filesDiv.id = "Files";
@@ -29,6 +43,9 @@ function createManager() {
     cancelButton.style.border = "none";
     cancelButton.style.bottom = "5px";
     cancelButton.innerHTML = "Cancel";
+    cancelButton.onclick = function(){
+        destroyManager();
+    };
     bottomInfo.appendChild(cancelButton);
 
     var selectButton = createElement("button");
@@ -56,4 +73,11 @@ function createManager() {
     pathSelectedBar.style.boxShadow = "0px 0px 2px 0px black";
     pathSelectedBar.style.left = "-50%";
     positionSetter.appendChild(pathSelectedBar);
+}
+
+function destroyManager()
+{
+    isFileManagerOpen = false;
+    getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
+    getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
 }
