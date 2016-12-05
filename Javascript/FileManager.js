@@ -27,7 +27,7 @@ function createManager() {
     cancelButton.style.position = "absolute";
     cancelButton.style.marginLeft = "5px";
     cancelButton.style.border = "none";
-    cancelButton.bottom = "5px";
+    cancelButton.style.bottom = "5px";
     cancelButton.innerHTML = "Cancel";
     bottomInfo.appendChild(cancelButton);
 
