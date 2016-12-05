@@ -12,11 +12,10 @@
         <?php
         session_start();
 
-        //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
-        print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
-        print("<script src='../Javascript/InformationEditing.js'></script>");
-        // }
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+            
+            include '../Php/loggedInEditor.php';
+        }
         ?>
     </head>
     <body>

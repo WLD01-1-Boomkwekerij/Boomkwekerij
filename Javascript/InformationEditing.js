@@ -247,6 +247,7 @@ function setContentEditable(element)
         element.contentEditable = true;
         element.className = "";
         element.style.backgroundColor = "white";
+        element.style.border = "solid 2px black";
         element.addEventListener("focusout", saveSelectorPoint());
 
         var parent = element.parentNode;
@@ -289,6 +290,7 @@ function setContentEditable(element)
             saveButton.parentNode.removeChild(saveButton);
             cancelButton.parentNode.removeChild(cancelButton);
             element.contentEditable = false;
+            element.style.border = "solid 0px black";
             element.style.backgroundColor = element.parentNode.style.backgroundColor;
             element.className = "ContentEditable";
             isEditorOpen = false;
