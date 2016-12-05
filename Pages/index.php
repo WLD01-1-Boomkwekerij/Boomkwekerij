@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Aanbiedingen</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();

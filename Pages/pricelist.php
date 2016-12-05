@@ -5,6 +5,7 @@
         <title class="notranslate">Boomkwekerij - Prijslijst</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/PricelistStyle.css" rel="stylesheet" type="text/css">
+        <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
         //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
