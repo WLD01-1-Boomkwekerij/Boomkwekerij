@@ -74,9 +74,14 @@
 
 
                             $naam = $plant['Naam'];
+                            $Hoogte_min = $plant['Hoogte_min'];
+                            $Hoogte_max = $plant['Hoogte_max'];
+                            $bloeiwijze = $plant['Bloeiwijze'];
+                            $bloeitijd = $plant['Bloeitijd'];
 
                             echo "<div class='item'>
                             <div>
+                            <form method='post' action='delete.php'>
                            <table>
                                     <tr>
                                         <td>Naam:</td>
@@ -84,11 +89,25 @@
                                             <tr>
                                         <td>Groep</td>
                                         <td>...</td>
+                                        <tr>
+                                        <td>Min.Hoogte:</td>
+                                        <td>$Hoogte_min</td>
+                                              <tr>
+                                        <td>Max.Hoogte:</td>
+                                        <td>$Hoogte_max</td>
+                                              <tr>
+                                        <td>Bloeiwijze:</td>
+                                        <td>$bloeiwijze</td>
+                                              <tr>
+                                        <td>Bloeitijd:</td>
+                                        <td>$bloeitijd</td>
+                                            
                                   
                                 </table>
                             <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
+                            </form>
                             </div>
-                               
+                               <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2613'>
                             </div>";
                         }
                     }
