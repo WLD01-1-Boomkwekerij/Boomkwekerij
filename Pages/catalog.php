@@ -78,11 +78,11 @@
                             $bloeiwijze = $plant['Bloeiwijze'];
                             $bloeitijd = $plant['Bloeitijd'];
 
-                            echo "<div class='item'>
+                            echo "<div class='item' id='plantID$plantId'>
                             <div>
                             <form method='post' action='delete.php'>
-                           <table>
-                                    <tr id='textid$plantId'>
+                           <table >
+                                    <tr >
                                         <td>Naam:</td>
                                         <td>$naam</td>
                                             <tr>
@@ -104,10 +104,10 @@
                                   
                                 </table>
                             <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'> 
-                            <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'> 
+                            
                             </form>
                             </div>
-                               
+                            <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'> 
                             </div>";
                         }
                     }

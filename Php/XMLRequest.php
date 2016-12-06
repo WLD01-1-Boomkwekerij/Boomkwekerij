@@ -6,10 +6,6 @@ if (isset($_GET["htmlText"]) && isset($_GET["textID"])) {
     saveTextToDB($_GET["textID"], $_GET["htmlText"]);
 }
 
-if (isset($_GET["plantID"])) {
-    deletePlant($_GET["plantID"]);
-}
-
 if (isset($_GET["fileDirectory"])) {
     $dir = $_GET["fileDirectory"];
     $files1 = scandir($dir);
