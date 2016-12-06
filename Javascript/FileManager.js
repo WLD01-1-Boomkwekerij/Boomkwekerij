@@ -36,9 +36,9 @@ function createFileIcons(directory)
             for (var i = 0; i < fileArray.length; i++) {
                 
                 if(fileArray[i].includes(".")){
-                  
+                    createFileIcon();
                 }else{
-                    createFolder();
+                    createFolderIcon();
                 }
             }
         }
@@ -125,6 +125,6 @@ function destroyManager()
 $(document).ready(function(){
     
     $(".fileManagerFolder").dblclick(function(){
-        
+        console.log(this.tag);
     });
 });
