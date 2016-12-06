@@ -25,44 +25,80 @@
             <section id="mid">
                 <section id="maincontent">
                     <h4>Bewerken</h4>
-                    <form  action="logged_in.php" method="post">
+                    <form  action="update_delete.php" method="post">
                         <?php
+                        $gebruiker=$_POST["gebruiker"];
                         include_once '../Php/Database.php';
-                        $array = getSQLArray('SELECT * FROM boomkwekerij.gebruiker WHERE GebruikerID =' . $_POST["gebruiker"]);
-                        while ($data = $array->fetch()){
-                        print('<h5>' . $data['Naam'] . '</h5>');
-                        ?>
-                        <table>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Email</th>
-                                <th>Krijgt notifactie</th>
-                                <th>Wachtwoord</th>
-                                <th>Wachtwoord opnieuw</th>
-                                <th>Rechten</th>
-                                <th>Toevoegen</th>
-                            </tr>
-                            <tr>
-                        <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($_POST['Naam']); }?>"></td>
-                                <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required></td>
-                                <td>
-                                    <select name="krijgt_mail" tabindex="3">
-                                        <option value="0">Nee</option>
-                                        <option value="1">Ja</option>
-                                    </select> 
-                                </td>
-                                <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
-                                <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
-                                <td> 
-                                    <select name="rol"tabindex="6">
-                                        <option value="beheerder">Beheerder</option>
-                                        <option value="mederwerker">Medewerker</option>
-                                        <option value="vertaler">Vertaler</option>
-                                    </select> 
-                                </td>
-                                <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td>
-                            <tr>
-                        </table>
+                        $array = getSQLArray('SELECT * FROM boomkwekerij.gebruiker WHERE GebruikerID =' . $gebruiker);
+                        while ($data = $array->fetch()) {
+                            print('<h5>' . $data['Naam'] . '</h5>');
+                            ?>
+                            <table>
+                                <tr>
+                                    <th>Naam</th>
+                                    <th>Email</th>
+                                    <th>Krijgt notifactie</th>
+                                    <th>Wachtwoord</th>
+                                    <th>Rechten</th>
+                                    <th>Bewerken</th>
+                                    <th>Verwijderen</th>
+                                </tr>
+                                <tr>
+                                    <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($data['Naam']); ?>"></td>
+                                    <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required value="<?php print($data['Email']); ?>"></td>
+                                    <td>
+                                        <?php
+                                        if ($data['KrijgtEmail'] = 0) {
+                                            ?>
+                                            <select name="krijgt_mail" tabindex="3">
+                                                <option value="0" selected="selected">Nee</option>
+                                                <option value="1">Ja</option>
+                                            </select> 
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <select name="krijgt_mail" tabindex="3">
+                                                <option value="0">Nee</option>
+                                                <option value="1" selected="selected">Ja</option>
+                                            </select> 
+                                        <?php } ?>
+                                    </td>
+                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
+                                    <td> 
+                                        <?php
+                                        if ($data['Rol'] == '1') {
+                                            ?>          
+                                            <select name="rol" tabindex="6">
+                                                <option value="beheerder" selected="selected">Beheerder</option>
+                                                <option value="medewerker">Medewerker</option>
+                                                <option value="vertaler">Vertaler</option>
+                                            </select> 
+                                            <?php
+                                        } elseif ($data['Rol'] == '2') {
+                                            ?>          
+                                            <select name="rol" tabindex="6">
+                                                <option value="beheerder" >Beheerder</option>
+                                                <option value="medewerker" selected="selected">Medewerker</option>
+                                                <option value="vertaler">Vertaler</option>
+                                            </select> 
+                                            <?php
+                                        } elseif ($data['Rol'] == '3') {
+                                            ?>             
+                                            <select name="rol" tabindex="6">
+                                                <option value="beheerder" >Beheerder</option>
+                                                <option value="medewerker">Medewerker</option>
+                                                <option value="vertaler" selected="selected">Vertaler</option>
+                                            </select> 
+                                            <?php
+                                        }
+                                        ?>                                    
+                                    </td>
+                                    <td><input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" /><input type="submit" name="submit" value="Bewerken"/></td>
+                                    <td><input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" /><input type="submit" name="submit" value="Verwijderen"/></td>
+                                </tr>
+                            </table>
+                        <?php } ?>
+                    </form>
                 </section>
             </section>
         </section>
