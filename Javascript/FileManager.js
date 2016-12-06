@@ -11,14 +11,18 @@ function getElementById(id)
 
 function createFolderIcon()
 {
+    var fileManager = getElementById("Files");
     var folder = createElement("div");
     folder.className = "fileManagerFolder";
+    fileManager.appendChild(folder);
 }
 
 function createFileIcon()
 {
+    var fileManager = getElementById("Files");
     var file = createElement("div");
     file.className = "fileManagerFile";
+    fileManager.appendChild(file);
 }
 
 function createFileIcons(directory)
@@ -32,21 +36,22 @@ function createFileIcons(directory)
             var files = xmlhttp.responseText;
 
             var fileArray = files.split("*");
+            var arrayInt = fileArray.length % 4;
 
             for (var i = 0; i < fileArray.length; i++) {
-                
-                if(fileArray[i].includes(".")){
-                  
-                }else{
-                    createFolder();
+
+
+
+                if (fileArray[i].includes(".")) {
+                    createFileIcon();
+                } else {
+                    createFolderIcon();
                 }
             }
         }
     };
     xmlhttp.send();
 }
-
-createFileIcons("../Catalogus fotos");
 
 function createManager()
 {
@@ -113,6 +118,8 @@ function createManager()
     pathSelectedBar.style.boxShadow = "0px 0px 2px 0px black";
     pathSelectedBar.style.left = "-50%";
     positionSetter.appendChild(pathSelectedBar);
+
+    createFileIcons("../Catalogus fotos");
 }
 
 function destroyManager()
@@ -122,9 +129,9 @@ function destroyManager()
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
 }
 
-$(document).ready(function(){
-    
-    $(".fileManagerFolder").dblclick(function(){
-        
+$(document).ready(function () {
+
+    $(".fileManagerFolder").dblclick(function () {
+        console.log(this.tag);
     });
 });
