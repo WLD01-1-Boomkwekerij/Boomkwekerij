@@ -33,3 +33,7 @@ h2{
     background-color: aqua; 
 }
 
+input{
+    width:100%;
+    min-width: 38px;
+}
