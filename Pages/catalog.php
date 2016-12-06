@@ -13,7 +13,7 @@
         session_start();
 
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-            
+
             include '../Php/loggedInEditor.php';
         }
         ?>
@@ -47,6 +47,13 @@
                 </section>
                 <section id="maincontent">
                     <?php
+                    include_once '../Php/DatabaseInformation.php';
+
+                    if (isset($_POST["plantID"])) {
+                        deletePlant($_POST["plantID"]);
+                    }
+
+
                     if (!isset($_GET['category'])) {
                         $category = 1;
                     } else {
@@ -78,10 +85,13 @@
                             $bloeiwijze = $plant['Bloeiwijze'];
                             $bloeitijd = $plant['Bloeitijd'];
 
+                            $hidden = "hidden";
+                            $position = "absolute";
+
                             echo "<div class='item' id='plantID$plantId'>
                             <div>
-                            <form method='post' action='delete.php'>
-                           <table >
+                            <form method='post' action=''>
+                           <table>
                                     <tr >
                                         <td>Naam:</td>
                                         <td>$naam</td>
@@ -100,27 +110,25 @@
                                               <tr>
                                         <td>Bloeitijd:</td>
                                         <td>$bloeitijd</td>
-                                            
+                                        <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
                                   
                                 </table>
                             <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'> 
                             
-                            </form>
                             </div>
-<<<<<<< HEAD
+
                               <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>  
-=======
-                            <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'> 
->>>>>>> 22df79d313afd0cdc834054eb26fa7007b31501c
+
+                            </form>
                             </div>";
                         }
                     }
-                    ?>
-                    <?php
+                    
+                  
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
 
-                    echo "<div class='item'>
+                        echo "<div class='item'>
                             <div>
                              <table>
                              <form method='post' action='../php/toevoegen.php'>
@@ -132,13 +140,13 @@
                                 <td><label>Groep:</label></td>
                                 <td>
                                 <select id='groep' name='groep'>";
-                    $sqlPrijs = getSQLArray("SELECT * FROM prijs");
-                    while ($row = $sqlPrijs->fetch()) {
-                    $naamPrijs = $row["Naam"];
-                    $IDPrijs = $row["PrijsID"];
-                    echo "<option value='$IDPrijs'>$naamPrijs</option>";
-                }
-                echo "</select>
+                        $sqlPrijs = getSQLArray("SELECT * FROM prijs");
+                        while ($row = $sqlPrijs->fetch()) {
+                            $naamPrijs = $row["Naam"];
+                            $IDPrijs = $row["PrijsID"];
+                            echo "<option value='$IDPrijs'>$naamPrijs</option>";
+                        }
+                        echo "</select>
                                 </td>
                                 <tr>
                                 <td>Min.Hoogte:</td>
@@ -157,9 +165,9 @@
                             </div>
                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
                             </div>";
-            }
-            ?>
-                   
+                    }
+                    ?>
+
 
 
                 </section>
