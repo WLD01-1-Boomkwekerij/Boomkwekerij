@@ -9,6 +9,45 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
+function createFolderIcon()
+{
+    var folder = createElement("div");
+    folder.className = "fileManagerFolder";
+}
+
+function createFileIcon()
+{
+    var file = createElement("div");
+    file.className = "fileManagerFile";
+}
+
+function createFileIcons(directory)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?fileDirectory=" + directory, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            var files = xmlhttp.responseText;
+
+            var fileArray = files.split("*");
+
+            for (var i = 0; i < fileArray.length; i++) {
+                
+                if(fileArray[i].includes(".")){
+                  
+                }else{
+                    createFolder();
+                }
+            }
+        }
+    };
+    xmlhttp.send();
+}
+
+createFileIcons("../Catalogus fotos");
+
 function createManager()
 {
     document.body.style.overflow = "hidden";
@@ -43,7 +82,7 @@ function createManager()
     cancelButton.style.border = "none";
     cancelButton.style.bottom = "5px";
     cancelButton.innerHTML = "Cancel";
-    cancelButton.onclick = function(){
+    cancelButton.onclick = function () {
         destroyManager();
         document.body.style.overflow = "visible";
     };
@@ -82,3 +121,10 @@ function destroyManager()
     getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
 }
+
+$(document).ready(function(){
+    
+    $(".fileManagerFolder").dblclick(function(){
+        
+    });
+});
