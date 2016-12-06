@@ -3,10 +3,14 @@
 //Saved Selection
 var savedSelectorPoint;
 var isLinkWindowOpen;
+var isFileManagerOpen;
+var isEditorOpen;
 
 window.onload = function ()
 {
     isLinkWindowOpen = false;
+    isFileManagerOpen = false;
+    isEditorOpen = false;
 };
 
 function createElement(element)
@@ -33,14 +37,23 @@ function markupText(type, parameter)
     }
 }
 
+function insertImage()
+{
+    if (!isFileManagerOpen) {
+        createManager();
+        isFileManagerOpen = true;
+    }
+
+}
+
 /**
  * Saves the provided text to the database
  * @param {type} text
  * @param {type} textID
  */
 function saveTextToDatabase(text, textID)
-{    
-    var xmlhttp = new XMLHttpRequest();    
+{
+    var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlText=" + text + "&textID=" + textID, true);
     xmlhttp.send();
 }
@@ -94,8 +107,8 @@ function restoreSelectorPoint(savedSel)
  */
 function insertLink(name, url)
 {
-    var linkHTML = "<a href='"+url+"'>"+name+"</a>";
-    restoreSelectorPoint(savedSelectorPoint);    
+    var linkHTML = "<a href='" + url + "'>" + name + "</a>";
+    restoreSelectorPoint(savedSelectorPoint);
     markupText("insertHTML", linkHTML);
 }
 
@@ -199,7 +212,7 @@ function createButton(type)
         case "image":
             button.onclick = function ()
             {
-                // insertImage();
+                insertImage();
             };
             break;
         case "link":
@@ -223,47 +236,67 @@ function createButton(type)
 }
 
 /**
- * Sets the clicked element editable and adds the editing system
+ * Togles the clicked element editable and adds the editing system
  * @param {type} element
  */
 function setContentEditable(element)
 {
-    element.contentEditable = true;
-    element.style.backgroundColor = "white";
-    element.className = "";
-    element.addEventListener("focusout", saveSelectorPoint());
 
-    var parent = element.parentNode;
+    if (!isEditorOpen) {
+        isEditorOpen = true;
+        element.contentEditable = true;
+        element.className = "";
+        element.className = "ContentEditableOpen";
+        element.style.backgroundColor = "white";
+        element.style.border = "solid 2px black";
+        element.addEventListener("focusout", saveSelectorPoint());
 
-    var editorDiv = createElement("div");
-    editorDiv.id = "Editor";
-    editorDiv.style.position = "relative";
-    parent.insertBefore(editorDiv, parent.childNodes[0]);
+        var parent = element.parentNode;
 
-    //Buttons
-    var buttonArray =
-            [
-                "bold", "italic", "underline",
-                "justifyLeft", "justifyCenter", "justifyRight",
-                "insertOrderedList", "insertUnorderedList",
-                "link", "image"
-            ];
+        var editorDiv = createElement("div");
+        editorDiv.id = "Editor";
 
-    for (var i = 0; i < buttonArray.length; i++)
-    {
-        editorDiv.appendChild(createButton(buttonArray[i]));
+        editorDiv.style.position = "relative";
+        parent.insertBefore(editorDiv, parent.childNodes[0]);
+
+        //Buttons
+        var buttonArray =
+                [
+                    "bold", "italic", "underline",
+                    "justifyLeft", "justifyCenter", "justifyRight",
+                    "insertOrderedList", "insertUnorderedList",
+                    "link", "image"
+                ];
+
+        for (var i = 0; i < buttonArray.length; i++)
+        {
+            editorDiv.appendChild(createButton(buttonArray[i]));
+        }
+
+        var cancelButton = createElement("button");
+        cancelButton.innerHTML = "Cancel";
+        cancelButton.onclick = function ()
+        {
+            editorDiv.parentNode.removeChild(editorDiv);
+            saveButton.parentNode.removeChild(saveButton);
+            cancelButton.parentNode.removeChild(cancelButton);
+            element.contentEditable = false;
+            element.style.border = "solid 0px black";
+            element.style.backgroundColor = element.parentNode.style.backgroundColor;
+            element.className = "ContentEditable";
+            isEditorOpen = false;
+        };
+
+        parent.appendChild(cancelButton);
+        var saveButton = createElement("button");
+        saveButton.innerHTML = "Save";
+        saveButton.onclick = function ()
+        {
+            saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
+            //window.location.reload(false);
+        };
+        parent.appendChild(saveButton);
     }
-
-
-    var saveButton = createElement("button");
-    saveButton.innerHTML = "Save";
-    saveButton.onclick = function ()
-    {
-        saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
-        //window.location.reload(false);
-    };
-
-    parent.appendChild(saveButton);
 }
 
 //Get image url from database
@@ -292,8 +325,10 @@ function selectImage(imageID)
 var map = {};
 document.onkeydown = document.onkeyup = function (e)
 {
+
     e = e || event;
     map[e.keyCode] = e.type === "keydown";
+    console.log(map[e.keyCode]);
 
     //Redo and Undo
     if (map[17] && map[90] && map[16])
@@ -311,8 +346,10 @@ document.onkeydown = document.onkeyup = function (e)
         markupText("insertHTML", "&emsp;");
         return false;
     }
-    
-    if(map[32]){
+
+    //Space
+    if (map[32] && e.target.className === "ContentEditableOpen") {
+        e.preventDefault();
         markupText("insertHTML", "&#8197;");
         return false;
     }
@@ -322,8 +359,12 @@ document.onkeydown = document.onkeyup = function (e)
 $(document).ready(function ()
 {
 
-    $(".ContentEditable").one("click", function ()
+    $(".ContentEditable").click(function ()
     {
-        setContentEditable($(this)[0]);
+        if (!isEditorOpen) {
+            setContentEditable($(this)[0]);
+            isEditorOpen = true;
+        }
+
     });
 });

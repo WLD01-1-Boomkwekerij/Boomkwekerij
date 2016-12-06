@@ -5,14 +5,14 @@
         <title class="notranslate">Boomkwekerij - Contact</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/ContactStyle.css" rel="stylesheet" type="text/css">
+        <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
         include_once '../Php/DatabaseInformation.php';
-        //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
-        print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
-        print("<script src='../Javascript/InformationEditing.js'></script>");
-        // }
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+            include_once '../Php/DatabaseInformation.php';
+            include '../Php/loggedInEditor.php';
+        }
         ?>
     </head>
     <body>

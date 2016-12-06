@@ -8,14 +8,14 @@
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link media="screen and (max-width:1288px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
         <link media="screen and (min-width:1288px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
+        <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
 
-        //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
-        print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
-        print("<script src='../Javascript/InformationEditing.js'></script>");
-        // }
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+            
+            include '../Php/loggedInEditor.php';
+        }
         ?>
     </head>
     <body>
@@ -71,21 +71,41 @@
                         while ($plant = $sqlPlant->fetch()) {
 
 
-
+                            $plantId = $plant['PlantID'];
                             $naam = $plant['Naam'];
+                            $Hoogte_min = $plant['Hoogte_min'];
+                            $Hoogte_max = $plant['Hoogte_max'];
+                            $bloeiwijze = $plant['Bloeiwijze'];
+                            $bloeitijd = $plant['Bloeitijd'];
 
                             echo "<div class='item'>
                             <div>
+                            <form method='post' action='delete.php'>
                            <table>
-                                    <tr>
+                                    <tr id='textid$plantId'>
                                         <td>Naam:</td>
                                         <td>$naam</td>
                                             <tr>
                                         <td>Groep</td>
                                         <td>...</td>
+                                        <tr>
+                                        <td>Min.Hoogte:</td>
+                                        <td>$Hoogte_min</td>
+                                              <tr>
+                                        <td>Max.Hoogte:</td>
+                                        <td>$Hoogte_max</td>
+                                              <tr>
+                                        <td>Bloeiwijze:</td>
+                                        <td>$bloeiwijze</td>
+                                              <tr>
+                                        <td>Bloeitijd:</td>
+                                        <td>$bloeitijd</td>
+                                            
                                   
                                 </table>
-                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
+                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'> 
+                            <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'> 
+                            </form>
                             </div>
                                
                             </div>";

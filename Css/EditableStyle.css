@@ -1,3 +1,4 @@
+
 .ContentEditable:hover
 {
     cursor: pointer;
@@ -37,11 +38,16 @@
 
 #FileManager
 {
-    margin-top: 400px;
+    position: fixed;
+    top: 10px;
+    left: 20%;
     background-color: bisque;
-    width: 800px;
-    height: 800px;
+    min-width: 400px;
+    width: 60vw;
+    height: 80vh;
     box-shadow: 0px 0px 12px 4px black;
+    z-index: 101;
+    opacity: 1;
 }
 
 #FileManager #Files
@@ -56,6 +62,8 @@
 {
     width: 22%;
     height: 26%;
+    min-height: 50px;
+    min-width: 150px;
     box-shadow: 0px 0px 4px 1px black;
     display: inline-block;
     margin: 1%;
@@ -70,3 +78,4 @@
     box-shadow: 0px -2px 4px 0px black;
     
 }
+

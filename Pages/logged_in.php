@@ -17,9 +17,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
         <?php
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-            print("<link href='../Css/EditableStyle.css' rel='stylesheet' type='text/css'>");
-            print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
-            print("<script src='../Javascript/InformationEditing.js'></script>");
+
+            include '../Php/loggedInEditor.php';
         }
         ?>
     </head>
@@ -34,10 +33,12 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
             <section id="mid">
                 <section id="maincontent">
                     <h1>Beheerderspagina</h1>
+                    <h4>Gebruikers beheren</h4> 
+                    <h5>Nieuw gebruiker toevoegen</h5>
                     <?php
                     if (isset($_POST['submit'])) {
                         if ($_POST['Wachtwoord1'] != $_POST['Wachtwoord2']) {
-                            print ('Wachtwoorden zijn niet hetzelfde, probeer het opnieuw.');
+                            print ('Wachtwoorden zijn niet hetzelfde, probeer het opnieuw.<br>');
                         } else {
                             print('Wilt u de volgende gebruiker toevoegen?<br>'
                                     . 'Naam: ' . $_POST['gebr_naam'] . '<br>'
@@ -49,55 +50,95 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                 print('ja <br>');
                             }
                             print('Type gebruiker: ' . $_POST['rol'] . '<br>');
-                        }
-                        ?>
-                        <form action="add.php" method="post">
-                            <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
-                            <input type="submit" name="submit" value="Toevoegen"/>
+                            ?>
+                            <form action="add.php" method="post">
+                                <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
+                                <input type="submit" name="submit" value="Toevoegen"/>
+                            </form>
+                            <form action="logged_in.php" method="post">
+                                <input type="submit" name="cancel" value="Annuleren"/>
+                            </form> 
+                        <?php } ?>
+
+
+                        <form  action="logged_in.php" method="post">
+                            <table>
+                                <tr>
+                                    <th>Naam</th>
+                                    <th>Email</th>
+                                    <th>Krijgt notifactie</th>
+                                    <th>Wachtwoord</th>
+                                    <th>Wachtwoord opnieuw</th>
+                                    <th>Rechten</th>
+                                    <th>Toevoegen</th>
+                                </tr>
+                                <tr>
+                                    <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($_POST['gebr_naam']); ?>"></td>
+                                    <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required value="<?php print($_POST['gebr_mail']); ?>"></td>
+                                    <td>
+                                        <select name="krijgt_mail" tabindex="3">
+                                            <?php if ($_POST['krijgt_mail'] == 1) { ?>
+                                                <option value="0">Nee</option>
+                                                <option value="1" selected="selected">Ja</option>
+                                            <?php } else { ?>
+                                                <option value="0">Nee</option>
+                                                <option value="1">Ja</option>
+                                            <?php }s ?>
+                                        </select> 
+                                    </td>
+                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
+                                    <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
+                                    <td> 
+                                        <select name="rol" tabindex="6">
+                                            <option value="beheerder">Beheerder</option>
+                                            <option value="mederwerker">Medewerker</option>
+                                            <option value="vertaler">Vertaler</option>
+                                        </select> 
+                                    </td>
+                                    <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td>
+                                </tr>
+                            </table>
                         </form>
-                        <form action="logged_in.php" method="post">
-                            <input type="submit" name="cancel" value="Annuleren"/>
-                        </form>  
+                        <?php
+                    } else {
+                        ?>
+                        <h4>Gebruikers beheren</h4> 
+                        <h5>Nieuw gebruiker toevoegen</h5>
+                        <form  action="logged_in.php" method="post">
+                            <table>
+                                <tr>
+                                    <th>Naam</th>
+                                    <th>Email</th>
+                                    <th>Krijgt notifactie</th>
+                                    <th>Wachtwoord</th>
+                                    <th>Wachtwoord opnieuw</th>
+                                    <th>Rechten</th>
+                                    <th>Toevoegen</th>
+                                </tr>
+                                <tr>
+                                    <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required></td>
+                                    <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required></td>
+                                    <td>
+                                        <select name="krijgt_mail" tabindex="3">
+                                            <option value="0">Nee</option>
+                                            <option value="1">Ja</option>
+                                        </select> 
+                                    </td>
+                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
+                                    <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
+                                    <td> 
+                                        <select name="rol" tabindex="6">
+                                            <option value="beheerder">Beheerder</option>
+                                            <option value="mederwerker">Medewerker</option>
+                                            <option value="vertaler">Vertaler</option>
+                                        </select> 
+                                    </td>
+                                    <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td>
+                                </tr>
+                            </table>
+                        </form>
                         <?php
                     }
-                    ?>
-
-                    <h4>Gebruikers beheren</h4> 
-                    <h5>Nieuw gebruiker toevoegen</h5>
-                    <form  action="logged_in.php" method="post">
-                        <table>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Email</th>
-                                <th>Krijgt notifactie</th>
-                                <th>Wachtwoord</th>
-                                <th>Wachtwoord opnieuw</th>
-                                <th>Rechten</th>
-                                <th>Toevoegen</th>
-                            </tr>
-                            <tr>
-                                <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required></td>
-                                <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required></td>
-                                <td>
-                                    <select name="krijgt_mail" tabindex="3">
-                                        <option value="0">Nee</option>
-                                        <option value="1">Ja</option>
-                                    </select> 
-                                </td>
-                                <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
-                                <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
-                                <td> 
-                                    <select name="rol" tabindex="6">
-                                        <option value="beheerder">Beheerder</option>
-                                        <option value="mederwerker">Medewerker</option>
-                                        <option value="vertaler">Vertaler</option>
-                                    </select> 
-                                </td>
-                                <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td>
-                            </tr>
-                        </table>
-                    </form>
-                    <?php
                     include_once '../Php/Database.php';
                     $gebruikers = getSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker');
                     ?>
