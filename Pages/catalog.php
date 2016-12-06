@@ -111,7 +111,7 @@
                                 <td>Bloeiwijze:</td>
                                 <td><input name='bloeiwijze' type='text'></td>
                                  </table>
-                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
+                            <img src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
                             </div>
                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
                                </form>
@@ -143,7 +143,7 @@
                                         <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
                                   
                                 </table>
-                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'> 
+                            <img src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'> 
                             
                             </div>
 
