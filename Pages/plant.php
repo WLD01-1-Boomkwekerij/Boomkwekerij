@@ -45,10 +45,9 @@
                         $plant = 3;
                     }
                     $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = $plant)");
-                    while ($row = $sqlPrijs->fetch()) {
+                    $row = $sqlPrijs->fetch();
                         $prijsID = $row["PrijsID"];
                         $potmaat = $row["Potmaat"];
-                        $hoogte = $row["Potmaat"];
                         $prijsKwekerij = $row["PrijsKwekerij"];
                         $prijsVBA = $row["PrijsVBA"];
                         $perCC = $row["ProductenCC"];
@@ -57,8 +56,23 @@
                         $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PlantID = $plant");
                         $plantRegel = $sqlPlant->fetch();
                         $naam = $plantRegel['Naam'];
+                        $hoogte = $plantRegel['Hoogte_min'] . "/" .  $plantRegel['Hoogte_max'];   ;
+                        if( $plantRegel['Hoogte_min'] == $plantRegel['Hoogte_max'] ){
+                            $hoogte =  $plantRegel['Hoogte_min']; 
+                        }
+                        $bloeitijd = $plantRegel['Bloeitijd'];
+                        $bloeiwijze = $plantRegel['Bloeiwijze'];
+                        
                         echo "<div class='item'>
                             <table>
+                                <tr>
+                                    <td>Bloeitijd:</td>
+                                    <td>$bloeitijd</td>
+                                </tr>
+                                <tr>
+                                    <td>Bloeiwijze:</td>
+                                    <td>$bloeiwijze</td>
+                                </tr>
                                 <tr>
                                     <td>potmaat:</td>
                                     <td>$potmaat</td>
@@ -89,21 +103,20 @@
                                 </tr>
                             </table>
                         </div>";
-                    }
                     ?>
                 </section>
                 <section id="maincontent">
                     <?php echo $naam; ?>
                     <section id="PhotoFrame">
                         <?php
-                        $EersteFoto = getSQLArray("SELECT * FROM plantfoto WHERE PlantenID = $plant AND TypeFoto = 1");
+                        $EersteFoto = getSQLArray("SELECT * FROM plantfoto WHERE PlantID = $plant AND TypeFoto = 1");
                         $EersteFotoRegel = $EersteFoto->fetch();
                         $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
                         echo "<img id='ImageFrame' src='../Catalogus fotos/$EersteFotoUrl'>";
                         ?>
                         <div id="Positioner">             
                             <?php
-                            $Fotoos = getSQLArray("SELECT * FROM plantfoto  WHERE PlantenID = $plant");
+                            $Fotoos = getSQLArray("SELECT * FROM plantfoto  WHERE PlantID = $plant");
                             while ($row = $Fotoos->fetch()) {
                                 $url = $row["FotoUrl"];
                                 echo "<img onclick='ChangeImage()' class='UnderImage' src='../Catalogus fotos/$url'>";
