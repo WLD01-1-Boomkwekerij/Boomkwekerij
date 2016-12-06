@@ -13,7 +13,7 @@ function createFolderIcon()
 {
     var fileManager = getElementById("Files");
     var folder = createElement("div");
-    folder.className = "fileManagerFolder";
+    folder.className = "fa fa-folder-o fa-5x fileManagerFolder";
     fileManager.appendChild(folder);
 }
 
@@ -21,8 +21,16 @@ function createFileIcon()
 {
     var fileManager = getElementById("Files");
     var file = createElement("div");
-    file.className = "fileManagerFile";
+    file.className = "fa fa-file-o fa-5x fileManagerFile";
     fileManager.appendChild(file);
+}
+
+function createEmtpyIcon()
+{
+    var fileManager = getElementById("Files");
+    var empty = createElement("div");
+    empty.className = "fileManagerEmpty";
+    fileManager.appendChild(empty);
 }
 
 function createFileIcons(directory)
@@ -36,21 +44,41 @@ function createFileIcons(directory)
             var files = xmlhttp.responseText;
 
             var fileArray = files.split("*");
-            var arrayInt = fileArray.length % 4;
+            
+            var arrayInt = 0;
+            var filesWidth = parseInt(getElementById("Files").style.width);
+            
+            if(filesWidth > 150  && filesWidth < 600)
+            {
+                fileArray.length % 3;
+            }else{
+                fileArray.length % 4;
+            }
 
-            for (var i = 0; i < fileArray.length; i++) {
-
-
-
-                if (fileArray[i].includes(".")) {
-                    createFileIcon();
+            for (var i = 0; i < fileArray.length; i++)
+            {
+                if (fileArray[i].includes("."))
+                {
+                   createFileIcon();
                 } else {
                     createFolderIcon();
                 }
             }
+            
+            for(var i = 0; i <arrayInt; i++)
+            {
+                createEmtpyIcon();
+            }
         }
     };
     xmlhttp.send();
+}
+
+function deleteFileIcons()
+{
+    while (getElementById("FileManager").firstChild) {
+  getElementById("FileManager").removeChild(getElementById("FileManager").firstChild);
+}
 }
 
 function createManager()
@@ -119,7 +147,7 @@ function createManager()
     pathSelectedBar.style.left = "-50%";
     positionSetter.appendChild(pathSelectedBar);
 
-    createFileIcons("../Catalogus fotos");
+    createFileIcons("../Catalogus fotos/Heesters");
 }
 
 function destroyManager()
@@ -132,6 +160,6 @@ function destroyManager()
 $(document).ready(function () {
 
     $(".fileManagerFolder").dblclick(function () {
-        console.log(this.tag);
+        deleteFileIcons();
     });
 });
