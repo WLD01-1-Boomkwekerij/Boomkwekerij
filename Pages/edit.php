@@ -38,7 +38,6 @@
                                     <th>Naam</th>
                                     <th>Email</th>
                                     <th>Krijgt notifactie</th>
-                                    <th>Wachtwoord</th>
                                     <th>Rechten</th>
                                     <th>Bewerken</th>
                                     <th>Verwijderen</th>
@@ -63,7 +62,6 @@
                                             </select> 
                                         <?php } ?>
                                     </td>
-                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
                                     <td> 
                                         <?php
                                         if ($data['Rol'] == '1') {
