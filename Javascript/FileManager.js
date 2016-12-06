@@ -9,20 +9,40 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
-function createFolderIcon()
+function createFolderIcon(url, name)
 {
     var fileManager = getElementById("Files");
     var folder = createElement("div");
-    folder.className = "fa fa-folder-o fa-5x fileManagerFolder";
+    folder.className = "fileManagerFolder";
+    folder.addEventListener("dblclick", function () {
+        openFolder(url + "/" + name);
+    });
     fileManager.appendChild(folder);
+
+    var folderIcon = createElement("img");
+    folderIcon.src = "../Images/folder.png";
+    folder.appendChild(folderIcon);
+    
+    var folderName = createElement("p");
+    folderName.innerHTML = name;
+    folder.appendChild(folderName);
 }
 
-function createFileIcon()
+function createFileIcon(url, name)
 {
     var fileManager = getElementById("Files");
     var file = createElement("div");
-    file.className = "fa fa-file-o fa-5x fileManagerFile";
+    file.className = "fileManagerFile";
     fileManager.appendChild(file);
+    
+    var fileIcon = createElement("img");
+    fileIcon.src = url + "/" + name;
+    fileIcon.style.width = "150px";
+    file.appendChild(fileIcon);
+    
+    var fileName = createElement("p");
+    fileName.innerHTML = name;
+    file.appendChild(fileName);
 }
 
 function createEmtpyIcon()
@@ -44,28 +64,28 @@ function createFileIcons(directory)
             var files = xmlhttp.responseText;
 
             var fileArray = files.split("*");
-            
+
             var arrayInt = 0;
             var filesWidth = parseInt(getElementById("Files").style.width);
-            
-            if(filesWidth > 150  && filesWidth < 600)
+
+            if (filesWidth > 150 && filesWidth < 600)
             {
-                fileArray.length % 3;
-            }else{
-                fileArray.length % 4;
+                arrayInt = fileArray.length % 3;
+            } else {
+                arrayInt = fileArray.length % 4;
             }
 
-            for (var i = 0; i < fileArray.length; i++)
+            for (var i = 0; i < fileArray.length - 1; i++)
             {
                 if (fileArray[i].includes("."))
                 {
-                   createFileIcon();
+                    createFileIcon(directory, fileArray[i]);
                 } else {
-                    createFolderIcon();
+                    createFolderIcon(directory, fileArray[i]);
                 }
             }
-            
-            for(var i = 0; i <arrayInt; i++)
+
+            for (var i = 0; i < arrayInt; i++)
             {
                 createEmtpyIcon();
             }
@@ -74,11 +94,12 @@ function createFileIcons(directory)
     xmlhttp.send();
 }
 
-function deleteFileIcons()
+function openFolder(directory)
 {
-    while (getElementById("FileManager").firstChild) {
-  getElementById("FileManager").removeChild(getElementById("FileManager").firstChild);
-}
+    while (getElementById("Files").firstChild) {
+        getElementById("Files").removeChild(getElementById("Files").firstChild);
+    }
+    createFileIcons(directory);
 }
 
 function createManager()
@@ -156,10 +177,3 @@ function destroyManager()
     getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
 }
-
-$(document).ready(function () {
-
-    $(".fileManagerFolder").dblclick(function () {
-        deleteFileIcons();
-    });
-});
