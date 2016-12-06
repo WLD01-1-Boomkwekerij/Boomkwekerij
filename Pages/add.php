@@ -10,16 +10,15 @@
         <?php
         include_once '../Php/Database.php';
         $data = unserialize($_POST['input_name']);
-        if ($data['rol'] == 'Beheerder') {
+        if ($data['rol'] == 'beheerder') {
             $data['rol'] = 1;
-        } elseif ($data['rol'] == 'Medewerker') {
+        } elseif ($data['rol'] == 'medewerker') {
             $data['rol'] = 2;
-        } elseif ($data['rol'] == 'Vertaler') {
+        } elseif ($data['rol'] == 'vertaler') {
             $data['rol'] = 3;
         }
         $query = ('INSERT INTO boomkwekerij.gebruiker (Naam, Email, KrijgtEmail, Rol, Wachtwoord) '
                 . 'VALUES ("' . $data['gebr_naam'] . '","' . $data['gebr_mail'] . '","' . $data['krijgt_mail'] . '","' . $data['rol'] . '","' . $data['Wachtwoord1'] . '")');
-        echo $query;
         doSQL($query);
         ?>
     </body>

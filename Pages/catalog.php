@@ -6,14 +6,13 @@
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Catalogus</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link media="screen and (max-width:1288px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
-        <link media="screen and (min-width:1288px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
+        <link href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
 
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-            
+
             include '../Php/loggedInEditor.php';
         }
         ?>
@@ -47,6 +46,13 @@
                 </section>
                 <section id="maincontent">
                     <?php
+                    include_once '../Php/DatabaseInformation.php';
+
+                    if (isset($_POST["plantID"])) {
+                        deletePlant($_POST["plantID"]);
+                    }
+
+
                     if (!isset($_GET['category'])) {
                         $category = 1;
                     } else {
@@ -68,55 +74,11 @@
                         $perLaag = $row["ProductenLaag"];
                         $perTray = $row["ProductenTray"];
                         $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PrijsID = $prijsID");
-                        while ($plant = $sqlPlant->fetch()) {
+                       
+                         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
 
-                            $plantId = $plant['PlantID'];
-                            $naam = $plant['Naam'];
-                            $Hoogte_min = $plant['Hoogte_min'];
-                            $Hoogte_max = $plant['Hoogte_max'];
-                            $bloeiwijze = $plant['Bloeiwijze'];
-                            $bloeitijd = $plant['Bloeitijd'];
-
-                            echo "<div class='item'>
-                            <div>
-                            <form method='post' action='delete.php'>
-                           <table>
-                                    <tr id='textid$plantId'>
-                                        <td>Naam:</td>
-                                        <td>$naam</td>
-                                            <tr>
-                                        <td>Groep</td>
-                                        <td>...</td>
-                                        <tr>
-                                        <td>Min.Hoogte:</td>
-                                        <td>$Hoogte_min</td>
-                                              <tr>
-                                        <td>Max.Hoogte:</td>
-                                        <td>$Hoogte_max</td>
-                                              <tr>
-                                        <td>Bloeiwijze:</td>
-                                        <td>$bloeiwijze</td>
-                                              <tr>
-                                        <td>Bloeitijd:</td>
-                                        <td>$bloeitijd</td>
-                                            
-                                  
-                                </table>
-                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'> 
-                            <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'> 
-                            </form>
-                            </div>
-                               
-                            </div>";
-                        }
-                    }
-                    ?>
-                    <?php
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-
-
-                    echo "<div class='item'>
+                        echo "<div class='item'>
                             <div>
                              <table>
                              <form method='post' action='../php/toevoegen.php'>
@@ -128,13 +90,13 @@
                                 <td><label>Groep:</label></td>
                                 <td>
                                 <select id='groep' name='groep'>";
-                    $sqlPrijs = getSQLArray("SELECT * FROM prijs");
-                    while ($row = $sqlPrijs->fetch()) {
-                    $naamPrijs = $row["Naam"];
-                    $IDPrijs = $row["PrijsID"];
-                    echo "<option value='$IDPrijs'>$naamPrijs</option>";
-                }
-                echo "</select>
+                        $sqlPrijs = getSQLArray("SELECT * FROM prijs");
+                        while ($row = $sqlPrijs->fetch()) {
+                            $naamPrijs = $row["Naam"];
+                            $IDPrijs = $row["PrijsID"];
+                            echo "<option value='$IDPrijs'>$naamPrijs</option>";
+                        }
+                        echo "</select>
                                 </td>
                                 <tr>
                                 <td>Min.Hoogte:</td>
@@ -152,10 +114,50 @@
                             <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
                             </div>
                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
+                               </form>
                             </div>";
-            }
-            ?>
+                    }
+                        
+                        while ($plant = $sqlPlant->fetch()) {
+
+
+                            $plantId = $plant['PlantID'];
+                            $naam = $plant['Naam'];
+                            $Hoogte_min = $plant['Hoogte_min'];
+                            $Hoogte_max = $plant['Hoogte_max'];
+                            $bloeiwijze = $plant['Bloeiwijze'];
+                            $bloeitijd = $plant['Bloeitijd'];
+
+                            $hidden = "hidden";
+                            $position = "absolute";
+
+                            echo "<div class='item' id='plantID$plantId'>
+                            <div>
+                            <form method='post' action=''>
+                           <table>
+                                    <tr >
+                                       
+                                       <td><center> $naam</center></td>
+                                           
+
+                                        <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
+                                  
+                                </table>
+                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'> 
+                            
+                            </div>
+
+                              <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>  
+
+                            </form>
+                            </div>";
+                        }
+                    }
+                    
+                  
                    
+                    ?>
+
 
 
                 </section>

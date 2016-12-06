@@ -9,16 +9,48 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
-function createFolderIcon()
+function createFolderIcon(url, name)
 {
+    var fileManager = getElementById("Files");
     var folder = createElement("div");
     folder.className = "fileManagerFolder";
+    folder.addEventListener("dblclick", function () {
+        openFolder(url + "/" + name);
+    });
+    fileManager.appendChild(folder);
+
+    var folderIcon = createElement("img");
+    folderIcon.src = "../Images/folder.png";
+    folder.appendChild(folderIcon);
+    
+    var folderName = createElement("p");
+    folderName.innerHTML = name;
+    folder.appendChild(folderName);
 }
 
-function createFileIcon()
+function createFileIcon(url, name)
 {
+    var fileManager = getElementById("Files");
     var file = createElement("div");
     file.className = "fileManagerFile";
+    fileManager.appendChild(file);
+    
+    var fileIcon = createElement("img");
+    fileIcon.src = url + "/" + name;
+    fileIcon.style.width = "150px";
+    file.appendChild(fileIcon);
+    
+    var fileName = createElement("p");
+    fileName.innerHTML = name;
+    file.appendChild(fileName);
+}
+
+function createEmtpyIcon()
+{
+    var fileManager = getElementById("Files");
+    var empty = createElement("div");
+    empty.className = "fileManagerEmpty";
+    fileManager.appendChild(empty);
 }
 
 function createFileIcons(directory)
@@ -33,20 +65,42 @@ function createFileIcons(directory)
 
             var fileArray = files.split("*");
 
-            for (var i = 0; i < fileArray.length; i++) {
-                
-                if(fileArray[i].includes(".")){
-                    createFileIcon();
-                }else{
-                    createFolderIcon();
+            var arrayInt = 0;
+            var filesWidth = parseInt(getElementById("Files").style.width);
+
+            if (filesWidth > 150 && filesWidth < 600)
+            {
+                arrayInt = fileArray.length % 3;
+            } else {
+                arrayInt = fileArray.length % 4;
+            }
+
+            for (var i = 0; i < fileArray.length - 1; i++)
+            {
+                if (fileArray[i].includes("."))
+                {
+                    createFileIcon(directory, fileArray[i]);
+                } else {
+                    createFolderIcon(directory, fileArray[i]);
                 }
+            }
+
+            for (var i = 0; i < arrayInt; i++)
+            {
+                createEmtpyIcon();
             }
         }
     };
     xmlhttp.send();
 }
 
-createFileIcons("../Catalogus fotos");
+function openFolder(directory)
+{
+    while (getElementById("Files").firstChild) {
+        getElementById("Files").removeChild(getElementById("Files").firstChild);
+    }
+    createFileIcons(directory);
+}
 
 function createManager()
 {
@@ -67,6 +121,26 @@ function createManager()
     var managerDiv = createElement("div");
     managerDiv.id = "FileManager";
     document.body.appendChild(managerDiv);
+
+    var topInfo = createElement("div");
+    topInfo.id = "topInfo";
+    managerDiv.appendChild(topInfo);
+    
+    
+    
+    var leftArrow = createElement("p");
+    leftArrow.className = "fa fa-arrow-left";
+    leftArrow.onclick = function(){
+        
+    };
+    topInfo.appendChild(leftArrow);
+    
+    var rightArrow = createElement("p");
+    rightArrow.className = "fa fa-arrow-right";
+    rightArrow.onclick = function(){
+        
+    };
+    topInfo.appendChild(rightArrow);
 
     var filesDiv = createElement("div");
     filesDiv.id = "Files";
@@ -113,6 +187,8 @@ function createManager()
     pathSelectedBar.style.boxShadow = "0px 0px 2px 0px black";
     pathSelectedBar.style.left = "-50%";
     positionSetter.appendChild(pathSelectedBar);
+
+    createFileIcons("../Images");
 }
 
 function destroyManager()
@@ -121,10 +197,3 @@ function destroyManager()
     getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
 }
-
-$(document).ready(function(){
-    
-    $(".fileManagerFolder").dblclick(function(){
-        console.log(this.tag);
-    });
-});

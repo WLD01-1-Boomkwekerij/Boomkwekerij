@@ -59,8 +59,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                 <input type="submit" name="cancel" value="Annuleren"/>
                             </form> 
                         <?php } ?>
-
-
                         <form  action="logged_in.php" method="post">
                             <table>
                                 <tr>
@@ -81,19 +79,41 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                                 <option value="0">Nee</option>
                                                 <option value="1" selected="selected">Ja</option>
                                             <?php } else { ?>
-                                                <option value="0">Nee</option>
+                                                <option value="0" selected="selected">Nee</option>
                                                 <option value="1">Ja</option>
-                                            <?php }s ?>
+                                            <?php } ?>
                                         </select> 
                                     </td>
                                     <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
                                     <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
                                     <td> 
-                                        <select name="rol" tabindex="6">
-                                            <option value="beheerder">Beheerder</option>
-                                            <option value="mederwerker">Medewerker</option>
-                                            <option value="vertaler">Vertaler</option>
-                                        </select> 
+                                        <?php
+                                        if ($_POST['rol'] == 'beheerder') {
+                                            ?>          
+                                            <select name="rol" tabindex="6">
+                                                <option value="beheerder" selected="selected">Beheerder</option>
+                                                <option value="medewerker">Medewerker</option>
+                                                <option value="vertaler">Vertaler</option>
+                                            </select> 
+                                            <?php
+                                        } elseif ($_POST['rol'] == 'medewerker') {
+                                            ?>          
+                                            <select name="rol" tabindex="6">
+                                                <option value="beheerder" >Beheerder</option>
+                                                <option value="medewerker" selected="selected">Medewerker</option>
+                                                <option value="vertaler">Vertaler</option>
+                                            </select> 
+                                            <?php
+                                        } elseif ($_POST['rol'] == 'vertaler') {
+                                            ?>             
+                                            <select name="rol" tabindex="6">
+                                                <option value="beheerder" >Beheerder</option>
+                                                <option value="medewerker">Medewerker</option>
+                                                <option value="vertaler" selected="selected">Vertaler</option>
+                                            </select> 
+                                            <?php
+                                        }
+                                        ?>                                        
                                     </td>
                                     <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td>
                                 </tr>
@@ -102,8 +122,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                         <?php
                     } else {
                         ?>
-                        <h4>Gebruikers beheren</h4> 
-                        <h5>Nieuw gebruiker toevoegen</h5>
                         <form  action="logged_in.php" method="post">
                             <table>
                                 <tr>
@@ -129,7 +147,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     <td> 
                                         <select name="rol" tabindex="6">
                                             <option value="beheerder">Beheerder</option>
-                                            <option value="mederwerker">Medewerker</option>
+                                            <option value="medewerker">Medewerker</option>
                                             <option value="vertaler">Vertaler</option>
                                         </select> 
                                     </td>
