@@ -122,6 +122,9 @@ function createManager()
     managerDiv.id = "FileManager";
     document.body.appendChild(managerDiv);
 
+    var topInfo = createElement("div");
+    topInfo.id = "topInfo"
+
     var filesDiv = createElement("div");
     filesDiv.id = "Files";
     managerDiv.appendChild(filesDiv);
@@ -168,7 +171,7 @@ function createManager()
     pathSelectedBar.style.left = "-50%";
     positionSetter.appendChild(pathSelectedBar);
 
-    createFileIcons("../Catalogus fotos/Heesters");
+    createFileIcons("../Images");
 }
 
 function destroyManager()
