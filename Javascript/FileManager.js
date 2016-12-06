@@ -123,7 +123,24 @@ function createManager()
     document.body.appendChild(managerDiv);
 
     var topInfo = createElement("div");
-    topInfo.id = "topInfo"
+    topInfo.id = "topInfo";
+    managerDiv.appendChild(topInfo);
+    
+    
+    
+    var leftArrow = createElement("p");
+    leftArrow.className = "fa fa-arrow-left";
+    leftArrow.onclick = function(){
+        
+    };
+    topInfo.appendChild(leftArrow);
+    
+    var rightArrow = createElement("p");
+    rightArrow.className = "fa fa-arrow-right";
+    rightArrow.onclick = function(){
+        
+    };
+    topInfo.appendChild(rightArrow);
 
     var filesDiv = createElement("div");
     filesDiv.id = "Files";
