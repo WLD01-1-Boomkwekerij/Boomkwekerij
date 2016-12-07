@@ -39,12 +39,12 @@
 #FileManager
 {
     position: fixed;
-    top: 10px;
+    top: 2vh;
     left: 20%;
     background-color: bisque;
     min-width: 400px;
     width: 60vw;
-    height: 80vh;
+    height: 90vh;
     box-shadow: 0px 0px 12px 4px black;
     z-index: 101;
     opacity: 1;
@@ -52,7 +52,7 @@
 
 #FileManager #Files
 {
-    height: 90%;
+    height: 75%;
     width: 100%;
     overflow-y: scroll;
     text-align: center; 
@@ -100,3 +100,11 @@
     
 }
 
+#FileManager #topInfo
+{
+    position: relative;
+    background-color: burlywood;
+    height: 15%;
+    width: 100%;
+    box-shadow: 0px 2px 4px 0px black;
+}
