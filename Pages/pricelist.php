@@ -33,8 +33,8 @@
                     <?php
                     $result = getSQLArray("SELECT * FROM Category WHERE CategoryID IN(SELECT distinct CategoryID FROM prijs)");
                     ?>
-                    <h1>Prijslijst</h1>
-
+                    <h1>Prijslijst</h1> 
+                    
                     <table class="pricelist">
                         <colgroup>
                             <col class="name"/>
@@ -103,6 +103,7 @@
                             
                             ?>
                     </table>
+                   
                 </section>
             </section>
         </section>
