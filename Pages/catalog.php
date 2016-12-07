@@ -16,6 +16,8 @@
             include '../Php/loggedInEditor.php';
         }
         ?>
+        
+        
     </head>
     <body>
         <section id="wrapper">
@@ -85,7 +87,7 @@
                                 
                                
                                 <td><label>Naam:</label></td>
-                                <td><input id='name' name='name'type='tekst'></td>
+                                <td><input id='name' name='name'type='tekst' required></td>
                                 <tr>
                                 <td><label>Groep:</label></td>
                                 <td>
@@ -100,16 +102,16 @@
                                 </td>
                                 <tr>
                                 <td>Min.Hoogte:</td>
-                                <td><input placeholder='Hoogte (Alleen getal)' name='hoogte_min' type='text'></td>
+                                <td><input placeholder='Hoogte (Alleen getal)' name='hoogte_min' type='text' required></td>
                                 <tr>
                                 <td>Max.Hoogte:</td>
-                                <td><input  placeholder='Hoogte (Alleen getal)' name='hoogte_max' type='text'></td>
+                                <td><input  placeholder='Hoogte (Alleen getal)' name='hoogte_max' type='text'required></td>
                                 <tr>
                                 <td>Bloeitijd:</td>
-                                <td><input  placeholder='Maand' name='bloeitijd' type='text'> </td>
+                                <td><input  placeholder='Maand' name='bloeitijd' type='text'required> </td>
                                 <tr>
                                 <td>Bloeiwijze:</td>
-                                <td><input placeholder='Bloeiwijze'  name='bloeiwijze' type='text'></td>
+                                <td><input placeholder='Bloeiwijze'  name='bloeiwijze' type='text'requires></td>
                                  </table>
                             <img src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
                             </div>
@@ -141,7 +143,7 @@
                                            
 
                                         <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
-                                   <img id='imgtest' src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'> 
+                                  <a href='plant.php?plant=$plantId'><img id='imgtest' src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'> </a>
                                 </table>
                           
                             

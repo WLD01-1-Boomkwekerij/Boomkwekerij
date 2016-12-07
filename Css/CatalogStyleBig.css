@@ -66,7 +66,10 @@
     padding-left:10px;
     padding-right:10px;
     padding-top:5px;
+    
 }
+
+
 
 
 #Imgtest{
@@ -75,6 +78,13 @@
     padding-left:10px;
     padding-right:10px;
     padding-top:7px;
+    
+}
+
+
+#Imgtest:hover{
+    box-shadow: 0px 0px 0px 2px red;
+    
 }
 #btnvinkje{
     float:right;
