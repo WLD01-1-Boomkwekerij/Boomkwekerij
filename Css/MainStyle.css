@@ -161,3 +161,22 @@ body {
 .notranslate {
 
 }
+
+#loginkader{
+    width:400px;
+    height:;
+    border-width:3px;
+    border-color:royalblue;
+    border-style:solid;
+  
+}
+
+#logintitel{
+    background-color:royalblue;
+    height:30px;
+    margin-top:-16px;
+}
+
+#loggiforum{
+    padding-top:5px;
+}
