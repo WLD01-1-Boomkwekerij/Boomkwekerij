@@ -1,3 +1,6 @@
+var currentPathHistory = [];
+var currentPathNumber = 0;
+var futurePathNumber = 0;
 
 function createElement(element)
 {
@@ -16,13 +19,15 @@ function createFolderIcon(url, name)
     folder.className = "fileManagerFolder";
     folder.addEventListener("dblclick", function () {
         openFolder(url + "/" + name);
+        currentPathHistory[currentPathHistory.length] = url + "/" + name;
+        currentPathNumber++;
     });
     fileManager.appendChild(folder);
 
     var folderIcon = createElement("img");
     folderIcon.src = "../Images/folder.png";
     folder.appendChild(folderIcon);
-    
+
     var folderName = createElement("p");
     folderName.innerHTML = name;
     folder.appendChild(folderName);
@@ -34,12 +39,12 @@ function createFileIcon(url, name)
     var file = createElement("div");
     file.className = "fileManagerFile";
     fileManager.appendChild(file);
-    
+
     var fileIcon = createElement("img");
     fileIcon.src = url + "/" + name;
     fileIcon.style.width = "150px";
     file.appendChild(fileIcon);
-    
+
     var fileName = createElement("p");
     fileName.innerHTML = name;
     file.appendChild(fileName);
@@ -85,7 +90,7 @@ function createFileIcons(directory)
                 }
             }
 
-            for (var i = 0; i < arrayInt; i++)
+            for (var j = 0; j < arrayInt; j++)
             {
                 createEmtpyIcon();
             }
@@ -104,6 +109,10 @@ function openFolder(directory)
 
 function createManager()
 {
+
+    currentPathHistory[0] = "../Images/";
+    console.log(currentPathHistory[0]);
+
     document.body.style.overflow = "hidden";
 
     var backgroundColor = createElement("div");
@@ -125,20 +134,30 @@ function createManager()
     var topInfo = createElement("div");
     topInfo.id = "topInfo";
     managerDiv.appendChild(topInfo);
-    
-    
-    
-    var leftArrow = createElement("p");
-    leftArrow.className = "fa fa-arrow-left";
-    leftArrow.onclick = function(){
-        
+
+    var leftArrow = createElement("div");
+    leftArrow.id = "leftArrow";
+    leftArrow.innerHTML = "&#8592;";
+    leftArrow.onclick = function () {
+        if (currentPathNumber > 0)
+        {
+            currentPathNumber--;
+            openFolder(currentPathHistory[currentPathNumber]);
+            futurePathNumber++;
+        }
     };
     topInfo.appendChild(leftArrow);
-    
-    var rightArrow = createElement("p");
-    rightArrow.className = "fa fa-arrow-right";
-    rightArrow.onclick = function(){
-        
+
+    var rightArrow = createElement("div");
+    rightArrow.id = "rightArrow";
+    rightArrow.innerHTML = "&#8594;";
+    rightArrow.onclick = function () {
+        if (futurePathNumber > 0)
+        {
+            currentPathNumber++;
+            openFolder(currentPathHistory[currentPathNumber]);
+            futurePathNumber--;
+        }
     };
     topInfo.appendChild(rightArrow);
 
