@@ -107,4 +107,23 @@
     height: 15%;
     width: 100%;
     box-shadow: 0px 2px 4px 0px black;
+    display: inline-block;
+}
+
+#leftArrow
+{
+    font-size: 50px;
+    width: 50px;
+    height: 100%;
+    float: left;
+    color: lightcoral;
+}
+
+#rightArrow
+{
+    height: 100%;
+    font-size: 50px;
+    width: 50px;
+    float: left;
+    color: lime;
 }
