@@ -110,20 +110,17 @@
     display: inline-block;
 }
 
-#leftArrow
+.ArrowHistory
 {
     font-size: 50px;
     width: 50px;
-    height: 100%;
     float: left;
-    color: lightcoral;
+    cursor: pointer;
+    color: #777777;
+    text-shadow: 1px 1px 5px 1px #666666;
 }
 
-#rightArrow
+.ArrowHistory:hover
 {
-    height: 100%;
-    font-size: 50px;
-    width: 50px;
-    float: left;
-    color: lime;
+    color: #4D3D3D;
 }

@@ -12,6 +12,22 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
+function checkArrowColor()
+{
+    var left = getElementById("LeftArrow");
+    if(currentPathNumber > 0){
+        left.style.color = "#222222";
+    }else{
+        left.style.color = "#777777";
+    }
+    var right = getElementById("RightArrow");
+    if(futurePathNumber > 0){
+        right.style.color = "#222222";
+    }else{
+        right.style.color = "#777777";
+    }
+}
+
 function createFolderIcon(url, name)
 {
     var fileManager = getElementById("Files");
@@ -21,6 +37,7 @@ function createFolderIcon(url, name)
         openFolder(url + "/" + name);
         currentPathHistory[currentPathHistory.length] = url + "/" + name;
         currentPathNumber++;
+        checkArrowColor();
     });
     fileManager.appendChild(folder);
 
@@ -136,20 +153,23 @@ function createManager()
     managerDiv.appendChild(topInfo);
 
     var leftArrow = createElement("div");
-    leftArrow.id = "leftArrow";
+    leftArrow.className = "ArrowHistory";
     leftArrow.innerHTML = "&#8592;";
+    leftArrow.id = "LeftArrow";
     leftArrow.onclick = function () {
         if (currentPathNumber > 0)
-        {
+        {            
             currentPathNumber--;
             openFolder(currentPathHistory[currentPathNumber]);
             futurePathNumber++;
+            checkArrowColor();
         }
     };
     topInfo.appendChild(leftArrow);
 
     var rightArrow = createElement("div");
-    rightArrow.id = "rightArrow";
+    rightArrow.className = "ArrowHistory";
+    rightArrow.id = "RightArrow";
     rightArrow.innerHTML = "&#8594;";
     rightArrow.onclick = function () {
         if (futurePathNumber > 0)
@@ -157,6 +177,7 @@ function createManager()
             currentPathNumber++;
             openFolder(currentPathHistory[currentPathNumber]);
             futurePathNumber--;
+            checkArrowColor();
         }
     };
     topInfo.appendChild(rightArrow);
