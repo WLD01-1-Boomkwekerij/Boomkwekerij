@@ -7,9 +7,9 @@
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
         <?php
         session_start();
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-
-            include '../Php/loggedInEditor.php';
+        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
+            header('Location:login.php');
+            exit();
         }
         ?>
     </head>
@@ -25,9 +25,9 @@
             <section id="mid">
                 <section id="maincontent">
                     <h4>Bewerken</h4>
-                    <form  action="update_delete.php" method="post">
+                    <form action="../Php/user_update_delete.php" method="post">
                         <?php
-                        $gebruiker=$_POST["gebruiker"];
+                        $gebruiker = $_POST["gebruiker"];
                         include_once '../Php/Database.php';
                         $array = getSQLArray('SELECT * FROM boomkwekerij.gebruiker WHERE GebruikerID =' . $gebruiker);
                         while ($data = $array->fetch()) {
