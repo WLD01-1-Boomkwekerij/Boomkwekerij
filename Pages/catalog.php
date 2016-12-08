@@ -76,13 +76,8 @@
                         $perLaag = $row["ProductenLaag"];
                         $perTray = $row["ProductenTray"];
                         $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PrijsID = $prijsID");
-<<<<<<< HEAD
-=======
-                       
+          
                          if (isset($_SESSION['logged_in'])) {
->>>>>>> 7cd2f89d5546c623cc2eb8674c6bcdcf500b7295
-
-                        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
 
                             echo "<div class='item'>
