@@ -4,6 +4,11 @@
         <meta http-equiv="refresh" content="0; url=logged_in.php">
     </head>
     <body>
+        <?php
+        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
+            exit();
+        }
+        ?>
         You are being automatically redirected to a new location.<br />
         If your browser does not redirect you in few seconds, or you do
         not wish to wait, <a href="../Pages/logged_in.php">click here</a>.

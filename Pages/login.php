@@ -30,7 +30,11 @@
                     </ul>
                 </section>
                 <section id="maincontent">
-                    <form method="post" action="../Php/verify.php">
+                    <center> <div id="loginkader">
+                        <div id="logintitel">
+                            <p>Inloggen</p>
+                        </div>
+                        <form id="loggiforum" method="post" action="../Php/verify.php">
                         <table border="1">
                             <tr>
                                 <td>Gebruikersnaam:</td>
@@ -44,7 +48,9 @@
                         <br>
                         <input type="submit" id="btn2" name="btn2" value="Inloggen">
 
-                    </form>
+                            </form>
+                        
+                    </div></center>
                 </section>
             </section>
         </section>

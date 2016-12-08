@@ -16,6 +16,8 @@
             include '../Php/loggedInEditor.php';
         }
         ?>
+        
+        
     </head>
     <body>
         <section id="wrapper">
@@ -74,6 +76,11 @@
                         $perLaag = $row["ProductenLaag"];
                         $perTray = $row["ProductenTray"];
                         $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PrijsID = $prijsID");
+<<<<<<< HEAD
+=======
+                       
+                         if (isset($_SESSION['logged_in'])) {
+>>>>>>> 7cd2f89d5546c623cc2eb8674c6bcdcf500b7295
 
                         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
@@ -85,7 +92,7 @@
                                 
                                
                                 <td><label>Naam:</label></td>
-                                <td><input id='name' name='name'type='tekst'></td>
+                                <td><input id='name' name='name'type='tekst' required></td>
                                 <tr>
                                 <td><label>Groep:</label></td>
                                 <td>
@@ -100,18 +107,18 @@
                                 </td>
                                 <tr>
                                 <td>Min.Hoogte:</td>
-                                <td><input name='hoogte_min' type='text'></td>
+                                <td><input placeholder='Hoogte (Alleen getal)' name='hoogte_min' type='text' required></td>
                                 <tr>
                                 <td>Max.Hoogte:</td>
-                                <td><input name='hoogte_max' type='text'></td>
+                                <td><input  placeholder='Hoogte (Alleen getal)' name='hoogte_max' type='text'required></td>
                                 <tr>
                                 <td>Bloeitijd:</td>
-                                <td><input name='bloeitijd' type='text'> </td>
+                                <td><input  placeholder='Maand' name='bloeitijd' type='text'required> </td>
                                 <tr>
                                 <td>Bloeiwijze:</td>
-                                <td><input name='bloeiwijze' type='text'></td>
+                                <td><input placeholder='Bloeiwijze'  name='bloeiwijze' type='text'requires></td>
                                  </table>
-                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
+                            <img src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
                             </div>
                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
                                </form>
@@ -131,24 +138,27 @@
                             $hidden = "hidden";
                             $position = "absolute";
 
-                            echo "<div class='item' id='plantID$plantId'>
+                            echo "<div class='item2' id='plantID$plantId'>
                             <div>
                             <form method='post' action=''>
                            <table>
                                     <tr >
                                        
-                                       <td><center> $naam</center></td>
+                                     <div id='catatitel'> <center><p id='planttitel'>$naam</p></center></div>
                                            
 
                                         <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
-                                  
+                                  <a href='plant.php?plant=$plantId'><img id='imgtest' src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'> </a>
                                 </table>
-                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'> 
+                          
                             
-                            </div>
-
+                            </div>";
+                          if(isset($_SESSION['logged_in'])){
+                            echo "
                               <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>  
-
+                              ";
+                          }
+                          echo"
                             </form>
                             </div>";
                         }
