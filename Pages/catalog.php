@@ -74,11 +74,11 @@
                         $perLaag = $row["ProductenLaag"];
                         $perTray = $row["ProductenTray"];
                         $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PrijsID = $prijsID");
-                       
-                         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+
+                        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
 
-                        echo "<div class='item'>
+                            echo "<div class='item'>
                             <div>
                              <table>
                              <form method='post' action='../php/toevoegen.php'>
@@ -90,13 +90,13 @@
                                 <td><label>Groep:</label></td>
                                 <td>
                                 <select id='groep' name='groep'>";
-                        $sqlPrijs = getSQLArray("SELECT * FROM prijs");
-                        while ($row = $sqlPrijs->fetch()) {
-                            $naamPrijs = $row["Naam"];
-                            $IDPrijs = $row["PrijsID"];
-                            echo "<option value='$IDPrijs'>$naamPrijs</option>";
-                        }
-                        echo "</select>
+                            $sqlPrijs = getSQLArray("SELECT * FROM prijs");
+                            while ($row = $sqlPrijs->fetch()) {
+                                $naamPrijs = $row["Naam"];
+                                $IDPrijs = $row["PrijsID"];
+                                echo "<option value='$IDPrijs'>$naamPrijs</option>";
+                            }
+                            echo "</select>
                                 </td>
                                 <tr>
                                 <td>Min.Hoogte:</td>
@@ -116,8 +116,8 @@
                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
                                </form>
                             </div>";
-                    }
-                        
+                        }
+
                         while ($plant = $sqlPlant->fetch()) {
 
 
@@ -153,9 +153,6 @@
                             </div>";
                         }
                     }
-                    
-                  
-                   
                     ?>
 
 
