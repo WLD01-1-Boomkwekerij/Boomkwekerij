@@ -5,6 +5,7 @@
     } else {
         print("<li><a href='login.php'>Inloggen</a></li>");
     }
+    
     ?>
 </section>
 

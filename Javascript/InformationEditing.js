@@ -37,13 +37,15 @@ function markupText(type, parameter)
     }
 }
 
+/**
+ * Creates the fileManager
+ */
 function insertImage()
 {
     if (!isFileManagerOpen) {
         createManager();
         isFileManagerOpen = true;
     }
-
 }
 
 /**
@@ -81,8 +83,9 @@ function saveSelectorPoint()
     }
 }
 
-function restoreSelectorPoint(savedSel)
+function restoreSelectorPoint()
 {
+    var savedSel = savedSelectorPoint;
     if (savedSel)
     {
         if (window.getSelection)
@@ -108,7 +111,7 @@ function restoreSelectorPoint(savedSel)
 function insertLink(name, url)
 {
     var linkHTML = "<a href='" + url + "'>" + name + "</a>";
-    restoreSelectorPoint(savedSelectorPoint);
+    restoreSelectorPoint();
     markupText("insertHTML", linkHTML);
 }
 
