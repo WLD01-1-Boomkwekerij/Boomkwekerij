@@ -2,6 +2,7 @@ var currentPathHistory = [];
 var currentPathNumber = 0;
 var futurePathNumber = 0;
 var currentSelectedPath = "";
+var isUploading;
 
 /**
  * Create an element
@@ -90,13 +91,16 @@ function createFileIcon(url, name)
     fileName.innerHTML = name;
     file.appendChild(fileName);
 
-    file.addEventListener("click", function ()
+    if (!isUploading)
     {
-        currentSelectedPath = url + "/" + name;
-        file.style.boxShadow = "0px 0px 4px 0px lightgray";
-        file.style.backgroundColor = "lightgray";
-        getElementById("fileManagerSelectButton").value = currentSelectedPath;
-    });
+        file.addEventListener("click", function ()
+        {
+            currentSelectedPath = url + "/" + name;
+            file.style.boxShadow = "0px 0px 4px 0px lightgray";
+            file.style.backgroundColor = "lightgray";
+            getElementById("fileManagerSelectButton").value = currentSelectedPath;
+        });
+    }
 }
 
 /**
@@ -157,7 +161,7 @@ function createFileIcons(directory)
 
 /**
  * Opens a folder and creates all the icons
- * @param {type} directory
+ * @param {string} directory
  */
 function openFolder(directory)
 {
@@ -168,10 +172,12 @@ function openFolder(directory)
 }
 
 /**
- * Creates the manager and sets it up
+ * Creates the file manager
+ * @param {bool} uploading
  */
-function createManager()
+function createManager(uploading)
 {
+    isUploading = uploading;
     currentSelectedPath = "";
     currentPathHistory[0] = "../Images/";
     console.log(currentPathHistory[0]);
@@ -256,12 +262,18 @@ function createManager()
     selectButton.style.border = "none";
     selectButton.style.bottom = "5px";
     selectButton.style.right = "5px";
-    selectButton.innerHTML = "Select";
+    
+    if(isUploading){
+       selectButton.innerHTML = "Upload"; 
+    }else{
+        selectButton.innerHTML = "Select";
+    }
+    
     selectButton.addEventListener("click", function ()
     {
         restoreSelectorPoint();
         markupText("insertImage", currentSelectedPath);
-    });
+    });    
     bottomInfo.appendChild(selectButton);
 
     var positionSetter = createElement("div");

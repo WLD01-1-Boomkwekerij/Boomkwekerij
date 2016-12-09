@@ -6,6 +6,13 @@
         print("<li><a href='login.php'>Inloggen</a></li>");
     }
     
+    print(" 
+        <form action='../Upload.php' method='POST' enctype='multipart/form-data'>
+            <input type='file' name='bestand'>
+            <input type='submit' value='upload' name='submit'>
+        </form>
+        ");
+    
     ?>
 </section>
 
