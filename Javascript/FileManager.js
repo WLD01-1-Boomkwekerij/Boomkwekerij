@@ -1,6 +1,7 @@
 var currentPathHistory = [];
 var currentPathNumber = 0;
 var futurePathNumber = 0;
+var currentSelectedPath = "";
 
 function createElement(element)
 {
@@ -33,7 +34,8 @@ function createFolderIcon(url, name)
     var fileManager = getElementById("Files");
     var folder = createElement("div");
     folder.className = "fileManagerFolder";
-    folder.addEventListener("dblclick", function () {
+    folder.addEventListener("dblclick", function ()
+    {
         openFolder(url + "/" + name);
         currentPathHistory[currentPathHistory.length] = url + "/" + name;
         currentPathNumber++;
@@ -59,12 +61,19 @@ function createFileIcon(url, name)
 
     var fileIcon = createElement("img");
     fileIcon.src = url + "/" + name;
-    fileIcon.style.width = "150px";
     file.appendChild(fileIcon);
 
     var fileName = createElement("p");
     fileName.innerHTML = name;
     file.appendChild(fileName);
+    
+    file.addEventListener("click", function()
+    {
+        currentSelectedPath = url + "/" + name;
+        file.style.boxShadow = "0px 0px 4px 0px lightgray";
+        file.style.backgroundColor = "lightgray";
+        getElementById("fileManagerSelectButton").value = currentSelectedPath;
+    });
 }
 
 function createEmtpyIcon()
@@ -96,7 +105,7 @@ function createFileIcons(directory)
             } else {
                 arrayInt = fileArray.length % 4;
             }
-
+            
             for (var i = 0; i < fileArray.length - 1; i++)
             {
                 if (fileArray[i].includes("."))
@@ -126,7 +135,7 @@ function openFolder(directory)
 
 function createManager()
 {
-
+    currentSelectedPath = "";
     currentPathHistory[0] = "../Images/";
     console.log(currentPathHistory[0]);
 
@@ -203,6 +212,7 @@ function createManager()
     bottomInfo.appendChild(cancelButton);
 
     var selectButton = createElement("button");
+    selectButton.id = "fileManagerSelectButton";
     selectButton.style.position = "absolute";
     selectButton.style.position = "absolute";
     selectButton.style.marginRight = "5px";
@@ -210,6 +220,11 @@ function createManager()
     selectButton.style.bottom = "5px";
     selectButton.style.right = "5px";
     selectButton.innerHTML = "Select";
+    selectButton.addEventListener("click", function()
+    {
+        restoreSelectorPoint();
+        markupText("insertImage", currentSelectedPath );
+    });
     bottomInfo.appendChild(selectButton);
 
     var positionSetter = createElement("div");

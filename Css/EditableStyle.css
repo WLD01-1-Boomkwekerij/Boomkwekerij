@@ -60,35 +60,56 @@
 
 .fileManagerFolder
 {
-    width: 22%;
-    height: 26%;
-    min-height: 50px;
-    min-width: 150px;
-    display: inline-block;
+    position: relative;
+    height: 150px;
+    width: 150px;
     margin: 1%;
+    float: left;
+}
+
+.fileManagerFolder p
+{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }
 
 .fileManagerFile
 {
-    width: 22%;
-    height: 26%;
-    min-height: 50px;
-    min-width: 150px;
-    display: inline-block;
+    position: relative;
+    height: 150px;
+    width: 150px;
     margin: 1%;
+    float: left;
+}
+
+.fileManagerFile img
+{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    max-height: 90%;
+    display: block;
+    left: 50%;
+    margin-left: -75px
+}
+
+.fileManagerFile p
+{
+    height: 10%;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    margin-bottom: 0px;
 }
 
 .fileManagerEmpty
 {
-    width: 22%;
-    height: 26%;
-    min-height: 50px;
-    min-width: 150px;
-    display: inline-block;
+    width: 150px;
     margin: 1%;
     visibility: hidden;
+    float: left;
 }
-
 
 #FileManager #BottomInfo
 {
@@ -97,7 +118,7 @@
     height: 10%;
     width: 100%;
     box-shadow: 0px -2px 4px 0px black;
-    
+
 }
 
 #FileManager #topInfo
@@ -117,10 +138,9 @@
     float: left;
     cursor: pointer;
     color: #777777;
-    text-shadow: 1px 1px 5px 1px #666666;
 }
 
 .ArrowHistory:hover
 {
-    color: #4D3D3D;
+    color: #333377;
 }
