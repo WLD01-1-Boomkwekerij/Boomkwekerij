@@ -15,6 +15,7 @@
         <?php
         include_once '../Php/Database.php';
         $data = unserialize($_POST['input_name']);
+        $Wachtwoord = hash('sha256', $data['Wachtwoord1']);
         if ($data['rol'] == 'beheerder') {
             $data['rol'] = 1;
         } elseif ($data['rol'] == 'medewerker') {
@@ -23,7 +24,7 @@
             $data['rol'] = 3;
         }
         $query = ('INSERT INTO boomkwekerij.gebruiker (Naam, Email, KrijgtEmail, Rol, Wachtwoord) '
-                . 'VALUES ("' . $data['gebr_naam'] . '","' . $data['gebr_mail'] . '","' . $data['krijgt_mail'] . '","' . $data['rol'] . '","' . $data['Wachtwoord1'] . '")');
+                . 'VALUES ("' . $data['gebr_naam'] . '","' . $data['gebr_mail'] . '","' . $data['krijgt_mail'] . '","' . $data['rol'] . '","' . $Wachtwoord . '")');
         doSQL($query);
         ?>
     </body>
