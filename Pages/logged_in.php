@@ -36,22 +36,23 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                     <h4>Gebruikers beheren</h4> 
                     <h5>Nieuw gebruiker toevoegen</h5>
                     <?php
-                    if (isset($_POST['submit'])) {
-                        if ($_POST['Wachtwoord1'] != $_POST['Wachtwoord2']) {
+                    include '../Php/POST.php';
+                    if (isset($submit)) {
+                        if ($Wachtwoord1 != $Wachtwoord2) {
                             print ('Wachtwoorden zijn niet hetzelfde, probeer het opnieuw.<br>');
                         } else {
                             print('Wilt u de volgende gebruiker toevoegen?<br>'
-                                    . 'Naam: ' . $_POST['gebr_naam'] . '<br>'
-                                    . 'Email: ' . $_POST['gebr_mail'] . '<br>'
+                                    . 'Naam: ' . $gebr_naam . '<br>'
+                                    . 'Email: ' . $gebr_mail . '<br>'
                                     . 'Krijgt mail: ');
-                            if ($_POST['krijgt_mail'] == 0) {
+                            if ($krijgt_mail == 0) {
                                 print('nee <br>');
                             } else {
                                 print('ja <br>');
                             }
-                            print('Type gebruiker: ' . $_POST['rol'] . '<br>');
+                            print('Type gebruiker: ' . $rol . '<br>');
                             ?>
-                            <form action="add.php" method="post">
+                            <form action="../Php/user_add.php" method="post">
                                 <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
                                 <input type="submit" name="submit" value="Toevoegen"/>
                             </form>
@@ -71,11 +72,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     <th>Toevoegen</th>
                                 </tr>
                                 <tr>
-                                    <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($_POST['gebr_naam']); ?>"></td>
-                                    <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required value="<?php print($_POST['gebr_mail']); ?>"></td>
+                                    <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($gebr_naam); ?>"></td>
+                                    <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required value="<?php print($gebr_mail); ?>"></td>
                                     <td>
                                         <select name="krijgt_mail" tabindex="3">
-                                            <?php if ($_POST['krijgt_mail'] == 1) { ?>
+                                            <?php if ($krijgt_mail == 1) { ?>
                                                 <option value="0">Nee</option>
                                                 <option value="1" selected="selected">Ja</option>
                                             <?php } else { ?>
@@ -88,7 +89,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
                                     <td> 
                                         <?php
-                                        if ($_POST['rol'] == 'beheerder') {
+                                        if ($rol == 'beheerder') {
                                             ?>          
                                             <select name="rol" tabindex="6">
                                                 <option value="beheerder" selected="selected">Beheerder</option>
@@ -96,7 +97,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                                 <option value="vertaler">Vertaler</option>
                                             </select> 
                                             <?php
-                                        } elseif ($_POST['rol'] == 'medewerker') {
+                                        } elseif ($rol == 'medewerker') {
                                             ?>          
                                             <select name="rol" tabindex="6">
                                                 <option value="beheerder" >Beheerder</option>
@@ -104,7 +105,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                                 <option value="vertaler">Vertaler</option>
                                             </select> 
                                             <?php
-                                        } elseif ($_POST['rol'] == 'vertaler') {
+                                        } elseif ($rol == 'vertaler') {
                                             ?>             
                                             <select name="rol" tabindex="6">
                                                 <option value="beheerder" >Beheerder</option>
@@ -186,7 +187,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     }
                                     print($rij['Rol']);
                                     ?></td>
-                                <td><form action="edit.php" method="POST">
+                                <td><form action="user_edit.php" method="POST">
                                         <input type='hidden' name='gebruiker' value="<?php print($rij['GebruikerID']) ?>" />
                                         <input type="submit" name="submit" value="Bewerken"/>
                                     </form></td>

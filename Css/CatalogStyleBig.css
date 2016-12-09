@@ -8,10 +8,6 @@
     display:inline-block;
 }
 
-
-
-
-
 .item div
 {
 
@@ -19,6 +15,7 @@
     height: 50%;   
     float: left;
 }
+
 .item2
 {
     min-width:280px;
@@ -27,12 +24,8 @@
     margin:10px;
     box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.75);
     display:inline-block;
-    
+
 }
-
-
-
-
 
 .item2 div
 {
@@ -40,23 +33,19 @@
     width: 225px;
     height: 50%;   
     float: left;
-     
+
 }
-
-
-
 
 .item table
 {
     width: 100%;
-   
+
 }
 
 #wrapper
 {
     max-width: 1231px;
 }
-
 
 .item img
 {
@@ -66,40 +55,51 @@
     padding-left:10px;
     padding-right:10px;
     padding-top:5px;
+
 }
 
-
-#Imgtest{
-   width: 280px;
+#Imgtest
+{
+    width: 280px;
     height: 160px;
     padding-left:10px;
     padding-right:10px;
     padding-top:7px;
 }
-#btnvinkje{
+
+#Imgtest:hover
+{
+    box-shadow: 0px 0px 0px 2px red;
+
+}
+
+#btnvinkje
+{
     float:right;
 }
 
-#groep{
+#groep
+{
     width:158px;
 }
 
-#name{
+#name
+{
     width:130px;
 }
 
-#planttitel{
- margin-left:10px;
- margin-top:3px;
+#planttitel
+{
+    margin-left:10px;
+    margin-top:3px;
 }
 
-#catatitel{
+#catatitel
+{
     background-color:#5175b3;
     width:280px;
     height:25px;
     border-width:0px;
-    border-style:solid;
-  
-    
+    border-style:solid;    
 }
 

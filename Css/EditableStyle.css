@@ -107,4 +107,20 @@
     height: 15%;
     width: 100%;
     box-shadow: 0px 2px 4px 0px black;
+    display: inline-block;
+}
+
+.ArrowHistory
+{
+    font-size: 50px;
+    width: 50px;
+    float: left;
+    cursor: pointer;
+    color: #777777;
+    text-shadow: 1px 1px 5px 1px #666666;
+}
+
+.ArrowHistory:hover
+{
+    color: #4D3D3D;
 }
