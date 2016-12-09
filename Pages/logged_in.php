@@ -56,11 +56,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                 <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
                                 <input type="submit" name="submit" value="Toevoegen"/>
                             </form>
-                            <form action="logged_in.php" method="post">
+                            <form action="../Pages/logged_in.php" method="post">
                                 <input type="submit" name="cancel" value="Annuleren"/>
                             </form> 
                         <?php } ?>
-                        <form  action="logged_in.php" method="post">
+                        <form  action="../Pages/logged_in.php" method="post">
                             <table>
                                 <tr>
                                     <th>Naam</th>
@@ -123,7 +123,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                         <?php
                     } else {
                         ?>
-                        <form  action="logged_in.php" method="post">
+                    <form  action="../Pages/logged_in.php" method="post">
                             <table>
                                 <tr>
                                     <th>Naam</th>
@@ -187,7 +187,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     }
                                     print($rij['Rol']);
                                     ?></td>
-                                <td><form action="user_edit.php" method="POST">
+                                <td><form action="../Pages/user_edit.php" method="POST">
                                         <input type='hidden' name='gebruiker' value="<?php print($rij['GebruikerID']) ?>" />
                                         <input type="submit" name="submit" value="Bewerken"/>
                                     </form></td>
