@@ -33,11 +33,12 @@
                     <?php
                     include '../Php/AddRegel.php';
                     include '../Php/AddCategory.php';
-                    $result = getSQLArray("SELECT * FROM Category WHERE CategoryID IN(SELECT distinct CategoryID FROM prijs)");
-                    
+                    include '../Php/DeleteRegel.php';
+                    include '../Php/DeleteCategory.php';
+                    $result = getSQLArray("SELECT * FROM Category");
                     ?>
                     <h1>Prijslijst</h1> 
-                    
+
                     <table class="pricelist">
                         <colgroup>
                             <col class="name"/>
@@ -51,6 +52,11 @@
                             <col class="blue"/>
                         </colgroup>
                         <tr>
+                            <?php 
+                            if (isset($_SESSION['logged_in'])) {
+                                print("<th rowspan='2'></th>");
+                            }        
+                            ?>
                             <th rowspan="2" colspan="2"><h2>Plantnaam</h2></th>
                             <th rowspan="2">potmaat</th>
                             <th>hoogte</th>
@@ -58,6 +64,11 @@
                             <th colspan="3">per</th>
                         </tr>
                         <tr> 
+                            <?php 
+                            if (isset($_SESSION['logged_in'])) {
+                                print("<td></td>");
+                            }      
+                            ?>
                             <td>(cm)</td>
                             <td>af<br>kwekerij</td>
                             <td>via VBA</td>
@@ -68,8 +79,19 @@
                         <?php
                         while ($row = $result->fetch()) {
                             $catID = $row['CategoryID'];
-                            print ("<tr  class='notranslate' >"
-                                    . "<td class = 'name' colspan = '9'>"
+                            if (isset($_SESSION['logged_in'])) {
+                            print ("<tr  class='notranslate' >");
+                            echo"<td><form action='pricelist.php' method='post'>"
+                                        . "<input type='hidden' name='id'  value='$catID'>"
+                                        . "<input style='width:10px' type='submit' name='verwijderCat'  value='X'>"
+                                        . "</form>"
+                                        . "<form action='pricelist.php' method='post'>"
+                                        . "<input type='hidden' name='id'  value='$catID'>"
+                                        . "<input style='width:30px' type='submit' name='bewerkCat'  value='Bewerken'>"
+                                        . "</form>"
+                                        . "</td>";
+                            }
+                            print ("<td class = 'name' colspan = '9'>"
                                     . "<h2><a href = '../Pages/catalog.php?category=$catID'>" . $row["CategoryNaam"] . "</a></h2></td>"
                                     . "</tr>");
                             $result2 = getSQLArray("SELECT * FROM prijs WHERE CategoryID=" . $catID);
@@ -78,12 +100,28 @@
                                 ?>
                                 <tr class="notranslate">
                                     <?php
+                                    $regelID = $row2["PrijsID"];
+                                    if (isset($_SESSION['logged_in'])) {
+                                        echo"<td><form action='pricelist.php' method='post'>"
+                                        . "<input type='hidden' name='id'  value='$regelID'>"
+                                        . "<input style='width:10px' type='submit' name='verwijderRegel'  value='X'>"
+                                        . "</form>"
+                                        . "<form action='pricelist.php' method='post'>"
+                                        . "<input type='hidden' name='id'  value='$regelID'>"
+                                        . "<input style='width:30px' type='submit' name='bewerkRegel'  value='Bewerken'>"
+                                        . "</form>"
+                                        . "</td>";
+                                    }
+                                        
                                     if (isset($row2['ExtraBeschrijving'])) {
                                         print("<td>" . $row2['Naam'] . "</td>");
                                         print("<td>" . $row2['ExtraBeschrijving'] . "</td>");
                                     } else {
-                                        print("<td colspan = '2'>" . $row2['Naam'] . "</td>");
+                                        print("<td>" . $row2['Naam'] . "</td>"   );
                                     }
+                                    
+                                    
+                                    
                                     print("<td>" . $row2['Potmaat'] . "</td>");
                                     $result3 = getSQLArray("SELECT Hoogte_min, Hoogte_max FROM plant WHERE PrijsID=" . $row2['PrijsID']);
                                     $plantHoogte = $result3->fetch();
@@ -101,46 +139,60 @@
                                     <td>" . $row2['ProductenTray'] . "</td>
                                 </tr>");
                                 }
+                                if (isset($_SESSION['logged_in'])) {
+                                    echo "<form action='pricelist.php' method='post'>"
+                                    . "<tr class='notranslate'> "
+                                    . "<td>"
+                                    . "<input type='hidden' name='id'  value='$catID'>"
+                                    . "<input type='submit' name='regel'  value='Regel toevoegen'>"
+                                    . "</td>"
+                                    . "<td>"
+                                    . "<input type='text' name='naam'>"
+                                    . "</td>"
+                                    . "<td>"
+                                    . "<input type='text' name='beschrijving'>"
+                                    . "</td> "
+                                    . "<td>"
+                                    . "<input type='text' name='potmaat'>"
+                                    . "</td> "
+                                    . "<td>"
+                                    . "</td> "
+                                    . "<td>"
+                                    . "<input type='number' name='prijskwekerij' step='0.01'>"
+                                    . "</td> "
+                                    . "<td>"
+                                    . "<input type='number' name='prijsvba' step='0.01'>"
+                                    . "</td> "
+                                    . "<td>"
+                                    . "<input type='number' name='percc'>"
+                                    . "</td> "
+                                    . "<td>"
+                                    . "<input type='number' name='perlaag'>"
+                                    . "</td> "
+                                    . "<td>"
+                                    . "<input type='number' name='pertray' >"
+                                    . "</td> "
+                                    . "</tr>"
+                                    . "</form>";
+                                }
+                            }
+                            if (isset($_SESSION['logged_in'])) {
                                 echo "<form action='pricelist.php' method='post'>"
                                 . "<tr class='notranslate'> "
-                                . "<td>"
-                                . "<input type='hidden' name='id'  value='$catID'>"
-                                . "<input style='width:50%' type='submit' name='regel'  value='Regel toevoegen'>"
+                                . "<td> "
+                                . "<input style='width:50%' type='submit' name='category'  value='Category toevoegen'>"
                                 . "<input style='width:50%' type='text' name='naam'>"
-                                . "</td>"
-                                . "<td>"
-                                . "<input type='text' name='beschrijving'>"
-                                . "</td> "
-                                . "<td>"
-                                . "<input type='text' name='potmaat'>"
-                                . "</td> "
-                                . "<td>"
-                                . "</td> "
-                                . "<td>"
-                                . "<input type='number' name='prijskwekerij'>"
-                                . "</td> "
-                                . "<td>"
-                                . "<input type='number' name='prijsvba'>"
-                                . "</td> "
-                                . "<td>"
-                                . "<input type='number' name='percc'>"
-                                . "</td> "
-                                . "<td>"
-                                . "<input type='number' name='perlaag'>"
-                                . "</td> "
-                                . "<td>"
-                                . "<input type='number' name='pertray'>"
                                 . "</td> "
                                 . "</form>";
                             }
                             ?>
                     </table>
-                   
+
                 </section>
             </section>
         </section>
-<?php
-include '../Php/footer.php';
-?>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>

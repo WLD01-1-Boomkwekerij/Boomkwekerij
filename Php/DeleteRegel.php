@@ -1,10 +1,10 @@
 <?php
-if(isset($_POST['category'])){
-    $naam = $_POST['naam'];                              
+if(isset($_POST['verwijderRegel'])){
+    $id = $_POST['id'];                              
 
-    doSQL("INSERT INTO category (`CategoryNaam`) 
-        VALUES ('$naam')");
+    doSQL("DELETE FROM prijs WHERE PrijsID = $id");
 }
+
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
