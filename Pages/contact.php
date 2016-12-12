@@ -30,7 +30,7 @@
                     ?>
                 </section>
                 <section id="maincontent">
-                    <h1>Aanvraag</h1>
+                    <h1>Contactformulier</h1>
                     <form action="contactSend.php" method="post">
                         Naam: <br><input class="contact" placeholder="Uw naam" type="text" name="contact_name" required><br>
                         Onderwerp: <br><input  class="contact" placeholder="Onderwerp" type="text" name="contact_subject" required><br>

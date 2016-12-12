@@ -1,6 +1,6 @@
 .contact
 {
-    border-radius:8px;
+    border-radius:5px;
 }
 
 .contact_content
@@ -16,9 +16,9 @@
 
 #btn1
 {
-    width:200px;
+    width:150px;
     height:35px;
-    border-radius:12px;
+    border-radius:10px;
     background-color:#5175b3;
     color:white;
 }

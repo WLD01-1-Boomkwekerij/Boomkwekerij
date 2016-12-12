@@ -49,6 +49,20 @@ input
     min-width: 38px;
 }
 
+
+
+#printbutton{
+    float: right;
+}
+
+
+@media print {
+    .printbutton{
+     dislay:none;   
+    } }
+    
+
+
 #printbutton{
     float: right;
 }
