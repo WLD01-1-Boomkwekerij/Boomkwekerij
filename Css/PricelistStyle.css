@@ -48,7 +48,7 @@ input
     width:100%;
     min-width: 38px;
 }
-<<<<<<< HEAD
+
 
 
 #printbutton{
@@ -61,9 +61,8 @@ input
      dislay:none;   
     }
     
-=======
+
 
 #printbutton{
     float: right;
->>>>>>> 5ddc59b8137421d9f8deff09dbdbde8a8f4a7179
 }
