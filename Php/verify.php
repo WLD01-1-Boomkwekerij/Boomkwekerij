@@ -12,13 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Overbodige spaties verwijderen 
         $sGebruiker = htmlentities(trim($_POST['user']));
         $sWachtwoord = hash('sha256', htmlentities(trim($_POST['pass'])));
-<<<<<<< HEAD
-        // Gebruikersnaam en wachtwoord controleren $sGebruiker == 'Michael' && $sWachtwoord =1234
-        if ($sGebruiker == $sGebruikerControle && $sWachtwoord == $sWachtwoordControle || $sGebruiker == 'Michael' && $sWachtwoord =1234) {
-=======
         // Gebruikersnaam en wachtwoord controleren 
         if ($sGebruiker == $sGebruikerControle && $sWachtwoord == $sWachtwoordControle) {
->>>>>>> 13680cc683c71daed326a04be01aec03c6906fc1
             // Juiste gebruikersnaam en wachtwoord: inloggen! 
             $_SESSION['logged_in'] = true;
             $_SESSION['gebruiker'] = $sGebruiker;
