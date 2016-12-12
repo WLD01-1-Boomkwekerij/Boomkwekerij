@@ -50,11 +50,7 @@
                     ?>
               
                     <div id="printable"> 
-
-                      
                         <h1>Prijslijst</h1> 
-                    
-
                         <table class="pricelist">
                             <colgroup>
                                 <col class="name"/>
@@ -128,7 +124,7 @@
                                         print("<td>" . $row2['Naam'] . "</td>");
                                         print("<td>" . $row2['ExtraBeschrijving'] . "</td>");
                                     } else {
-                                        print("<td>" . $row2['Naam'] . "</td>");
+                                        print("<td colspan = '2' >" . $row2['Naam'] . "</td>");
                                     }
 
 
@@ -143,7 +139,13 @@
                                     } else {
                                         print("<td>" . $plantHoogte['Hoogte_min'] . "/" . $plantHoogte['Hoogte_max'] . "</td>");
                                     }
-                                    print("<td>" . $row2['PrijsKwekerij'] . "</td>");
+                                    print("<td>" . $row2['PrijsKwekerij'] . "</td>"
+                                            . "<td>" . $row2['PrijsVBA'] . "</td>"
+                                            . "<td>" . $row2['ProductenCC'] . "</td>"
+                                            . "<td>" . $row2['ProductenLaag'] . "</td>"
+                                            . "<td>" . $row2['ProductenTray'] . "</td>"
+                                            . "</tr>");
+                                    
 
                                     if (isset($_SESSION['logged_in'])) {
                                         echo "<form action='pricelist.php' method='post'>"

@@ -41,25 +41,45 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                         if ($Wachtwoord1 != $Wachtwoord2) {
                             print ('Wachtwoorden zijn niet hetzelfde, probeer het opnieuw.<br>');
                         } else {
-                            print('Wilt u de volgende gebruiker toevoegen?<br>'
-                                    . 'Naam: ' . $gebr_naam . '<br>'
-                                    . 'Email: ' . $gebr_mail . '<br>'
-                                    . 'Krijgt mail: ');
-                            if ($krijgt_mail == 0) {
-                                print('nee <br>');
-                            } else {
-                                print('ja <br>');
+                            $errors=array();
+                            if (!preg_match('/^[A-Za-z0-9#@%&\-_]*$/', $Wachtwoord1)) {
+                                $errors[] = 'Ongeldige tekens';
                             }
-                            print('Type gebruiker: ' . $rol . '<br>');
-                            ?>
-                            <form action="../Php/user_add.php" method="post">
-                                <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
-                                <input type="submit" name="submit" value="Toevoegen"/>
-                            </form>
-                            <form action="../Pages/logged_in.php" method="post">
-                                <input type="submit" name="cancel" value="Annuleren"/>
-                            </form> 
-                        <?php } ?>
+                            if (strlen($Wachtwoord1) < 8) {
+                                $errors[] = 'Wachtwoord is te kort';
+                            }
+                            if (strlen(preg_replace('/\d/', '', $Wachtwoord1)) < 0) {
+                                $errors[] = 'Gebruik minimaal 1 getal';
+                            }
+                            if (strlen(preg_match('/^[#@%&\-_]*$/', $Wachtwoord1)) < 1) {
+                                $errors[] = 'Gerbuik minimaal 1 van de volgende tekens: <i># @ % & \ - _ </i>' ;
+                            }
+
+                            if (count($errors) > 0) { //laat foutmeldingen zien
+                                print_r ($errors, '<br/>');
+                            } else {
+                                print('Wilt u de volgende gebruiker toevoegen?<br>'
+                                        . 'Naam: ' . $gebr_naam . '<br>'
+                                        . 'Email: ' . $gebr_mail . '<br>'
+                                        . 'Krijgt mail: ');
+                                if ($krijgt_mail == 0) {
+                                    print('nee <br>');
+                                } else {
+                                    print('ja <br>');
+                                }
+                                print('Type gebruiker: ' . $rol . '<br>');
+                                ?>
+                                <form action="../Php/user_add.php" method="post">
+                                    <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
+                                    <input type="submit" name="submit" value="Toevoegen"/>
+                                </form>
+                                <form action="../Pages/logged_in.php" method="post">
+                                    <input type="submit" name="cancel" value="Annuleren"/>
+                                </form> 
+            <?php
+        }
+    }
+    ?>
                         <form  action="../Pages/logged_in.php" method="post">
                             <table>
                                 <tr>
@@ -76,54 +96,54 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                     <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required value="<?php print($gebr_mail); ?>"></td>
                                     <td>
                                         <select name="krijgt_mail" tabindex="3">
-                                            <?php if ($krijgt_mail == 1) { ?>
+    <?php if ($krijgt_mail == 1) { ?>
                                                 <option value="0">Nee</option>
                                                 <option value="1" selected="selected">Ja</option>
-                                            <?php } else { ?>
+    <?php } else { ?>
                                                 <option value="0" selected="selected">Nee</option>
                                                 <option value="1">Ja</option>
-                                            <?php } ?>
+    <?php } ?>
                                         </select> 
                                     </td>
                                     <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
                                     <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
                                     <td> 
-                                        <?php
-                                        if ($rol == 'beheerder') {
-                                            ?>          
+    <?php
+    if ($rol == 'beheerder') {
+        ?>          
                                             <select name="rol" tabindex="6">
                                                 <option value="beheerder" selected="selected">Beheerder</option>
                                                 <option value="medewerker">Medewerker</option>
                                                 <option value="vertaler">Vertaler</option>
                                             </select> 
-                                            <?php
-                                        } elseif ($rol == 'medewerker') {
-                                            ?>          
+        <?php
+    } elseif ($rol == 'medewerker') {
+        ?>          
                                             <select name="rol" tabindex="6">
                                                 <option value="beheerder" >Beheerder</option>
                                                 <option value="medewerker" selected="selected">Medewerker</option>
                                                 <option value="vertaler">Vertaler</option>
                                             </select> 
-                                            <?php
-                                        } elseif ($rol == 'vertaler') {
-                                            ?>             
+        <?php
+    } elseif ($rol == 'vertaler') {
+        ?>             
                                             <select name="rol" tabindex="6">
                                                 <option value="beheerder" >Beheerder</option>
                                                 <option value="medewerker">Medewerker</option>
                                                 <option value="vertaler" selected="selected">Vertaler</option>
                                             </select> 
-                                            <?php
-                                        }
-                                        ?>                                        
+        <?php
+    }
+    ?>                                        
                                     </td>
                                     <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td>
                                 </tr>
                             </table>
                         </form>
-                        <?php
-                    } else {
-                        ?>
-                    <form  action="../Pages/logged_in.php" method="post">
+    <?php
+} else {
+    ?>
+                        <form  action="../Pages/logged_in.php" method="post">
                             <table>
                                 <tr>
                                     <th>Naam</th>
@@ -156,14 +176,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                                 </tr>
                             </table>
                         </form>
-                        <?php
-                    }
-                    include_once '../Php/Database.php';
-                    $gebruikers = getSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker');
-                    ?>
+    <?php
+}
+include_once '../Php/Database.php';
+$gebruikers = getSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker');
+?>
                     <h5>Gebruikers wijzigen</h5>
-                    <?php
-                    ?>
+                    <?php ?>
                     <table>
                         <tr>
                             <th>Naam</th>
@@ -171,34 +190,34 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                             <th>Rechten</th>
                             <th>Bewerken</th>
                         </tr>
-                        <?php
-                        while ($rij = $gebruikers->fetch()) {
-                            ?>
+<?php
+while ($rij = $gebruikers->fetch()) {
+    ?>
                             <tr>
                                 <td> <?php print($rij['Naam']); ?> </td>
                                 <td> <?php print($rij['Email']); ?> </td>
                                 <td> <?php
-                                    if ($rij['Rol'] == '1') {
-                                        $rij['Rol'] = 'Beheerder';
-                                    } elseif ($rij['Rol'] == '2') {
-                                        $rij['Rol'] = 'Medewerker';
-                                    } elseif ($rij['Rol'] == '3') {
-                                        $rij['Rol'] = 'Vertaler';
-                                    }
-                                    print($rij['Rol']);
-                                    ?></td>
+                        if ($rij['Rol'] == '1') {
+                            $rij['Rol'] = 'Beheerder';
+                        } elseif ($rij['Rol'] == '2') {
+                            $rij['Rol'] = 'Medewerker';
+                        } elseif ($rij['Rol'] == '3') {
+                            $rij['Rol'] = 'Vertaler';
+                        }
+                        print($rij['Rol']);
+    ?></td>
                                 <td><form action="../Pages/user_edit.php" method="POST">
                                         <input type='hidden' name='gebruiker' value="<?php print($rij['GebruikerID']) ?>" />
                                         <input type="submit" name="submit" value="Bewerken"/>
                                     </form></td>
-                            <?php } ?>
+<?php } ?>
                         </tr>
                     </table>
                 </section>
             </section>
         </section>
-        <?php
-        include '../Php/footer.php';
-        ?>
+<?php
+include '../Php/footer.php';
+?>
     </body>
 </html>
