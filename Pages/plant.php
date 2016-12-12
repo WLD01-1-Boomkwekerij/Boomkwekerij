@@ -111,14 +111,14 @@
                         $EersteFoto = getSQLArray("SELECT * FROM plantfoto WHERE PlantID = $plant AND TypeFoto = 1");
                         $EersteFotoRegel = $EersteFoto->fetch();
                         $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
-                        echo "<img id='ImageFrame' src='../Catalogus fotos/$EersteFotoUrl'>";
+                        echo "<img id='ImageFrame' src='../Images/Catalogus fotos/$EersteFotoUrl'>";
                         ?>
                         <div id="Positioner">             
                             <?php
                             $Fotoos = getSQLArray("SELECT * FROM plantfoto  WHERE PlantID = $plant");
                             while ($row = $Fotoos->fetch()) {
                                 $url = $row["FotoUrl"];
-                                echo "<img onclick='ChangeImage()' class='UnderImage' src='../Catalogus fotos/$url'>";
+                                echo "<img onclick='ChangeImage()' class='UnderImage' src='../Images/Catalogus fotos/$url'>";
                             }
                             ?>
                         </div>
