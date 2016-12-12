@@ -43,7 +43,7 @@
                     <?php
                     include '../Php/AddRegel.php';
                     include '../Php/AddCategory.php';
-<<<<<<< HEAD
+
                     include '../Php/DeleteRegel.php';
                     include '../Php/DeleteCategory.php';
                     $result = getSQLArray("SELECT * FROM Category");
@@ -143,8 +143,8 @@
                                     } else {
                                         print("<td>" . $plantHoogte['Hoogte_min'] . "/" . $plantHoogte['Hoogte_max'] . "</td>");
                                     }
-                                    print("<td>" . $row2['PrijsKwekerij'] . "</td>
-=======
+                                    print("<td>" . $row2['PrijsKwekerij'] ." </td>
+
                     $result = getSQLArray("SELECT * FROM Category WHERE CategoryID IN(SELECT distinct CategoryID FROM prijs)");
                     ?>
                     <div id="printable">
