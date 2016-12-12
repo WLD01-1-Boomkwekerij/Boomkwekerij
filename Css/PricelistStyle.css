@@ -44,10 +44,16 @@ input
     width:100%;
     min-width: 38px;
 }
-<<<<<<< HEAD
+
 
 #printbutton{
     float: right;
 }
-=======
->>>>>>> 47d3e81c9415784acff05fe4f0d3a0d60e532323
+
+
+@media print {
+    .printbutton{
+     dislay:none;   
+    }
+    
+}

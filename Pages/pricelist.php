@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <script>
-                            function printDiv() {
-                                var printContents = document.getElementById("printable").innerHTML;
-                                var originalContents = document.body.innerHTML;
-                                document.body.innerHTML = printContents;
-                                window.print();
-                                document.body.innerHTML = originalContents;
-                            }
-                        </script>
+        <script>
+            function printDiv() {
+                var printContents = document.getElementById("printable").innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+                
+            }
+        </script>
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Prijslijst</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/PricelistStyle.css" rel="stylesheet" type="text/css">
+        <link media="print" href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+        <link media="print" href="../Css/PricelistStyle.css" rel="stylesheet" type="text/css">
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
@@ -34,7 +37,7 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
-
+<button id="printbutton" type="button" value="print" onclick="printDiv()">Print</button>
                     <?php
                     include '../Php/rightmenu.php';
                     ?>
@@ -46,9 +49,9 @@
                     $result = getSQLArray("SELECT * FROM Category WHERE CategoryID IN(SELECT distinct CategoryID FROM prijs)");
                     ?>
                     <div id="printable">
-                        <button id="printbutton" type="button" onclick="printDiv()">Print</button>
+                        
                         <h1>Prijslijst</h1> 
-                       
+
 
                         <table class="pricelist">
                             <colgroup>
