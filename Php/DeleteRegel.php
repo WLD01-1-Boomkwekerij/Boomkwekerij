@@ -2,7 +2,10 @@
 if(isset($_POST['verwijderRegel'])){
     $id = $_POST['id'];                              
 
-    doSQL("DELETE FROM prijs WHERE PrijsID = $id");
+    doSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID='$id')");
+    doSQL("DELETE FROM plant WHERE PrijsID='$id';");   
+    doSQL("DELETE FROM prijs WHERE PrijsID='$id';");  
+    
 }
 
 
