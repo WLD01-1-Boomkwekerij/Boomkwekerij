@@ -2,33 +2,52 @@ var currentPathHistory = [];
 var currentPathNumber = 0;
 var futurePathNumber = 0;
 var currentSelectedPath = "";
+var isUploading;
 
+/**
+ * Create an element
+ * @param {type} element
+ * @returns {Element}
+ */
 function createElement(element)
 {
     return document.createElement(element);
 }
 
+/**
+ * Gets an element in the document by id
+ * @param {type} id
+ * @returns {Element}
+ */
 function getElementById(id)
 {
     return document.getElementById(id);
 }
 
+/**
+ *Checks the arrow color, if there is an history / future, change the color
+ */
 function checkArrowColor()
 {
     var left = getElementById("LeftArrow");
-    if(currentPathNumber > 0){
+    if (currentPathNumber > 0) {
         left.style.color = "#222222";
-    }else{
+    } else {
         left.style.color = "#777777";
     }
     var right = getElementById("RightArrow");
-    if(futurePathNumber > 0){
+    if (futurePathNumber > 0) {
         right.style.color = "#222222";
-    }else{
+    } else {
         right.style.color = "#777777";
     }
 }
 
+/**
+ * Creates a folder icon and makes it clickable
+ * @param {type} url
+ * @param {type} name
+ */
 function createFolderIcon(url, name)
 {
     var fileManager = getElementById("Files");
@@ -52,6 +71,11 @@ function createFolderIcon(url, name)
     folder.appendChild(folderName);
 }
 
+/**
+ * Creates a file icon and makes it selectable / unselectable
+ * @param {type} url
+ * @param {type} name
+ */
 function createFileIcon(url, name)
 {
     var fileManager = getElementById("Files");
@@ -66,16 +90,22 @@ function createFileIcon(url, name)
     var fileName = createElement("p");
     fileName.innerHTML = name;
     file.appendChild(fileName);
-    
-    file.addEventListener("click", function()
+
+    if (!isUploading)
     {
-        currentSelectedPath = url + "/" + name;
-        file.style.boxShadow = "0px 0px 4px 0px lightgray";
-        file.style.backgroundColor = "lightgray";
-        getElementById("fileManagerSelectButton").value = currentSelectedPath;
-    });
+        file.addEventListener("click", function ()
+        {
+            currentSelectedPath = url + "/" + name;
+            file.style.boxShadow = "0px 0px 4px 0px lightgray";
+            file.style.backgroundColor = "lightgray";
+            getElementById("fileManagerSelectButton").value = currentSelectedPath;
+        });
+    }
 }
 
+/**
+ * Creates an empty icon for aligning purposes
+ */
 function createEmtpyIcon()
 {
     var fileManager = getElementById("Files");
@@ -84,6 +114,10 @@ function createEmtpyIcon()
     fileManager.appendChild(empty);
 }
 
+/**
+ * Creates all the icons
+ * @param {type} directory
+ */
 function createFileIcons(directory)
 {
     var xmlhttp = new XMLHttpRequest();
@@ -105,7 +139,7 @@ function createFileIcons(directory)
             } else {
                 arrayInt = fileArray.length % 4;
             }
-            
+
             for (var i = 0; i < fileArray.length - 1; i++)
             {
                 if (fileArray[i].includes("."))
@@ -125,6 +159,10 @@ function createFileIcons(directory)
     xmlhttp.send();
 }
 
+/**
+ * Opens a folder and creates all the icons
+ * @param {string} directory
+ */
 function openFolder(directory)
 {
     while (getElementById("Files").firstChild) {
@@ -133,8 +171,13 @@ function openFolder(directory)
     createFileIcons(directory);
 }
 
-function createManager()
+/**
+ * Creates the file manager
+ * @param {bool} uploading
+ */
+function createManager(uploading)
 {
+    isUploading = uploading;
     currentSelectedPath = "";
     currentPathHistory[0] = "../Images/";
     console.log(currentPathHistory[0]);
@@ -167,7 +210,7 @@ function createManager()
     leftArrow.id = "LeftArrow";
     leftArrow.onclick = function () {
         if (currentPathNumber > 0)
-        {            
+        {
             currentPathNumber--;
             openFolder(currentPathHistory[currentPathNumber]);
             futurePathNumber++;
@@ -219,12 +262,18 @@ function createManager()
     selectButton.style.border = "none";
     selectButton.style.bottom = "5px";
     selectButton.style.right = "5px";
-    selectButton.innerHTML = "Select";
-    selectButton.addEventListener("click", function()
+    
+    if(isUploading){
+       selectButton.innerHTML = "Upload"; 
+    }else{
+        selectButton.innerHTML = "Select";
+    }
+    
+    selectButton.addEventListener("click", function ()
     {
         restoreSelectorPoint();
-        markupText("insertImage", currentSelectedPath );
-    });
+        markupText("insertImage", currentSelectedPath);
+    });    
     bottomInfo.appendChild(selectButton);
 
     var positionSetter = createElement("div");
@@ -246,6 +295,9 @@ function createManager()
     createFileIcons("../Images");
 }
 
+/**
+ * Destroys the manager
+ */
 function destroyManager()
 {
     isFileManagerOpen = false;

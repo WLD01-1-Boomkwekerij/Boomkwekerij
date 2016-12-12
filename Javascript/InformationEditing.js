@@ -43,7 +43,7 @@ function markupText(type, parameter)
 function insertImage()
 {
     if (!isFileManagerOpen) {
-        createManager();
+        createManager(false);
         isFileManagerOpen = true;
     }
 }
@@ -117,7 +117,6 @@ function insertLink(name, url)
 
 function createLink()
 {
-
     var editorDiv = getElementById("Editor");
 
     var linkDiv = createElement("div");
