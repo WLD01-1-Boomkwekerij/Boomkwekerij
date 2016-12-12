@@ -32,6 +32,7 @@ body
     background-image: url(../images/banner.jpg);
     background-repeat: no-repeat;
     padding:0px;
+    height: 209px;
 }
 
 #header
@@ -62,6 +63,7 @@ body
 #topmenu ul li a
 {
     font-size: 20px;
+    color:black;
     text-decoration: none;
     padding-left: 10px;
     padding-right: 10px;
@@ -69,8 +71,8 @@ body
 
 #topmenu ul li a:hover
 {
-    background-color: royalblue;
-    color:white;
+    background-color: #b24343;
+    color:black;
 }
 
 #mid

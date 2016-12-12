@@ -19,7 +19,6 @@ function getSQL($sqlCode, $rowName) {
         $text = $row[$rowName];
         return $text;
     }
-    $connection=null;
 }  
 
 function getSQLArray($sqlCode) {
@@ -27,14 +26,20 @@ function getSQLArray($sqlCode) {
     $connection = connectToDatabase();
     $statement = $connection->prepare($sqlCode);
     $statement->execute();
-    $connection=null;
+   
     return $statement;
 }
 
 function doSQL($sqlCode) {
-
+try {
     $connection = connectToDatabase();
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $statement = $connection->prepare($sqlCode);
     $statement->execute();
-    $connection=null;
+}catch(PDOException $e)
+    {
+    echo $sqlCode . "<br>" . $e->getMessage();
+    echo '<br><br>';
+    }
+
 }
