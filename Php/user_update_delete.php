@@ -1,17 +1,17 @@
 <html>
     <head>
         <title>Redirecting...</title>
-        <meta http-equiv="refresh" content="0; url=logged_in.php">
+        <meta http-equiv="refresh" content="0; url=../Pages/logged_in.php">
     </head>
     <body>
         <?php
-        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
-            exit();
-        }
+//        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in']) {
+//            exit();
+//        }
         ?>
         You are being automatically redirected to a new location.<br />
         If your browser does not redirect you in few seconds, or you do
-        not wish to wait, <a href="../Pages/logged_in.php">click here</a>.
+        not wish to wait, <a href="../Pages/logged_in.php">click here</a>.<br>
         <?php
         $submit = $_POST['submit'];
         $rol = $_POST['rol'];
@@ -31,12 +31,14 @@
                 } elseif ($rol == 'vertaler') {
                     $rol = 3;
                 }
-                $query = ('UPDATE boomkwekerij.gebruiker  SET Naam ="' . $gebr_naam . '",'
-                        . 'Email = "' . $gebr_mail . '",'
-                        . 'KrijgtEmail= "' . $krijgt_mail . '",'
-                        . 'Rol= "' . $rol . '"'
-                        . 'WHERE GebruikerID =' . $gebruiker);
+                $query = ('UPDATE `boomkwekerij`.`gebruiker`'
+                        . ' SET `Naam` ="' . $gebr_naam . '",'
+                        . ' `Email` = "' . $gebr_mail . '",'
+                        . ' `KrijgtEmail` = "' . $krijgt_mail . '",'
+                        . ' `Rol` = "' . $rol . '"'
+                        . ' WHERE `GebruikerID` =' . $gebruiker);
                 doSQL($query);
+                print($query);
             } elseif ($submit == 'Verwijderen') {
 
                 if ($rol == 'beheerder') {
