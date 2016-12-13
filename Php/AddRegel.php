@@ -2,7 +2,6 @@
 if(isset($_POST['regel'])){
     $id = $_POST['id'];
     $potmaat = $_POST['potmaat'];
-    $hoogte = $_POST['hoogte'];
     $beschrijving = $_POST['beschrijving'];
     $percc = $_POST['percc'];
     $perlaag = $_POST['perlaag'];
