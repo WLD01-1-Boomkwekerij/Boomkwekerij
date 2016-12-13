@@ -31,26 +31,26 @@
                 </section>
                 <section id="maincontent">
                     <center> <div id="loginkader">
-                        <div id="logintitel">
-                            <p>Inloggen</p>
-                        </div>
-                        <form id="loggiforum" method="post" action="../Php/verify.php">
-                        <table border="1">
-                            <tr>
-                                <td>Gebruikersnaam:</td>
-                                <td><input type="text" id="user" name="user"></td>
-                            </tr>
-                            <tr>
-                                <td>Wachtwoord:</td>
-                                <td><input type="password" id="pass" name="pass"></td>
-                            </tr>
-                        </table>
-                        <br>
-                        <input type="submit" id="btn2" name="btn2" value="Inloggen">
+                            <div id="logintitel">
+                                <p>Inloggen</p>
+                            </div>
+                            <form id="loggiforum" method="post" action="../Php/verify.php">
+                                <table border="1">
+                                    <tr>
+                                        <td>Gebruikersnaam:</td>
+                                        <td><input type="text" id="user" name="user"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wachtwoord:</td>
+                                        <td><input type="password" id="pass" name="pass"></td>
+                                    </tr>
+                                </table>
+                                <br>
+                                <input type="submit" id="btn2" name="btn2" value="Inloggen">
 
                             </form>
-                        
-                    </div></center>
+
+                        </div></center>
                 </section>
             </section>
         </section>

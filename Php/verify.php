@@ -1,4 +1,5 @@
 <?php
+
 // We gaan sessies gebruiken 
 session_start();
 // Controle of het formulier verzonden is 
@@ -6,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Controle of benodigde velden wel ingevuld zijn 
     include_once '../Php/Database.php';
     $sGebruikerControle = trim($_POST['user']);
-    $sWachtwoordControle = getSQL('SELECT Wachtwoord FROM gebruiker WHERE Naam="' . $sGebruikerControle.'"', 'Wachtwoord');
+    $sWachtwoordControle = getSQL('SELECT Wachtwoord FROM gebruiker WHERE Naam="' . $sGebruikerControle . '"', 'Wachtwoord');
     // Gebruikersnaam en wachtwoord instellen
     if (isset($_POST['user'], $_POST['pass'])) {
         // Overbodige spaties verwijderen 
