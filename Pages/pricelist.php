@@ -47,7 +47,7 @@
                     include '../Php/DeleteRegel.php';
                     include '../Php/DeleteCategory.php';
                     include '../Php/UpdateRegel.php';
-                    $result = getSQLArray("SELECT * FROM Category");
+                    include '../Php/UpdateCategory.php';
                     ?>
 
                     <div id="printable"> 
@@ -90,28 +90,45 @@
                                 <td>tray</td>
                             </tr>
                             <?php
+                            $result = getSQLArray("SELECT * FROM Category");
                             while ($row = $result->fetch()) {
                                 $catID = $row['CategoryID'];
+                                $catNaam = $row["CategoryNaam"];
                                 if (isset($_SESSION['logged_in'])) {
-                                    print ("<tr  class='notranslate' >");
-                                    echo"<td><form onsubmit='return confirm(`Wilt u dit echt verwijderen?`);' action='pricelist.php' method='post'>"
-                                    . "<input type='hidden' name='id'  value='$catID'>"
-                                    . "<input style='width:30%; background-color:red' type='submit' name='verwijderCat'  value='X'>"
-                                    . "</form>"
-                                    . "<form  action='pricelist.php' method='post'>"
-                                    . "<input type='hidden' name='id'  value='$catID'>"
-                                    . "<input style='width:69%' type='submit' name='bewerkCat'  value='Bewerken'>"
-                                    . "</form>"
-                                    . "</td>";
+                                    if (!(isset($_POST['bewerkCat']) && $catID == $_POST['id'])) {
+                                        print ("<tr  class='notranslate' >");
+                                        echo"<td><form onsubmit='return confirm(`Wilt u dit echt verwijderen?`);' action='pricelist.php' method='post'>"
+                                        . "<input type='hidden' name='id'  value='$catID'>"
+                                        . "<input style='width:30%; background-color:red' type='submit' name='verwijderCat'  value='X'>"
+                                        . "</form>"
+                                        . "<form  action='pricelist.php' method='post'>"
+                                        . "<input type='hidden' name='id'  value='$catID'>"
+                                        . "<input style='width:69%' type='submit' name='bewerkCat'  value='Bewerken'>"
+                                        . "</form>"
+                                        . "</td>";
+                                    } else {
+                                        echo "<form action='pricelist.php' method='post'>";
+                                        echo "<tr class='notranslate'>";
+                                        echo "<td>"
+                                        . "<input type='submit' name='OpslaanCat'  value='Opslaan'>"
+                                        . "<input type='hidden' name='id'  value='$catID'>"
+                                        . "</td>";
+                                        
+                                    }
                                 }
-                                print ("<td class = 'name' colspan = '9'>"
-                                        . "<h2><a href = '../Pages/catalog.php?category=$catID'>" . $row["CategoryNaam"] . "</a></h2></td>"
-                                        . "</tr>");
+                                if (isset($_SESSION['logged_in']) && isset($_POST['bewerkCat']) && $catID == $_POST['id']) {
+                                    echo "<td class = 'name' colspan = '9'>"
+                                    . "<input type='text' name='naam' value='$catNaam' ></td>"
+                                    . "</tr></form>";
+                                } else {
+                                    echo "<td class = 'name' colspan = '9'>"
+                                    . "<h2><a href = '../Pages/catalog.php?category=$catID'>$catNaam</a></h2></td>"
+                                    . "</tr>";
+                                }
+
                                 $result2 = getSQLArray("SELECT * FROM prijs WHERE CategoryID=" . $catID);
 
                                 while ($row2 = $result2->fetch()) {
-
-
 
                                     $regelID = $row2["PrijsID"];
                                     if (isset($_SESSION['logged_in'])) {

@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['OpslaanRegel'])){
+if(isset($_POST['OpslaanCategory'])){
     $id = $_POST['id'];
     $potmaat = $_POST['potmaat'];
     $beschrijving = $_POST['beschrijving'];
