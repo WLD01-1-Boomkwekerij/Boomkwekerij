@@ -13,7 +13,7 @@ $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Blo
 // prepare sql and bind parameters
 doSQL($sql);
 
-header('Refresh: 0; url=/pages/catalog.php');
+header('Refresh: 50; url=/pages/catalog.php');
 
 
 
