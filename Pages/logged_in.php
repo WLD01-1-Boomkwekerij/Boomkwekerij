@@ -129,6 +129,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                         <?php
                     } else {
                         ?>
+                    <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _</i><br>
                         <form  action="../Pages/logged_in.php" method="post">
                             <table>
                                 <tr>
