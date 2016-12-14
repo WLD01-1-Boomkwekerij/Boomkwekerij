@@ -171,6 +171,32 @@ function openFolder(directory)
     createFileIcons(directory);
 }
 
+function insertUploader(element)
+{
+        var uploaderDiv = createElement("div");
+        uploaderDiv.style.width = "200px";
+        uploaderDiv.style.height = "50px";
+        uploaderDiv.style.border = "solid 2px black";
+        uploaderDiv.style.backgroundColor = "white";
+        element.appendChild(uploaderDiv);
+
+        var uploadForm = createElement("form");
+        uploadForm.action = "../Upload.php";
+        uploadForm.method = "post";
+        uploadForm.enctype = "multipart/form-data";
+        uploaderDiv.appendChild(uploadForm);
+
+        var fileInput = createElement("input");
+        fileInput.type = "file";
+        fileInput.name = "Bestand";
+        uploadForm.appendChild(fileInput);
+
+        var fileSend = createElement("input");
+        fileSend.type = "submit";
+        fileSend.name = "submitUploadFile";
+        uploadForm.appendChild(fileSend);
+}
+
 /**
  * Creates the file manager
  * @param {bool} uploading
@@ -267,16 +293,15 @@ function createManager(uploading)
         selectButton.innerHTML = "Upload";
         selectButton.addEventListener("click", function ()
         {
-            restoreSelectorPoint();
-            markupText("insertImage", currentSelectedPath);
+            
         });
     } else {
-        elseselectButton.addEventListener("click", function ()
+        selectButton.innerHTML = "Select";
+        selectButton.addEventListener("click", function ()
         {
             restoreSelectorPoint();
             markupText("insertImage", currentSelectedPath);
-        });
-        selectButton.innerHTML = "Select";
+        });        
     }
 
 
