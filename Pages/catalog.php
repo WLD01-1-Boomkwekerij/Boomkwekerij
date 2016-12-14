@@ -16,8 +16,8 @@
             include '../Php/loggedInEditor.php';
         }
         ?>
-        
-        
+
+
     </head>
     <body>
         <section id="wrapper">
@@ -80,9 +80,9 @@
                                  LEFT JOIN plantfoto pf
                                  ON plant.PlantID=pf.PlantID
                                  WHERE plant.PrijsID = $prijsID AND pf.TypeFoto = 1"
-                                );
-          
-                         if (isset($_SESSION['logged_in'])) {
+                        );
+
+                        if (isset($_SESSION['logged_in'])) {
 
 
                             echo "<div class='item'>
@@ -118,7 +118,7 @@
                                 <td>Bloeiwijze:</td>
                                 <td><input placeholder='Bloeiwijze'  name='bloeiwijze' type='text'requires></td>
                                  </table>
-                            <button onclick='createManager("."false".")'>Selecteer Afbeelding</button>  
+                            <button onclick='createManager(" . "false" . ")'>Selecteer Afbeelding</button>  
                             </div>
                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
                                </form>
@@ -134,6 +134,7 @@
                             $Hoogte_max = $plant['Hoogte_max'];
                             $bloeiwijze = $plant['Bloeiwijze'];
                             $bloeitijd = $plant['Bloeitijd'];
+                            $plantFotoUrl = $plant['FotoUrl'];
 
                             $hidden = "hidden";
                             $position = "absolute";
@@ -141,24 +142,18 @@
                             echo "<div class='item2' id='plantID$plantId'>
                             <div>
                             <form method='post' action=''>
-                           <table>
-                                    <tr >
-                                       
-                                     <div id='catatitel'> <center><p id='planttitel'>$naam</p></center></div>
-                                           
-
-                                     <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
-                                  <a href='plant.php?plant=$plantId'><img id='imgtest' src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'> </a>
-                                </table>
-                          
-                            
+                            <table>
+                                <tr >
+                                    <div id='catatitel'> <center><p id='planttitel'>$naam</p></center></div>
+                                    <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
+                                    <a href='plant.php?plant=$plantId'><img id='imgtest' src='../Images/Catalogus fotos/$plantFotoUrl'> </a>
+                            </table>
                             </div>";
-                          if(isset($_SESSION['logged_in'])){
-                            echo "
-                              <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>  
-                              ";
-                          }
-                          echo"
+
+                            if (isset($_SESSION['logged_in'])) {
+                                print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
+                            }
+                            echo"
                             </form>
                             </div>";
                         }
@@ -170,8 +165,8 @@
                 </section>
             </section>
         </section>
-<?php
-include '../Php/footer.php';
-?>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>
