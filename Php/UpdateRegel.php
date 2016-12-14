@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['regel'])){
+if(isset($_POST['OpslaanCategory'])){
     $id = $_POST['id'];
     $potmaat = $_POST['potmaat'];
     $beschrijving = $_POST['beschrijving'];
@@ -10,8 +10,7 @@ if(isset($_POST['regel'])){
     $prijsVBA = $_POST['prijsvba'];
     $naam = $_POST['naam'];                              
 
-    doSQL("INSERT INTO prijs (`PrijsKwekerij`, `PrijsVBA`, `ProductenCC`, `ProductenLaag`, `ProductenTray`, `Naam`, `ExtraBeschrijving`, `Potmaat`, `CategoryID`) 
-        VALUES ('$prijsKwekerij', '$prijsVBA', '$percc', '$perlaag', '$pertray', '$naam', '$beschrijving', '$potmaat', '$id')");
+    doSQL("UPDATE prijs SET PrijsKwekerij='$prijsKwekerij', PrijsVBA='$prijsVBA', ProductenCC='$percc', ProductenLaag='$perlaag', ProductenTray='$pertray', Naam='$naam', ExtraBeschrijving='$beschrijving', Potmaat='$potmaat' WHERE PrijsID=$id");
 }
 /* 
  * To change this license header, choose License Headers in Project Properties.
