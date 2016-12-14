@@ -62,7 +62,6 @@ function createFolderIcon(url, name)
         
         if(isUploading){
              getElementById("uploadFilePathURL").value = currentPathHistory[currentPathHistory.length - 1];
-             console.log(currentPathHistory[currentPathHistory.length - 1]);
         }
         
     });
@@ -186,7 +185,6 @@ function createManager(uploading)
     isUploading = uploading;
     currentSelectedPath = "";
     currentPathHistory[0] = "../Images/";
-    // console.log(currentPathHistory[0]);
 
     document.body.style.overflow = "hidden";
 
@@ -301,8 +299,6 @@ function createManager(uploading)
         fileSend.name = "submitUploadFile";
         uploadForm.appendChild(fileSend);
 
-        
-
         bottomInfo.appendChild(uploadForm);
 
     } else
@@ -333,7 +329,6 @@ function createManager(uploading)
  */
 function destroyManager()
 {
-    isFileManagerOpen = false;
     getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
 }

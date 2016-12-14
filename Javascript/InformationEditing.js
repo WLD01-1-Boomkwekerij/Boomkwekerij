@@ -349,7 +349,6 @@ document.onkeydown = document.onkeyup = function (e)
 
     e = e || event;
     map[e.keyCode] = e.type === "keydown";
-    console.log(map[e.keyCode]);
 
     //Redo and Undo
     if (map[17] && map[90] && map[16])
