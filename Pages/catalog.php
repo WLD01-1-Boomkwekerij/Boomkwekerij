@@ -41,7 +41,7 @@
                         while ($row = $sqlCategory->fetch()) {
                             $categoryNaam = $row["CategoryNaam"];
                             $id = $row["CategoryID"];
-                            echo "<a href='http://localhost:8080/pages/catalog.php?category=$id'><li>$categoryNaam</li></a>";
+                            print "<a href='catalog.php?category=$id'><li>$categoryNaam</li></a>";
                         }
                         ?>
                     </ul>
@@ -74,7 +74,13 @@
                         $perCC = $row["ProductenCC"];
                         $perLaag = $row["ProductenLaag"];
                         $perTray = $row["ProductenTray"];
-                        $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PrijsID = $prijsID");
+                        $sqlPlant = getSQLArray(
+                                "SELECT* 
+                                 FROM plant 
+                                 LEFT JOIN plantfoto pf
+                                 ON plant.PlantID=pf.PlantID
+                                 WHERE plant.PrijsID = $prijsID AND pf.TypeFoto = 1"
+                                );
           
                          if (isset($_SESSION['logged_in'])) {
 
