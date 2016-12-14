@@ -38,12 +38,25 @@ function markupText(type, parameter)
 }
 
 /**
- * Creates the fileManager
+ * Creates the fileManager for image inserting
  */
 function insertImage()
 {
-    if (!isFileManagerOpen) {
+    if (!isFileManagerOpen)
+    {
         createManager(false);
+        isFileManagerOpen = true;
+    }
+}
+
+/**
+ * Creates the fileManager for the image uploading
+ */
+function uploadImage()
+{
+    if(!isFileManagerOpen)
+    {
+        createManager(true);
         isFileManagerOpen = true;
     }
 }
@@ -226,6 +239,12 @@ function createButton(type)
                 isLinkWindowOpen = true;
             };
             break;
+        case "upload":
+        button.onclick = function ()
+        {
+            uploadImage();
+        };
+        break;
         default:
             button.onclick = function ()
             {
@@ -267,7 +286,7 @@ function setContentEditable(element)
                     "bold", "italic", "underline",
                     "justifyLeft", "justifyCenter", "justifyRight",
                     "insertOrderedList", "insertUnorderedList",
-                    "link", "image"
+                    "link", "image", "upload"
                 ];
 
         for (var i = 0; i < buttonArray.length; i++)

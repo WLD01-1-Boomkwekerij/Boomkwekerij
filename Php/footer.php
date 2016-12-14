@@ -5,8 +5,6 @@
     } else {
         print("<li><a href='login.php'>Inloggen</a></li>");
     }
-    
-    print("<p onclick='createManager(true)'>Upload</p>");
     ?>
 </section>
 
