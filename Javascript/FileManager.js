@@ -325,7 +325,7 @@ function createManager(uploading, fileUrlFormInput)
         {
             selectButton.addEventListener("click", function ()
             {
-                //fileUrlFormInput
+                fileUrlFormInput.value = currentSelectedPath;
                 destroyManager();
             });
         }
