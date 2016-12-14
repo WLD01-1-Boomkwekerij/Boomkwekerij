@@ -262,18 +262,24 @@ function createManager(uploading)
     selectButton.style.border = "none";
     selectButton.style.bottom = "5px";
     selectButton.style.right = "5px";
-    
-    if(isUploading){
-       selectButton.innerHTML = "Upload"; 
-    }else{
+
+    if (isUploading) {
+        selectButton.innerHTML = "Upload";
+        selectButton.addEventListener("click", function ()
+        {
+            restoreSelectorPoint();
+            markupText("insertImage", currentSelectedPath);
+        });
+    } else {
+        elseselectButton.addEventListener("click", function ()
+        {
+            restoreSelectorPoint();
+            markupText("insertImage", currentSelectedPath);
+        });
         selectButton.innerHTML = "Select";
     }
-    
-    selectButton.addEventListener("click", function ()
-    {
-        restoreSelectorPoint();
-        markupText("insertImage", currentSelectedPath);
-    });    
+
+
     bottomInfo.appendChild(selectButton);
 
     var positionSetter = createElement("div");

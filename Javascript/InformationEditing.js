@@ -360,13 +360,11 @@ document.onkeydown = document.onkeyup = function (e)
 //Jquery Code
 $(document).ready(function ()
 {
-
     $(".ContentEditable").click(function ()
     {
         if (!isEditorOpen) {
             setContentEditable($(this)[0]);
             isEditorOpen = true;
         }
-
     });
 });
