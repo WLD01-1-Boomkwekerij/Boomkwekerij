@@ -54,7 +54,6 @@
                         deletePlant($_POST["plantID"]);
                     }
 
-
                     if (!isset($_GET['category'])) {
                         $category = 1;
                     } else {
@@ -113,7 +112,7 @@
                                 <td>Bloeiwijze:</td>
                                 <td><input placeholder='Bloeiwijze'  name='bloeiwijze' type='text'requires></td>
                                  </table>
-                            <img src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
+                            <button onclick='createManager("."false".")'>Selecteer Afbeelding</button>  
                             </div>
                                <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
                                </form>
@@ -142,7 +141,7 @@
                                      <div id='catatitel'> <center><p id='planttitel'>$naam</p></center></div>
                                            
 
-                                        <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
+                                     <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
                                   <a href='plant.php?plant=$plantId'><img id='imgtest' src='../Images/Catalogus fotos/Heesters/aucuba tray p13.jpg'> </a>
                                 </table>
                           

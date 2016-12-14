@@ -59,11 +59,11 @@ function createFolderIcon(url, name)
         currentPathHistory[currentPathHistory.length] = url + "/" + name;
         currentPathNumber++;
         checkArrowColor();
-        
-        if(isUploading){
-             getElementById("uploadFilePathURL").value = currentPathHistory[currentPathHistory.length - 1];
+
+        if (isUploading) {
+            getElementById("uploadFilePathURL").value = currentPathHistory[currentPathHistory.length - 1];
         }
-        
+
     });
     fileManager.appendChild(folder);
 
@@ -180,7 +180,7 @@ function openFolder(directory)
  * Creates the file manager
  * @param {bool} uploading
  */
-function createManager(uploading)
+function createManager(uploading, fileUrlFormInput)
 {
     isUploading = uploading;
     currentSelectedPath = "";
@@ -312,12 +312,25 @@ function createManager(uploading)
         selectButton.style.bottom = "5px";
         selectButton.style.right = "5px";
         selectButton.innerHTML = "Select";
-        selectButton.addEventListener("click", function ()
+
+        if (arguments === 1)
         {
-            restoreSelectorPoint();
-            markupText("insertImage", currentSelectedPath);
-            destroyManager();
-        });
+            selectButton.addEventListener("click", function ()
+            {
+                restoreSelectorPoint();
+                markupText("insertImage", currentSelectedPath);
+                destroyManager();
+            });
+        } else
+        {
+            selectButton.addEventListener("click", function ()
+            {
+                //fileUrlFormInput
+                destroyManager();
+            });
+        }
+
+
         bottomInfo.appendChild(selectButton);
     }
 
