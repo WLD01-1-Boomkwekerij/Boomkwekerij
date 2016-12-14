@@ -59,6 +59,11 @@ function createFolderIcon(url, name)
         currentPathHistory[currentPathHistory.length] = url + "/" + name;
         currentPathNumber++;
         checkArrowColor();
+
+        if (isUploading) {
+            getElementById("uploadFilePathURL").value = currentPathHistory[currentPathHistory.length - 1];
+        }
+
     });
     fileManager.appendChild(folder);
 
@@ -175,12 +180,11 @@ function openFolder(directory)
  * Creates the file manager
  * @param {bool} uploading
  */
-function createManager(uploading)
+function createManager(uploading, fileUrlFormInput)
 {
     isUploading = uploading;
     currentSelectedPath = "";
     currentPathHistory[0] = "../Images/";
-    console.log(currentPathHistory[0]);
 
     document.body.style.overflow = "hidden";
 
@@ -234,6 +238,23 @@ function createManager(uploading)
     };
     topInfo.appendChild(rightArrow);
 
+    var positionSetter = createElement("div");
+    positionSetter.style.position = "absolute";
+    positionSetter.style.left = "50%";
+    positionSetter.style.top = "10px";
+    positionSetter.style.width = "70%";
+    topInfo.appendChild(positionSetter);
+
+    var pathSelectedBar = createElement("div");
+    pathSelectedBar.style.position = "relative";
+    pathSelectedBar.style.backgroundColor = "beige";
+    pathSelectedBar.style.minWidth = "200px";
+    pathSelectedBar.style.height = "30px";
+    pathSelectedBar.style.boxShadow = "0px 0px 2px 0px black";
+    pathSelectedBar.style.left = "-50%";
+    positionSetter.appendChild(pathSelectedBar);
+
+
     var filesDiv = createElement("div");
     filesDiv.id = "Files";
     managerDiv.appendChild(filesDiv);
@@ -254,49 +275,64 @@ function createManager(uploading)
     };
     bottomInfo.appendChild(cancelButton);
 
-    var selectButton = createElement("button");
-    selectButton.id = "fileManagerSelectButton";
-    selectButton.style.position = "absolute";
-    selectButton.style.position = "absolute";
-    selectButton.style.marginRight = "5px";
-    selectButton.style.border = "none";
-    selectButton.style.bottom = "5px";
-    selectButton.style.right = "5px";
-
     if (isUploading) {
-        selectButton.innerHTML = "Upload";
-        selectButton.addEventListener("click", function ()
-        {
-            restoreSelectorPoint();
-            markupText("insertImage", currentSelectedPath);
-        });
-    } else {
-        elseselectButton.addEventListener("click", function ()
-        {
-            restoreSelectorPoint();
-            markupText("insertImage", currentSelectedPath);
-        });
+
+
+        var uploadForm = createElement("form");
+        uploadForm.method = "post";
+        uploadForm.enctype = "multipart/form-data";
+
+        var fileUrl = createElement("input");
+        fileUrl.type = "text";
+        fileUrl.name = "UploadUrl";
+        fileUrl.id = "uploadFilePathURL";
+        fileUrl.value = currentPathHistory[currentPathHistory.length - 1];
+        uploadForm.appendChild(fileUrl);
+
+        var fileInput = createElement("input");
+        fileInput.type = "file";
+        fileInput.name = "UploadFile";
+        uploadForm.appendChild(fileInput);
+
+        var fileSend = createElement("input");
+        fileSend.type = "submit";
+        fileSend.name = "submitUploadFile";
+        uploadForm.appendChild(fileSend);
+
+        bottomInfo.appendChild(uploadForm);
+
+    } else
+    {
+        var selectButton = createElement("button");
+        selectButton.id = "fileManagerSelectButton";
+        selectButton.style.position = "absolute";
+        selectButton.style.position = "absolute";
+        selectButton.style.marginRight = "5px";
+        selectButton.style.border = "none";
+        selectButton.style.bottom = "5px";
+        selectButton.style.right = "5px";
         selectButton.innerHTML = "Select";
+
+        if (arguments === 1)
+        {
+            selectButton.addEventListener("click", function ()
+            {
+                restoreSelectorPoint();
+                markupText("insertImage", currentSelectedPath);
+                destroyManager();
+            });
+        } else
+        {
+            selectButton.addEventListener("click", function ()
+            {
+                //fileUrlFormInput
+                destroyManager();
+            });
+        }
+
+
+        bottomInfo.appendChild(selectButton);
     }
-
-
-    bottomInfo.appendChild(selectButton);
-
-    var positionSetter = createElement("div");
-    positionSetter.style.position = "absolute";
-    positionSetter.style.left = "50%";
-    positionSetter.style.top = "10px";
-    positionSetter.style.width = "70%";
-    bottomInfo.appendChild(positionSetter);
-
-    var pathSelectedBar = createElement("div");
-    pathSelectedBar.style.position = "relative";
-    pathSelectedBar.style.backgroundColor = "beige";
-    pathSelectedBar.style.minWidth = "200px";
-    pathSelectedBar.style.height = "30px";
-    pathSelectedBar.style.boxShadow = "0px 0px 2px 0px black";
-    pathSelectedBar.style.left = "-50%";
-    positionSetter.appendChild(pathSelectedBar);
 
     createFileIcons("../Images");
 }
@@ -306,7 +342,6 @@ function createManager(uploading)
  */
 function destroyManager()
 {
-    isFileManagerOpen = false;
     getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
 }

@@ -14,8 +14,11 @@ $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Blo
 doSQL($sql);
 
 header('Refresh: 0; url=/pages/catalog.php');
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 0e9a285b6e8ada6d9d0e280af7fc5532dc8d3e5a
     
 ?>
