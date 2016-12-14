@@ -11,7 +11,6 @@ html, body{
 
 body
 {
-//    background-color:#8D99C8;
     background-image: url("../images/background.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -111,7 +110,7 @@ h3
     margin-right: 270px;
     background-color:#d0e6fa;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 #rightmenu
@@ -135,7 +134,6 @@ h3
 
 #footer 
 {
-    top: 200px;
     position: relative;
     padding: 1rem;
     background: #5175b3;
