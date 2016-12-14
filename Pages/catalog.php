@@ -166,7 +166,7 @@
                                 <tr >
                                     <div id='catatitel'> <center><p id='planttitel'>$naam</p></center></div>
                                     <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
-                                    <a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
+                                    <span></span><a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
                             </table>
                             </div>";
 
