@@ -15,10 +15,6 @@
 
             include '../Php/loggedInEditor.php';
 
-
-
-
-
             if (isset($_POST['name'])) {
 
                 $Naam = $_POST['name'];
@@ -50,6 +46,52 @@
                 ?>
             </section>
             <section id="mid">
+
+                <?php
+                if (isset($_SESSION['logged_in'])) {
+
+                    print("<section id='addPlantMenu'>");
+
+                    print("<div class='item'>
+                            <div>
+                             <table>
+                             <form method='post'>
+                                    <td><label>Naam:</label></td>
+                                    <td><input id='name' name='name'type='tekst' required></td>
+                                <tr>
+                                    <td><label>Groep:</label></td>
+                                    <td>
+                                <select width='16' id='groep' name='groep'>");
+                    $sqlPrijs = getSQLArray("SELECT * FROM prijs");
+                    while ($row = $sqlPrijs->fetch()) {
+                        $naamPrijs = $row["Naam"];
+                        $IDPrijs = $row["PrijsID"];
+                        print("<option value='$IDPrijs'>$naamPrijs</option>");
+                    }
+                    print ("</select>
+                                </td>
+                                <tr>
+                                    <td>Min.Hoogte:</td>
+                                    <td><input size='16' placeholder='Hoogte (Alleen getal)' name='hoogte_min' type='text' required></td>
+                                <tr>
+                                    <td>Max.Hoogte:</td>
+                                    <td><input size='16' placeholder='Hoogte (Alleen getal)' name='hoogte_max' type='text'required></td>
+                                <tr>
+                                    <td>Bloeitijd:</td>
+                                    <td><input size='16' placeholder='Maand' name='bloeitijd' type='text'required> </td>
+                                <tr>
+                                    <td>Bloeiwijze:</td>
+                                    <td><input size='16' placeholder='Bloeiwijze'  name='bloeiwijze' type='text'requires></td>
+                                </table>
+                            <input readonly name='catalogPhotoUrl' value='' type='text' id='catalogPhotoUrl'>                            
+                            </div>
+                               <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
+                               </form>
+                               <button id='imageButton' onclick='createManager(" . "false" . "," . "catalogPhotoUrl" . ")'>Selecteer Afbeelding</button>  
+                            </div> </section>");
+                }
+                ?>
+
                 <section id="rightmenu">
                     <div id="google_translate_element"></div><script type="text/javascript">
                         function googleTranslateElementInit() {
@@ -68,6 +110,7 @@
                         ?>
                     </ul>
                 </section>
+
                 <section id="maincontent">
                     <?php
                     include_once '../Php/DatabaseInformation.php';
@@ -103,48 +146,6 @@
                                  ON plant.PlantID=pf.PlantID
                                  WHERE plant.PrijsID = $prijsID" //AND pf.TypeFoto = 1"
                         );
-
-                        if (isset($_SESSION['logged_in'])) {
-
-
-                            print("<div class='item'>
-                            <div>
-                             <table>
-                             <form method='post'>
-                                    <td><label>Naam:</label></td>
-                                    <td><input id='name' name='name'type='tekst' required></td>
-                                <tr>
-                                    <td><label>Groep:</label></td>
-                                    <td>
-                                <select id='groep' name='groep'>");
-                            $sqlPrijs = getSQLArray("SELECT * FROM prijs");
-                            while ($row = $sqlPrijs->fetch()) {
-                                $naamPrijs = $row["Naam"];
-                                $IDPrijs = $row["PrijsID"];
-                                print("<option value='$IDPrijs'>$naamPrijs</option>");
-                            }
-                            print ("</select>
-                                </td>
-                                <tr>
-                                    <td>Min.Hoogte:</td>
-                                    <td><input placeholder='Hoogte (Alleen getal)' name='hoogte_min' type='text' required></td>
-                                <tr>
-                                    <td>Max.Hoogte:</td>
-                                    <td><input  placeholder='Hoogte (Alleen getal)' name='hoogte_max' type='text'required></td>
-                                <tr>
-                                    <td>Bloeitijd:</td>
-                                    <td><input  placeholder='Maand' name='bloeitijd' type='text'required> </td>
-                                <tr>
-                                    <td>Bloeiwijze:</td>
-                                    <td><input placeholder='Bloeiwijze'  name='bloeiwijze' type='text'requires></td>
-                                </table>
-                            <input name='catalogPhotoUrl' value='' type='text' id='catalogPhotoUrl'>                            
-                            </div>
-                               <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
-                               </form>
-                               <button onclick='createManager(" . "false" . "," . "catalogPhotoUrl" . ")'>Selecteer Afbeelding</button>  
-                            </div>");
-                        }
 
                         while ($plant = $sqlPlant->fetch()) {
 
