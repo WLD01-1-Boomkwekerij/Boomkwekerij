@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <?php include'/../Php/Database.php';
 ?>
 <html>
@@ -6,38 +6,92 @@
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Catalogus</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link media="screen and (max-width:1288px)" href="../Css/CatalogStyleSmall.css" rel="stylesheet" type="text/css">
-        <link media="screen and (min-width:1288px)" href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
+        <link href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
+        <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
 
-        //if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        print("<link href='../Css/EditableCss.css' rel='stylesheet' type='text/css'>");
-        print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
-        print("<script src='../Javascript/InformationEditing.js'></script>");
-        // }
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+
+            include '../Php/loggedInEditor.php';
+
+            if (isset($_POST['name'])) {
+
+                $Naam = $_POST['name'];
+                $PrijsID = $_POST['groep'];
+                $Hoogte_Min = $_POST['hoogte_min'];
+                $Hoogte_Max = $_POST['hoogte_max'];
+                $bloeitijd = $_POST['bloeitijd'];
+                $bloeiwijze = $_POST['bloeiwijze'];
+                $photoUrl = $_POST['catalogPhotoUrl'];
+
+                $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Bloeiwijze) VALUES ('$Naam', $PrijsID, $Hoogte_Min, $Hoogte_Max, '$bloeitijd', '$bloeiwijze')";
+                doSQL($sql);
+
+                $PlantID = getMaxSQL("plant", "PlantID");
+                $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$photoUrl', $PlantID, 1)";
+                doSQL($sql);
+            }
+        }
         ?>
+
+
     </head>
     <body>
         <section id="wrapper">
             <section id="top">
                 <section id="header"></section>
-                <section id="topmenu">
-                    <ul>
-                        <li><a href="../pages/index.php">Home</a></li>
-                        <li><a href="../pages/news.php">Nieuws</a></li>
-                        <li><a href="../pages/catalog.php">Catalogus</a></li>
-                        <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
-                        <li><a href="../pages/contact.php">Contact</a></li>
-                        <?php
-                        if (isset($_SESSION['logged_in'])) {
-                            print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
-                        }
-                        ?>
-                    </ul>
-                </section>
+                <?php
+                include '../Php/menu.php';
+                ?>
             </section>
             <section id="mid">
+
+                <?php
+                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+
+                    print("<section id='addPlantMenu'>");
+
+                    print("<div class='item'>
+                            <div>
+                             <table>
+                             <form method='post'>
+                                    <td><label>Naam:</label></td>
+                                    <td><input id='name' name='name'type='tekst' required></td>
+                                <tr>
+                                    <td><label>Groep:</label></td>
+                                    <td>
+                                <select width='16' id='groep' name='groep'>");
+                    $sqlPrijs = getSQLArray("SELECT * FROM prijs");
+                    while ($row = $sqlPrijs->fetch()) {
+                        $naamPrijs = $row["Naam"];
+                        $IDPrijs = $row["PrijsID"];
+                        print("<option value='$IDPrijs'>$naamPrijs</option>");
+                    }
+                    print ("</select>
+                                </td>
+                                <tr>
+                                    <td>Min.Hoogte:</td>
+                                    <td><input size='16' placeholder='Hoogte (Alleen getal)' name='hoogte_min' type='text' required></td>
+                                <tr>
+                                    <td>Max.Hoogte:</td>
+                                    <td><input size='16' placeholder='Hoogte (Alleen getal)' name='hoogte_max' type='text'required></td>
+                                <tr>
+                                    <td>Bloeitijd:</td>
+                                    <td><input size='16' placeholder='Maand' name='bloeitijd' type='text'required> </td>
+                                <tr>
+                                    <td>Bloeiwijze:</td>
+                                    <td><input size='16' placeholder='Bloeiwijze'  name='bloeiwijze' type='text'requires></td>
+                                </table>
+                            <input readonly name='catalogPhotoUrl' value='' type='text' id='catalogPhotoUrl'>                            
+                            </div>
+                               <input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2714'>
+                               </form>
+                               <button id='imageButton' onclick='createManager(" . "false" . "," . "catalogPhotoUrl" . ")'>Selecteer Afbeelding</button>  
+                            </div> </section>");
+                }
+                ?>
+
                 <section id="rightmenu">
                     <div id="google_translate_element"></div><script type="text/javascript">
                         function googleTranslateElementInit() {
@@ -46,18 +100,38 @@
                     </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                     <h3>Catalogus</h3>
                     <ul id="catalogus">
-                        <li>Plant1</li>
-                        <li>Plant2</li>
-                        <li>plant3</li>
-                        <li>plant4</li>
+                        <?php
+                        $sqlCategory = getSQLArray("SELECT * FROM category");
+                        while ($row = $sqlCategory->fetch()) {
+                            $categoryNaam = $row["CategoryNaam"];
+                            $id = $row["CategoryID"];
+                            print "<a href='catalog.php?category=$id'><li>$categoryNaam</li></a>";
+                        }
+                        ?>
                     </ul>
                 </section>
+
                 <section id="maincontent">
                     <?php
-                    $sql = getSQLArray("SELECT * FROM prijs");
+                    include_once '../Php/DatabaseInformation.php';
 
+                    if (isset($_GET["plantID"])) {
+                        deletePlant($_GET["plantID"]);
+                    }
 
-                    while ($row = $sql->fetch()) {
+                    if (!isset($_GET['category'])) {
+                        $category = 1;
+                    } else {
+                        $category = $_GET['category'];
+                    }
+                    $sqlCategory = getSQLArray("SELECT * FROM category WHERE CategoryID = $category");
+                    $categoryRegel = $sqlCategory->fetch();
+                    $categoryNaam = $categoryRegel["CategoryNaam"];
+                    echo "<h1>$categoryNaam</h1>";
+
+                    $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE CategoryID = $category");
+                    while ($row = $sqlPrijs->fetch()) {
+                        $prijsID = $row["PrijsID"];
                         $potmaat = $row["Potmaat"];
                         $hoogte = $row["Potmaat"];
                         $prijsKwekerij = $row["PrijsKwekerij"];
@@ -65,54 +139,50 @@
                         $perCC = $row["ProductenCC"];
                         $perLaag = $row["ProductenLaag"];
                         $perTray = $row["ProductenTray"];
-                        echo "<div class='item'>
-                        <div>
-                            <img src='/Catalogus fotos/Heesters/aucuba tray p13.jpg'>  
-                        </div>
-                        <table>
-                            <tr>
-                                <td>potmaat:</td>
-                                <td>$potmaat</td>
-                            </tr>
-                            <tr>
-                                <td>hoogte:</td>
-                                <td>$hoogte</td>
-                            </tr>
-                            <tr>
-                                <td>prijs kwekerij:</td>
-                                <td>$prijsKwekerij</td>
-                            </tr>
-                            <tr>
-                                <td>prijs VBA:</td>
-                                <td>$prijsVBA</td>
-                            </tr>
-                            <tr>
-                                <td>per cc:</td>
-                                <td>$perCC</td>
-                            </tr>
-                            <tr>
-                                <td>per laag:</td>
-                                <td>$perLaag</td>
-                            </tr>
-                            <tr>
-                                <td>per tray:</td>
-                                <td>$perTray</td>
-                            </tr>
-                        </table>
-                    </div>";
+                        $sqlPlant = getSQLArray(
+                                "SELECT * 
+                                 FROM plant 
+                                 LEFT JOIN plantfoto pf
+                                 ON plant.PlantID=pf.PlantID
+                                 WHERE plant.PrijsID = $prijsID" //AND pf.TypeFoto = 1"
+                        );
+
+                        while ($plant = $sqlPlant->fetch()) {
+
+                            $plantId = $plant['PlantID'];
+                            $naam = $plant['Naam'];
+                            $Hoogte_min = $plant['Hoogte_min'];
+                            $Hoogte_max = $plant['Hoogte_max'];
+                            $bloeiwijze = $plant['Bloeiwijze'];
+                            $bloeitijd = $plant['Bloeitijd'];
+                            $plantFotoUrl = $plant['FotoUrl'];
+
+                            $hidden = "hidden";
+                            $position = "absolute";
+
+                            print("<div class='item2' id='plantID$plantId'>
+                            <div>
+                            <form method='get'>
+                            <table>
+                                <tr >
+                                    <div id='catatitel'> <center><p id='planttitel'>$naam</p></center></div>
+                                    <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
+                                    <span></span><a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
+                            </table>
+                            </div>");
+
+                            if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                                print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
+                            }
+                            print"</form></div>";
+                        }
                     }
-                    ?>   
+                    ?>
                 </section>
             </section>
         </section>
-        <section  class="notranslate"  id="footer">
-            <?php
-            if (isset($_SESSION['logged_in'])) {
-                print("<li><a href='../Php/loggout.php'>Uitloggen</a></li>");
-            } else {
-                print("<li><a href='../pages/login.php'>Inloggen</a></li>");
-            }
-            ?>
-        </section>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>

@@ -1,37 +1,33 @@
 <?php
 
-include 'Database.php';
-
-function checkForSpecificItem($connection, $table, $condition, $rowName) {
-
-    $statement = $connection->prepare("SELECT * FROM " . $table . " WHERE " . $condition);
-    $statement->execute();
-
-    while ($row = $statement->fetch()) {
-        return count($row[$rowName]);
-    }
-}
+include_once 'Database.php';
 
 function loadTextFromDB($textID) {
 
     $connection = connectToDatabase();
-    $statement = $connection->prepare("SELECT * FROM tekst WHERE ID=" . $textID);
+    $statement = $connection->prepare("SELECT * FROM tekst WHERE TEKSTID=" . $textID);
     $statement->execute();
 
     while ($row = $statement->fetch()) {
         $text = $row["Tekst"];
-        return htmlspecialchars_decode($text);
+        print htmlspecialchars_decode($text) . "<br>";
     }
 }
 
 function saveTextToDB($textID, $text) {
 
     $connection = connectToDatabase();
-    
-    if (checkForItem($connection, "tekst", "ID=" . $textID, "Tekst") > 0) {
+    $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE TEKSTID=" . $textID);
+    $statement->execute();
+    $connection = null;
+}
 
-        $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlentities($text) . "' WHERE ID=" . $textID);
-        $statement->execute();
-        $connection = null;
-    }
+function deletePlant($plantID) {
+
+    $connection = connectToDatabase();
+    $firstStatement = $connection->prepare("DELETE FROM plantfoto WHERE PlantID=$plantID");
+    $firstStatement->execute();
+    $statement = $connection->prepare("DELETE FROM plant WHERE PlantID=$plantID");
+    $statement->execute();
+    $connection = null;
 }

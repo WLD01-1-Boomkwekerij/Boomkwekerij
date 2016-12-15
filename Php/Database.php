@@ -19,7 +19,14 @@ function getSQL($sqlCode, $rowName) {
         $text = $row[$rowName];
         return $text;
     }
-}  
+}
+
+function getMaxSQL($table, $maxRow) {
+    $connection = connectToDatabase();
+    $statement = $connection->prepare("SELECT MAX($maxRow) FROM $table");
+    $statement->execute();
+    return $statement->fetchColumn();    
+}
 
 function getSQLArray($sqlCode) {
 
@@ -31,8 +38,13 @@ function getSQLArray($sqlCode) {
 }
 
 function doSQL($sqlCode) {
-
-    $connection = connectToDatabase();
-    $statement = $connection->prepare($sqlCode);
-    $statement->execute();
+    try {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement = $connection->prepare($sqlCode);
+        $statement->execute();
+    } catch (PDOException $e) {
+        echo $sqlCode . "<br>" . $e->getMessage();
+        echo '<br><br>';
+    }
 }

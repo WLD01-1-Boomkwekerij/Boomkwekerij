@@ -1,8 +1,18 @@
-.pricelist, th, td{
+.pricelist, th, td
+{
     border: 3px solid white;
     border-collapse: collapse;
-    text-align: center;    
+    text-align: center;
+    padding: 2px 5px 2px 5px;
 }
+
+
+
+.pricelist
+{
+    width: 100%;
+}
+
 
 h2{
     font-size: 20px;
@@ -11,19 +21,53 @@ h2{
     padding-left: 4px;
 }
 
-.name{
+.name
+{
     width: 100px;
     background-color:#d0e6fa; 
     text-align: left;
 }
 
-.white{
+.white
+{
     width: 60px;
     background-color:#d0e6fa; 
-    
+
 }
 
-.blue{
+.blue
+{
     width: 60px;
     background-color: aqua; 
+}
+
+input
+{
+    float: left;
+    display: inline-block;
+    width:100%;
+    min-width: 38px;
+}
+
+
+
+#printbutton{
+    float: right;
+}
+
+
+@media print {
+    .printbutton{
+     dislay:none;   
+    } }
+    
+
+
+#printbutton{
+    float: right;
+}
+
+#wrapper
+{
+ width:1231px;  
 }
