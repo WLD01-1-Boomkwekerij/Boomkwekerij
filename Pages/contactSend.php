@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
 
-function SendMail($receiver, $subject, $message, $Naam, $Email) {
+function SendMail($receiver, $subject, $message, $Naam, $Email)
+{
     $headers = 'From: test@boomkwekerij.pe.hu' . "\r\n" .
             'Reply-To: ' . $receiver . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
@@ -25,7 +26,7 @@ function SendMail($receiver, $subject, $message, $Naam, $Email) {
             </section>
             <section id="mid">
                 <section id="rightmenu">
-                    <?php 
+                    <?php
                     include '../Php/rightmenu.php';
                     ?>
                 </section>

@@ -33,15 +33,19 @@ function getElementById(id)
 function checkArrowColor()
 {
     var left = getElementById("LeftArrow");
-    if (currentPathNumber > 0) {
+    if (currentPathNumber > 0)
+    {
         left.style.color = "#222222";
-    } else {
+    } else
+    {
         left.style.color = "#777777";
     }
     var right = getElementById("RightArrow");
-    if (futurePathNumber > 0) {
+    if (futurePathNumber > 0)
+    {
         right.style.color = "#222222";
-    } else {
+    } else
+    {
         right.style.color = "#777777";
     }
 }
@@ -63,7 +67,8 @@ function createFolderIcon(url, name)
         currentPathNumber++;
         checkArrowColor();
 
-        if (isUploading) {
+        if (isUploading)
+        {
             getElementById("uploadFilePathURL").value = currentPathHistory[currentPathHistory.length - 1];
         }
 
@@ -144,7 +149,8 @@ function createFileIcons(directory)
             if (filesWidth > 150 && filesWidth < 600)
             {
                 arrayInt = fileArray.length % 3;
-            } else {
+            } else
+            {
                 arrayInt = fileArray.length % 4;
             }
 
@@ -153,7 +159,8 @@ function createFileIcons(directory)
                 if (fileArray[i].includes("."))
                 {
                     createFileIcon(directory, fileArray[i]);
-                } else {
+                } else
+                {
                     createFolderIcon(directory, fileArray[i]);
                 }
             }
@@ -173,7 +180,8 @@ function createFileIcons(directory)
  */
 function openFolder(directory)
 {
-    while (getElementById("Files").firstChild) {
+    while (getElementById("Files").firstChild)
+    {
         getElementById("Files").removeChild(getElementById("Files").firstChild);
     }
     createFileIcons(directory);
@@ -182,6 +190,7 @@ function openFolder(directory)
 /**
  * Creates the file manager
  * @param {bool} uploading
+ * @param {element} element
  */
 function createManager(uploading, element)
 {
@@ -215,7 +224,8 @@ function createManager(uploading, element)
     leftArrow.className = "ArrowHistory";
     leftArrow.innerHTML = "&#8592;";
     leftArrow.id = "LeftArrow";
-    leftArrow.onclick = function () {
+    leftArrow.onclick = function ()
+    {
         if (currentPathNumber > 0)
         {
             currentPathNumber--;
@@ -230,7 +240,8 @@ function createManager(uploading, element)
     rightArrow.className = "ArrowHistory";
     rightArrow.id = "RightArrow";
     rightArrow.innerHTML = "&#8594;";
-    rightArrow.onclick = function () {
+    rightArrow.onclick = function ()
+    {
         if (futurePathNumber > 0)
         {
             currentPathNumber++;
@@ -273,13 +284,19 @@ function createManager(uploading, element)
     cancelButton.style.bottom = "5px";
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function ()
-    {        
+    {
+        if (arguments.length > 1)
+        {
+            element.parentNode.removeChild(element);
+        }
+
         destroyManager();
         document.body.style.overflow = "visible";
     };
     bottomInfo.appendChild(cancelButton);
 
-    if (isUploading) {
+    if (isUploading)
+    {
 
 
         var uploadForm = createElement("form");
@@ -317,7 +334,7 @@ function createManager(uploading, element)
         selectButton.style.right = "5px";
         selectButton.innerHTML = "Select";
 
-        if (arguments === 1)
+        if (arguments.length === 1)
         {
             selectButton.addEventListener("click", function ()
             {
@@ -381,11 +398,12 @@ function createCatalogAddition()
         var five = getElementById("bloeitijd").value;
         var six = getElementById("bloeiwijze").value;
         var seven = "";
-        
-        for(var i = 0; i < images.length; i++){
+
+        for (var i = 0; i < images.length; i++)
+        {
             seven += images[i] + "*";
         }
-        
+
         var requestString = "../PHP/XMLRequest.php?" +
                 "name=" + one +
                 "&groep=" + two +
@@ -393,18 +411,10 @@ function createCatalogAddition()
                 "&hoogte_max=" + four +
                 "&bloeitijd=" + five +
                 "&bloeiwijze=" + six +
-                "&imageUrl="+ seven;
-        
+                "&imageUrl=" + seven;
+
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", requestString, true);
-
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200)
-            {
-                console.log(xmlhttp.responseText);
-            }
-        };
-
         xmlhttp.send();
     });
     topDiv.appendChild(buttonAddPlant);
@@ -464,7 +474,8 @@ function createCatalogAddition()
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptions=yes", true);
 
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function ()
+    {
         if (this.readyState === 4 && this.status === 200)
         {
             var optionArray = xmlhttp.responseText.split("*");
@@ -528,16 +539,24 @@ function createCatalogAddition()
     inputBloeiwijze.placeholder = "Bloeiwijze";
     rightDiv.appendChild(inputBloeiwijze);
 
-    var currentImageNumber = 0;
 
     var imageButton = createElement("Button");
     imageButton.innerHTML = "Voeg foto toe";
+    sectionDiv.appendChild(imageButton);
     imageButton.addEventListener("click", function ()
     {
         var imgInput = createElement("input");
         imgInput.readOnly = true;
         sectionDiv.insertBefore(imgInput, sectionDiv.lastChild);
-        createManager(false, imgInput)
+        createManager(false, imgInput);
     });
-    sectionDiv.appendChild(imageButton);
+}
+
+//NEWS PAGE
+
+function deleteArticle(newsID)
+{
+   var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?DeleteArticle=" + newsID, true);
+    xmlhttp.send();
 }

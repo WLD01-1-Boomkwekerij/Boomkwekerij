@@ -9,9 +9,9 @@
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
-        
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
+        {
             include '../Php/loggedInEditor.php';
         }
         ?>
@@ -30,7 +30,8 @@
                 </script>
                 <section id="rightmenu">
                     <div id="google_translate_element"></div><script type="text/javascript">
-                        function googleTranslateElementInit() {
+                        function googleTranslateElementInit()
+                        {
                             new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
                         }
                     </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
@@ -39,11 +40,12 @@
                         <?php
                         //Creates the sidevar category options
                         $sqlCategory = getSQLArray("SELECT * FROM category");
-                        while ($row = $sqlCategory->fetch()) {
+                        while ($row = $sqlCategory->fetch())
+                        {
                             $categoryNaam = $row["CategoryNaam"];
                             $id = $row["CategoryID"];
                             print("<a href='catalog.php?category=$id'><li>$categoryNaam</li></a>");
-                        }                         
+                        }
                         ?>
                     </ul>
                 </section>
@@ -52,13 +54,16 @@
                     <?php
                     include_once '../Php/DatabaseInformation.php';
 
-                    if (isset($_GET["plantID"])) {
+                    if (isset($_GET["plantID"]))
+                    {
                         deletePlant($_GET["plantID"]);
                     }
 
-                    if (!isset($_GET['category'])) {
+                    if (!isset($_GET['category']))
+                    {
                         $category = 1;
-                    } else {
+                    } else
+                    {
                         $category = $_GET['category'];
                     }
                     $sqlCategory = getSQLArray("SELECT * FROM category WHERE CategoryID = $category");
@@ -67,8 +72,9 @@
                     echo "<h1>$categoryNaam</h1>";
 
                     $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE CategoryID = $category");
-                    
-                    while ($row = $sqlPrijs->fetch()) {
+
+                    while ($row = $sqlPrijs->fetch())
+                    {
                         $prijsID = $row["PrijsID"];
                         $potmaat = $row["Potmaat"];
                         $hoogte = $row["Potmaat"];
@@ -85,8 +91,8 @@
                                  WHERE plant.PrijsID = $prijsID AND pf.TypeFoto = 1"
                         );
 
-                        while ($plant = $sqlPlant->fetch()) {
-
+                        while ($plant = $sqlPlant->fetch())
+                        {
                             $plantId = $plant['PlantID'];
                             $naam = $plant['Naam'];
                             $Hoogte_min = $plant['Hoogte_min'];
@@ -109,7 +115,8 @@
                             </table>
                             </div>");
 
-                            if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                            if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                            {
                                 print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
                             }
                             print"</form></div>";
@@ -119,8 +126,8 @@
                 </section>
             </section>
         </section>
-        <?php
-        include '../Php/footer.php';
-        ?>
+<?php
+include '../Php/footer.php';
+?>
     </body>
 </html>

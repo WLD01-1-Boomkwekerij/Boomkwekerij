@@ -8,7 +8,8 @@
 
         <?php
         session_start();
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
+        {
             include '../Php/loggedInEditor.php';
         }
         ?>
@@ -32,7 +33,8 @@
                     <?php
                     //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
                     print("<div ");
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
+                    {
                         print("class='ContentEditable'");
                     }
                     print("id = 'textID1'>");

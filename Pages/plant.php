@@ -20,7 +20,6 @@
             include '../Php/loggedInEditor.php';
         }
         ?>
-        <link href="../Css/HomeStyle.css" rel="stylesheet" type="text/css">
         <script type="text/javascript">
             function ChangeImage() {
                 document.getElementById('ImageFrame').src = event.target.src;
@@ -111,14 +110,14 @@
                         $EersteFoto = getSQLArray("SELECT * FROM plantfoto WHERE PlantID = $plant AND TypeFoto = 1");
                         $EersteFotoRegel = $EersteFoto->fetch();
                         $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
-                        echo "<img id='ImageFrame' src='../Images/Catalogus fotos/$EersteFotoUrl'>";
+                        echo "<img id='ImageFrame' src='$EersteFotoUrl'>";
                         ?>
                         <div id="Positioner">             
                             <?php
                             $Fotoos = getSQLArray("SELECT * FROM plantfoto  WHERE PlantID = $plant");
                             while ($row = $Fotoos->fetch()) {
                                 $url = $row["FotoUrl"];
-                                echo "<img onclick='ChangeImage()' class='UnderImage' src='../Images/Catalogus fotos/$url'>";
+                                echo "<img onclick='ChangeImage()' class='UnderImage' src='$url'>";
                             }
                             ?>
                         </div>

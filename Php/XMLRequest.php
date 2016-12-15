@@ -3,23 +3,27 @@
 include 'DatabaseInformation.php';
 
 //Save text to the Text table
-if (isset($_GET["htmlText"]) && isset($_GET["textID"])) {
+if (isset($_GET["htmlText"]) && isset($_GET["textID"]))
+{
     saveTextToDB($_GET["textID"], $_GET["htmlText"]);
 }
 
 //Gets all the files
-if (isset($_GET["fileDirectory"])) {
+if (isset($_GET["fileDirectory"]))
+{
     $dir = $_GET["fileDirectory"];
     $files1 = scandir($dir);
 
-    for ($i = 2; $i < sizeof($files1); $i++) {
+    for ($i = 2; $i < sizeof($files1); $i++)
+    {
 
         print($files1[$i] . "*");
     }
 }
 
 //Adds a plant to the 
-if (isset($_GET['name'])) {
+if (isset($_GET['name']))
+{
 
     $Naam = $_GET['name'];
     $PrijsID = $_GET['groep'];
@@ -38,36 +42,45 @@ if (isset($_GET['name'])) {
 
     $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[0]', $PlantID, 1)";
     doSQL($sql);
-    if (count($phpImageArray) > 1) {
-        
+    if (count($phpImageArray) > 1)
+    {
+
         $amount = 0;
-        
-        for ($i = 1; $i < count($phpImageArray); $i++) {
+
+        for ($i = 1; $i < count($phpImageArray - 1); $i++)
+        {
             $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[$i]', $PlantID, 2)";
             doSQL($sql);
             $amount += 1;
         }
-        
+
         print($amount);
     }
-
-    
 }
 
-if (isset($_GET["CatalogSelectOptions"])) {
+if (isset($_GET["CatalogSelectOptions"]))
+{
     $sqlPrijs = getSQLArray("SELECT Naam, PrijsID FROM prijs");
     $row = $sqlPrijs->fetchAll(PDO::FETCH_ASSOC);
 
 
-    foreach ($row as $i) {
-        foreach ($i as $j) {
+    foreach ($row as $i)
+    {
+        foreach ($i as $j)
+        {
             print($j . "*");
         }
         // print($i . "*");
     }
 
-    for ($i = 0; $i < sizeof($row); $i++) {
+    for ($i = 0; $i < sizeof($row); $i++)
+    {
 
         //print($row[$i] . "*");
     }
+}
+
+if(isset($_GET["DeleteArticle"]))
+{
+    
 }
