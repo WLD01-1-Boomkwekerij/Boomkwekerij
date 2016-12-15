@@ -323,14 +323,14 @@ function setContentEditable(element)
 //Get image url from database
 function selectImage(imageID)
 {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "../PHP/GetImages.php?imageList=" + imageID, true);
-    xhttp.onreadystatechange = function () {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/GetImages.php?imageList=" + imageID, true);
+    xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200)
         {
             //Create image
             var img = createElement("img");
-            img.src = "../images/" + xhttp.responseText;
+            img.src = "../images/" + xmlhttp.responseText;
             img.className = "editableImage";
             img.style.width = "300px";
             img.style.border = "solid 2px black";
@@ -340,7 +340,7 @@ function selectImage(imageID)
             document.body.appendChild(img);
         }
     };
-    xhttp.send();
+    xmlhttp.send();
 }
 
 var map = {};

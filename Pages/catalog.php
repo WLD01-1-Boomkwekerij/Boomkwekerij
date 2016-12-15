@@ -9,34 +9,13 @@
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
-
+        
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
             include '../Php/loggedInEditor.php';
             print("<script src='../Javascript/Catalog.js'></script>");
-
-
-            if (isset($_POST['name'])) {
-
-                $Naam = $_POST['name'];
-                $PrijsID = $_POST['groep'];
-                $Hoogte_Min = $_POST['hoogte_min'];
-                $Hoogte_Max = $_POST['hoogte_max'];
-                $bloeitijd = $_POST['bloeitijd'];
-                $bloeiwijze = $_POST['bloeiwijze'];
-                $photoUrl = $_POST['catalogPhotoUrl'];
-
-                $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Bloeiwijze) VALUES ('$Naam', $PrijsID, $Hoogte_Min, $Hoogte_Max, '$bloeitijd', '$bloeiwijze')";
-                doSQL($sql);
-
-                $PlantID = getMaxSQL("plant", "PlantID");
-                $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$photoUrl', $PlantID, 1)";
-                doSQL($sql);
-            }
         }
         ?>
-
-
     </head>
     <body>
         <section id="wrapper">
@@ -47,20 +26,7 @@
                 ?>
             </section>
             <section id="mid">
-
-                <?php
-                /*
-                  <select width='16' id='groep' name='groep'>");
-                  $sqlPrijs = getSQLArray("SELECT * FROM prijs");
-                  while ($row = $sqlPrijs->fetch()) {
-                  $naamPrijs = $row["Naam"];
-                  $IDPrijs = $row["PrijsID"];
-                  print("<option value='$IDPrijs'>$naamPrijs</option>");
-                  }
-                 */
-                ?>
                 
-
                 <script>
                     createCatalogAddition();
                 </script>
