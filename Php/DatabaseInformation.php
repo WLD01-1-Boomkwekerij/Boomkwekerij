@@ -25,6 +25,8 @@ function saveTextToDB($textID, $text) {
 function deletePlant($plantID) {
 
     $connection = connectToDatabase();
+    $firstStatement = $connection->prepare("DELETE FROM plantfoto WHERE PlantID=$plantID");
+    $firstStatement->execute();
     $statement = $connection->prepare("DELETE FROM plant WHERE PlantID=$plantID");
     $statement->execute();
     $connection = null;

@@ -115,8 +115,8 @@
                     <?php
                     include_once '../Php/DatabaseInformation.php';
 
-                    if (isset($_POST["plantID"])) {
-                        deletePlant($_POST["plantID"]);
+                    if (isset($_GET["plantID"])) {
+                        deletePlant($_GET["plantID"]);
                     }
 
                     if (!isset($_GET['category'])) {
@@ -160,16 +160,16 @@
                             $hidden = "hidden";
                             $position = "absolute";
 
-                            echo "<div class='item2' id='plantID$plantId'>
+                            print("<div class='item2' id='plantID$plantId'>
                             <div>
-                            <form method='post' action=''>
+                            <form method='get'>
                             <table>
                                 <tr >
                                     <div id='catatitel'> <center><p id='planttitel'>$naam</p></center></div>
                                     <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
                                     <span></span><a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
                             </table>
-                            </div>";
+                            </div>");
 
                             if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                 print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
