@@ -13,7 +13,6 @@
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
             include '../Php/loggedInEditor.php';
-            print("<script src='../Javascript/Catalog.js'></script>");
         }
         ?>
     </head>
@@ -26,12 +25,9 @@
                 ?>
             </section>
             <section id="mid">
-                
                 <script>
                     createCatalogAddition();
                 </script>
-
-
                 <section id="rightmenu">
                     <div id="google_translate_element"></div><script type="text/javascript">
                         function googleTranslateElementInit() {
@@ -41,12 +37,13 @@
                     <h3>Catalogus</h3>
                     <ul id="catalogus">
                         <?php
+                        //Creates the sidevar category options
                         $sqlCategory = getSQLArray("SELECT * FROM category");
                         while ($row = $sqlCategory->fetch()) {
                             $categoryNaam = $row["CategoryNaam"];
                             $id = $row["CategoryID"];
-                            print "<a href='catalog.php?category=$id'><li>$categoryNaam</li></a>";
-                        }
+                            print("<a href='catalog.php?category=$id'><li>$categoryNaam</li></a>");
+                        }                         
                         ?>
                     </ul>
                 </section>
@@ -70,6 +67,7 @@
                     echo "<h1>$categoryNaam</h1>";
 
                     $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE CategoryID = $category");
+                    
                     while ($row = $sqlPrijs->fetch()) {
                         $prijsID = $row["PrijsID"];
                         $potmaat = $row["Potmaat"];
@@ -84,7 +82,7 @@
                                  FROM plant 
                                  LEFT JOIN plantfoto pf
                                  ON plant.PlantID=pf.PlantID
-                                 WHERE plant.PrijsID = $prijsID" //AND pf.TypeFoto = 1"
+                                 WHERE plant.PrijsID = $prijsID AND pf.TypeFoto = 1"
                         );
 
                         while ($plant = $sqlPlant->fetch()) {

@@ -27,33 +27,47 @@ if (isset($_GET['name'])) {
     $Hoogte_Max = $_GET['hoogte_max'];
     $bloeitijd = $_GET['bloeitijd'];
     $bloeiwijze = $_GET['bloeiwijze'];
-    $photoUrl = $_GET['catalogPhotoUrl'];
+    $photoUrlArray = $_GET['imageUrl'];
+
+    $phpImageArray = explode("*", $photoUrlArray);
+    $phpImageArray = str_replace("*", "", $phpImageArray);
 
     $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Bloeiwijze) VALUES ('$Naam', $PrijsID, $Hoogte_Min, $Hoogte_Max, '$bloeitijd', '$bloeiwijze')";
     doSQL($sql);
-
     $PlantID = getMaxSQL("plant", "PlantID");
-    $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$photoUrl', $PlantID, 1)";
+
+    $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[0]', $PlantID, 1)";
     doSQL($sql);
+    if (count($phpImageArray) > 1) {
+        
+        $amount = 0;
+        
+        for ($i = 1; $i < count($phpImageArray); $i++) {
+            $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[$i]', $PlantID, 2)";
+            doSQL($sql);
+            $amount += 1;
+        }
+        
+        print($amount);
+    }
+
     
-    print("done");
 }
 
 if (isset($_GET["CatalogSelectOptions"])) {
     $sqlPrijs = getSQLArray("SELECT Naam, PrijsID FROM prijs");
     $row = $sqlPrijs->fetchAll(PDO::FETCH_ASSOC);
-    
-    
-    foreach($row as $i){
-        foreach($i as $j){
+
+
+    foreach ($row as $i) {
+        foreach ($i as $j) {
             print($j . "*");
         }
-       // print($i . "*");
+        // print($i . "*");
     }
-    
+
     for ($i = 0; $i < sizeof($row); $i++) {
 
         //print($row[$i] . "*");
     }
-    
 }
