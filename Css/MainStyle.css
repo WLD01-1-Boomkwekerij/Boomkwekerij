@@ -11,7 +11,7 @@ html, body{
 
 body
 {
-    background-image: url("../images/background.jpg");
+    background-image: url("../images/background4.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -86,13 +86,15 @@ h3
     font-size: 20px;
     color:black;
     text-decoration: none;
-    padding-left: 10px;
+    padding-left: 20px;
     padding-right: 10px;
+    border-radius: 2px;
+    padding: 15px 32px;
 }
 
 #topmenu ul li a:hover
 {
-    background-color: #b24343;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     color:black;   
 }
 
@@ -140,6 +142,7 @@ h3
     margin: 0 auto;
     max-width: 1231px;
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
+    color: black;
 }
 
 /* google translate css */
@@ -204,5 +207,6 @@ body {
 #loggiforum{
     padding-top:5px;
 }
+
 
 
