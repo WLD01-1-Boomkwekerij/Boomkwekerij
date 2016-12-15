@@ -18,8 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Juiste gebruikersnaam en wachtwoord: inloggen! 
             $_SESSION['logged_in'] = true;
             $_SESSION['gebruiker'] = $sGebruiker;
+            $_SESSION['toegang'] = getSQL('SELECT Rol FROM gebruiker WHERE Naam="' . $sGebruikerControle . '"', 'Rol');
             // Doorsturen en melding geven 
-            header('Refresh: 0; url=../Pages/logged_in.php');
+            if ($_SESSION['toegang'] == 1) {
+                header('Refresh: 0; url=../Pages/logged_in.php');
+            } else {
+                header('Refresh: 0; url=../Pages/index.php');
+            }
         } else {
             // Terugsturen en foutmelding geven 
             header('Refresh: 2; url=../Pages/login.php');

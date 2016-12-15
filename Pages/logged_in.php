@@ -3,7 +3,7 @@
 session_start();
 
 // Controleren of de bezoeker ingelogd is 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSION['toegang'] != 1) {
     header('Location:login.php');
     exit();
 }
@@ -42,7 +42,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                             print ('Wachtwoorden zijn niet hetzelfde, probeer het opnieuw.<br>');
                         } else {
                             if (count($errors) > 0) { //laat foutmeldingen zien
-                                print_r (implode($errors, '<br>'));
+                                print_r(implode($errors, '<br>'));
                             } else {
                                 print('Wilt u de volgende gebruiker toevoegen?<br>'
                                         . 'Naam: ' . $gebr_naam . '<br>'
@@ -129,7 +129,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                         <?php
                     } else {
                         ?>
-                    <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _</i><br>
+                        <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _</i><br>
                         <form  action="../Pages/logged_in.php" method="post">
                             <table>
                                 <tr>
