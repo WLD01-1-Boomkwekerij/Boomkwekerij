@@ -2,12 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title class="notranslate">&#127795; Boomkwekerij - Aanbiedingen</title>
+        <title class="notranslate">Boomkwekerij - Beheerderspagina</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
         <?php
         session_start();
-        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
+        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSION['toegang'] != 1) {
             header('Location:login.php');
             exit();
         }
@@ -25,9 +25,53 @@
             <section id="mid">
                 <section id="maincontent">
                     <h4>Bewerken</h4>
-                    <form action="../Php/user_update_delete.php" method="post">
+                    <?php
+                    $gebruiker = $_POST["gebruiker"];
+                    if (isset($_POST["submit"])) {
+                        include '../Php/POST.php';
+                        if ($_POST['submit'] == 'Bewerken') {
+                            if ($_POST['Wachtwoord1'] != $_POST['Wachtwoord2']) {
+                                print ('De wachtwoorden zijn niet evenlang');
+                            } elseif (count($errors) > 0) {
+                                print_r(implode($errors, '<br>'));
+                            } else {
+                                print('Wilt u de volgende gebruiker bewerken?<br>'
+                                        . 'Naam: ' . $gebr_naam . '<br>'
+                                        . 'Email: ' . $gebr_mail . '<br>'
+                                        . 'Krijgt mail: ');
+                                if ($krijgt_mail == 0) {
+                                    print('nee <br>');
+                                } else {
+                                    print('ja <br>');
+                                }
+                                print('Type gebruiker: ' . $rol . '<br>');
+                                ?>
+                                <form action="../Php/user_update_delete.php" method="post">
+                                    <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
+                                    <input type="submit" name="submit" value="Toevoegen"/>
+                                </form>
+                                <form action="../Pages/logged_in.php" method="post">
+                                    <input type="submit" name="cancel" value="Annuleren"/>
+                                </form>
+                                <?php
+                            }
+                        } elseif ($_POST['submit'] == 'Verwijderen') {
+                            print('Weet u zeker dat u ' . $gebr_naam . ' wilt verwijderen? <br>');
+                            ?>
+                            <form action="../Php/user_update_delete.php" method="post">
+                                <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
+                                <input type="submit" name="submit" value="Verwijderen"/>
+                            </form>
+                            <form action="../Pages/logged_in.php" method="post">
+                                <input type="submit" name="cancel" value="Annuleren"/>
+                            </form>
+                            <?php
+                        
+                        }
+                    }
+                    ?>
+                    <form method="post" action="../pages/user_edit.php">
                         <?php
-                        $gebruiker = $_POST["gebruiker"];
                         include_once '../Php/Database.php';
                         $array = getSQLArray('SELECT * FROM boomkwekerij.gebruiker WHERE GebruikerID =' . $gebruiker);
                         while ($data = $array->fetch()) {
@@ -38,6 +82,8 @@
                                     <th>Naam</th>
                                     <th>Email</th>
                                     <th>Krijgt notifactie</th>
+                                    <th>Wachtwoord</th>
+                                    <th>Wachtwoord opnieuw</th>
                                     <th>Rechten</th>
                                     <th>Bewerken</th>
                                     <th>Verwijderen</th>
@@ -62,6 +108,8 @@
                                             </select> 
                                         <?php } ?>
                                     </td>
+                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" ></td>
+                                    <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" ></td>
                                     <td> 
                                         <?php
                                         if ($data['Rol'] == '1') {
@@ -91,8 +139,14 @@
                                         }
                                         ?>                                    
                                     </td>
-                                    <td><input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" /><input type="submit" name="submit" value="Bewerken"/></td>
-                                    <td><input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" /><input type="submit" name="submit" value="Verwijderen"/></td>
+                                    <td>
+                                        <input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" />
+                                        <input type="submit" name="submit" value="Bewerken"/>
+                                    </td>
+                                    <td>
+                                        <input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" />
+                                        <input type="submit" name="submit" value="Verwijderen"/>
+                                    </td>
                                 </tr>
                             </table>
                         <?php } ?>

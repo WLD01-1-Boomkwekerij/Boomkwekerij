@@ -15,12 +15,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
         <title>Boomkwekerij - Beheerderspagina</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
-        <?php
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-
-            include '../Php/loggedInEditor.php';
-        }
-        ?>
     </head>
     <body>
         <section id="wrapper">
@@ -195,7 +189,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                     ?></td>
                                 <td><form action="../Pages/user_edit.php" method="POST">
                                         <input type='hidden' name='gebruiker' value="<?php print($rij['GebruikerID']) ?>" />
-                                        <input type="submit" name="submit" value="Bewerken"/>
+                                        <input type="submit" name="submit" value="Bewerk"/>
                                     </form></td>
                             <?php } ?>
                         </tr>

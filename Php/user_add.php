@@ -5,7 +5,7 @@
     </head>
     <body>
         <?php
-        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
+        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSION['toegang'] != 1) {
             exit();
         }
         ?>
