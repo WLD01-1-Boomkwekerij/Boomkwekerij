@@ -38,7 +38,6 @@
                         . ' `Rol` = "' . $rol . '"'
                         . ' WHERE `GebruikerID` =' . $gebruiker);
                 doSQL($query);
-                print($query);
             } elseif ($submit == 'Verwijderen') {
 
                 if ($rol == 'beheerder') {

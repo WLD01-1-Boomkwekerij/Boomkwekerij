@@ -48,7 +48,7 @@
             <section id="mid">
 
                 <?php
-                if (isset($_SESSION['logged_in'])) {
+                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
 
                     print("<section id='addPlantMenu'>");
 
@@ -171,7 +171,7 @@
                             </table>
                             </div>";
 
-                            if (isset($_SESSION['logged_in'])) {
+                            if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                 print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
                             }
                             print"</form></div>";

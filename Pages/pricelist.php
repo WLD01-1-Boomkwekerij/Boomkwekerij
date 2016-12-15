@@ -19,7 +19,7 @@
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && $_SESSION['toegang'] != 3) {
             $loggedIn = true;
             include '../Php/loggedInEditor.php';
         }
@@ -57,7 +57,7 @@
                                 <col class="name"/>
                                 <col class="name"/>
                                 <?php
-                                if (isset($_SESSION['logged_in'])) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     echo "<col class='name'/>";
                                 }
                                 ?>
@@ -71,7 +71,7 @@
                             </colgroup>
                             <tr>
                                 <?php
-                                if (isset($_SESSION['logged_in'])) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     print("<th rowspan='2'></th>");
                                 }
                                 ?>
@@ -94,7 +94,7 @@
                             while ($row = $result->fetch()) {
                                 $catID = $row['CategoryID'];
                                 $catNaam = $row["CategoryNaam"];
-                                if (isset($_SESSION['logged_in'])) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     if (!(isset($_POST['bewerkCat']) && $catID == $_POST['id'])) {
                                         print ("<tr  class='notranslate' >");
                                         echo"<td><form onsubmit='return confirm(`Wilt u dit echt verwijderen?`);' action='pricelist.php' method='post'>"
@@ -113,10 +113,9 @@
                                         . "<input type='submit' name='OpslaanCat'  value='Opslaan'>"
                                         . "<input type='hidden' name='id'  value='$catID'>"
                                         . "</td>";
-                                        
                                     }
                                 }
-                                if (isset($_SESSION['logged_in']) && isset($_POST['bewerkCat']) && $catID == $_POST['id']) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3 && isset($_POST['bewerkCat']) && $catID == $_POST['id']) {
                                     echo "<td class = 'name' colspan = '9'>"
                                     . "<input type='text' name='naam' value='$catNaam' ></td>"
                                     . "</tr></form>";
@@ -131,7 +130,7 @@
                                 while ($row2 = $result2->fetch()) {
 
                                     $regelID = $row2["PrijsID"];
-                                    if (isset($_SESSION['logged_in'])) {
+                                    if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
 
                                         if (!(isset($_POST['bewerkRegel']) && $regelID == $_POST['id'])) {
                                             echo '<tr class="notranslate">';
@@ -237,7 +236,7 @@
                                         . "</form>";
                                     }
                                 }
-                                if (isset($_SESSION['logged_in'])) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     echo "<form action='pricelist.php' method='post'>"
                                     . "<tr class='notranslate'> "
                                     . "<td>"
@@ -274,7 +273,7 @@
                                     . "</form>";
                                 }
                             }
-                            if (isset($_SESSION['logged_in'])) {
+                            if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                 echo "<form action='pricelist.php' method='post'>"
                                 . "<tr class='notranslate'> "
                                 . "<td> "
