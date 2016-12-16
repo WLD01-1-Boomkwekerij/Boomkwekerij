@@ -104,7 +104,7 @@
                     ?>
                 </section>
                 <section id="maincontent">
-                    <?php echo $naam; ?>
+                    <div id="plantnaamfoto"><center><?php echo $naam; ?></center></div>
                     <section id="PhotoFrame">
                         <?php
                         $EersteFoto = getSQLArray("SELECT * FROM plantfoto WHERE PlantID = $plant AND TypeFoto = 1");
@@ -113,13 +113,14 @@
                         echo "<img id='ImageFrame' src='$EersteFotoUrl'>";
                         ?>
                         <div id="Positioner">             
-                            <?php
+                       <?php
                             $Fotoos = getSQLArray("SELECT * FROM plantfoto  WHERE PlantID = $plant");
                             while ($row = $Fotoos->fetch()) {
                                 $url = $row["FotoUrl"];
-                                echo "<img onclick='ChangeImage()' class='UnderImage' src='$url'>";
+                                echo "<img id='fotoos' onclick='ChangeImage()' class='UnderImage' src='$url'> " . " ";
                             }
                             ?>
+                           
                         </div>
                     </section>
                 </section>
