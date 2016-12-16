@@ -117,7 +117,7 @@
                                 }
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3 && isset($_POST['bewerkCat']) && $catID == $_POST['id']) {
                                     echo "<td class = 'name' colspan = '9'>"
-                                    . "<input type='text' name='naam' value='$catNaam' ></td>"
+                                    . "<input required type='text' name='naam' value='$catNaam' ></td>"
                                     . "</tr></form>";
                                 } else {
                                     echo "<td class = 'name' colspan = '9'>"
@@ -207,7 +207,7 @@
 
                                         echo ""
                                         . "<td>"
-                                        . "<input type='text' name='naam' value='$plantNaam'>"
+                                        . "<input required type='text' name='naam' value='$plantNaam'>"
                                         . "</td>"
                                         . "<td>"
                                         . "<input type='text' name='beschrijving' value='$plantExtraBeschrijving' >"
@@ -244,7 +244,7 @@
                                     . "<input type='submit' name='regel'  value='Regel toevoegen'>"
                                     . "</td>"
                                     . "<td>"
-                                    . "<input type='text' name='naam'>"
+                                    . "<input required type='text' name='naam'>"
                                     . "</td>"
                                     . "<td>"
                                     . "<input type='text' name='beschrijving'>"
@@ -279,7 +279,7 @@
                                 . "<td> "
                                 . "<input type='submit' name='category'  value='Category toevoegen'>"
                                 . "</td><td colspan='2'>"
-                                . "<input type='text' name='naam'>"
+                                . "<input required type='text' name='naam'>"
                                 . "</td> "
                                 . "</form>";
                             }

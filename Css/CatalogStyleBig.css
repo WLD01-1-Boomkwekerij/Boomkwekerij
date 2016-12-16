@@ -116,7 +116,9 @@
 
 #Imgtest:hover
 {
-    box-shadow: 0px 0px 0px 2px red;
+    box-shadow: 0px 0px 0px 2px  ;
+     opacity: 0.4;
+     
 }
 
 #btnvinkje
