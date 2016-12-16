@@ -41,6 +41,7 @@
                                     while ($data = $array->fetch()) {
                                         print('<h5>' . $data['Naam'] . '</h5>');
                                         ?>
+                                        <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _</i><br>
                                         <table>
                                             <tr>
                                                 <th>Naam</th>
