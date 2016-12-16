@@ -434,8 +434,7 @@ function createCatalogAddition()
                 {
                     if (this.readyState === 4 && this.status === 200)
                     {
-                        console.log(xmlhttp.responseText);
-                        //location.reload();
+                        location.reload();
                     }
                 };
                 xmlhttp.send();
