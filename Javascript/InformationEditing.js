@@ -285,10 +285,8 @@ function createButton(type)
  */
 function setContentEditable(element, isNew, isNews)
 {
-
     if (!isEditorOpen)
     {
-
         currentSavedHTML = element.innerHTML;
         isEditorOpen = true;
         var parent = element.parentNode;
@@ -303,8 +301,10 @@ function setContentEditable(element, isNew, isNews)
             element.childNodes[1].contentEditable = true;
         }
 
+        var childZero = $(element).parent().children()[0];
+        $(childZero).hide();
+        $(childZero).removeClass("ContentEditable");
 
-        $(element).removeClass("ContentEditable");
         $(element).addClass("ContentEditableOpen");
         element.style.backgroundColor = "white";
         element.style.border = "solid 2px black";
@@ -343,7 +343,11 @@ function setContentEditable(element, isNew, isNews)
             element.style.border = "solid 0px black";
             element.style.backgroundColor = element.parentNode.style.backgroundColor;
             $(element).removeClass("ContentEditableOpen");
-            $(element).addClass("ContentEditable");
+
+            var childZero = $(element).parent().children()[0];
+            $(childZero).show();
+            $(childZero).addClass("ContentEditable");
+
             isEditorOpen = false;
             element.innerHTML = currentSavedHTML;
         };
@@ -433,13 +437,18 @@ $(document).ready(function ()
     {
         if (!isEditorOpen)
         {
-            var string = event.target.id.toString();
+            var parent = $(event.target).parent();
+            var elementToPass = $(parent).children()[1];
+
+            var string = elementToPass.id.toString();
             var parentString = $(event.target).parent().attr('id');
-            console.log(event.target);
+
+
+            //SETS the correct editor
             if (string.indexOf("textID") !== -1)
             {
                 //GENERAL TEXT EDITOR
-                setContentEditable(event.target, false);
+                setContentEditable(elementToPass, false);
             }
             else if (parentString.indexOf("newNews") !== -1)
             {
@@ -451,7 +460,8 @@ $(document).ready(function ()
                 //NEWS EDITOR
                 setContentEditable(event.target, false, true);
             }
-            isEditorOpen = true;
+
+            //isEditorOpen = true;
         }
     });
 });
