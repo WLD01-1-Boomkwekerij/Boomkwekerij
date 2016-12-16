@@ -24,7 +24,6 @@ if (isset($_GET["fileDirectory"]))
 //Adds a plant to the 
 if (isset($_GET['name']))
 {
-
     $Naam = $_GET['name'];
     $PrijsID = $_GET['groep'];
     $Hoogte_Min = $_GET['hoogte_min'];
@@ -47,7 +46,7 @@ if (isset($_GET['name']))
 
         $amount = 0;
 
-        for ($i = 1; $i < count($phpImageArray - 1); $i++)
+        for ($i = 1; $i < (count($phpImageArray) - 1); $i++)
         {
             $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[$i]', $PlantID, 2)";
             doSQL($sql);
@@ -82,5 +81,5 @@ if (isset($_GET["CatalogSelectOptions"]))
 
 if(isset($_GET["DeleteArticle"]))
 {
-    
+    deleteArticle($_GET["DeleteArticle"]);
 }
