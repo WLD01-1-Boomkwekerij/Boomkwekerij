@@ -57,9 +57,10 @@ input
 
 
 @media print {
-    .printbutton{
-     dislay:none;   
-    } }
+    input{
+    display: none !important;
+    }
+     }
     
 
 

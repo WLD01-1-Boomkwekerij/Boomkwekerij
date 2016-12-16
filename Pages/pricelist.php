@@ -41,7 +41,8 @@
                     ?>
                 </section>
                 <section id="maincontent">
-                    <?php
+                    
+                     <?php
                     include '../Php/AddRegel.php';
                     include '../Php/AddCategory.php';
                     include '../Php/DeleteRegel.php';
@@ -49,7 +50,7 @@
                     include '../Php/UpdateRegel.php';
                     include '../Php/UpdateCategory.php';
                     ?>
-
+                    
                     <div id="printable"> 
                         <h1>Prijslijst</h1> 
                         <table class="pricelist">
