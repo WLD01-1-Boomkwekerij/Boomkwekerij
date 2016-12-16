@@ -15,6 +15,20 @@ function loadTextFromDB($textID)
     }
 }
 
+function insertNewsTextToDB($visibility, $text, $title)
+{
+    $connection = connectToDatabase();
+
+    $statement = $connection->prepare("INSERT INTO tekst (tekst) VALUES('" . htmlspecialchars($text) . "')");
+    $statement->execute();
+
+    $lastTekstID = getMaxSQL("text", "TekstID");
+
+    $statement = $connection->prepare("INSERT INTO aanbieding (Zichtbaar, TekstID, Titel) VALUES($visibility, $lastTekstID, $title)");
+    $statement->execute();
+    $connection = null;
+}
+
 function saveTextToDB($textID, $text)
 {
     $connection = connectToDatabase();

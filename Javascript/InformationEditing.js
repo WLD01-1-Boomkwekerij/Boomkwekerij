@@ -31,9 +31,12 @@ function getElementById(id)
  */
 function markupText(type, parameter)
 {
-    if (arguments.length === 1) {
+    if (arguments.length === 1)
+    {
         document.execCommand(type, false);
-    } else {
+    }
+    else
+    {
         document.execCommand(type, false, parameter);
     }
 }
@@ -55,7 +58,7 @@ function insertImage()
  */
 function uploadImage()
 {
-    if(!isFileManagerOpen)
+    if (!isFileManagerOpen)
     {
         createManager(true);
         isFileManagerOpen = true;
@@ -63,14 +66,28 @@ function uploadImage()
 }
 
 /**
- * Saves the provided text to the database
+ * Updatesthe provided text to the database
  * @param {type} text
  * @param {type} textID
  */
-function saveTextToDatabase(text, textID)
+function updateTextToDatabase(text, textID)
 {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlText=" + text + "&textID=" + textID, true);
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlUpdateText=" + text + "&textID=" + textID, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            location.reload();
+        }
+    };
+    xmlhttp.send();
+}
+
+function saveTextToDatabase(visibility, text, title)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsVisibility=" + visibility + "&htmlInsertText=" + text + "&newsTitle=" + title, true);
     xmlhttp.send();
 }
 
@@ -91,7 +108,8 @@ function saveSelectorPoint()
             }
             savedSelectorPoint = ranges;
         }
-    } else if (document.selection && document.selection.createRange)
+    }
+    else if (document.selection && document.selection.createRange)
     {
         savedSelectorPoint = document.selection.createRange();
     }
@@ -110,7 +128,8 @@ function restoreSelectorPoint()
             {
                 sel.addRange(savedSel[i]);
             }
-        } else if (document.selection && savedSel.select)
+        }
+        else if (document.selection && savedSel.select)
         {
             savedSel.select();
         }
@@ -234,18 +253,19 @@ function createButton(type)
         case "link":
             button.onclick = function ()
             {
-                if (!isLinkWindowOpen) {
+                if (!isLinkWindowOpen)
+                {
                     createLink();
                 }
                 isLinkWindowOpen = true;
             };
             break;
         case "upload":
-        button.onclick = function ()
-        {
-            uploadImage();
-        };
-        break;
+            button.onclick = function ()
+            {
+                uploadImage();
+            };
+            break;
         default:
             button.onclick = function ()
             {
@@ -259,29 +279,40 @@ function createButton(type)
 
 /**
  * Togles the clicked element editable and adds the editing system
- * @param {type} element
+ * @param {element} element
+ * @param {bool} isNew
+ * @param {bool} isNews
  */
-function setContentEditable(element)
+function setContentEditable(element, isNew, isNews)
 {
 
-    if (!isEditorOpen) {
-        
+    if (!isEditorOpen)
+    {
+
         currentSavedHTML = element.innerHTML;
-        
-        
         isEditorOpen = true;
-        element.contentEditable = true;
+        var parent = element.parentNode;
+
+
+        if (!isNews)
+        {
+            element.contentEditable = true;
+        }
+        else
+        {
+            element.childNodes[1].contentEditable = true;
+        }
+
+
         $(element).removeClass("ContentEditable");
         $(element).addClass("ContentEditableOpen");
         element.style.backgroundColor = "white";
         element.style.border = "solid 2px black";
         element.addEventListener("focusout", saveSelectorPoint());
 
-        var parent = element.parentNode;
 
         var editorDiv = createElement("div");
         editorDiv.id = "Editor";
-
         editorDiv.style.position = "relative";
         parent.insertBefore(editorDiv, parent.childNodes[0]);
 
@@ -317,17 +348,21 @@ function setContentEditable(element)
             element.innerHTML = currentSavedHTML;
         };
         $(cancelButton).insertAfter(element);
-        
-        
-        
+
         var saveButton = createElement("button");
         saveButton.innerHTML = "Save";
         saveButton.style.marginTop = "4px";
         saveButton.style.marginBottom = "8px";
         saveButton.onclick = function ()
         {
-            saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
-            location.reload();
+            if (isNew)
+            {
+                saveTextToDatabase(element.innerHTML);
+            }
+            else
+            {
+                updateTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
+            }
         };
         $(saveButton).insertAfter(element);
     }
@@ -338,7 +373,8 @@ function selectImage(imageID)
 {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/GetImages.php?imageList=" + imageID, true);
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function ()
+    {
         if (this.readyState === 4 && this.status === 200)
         {
             //Create image
@@ -368,7 +404,8 @@ document.onkeydown = document.onkeyup = function (e)
     {
         document.execCommand("redo", false);
         return false;
-    } else if (map[17] && map[90])
+    }
+    else if (map[17] && map[90])
     {
         document.execCommand("undo", false);
         return false;
@@ -381,7 +418,8 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Space
-    if (map[32] && e.target.className === "ContentEditableOpen") {
+    if (map[32] && e.target.className === "ContentEditableOpen")
+    {
         e.preventDefault();
         markupText("insertHTML", "&#8197;");
         return false;
@@ -391,10 +429,28 @@ document.onkeydown = document.onkeyup = function (e)
 //Jquery Code
 $(document).ready(function ()
 {
-    $(".ContentEditable").click(function ()
+    $(".ContentEditable").click(function (event)
     {
-        if (!isEditorOpen) {
-            setContentEditable($(this)[0]);
+        if (!isEditorOpen)
+        {
+            var string = event.target.id.toString();
+            var parentString = $(event.target).parent().attr('id');
+            console.log(event.target);
+            if (string.indexOf("textID") !== -1)
+            {
+                //GENERAL TEXT EDITOR
+                setContentEditable(event.target, false);
+            }
+            else if (parentString.indexOf("newNews") !== -1)
+            {
+                //New News editor
+                setContentEditable(event.target, true, true);
+            }
+            else if (parentString.indexOf("newsID") !== -1)
+            {
+                //NEWS EDITOR
+                setContentEditable(event.target, false, true);
+            }
             isEditorOpen = true;
         }
     });

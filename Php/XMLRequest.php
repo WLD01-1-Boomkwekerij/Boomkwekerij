@@ -3,9 +3,15 @@
 include 'DatabaseInformation.php';
 
 //Save text to the Text table
-if (isset($_GET["htmlText"]) && isset($_GET["textID"]))
+if (isset($_GET["htmlUpdateText"], $_GET["textID"]))
 {
-    saveTextToDB($_GET["textID"], $_GET["htmlText"]);
+    saveTextToDB($_GET["textID"], $_GET["htmlUpdateText"]);
+    print($_GET["htmlUpdateText"]);
+}
+
+if(isset($_GET["newsVisibility"], $_GET["htmlInsertText"], $_GET["newsTitle"]))
+{
+    insertNewsTextToDB($_GET["newsVisibility"], $_GET["htmlInsertText"], $_GET["newsTitle"]);
 }
 
 //Gets all the files

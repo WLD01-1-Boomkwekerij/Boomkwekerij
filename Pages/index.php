@@ -37,7 +37,7 @@
                     {
                         print("class='ContentEditable'");
                     }
-                    print("id = 'textID1'>");
+                    print("id='textID1'>");
                     loadTextFromDB(1);
                     print("</div>");
                     ?>
