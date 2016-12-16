@@ -287,19 +287,20 @@ function setContentEditable(element, isNew, isNews)
 {
     if (!isEditorOpen)
     {
-        currentSavedHTML = element.innerHTML;
-        isEditorOpen = true;
-        var parent = element.parentNode;
-
-
         if (!isNews)
         {
             element.contentEditable = true;
         }
         else
         {
-            element.childNodes[1].contentEditable = true;
+            var parent = $(element).parent()
+            element = $(parent).children()[2];
+            element.contentEditable = true;
         }
+
+        currentSavedHTML = element.innerHTML;
+        isEditorOpen = true;
+        var parent = element.parentNode;
 
         var childZero = $(element).parent().children()[0];
         $(childZero).hide();
@@ -441,7 +442,7 @@ $(document).ready(function ()
             var elementToPass = $(parent).children()[1];
 
             var string = elementToPass.id.toString();
-            var parentString = $(event.target).parent().attr('id');
+            var parentString = parent.attr('id');
 
 
             //SETS the correct editor
@@ -453,12 +454,12 @@ $(document).ready(function ()
             else if (parentString.indexOf("newNews") !== -1)
             {
                 //New News editor
-                setContentEditable(event.target, true, true);
+                setContentEditable(elementToPass, true, true);
             }
             else if (parentString.indexOf("newsID") !== -1)
             {
                 //NEWS EDITOR
-                setContentEditable(event.target, false, true);
+                setContentEditable(elementToPass, false, true);
             }
 
             //isEditorOpen = true;
