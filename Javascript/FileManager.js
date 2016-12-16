@@ -3,7 +3,7 @@ var currentPathNumber = 0;
 var futurePathNumber = 0;
 var currentSelectedPath = "";
 var isUploading;
-
+var plantAdded = false;
 //Catalog
 var images = [];
 
@@ -391,31 +391,42 @@ function createCatalogAddition()
     buttonAddPlant.style.marginRight = "5px";
     buttonAddPlant.addEventListener("click", function ()
     {
-        var one = getElementById("Name").value;
-        var two = getElementById("groep").value;
-        var three = getElementById("hoogte_min").value;
-        var four = getElementById("hoogte_max").value;
-        var five = getElementById("bloeitijd").value;
-        var six = getElementById("bloeiwijze").value;
-        var seven = "";
-
-        for (var i = 0; i < images.length; i++)
+        if (!plantAdded)
         {
-            seven += images[i] + "*";
+            plantAdded = true;
+            var one = getElementById("Name").value;
+            var two = getElementById("groep").value;
+            var three = getElementById("hoogte_min").value;
+            var four = getElementById("hoogte_max").value;
+            var five = getElementById("bloeitijd").value;
+            var six = getElementById("bloeiwijze").value;
+            var seven = "";
+
+            for (var i = 0; i < images.length; i++)
+            {
+                seven += images[i] + "*";
+            }
+
+            var requestString = "../PHP/XMLRequest.php?" +
+                    "name=" + one +
+                    "&groep=" + two +
+                    "&hoogte_min=" + three +
+                    "&hoogte_max=" + four +
+                    "&bloeitijd=" + five +
+                    "&bloeiwijze=" + six +
+                    "&imageUrl=" + seven;
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", requestString, true);
+            xmlhttp.onreadystatechange = function ()
+            {
+                if (this.readyState === 4 && this.status === 200)
+                {
+                    location.reload();
+                }
+            };
+            xmlhttp.send();
         }
-
-        var requestString = "../PHP/XMLRequest.php?" +
-                "name=" + one +
-                "&groep=" + two +
-                "&hoogte_min=" + three +
-                "&hoogte_max=" + four +
-                "&bloeitijd=" + five +
-                "&bloeiwijze=" + six +
-                "&imageUrl=" + seven;
-
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", requestString, true);
-        xmlhttp.send();
     });
     topDiv.appendChild(buttonAddPlant);
 
@@ -556,7 +567,7 @@ function createCatalogAddition()
 
 function deleteArticle(newsID)
 {
-   var xmlhttp = new XMLHttpRequest();
+    var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?DeleteArticle=" + newsID, true);
     xmlhttp.send();
 }
