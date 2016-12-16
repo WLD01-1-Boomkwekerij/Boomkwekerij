@@ -3,7 +3,7 @@ var currentPathNumber = 0;
 var futurePathNumber = 0;
 var currentSelectedPath = "";
 var isUploading;
-
+var plantAdded = false;
 //Catalog
 var images = [];
 
@@ -391,31 +391,55 @@ function createCatalogAddition()
     buttonAddPlant.style.marginRight = "5px";
     buttonAddPlant.addEventListener("click", function ()
     {
-        var one = getElementById("Name").value;
-        var two = getElementById("groep").value;
-        var three = getElementById("hoogte_min").value;
-        var four = getElementById("hoogte_max").value;
-        var five = getElementById("bloeitijd").value;
-        var six = getElementById("bloeiwijze").value;
-        var seven = "";
-
-        for (var i = 0; i < images.length; i++)
+        if (!plantAdded)
         {
-            seven += images[i] + "*";
+            plantAdded = true;
+            var one = getElementById("Name");
+            var two = getElementById("groep");
+            var three = getElementById("hoogte_min");
+            var four = getElementById("hoogte_max");
+            var five = getElementById("Bloeitijd1");
+            var six = getElementById("Bloeitijd2");
+            var seven = getElementById("Bloeiwijze");
+            var eight = "";
+
+
+            if (one.checkValidity() && one.value !== "" &&
+                    two.checkValidity() &&
+                    three.checkValidity() && three.value !== "" &&
+                    four.checkValidity() && four.value !== "" &&
+                    five.checkValidity() &&
+                    six.checkValidity() &&
+                    seven.checkValidity() && seven.value !== "")
+            {
+
+                for (var i = 0; i < images.length; i++)
+                {
+                    eight += images[i] + "*";
+                }
+
+                var requestString = "../PHP/XMLRequest.php?" +
+                        "name=" + one.value +
+                        "&groep=" + two.value +
+                        "&hoogte_min=" + three.value +
+                        "&hoogte_max=" + four.value +
+                        "&bloeitijd1=" + five.value +
+                        "&bloeitijd2=" + six.value +
+                        "&bloeiwijze=" + seven.value + 
+                        "&imageUrl=" + eight;
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET", requestString, true);
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if (this.readyState === 4 && this.status === 200)
+                    {
+                        location.reload();
+                    }
+                };
+                xmlhttp.send();
+            }
         }
-
-        var requestString = "../PHP/XMLRequest.php?" +
-                "name=" + one +
-                "&groep=" + two +
-                "&hoogte_min=" + three +
-                "&hoogte_max=" + four +
-                "&bloeitijd=" + five +
-                "&bloeiwijze=" + six +
-                "&imageUrl=" + seven;
-
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", requestString, true);
-        xmlhttp.send();
     });
     topDiv.appendChild(buttonAddPlant);
 
@@ -458,9 +482,10 @@ function createCatalogAddition()
     inputNaam.class = "catalogAddingInput";
     inputNaam.id = "Name";
     inputNaam.placeholder = "Naam";
+    inputNaam.type = "text";
     rightDiv.appendChild(inputNaam);
 
-//Select Groep
+    //Select Groep
     var textGroep = createElement("p");
     textGroep.class += "catalogAddingName";
     textGroep.innerHTML = "Groep:";
@@ -500,6 +525,7 @@ function createCatalogAddition()
     var inputMinHoogte = createElement("input");
     inputMinHoogte.class = "catalogAddingInput";
     inputMinHoogte.id = "hoogte_min";
+    inputMinHoogte.type = "number";
     inputMinHoogte.placeholder = "Hoogte (in cm)";
     rightDiv.appendChild(inputMinHoogte);
 
@@ -513,6 +539,7 @@ function createCatalogAddition()
     inputMaxHoogte.class = "catalogAddingInput";
     inputMaxHoogte.id = "hoogte_max";
     inputMaxHoogte.placeholder = "Hoogte (in cm)";
+    inputMaxHoogte.type = "number";
     rightDiv.appendChild(inputMaxHoogte);
 
     //Bloeitijd
@@ -521,11 +548,47 @@ function createCatalogAddition()
     textBloeitijd.innerHTML = "Bloeitijd";
     leftDiv.appendChild(textBloeitijd);
 
-    var inputBloeitijd = createElement("input");
-    inputBloeitijd.class = "catalogAddingInput";
-    inputBloeitijd.id = "bloeitijd";
-    inputBloeitijd.placeholder = "Bloeitijd";
-    rightDiv.appendChild(inputBloeitijd);
+    var monthArray = [
+        "Januari",
+        "Februari",
+        "Maart",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Augustus",
+        "September",
+        "Oktober",
+        "November",
+        "December"
+    ];
+
+    var inputBloeitijd1 = createElement("select");
+    inputBloeitijd1.class = "catalogAddingInput";
+    inputBloeitijd1.id = "Bloeitijd1";
+    rightDiv.appendChild(inputBloeitijd1);
+
+    for (var i = 0; i < monthArray.length; i++)
+    {
+        var option = createElement("option");
+        option.value = monthArray[i];
+        option.innerHTML = monthArray[i];
+        inputBloeitijd1.appendChild(option);
+    }
+
+    var inputBloeitijd2 = createElement("select");
+    inputBloeitijd2.class = "catalogAddingInput";
+    inputBloeitijd2.id = "Bloeitijd2";
+    rightDiv.appendChild(inputBloeitijd2);
+
+
+    for (var i = 0; i < monthArray.length; i++)
+    {
+        var option = createElement("option");
+        option.value = monthArray[i];
+        option.innerHTML = monthArray[i];
+        inputBloeitijd2.appendChild(option);
+    }
 
     //Bloeitijd
     var textBloeiwijze = createElement("p");
@@ -535,10 +598,9 @@ function createCatalogAddition()
 
     var inputBloeiwijze = createElement("input");
     inputBloeiwijze.class = "catalogAddingInput";
-    inputBloeiwijze.id = "bloeiwijze";
+    inputBloeiwijze.id = "Bloeiwijze";
     inputBloeiwijze.placeholder = "Bloeiwijze";
     rightDiv.appendChild(inputBloeiwijze);
-
 
     var imageButton = createElement("Button");
     imageButton.innerHTML = "Voeg foto toe";
@@ -553,10 +615,9 @@ function createCatalogAddition()
 }
 
 //NEWS PAGE
-
 function deleteArticle(newsID)
 {
-   var xmlhttp = new XMLHttpRequest();
+    var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?DeleteArticle=" + newsID, true);
     xmlhttp.send();
 }
