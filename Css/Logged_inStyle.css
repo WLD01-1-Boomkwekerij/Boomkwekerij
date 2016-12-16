@@ -13,6 +13,8 @@ h4{
 table, th, td {
     border: black solid 1px ;
     border-collapse: collapse;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
 }
 
 input {
