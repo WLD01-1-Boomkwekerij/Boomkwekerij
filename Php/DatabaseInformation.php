@@ -36,7 +36,7 @@ function deletePlant($plantID)
 function deleteArticle($newsID)
 {
     $connection = connectToDatabase();
-    $firstStatement = $connection->prepare("DELETE FROM nieuwsbericht WHERE NieuwsberichtID=$newsID");
+    $firstStatement = $connection->prepare("DELETE FROM aanbieding WHERE AanbiedingID=$newsID");
     $firstStatement->execute();
     $connection = null;
 }

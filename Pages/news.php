@@ -31,10 +31,16 @@
                 </section>
                 <section id="maincontent" style="overflow-y: scroll">
                     <?php
-                    $sql = "SELECT t.Tekst, n.NieuwsberichtID
-                            FROM nieuwsbericht n
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
+                    {
+                        print("<div class='newsDiv ContentEditable'><div class='newsTop'>Nieuw Bericht toevoegen</div><div style='padding 5px; min-height: 140px;'></div></div>");
+                    }
+
+
+                    $sql = "SELECT t.Tekst, a.AanbiedingID, a.Titel
+                            FROM aanbieding a
                             JOIN tekst t
-                            ON n.TekstID = t.TekstID";
+                            ON a.TekstID = t.TekstID";
 
                     $connection = connectToDatabase();
                     $statement = $connection->prepare($sql);
@@ -43,14 +49,15 @@
                     while ($row = $statement->fetch())
                     {
                         $text = $row["Tekst"];
-                        $newsID = $row["NieuwsberichtID"];
+                        $aanBiedingID = $row["AanbiedingID"];
+                        $Title = $row["Titel"];
 
                         print ("<div class='newsDiv'>"
-                                . "<div class='newsTop'>"
+                                . "<div class='newsTop'> $Title"
                         );
                         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
                         {
-                            print("<button class='fa fa-trash-o' onclick='deleteArticle($newsID)'></button>");
+                            print("<button class='fa fa-trash-o' onclick='deleteArticle($aanBiedingID)'></button>");
                         }
                         print("</div><div style=' padding: 5px;'>"
                                 . htmlspecialchars_decode($text)
@@ -60,8 +67,8 @@
                 </section>
             </section>
         </section>
-<?php
-include '../Php/footer.php';
-?>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>

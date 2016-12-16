@@ -5,6 +5,7 @@ var savedSelectorPoint;
 var isLinkWindowOpen;
 var isFileManagerOpen;
 var isEditorOpen;
+var currentSavedHTML;
 
 window.onload = function ()
 {
@@ -264,10 +265,14 @@ function setContentEditable(element)
 {
 
     if (!isEditorOpen) {
+        
+        currentSavedHTML = element.innerHTML;
+        
+        
         isEditorOpen = true;
         element.contentEditable = true;
-        element.className = "";
-        element.className = "ContentEditableOpen";
+        $(element).removeClass("ContentEditable");
+        $(element).addClass("ContentEditableOpen");
         element.style.backgroundColor = "white";
         element.style.border = "solid 2px black";
         element.addEventListener("focusout", saveSelectorPoint());
@@ -296,6 +301,8 @@ function setContentEditable(element)
 
         var cancelButton = createElement("button");
         cancelButton.innerHTML = "Cancel";
+        cancelButton.style.marginTop = "4px";
+        cancelButton.style.marginBottom = "8px";
         cancelButton.onclick = function ()
         {
             editorDiv.parentNode.removeChild(editorDiv);
@@ -304,19 +311,25 @@ function setContentEditable(element)
             element.contentEditable = false;
             element.style.border = "solid 0px black";
             element.style.backgroundColor = element.parentNode.style.backgroundColor;
-            element.className = "ContentEditable";
+            $(element).removeClass("ContentEditableOpen");
+            $(element).addClass("ContentEditable");
             isEditorOpen = false;
+            element.innerHTML = currentSavedHTML;
         };
-
-        parent.appendChild(cancelButton);
+        $(cancelButton).insertAfter(element);
+        
+        
+        
         var saveButton = createElement("button");
         saveButton.innerHTML = "Save";
+        saveButton.style.marginTop = "4px";
+        saveButton.style.marginBottom = "8px";
         saveButton.onclick = function ()
         {
             saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
-            //window.location.reload(false);
+            location.reload();
         };
-        parent.appendChild(saveButton);
+        $(saveButton).insertAfter(element);
     }
 }
 
