@@ -5,6 +5,7 @@
     </head>
     <body>
         <?php
+        session_start();
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSION['toegang'] != 1) {
             exit();
         }
@@ -15,6 +16,7 @@
         <?php
         include_once '../Php/Database.php';
         $data = unserialize($_POST['input_name']);
+        print_r($data);
         $Wachtwoord = hash('sha256', $data['Wachtwoord1']);
         if ($data['rol'] == 'beheerder') {
             $data['rol'] = 1;
