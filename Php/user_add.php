@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Redirecting...</title>
-        <meta http-equiv="refresh" content="0; url=logged_in.php">
+        <meta http-equiv="refresh" content="0; url=../Pages/logged_in.php">
     </head>
     <body>
         <?php
