@@ -28,12 +28,19 @@ if (isset($_GET['name']))
     $PrijsID = $_GET['groep'];
     $Hoogte_Min = $_GET['hoogte_min'];
     $Hoogte_Max = $_GET['hoogte_max'];
-    $bloeitijd = $_GET['bloeitijd'];
+    $bloeitijd1 = $_GET['bloeitijd1'];
+    $bloeitijd2 = $_GET['bloeitijd2'];
     $bloeiwijze = $_GET['bloeiwijze'];
     $photoUrlArray = $_GET['imageUrl'];
 
     $phpImageArray = explode("*", $photoUrlArray);
     $phpImageArray = str_replace("*", "", $phpImageArray);
+
+    
+
+    $bloeitijd = $bloeitijd1 . "-" . $bloeitijd2;
+    
+print($bloeitijd1);
 
     $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Bloeiwijze) VALUES ('$Naam', $PrijsID, $Hoogte_Min, $Hoogte_Max, '$bloeitijd', '$bloeiwijze')";
     doSQL($sql);
@@ -53,7 +60,7 @@ if (isset($_GET['name']))
             $amount += 1;
         }
 
-        print($amount);
+        
     }
 }
 
@@ -79,7 +86,7 @@ if (isset($_GET["CatalogSelectOptions"]))
     }
 }
 
-if(isset($_GET["DeleteArticle"]))
+if (isset($_GET["DeleteArticle"]))
 {
     deleteArticle($_GET["DeleteArticle"]);
 }
