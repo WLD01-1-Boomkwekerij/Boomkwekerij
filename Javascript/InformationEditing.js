@@ -377,7 +377,6 @@ function setContentEditable(element, isNew, isNews)
             $(childZero).show();
             $(childZero).addClass("ContentEditable");
 
-
             if(isNews)
             {
                 elementTitle.contentEditable = false;
@@ -385,7 +384,6 @@ function setContentEditable(element, isNew, isNews)
                 elementTitle.style.borderBottom = "solid 1px gray";
                 elementTitle.style.backgroundColor = elementTitle.parentNode.style.backgroundColor;
             }
-
 
             isEditorOpen = false;
             element.innerHTML = currentSavedHTML;
@@ -438,6 +436,7 @@ function selectImage(imageID)
 var map = {};
 document.onkeydown = document.onkeyup = function (e)
 {
+    var element = e.target;
 
     e = e || event;
     map[e.keyCode] = e.type === "keydown";
@@ -461,11 +460,24 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Space
-    if (map[32] && e.target.className === "ContentEditableOpen")
+    if (map[32] && element.className === "ContentEditableOpen")
     {
         e.preventDefault();
         markupText("insertHTML", "&#8197;");
         return false;
+    }
+    
+     //Enter
+    if(element.className === "newsTop")
+    {
+        if(map[13]){
+            e.preventDefault();
+        }
+        
+        if(element.innerHTML.length >= 30 && !map[8])
+        {
+            e.preventDefault();
+        }
     }
 };
 
