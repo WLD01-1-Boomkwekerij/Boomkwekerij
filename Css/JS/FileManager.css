@@ -1,0 +1,14 @@
+
+/*Catalog*/
+#addPlantMenu
+{
+    box-shadow: 0 0 20px 5px black;
+}
+
+#topDiv
+{
+    height: 30px;
+    width: auto;
+    background-color: #8D99C8;
+    border-bottom: solid 1px gray;
+}

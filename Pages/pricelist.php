@@ -2,7 +2,8 @@
 <html>
     <head>
         <script>
-            function printDiv() {
+            function printDiv()
+            {
                 var printContents = document.getElementById("printable").innerHTML;
                 var originalContents = document.body.innerHTML;
                 document.body.innerHTML = printContents;
@@ -19,7 +20,8 @@
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && $_SESSION['toegang'] != 3) {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && $_SESSION['toegang'] != 3)
+        {
             $loggedIn = true;
             include '../Php/loggedInEditor.php';
         }
@@ -41,16 +43,95 @@
                     ?>
                 </section>
                 <section id="maincontent">
-                    
-                     <?php
-                    include '../Php/AddRegel.php';
-                    include '../Php/AddCategory.php';
-                    include '../Php/DeleteRegel.php';
-                    include '../Php/DeleteCategory.php';
-                    include '../Php/UpdateRegel.php';
-                    include '../Php/UpdateCategory.php';
+
+                    <?php
+                    if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                    {
+                        if (isset($_POST['regel']) || isset($_POST['OpslaanRegel']))
+                        {
+                            $id = $_POST['id'];
+                            $potmaat = $_POST['potmaat'];
+                            $beschrijving = $_POST['beschrijving'];
+                            $percc = $_POST['percc'];
+                            $perlaag = $_POST['perlaag'];
+                            $pertray = $_POST['pertray'];
+                            $prijsKwekerij = $_POST['prijskwekerij'];
+                            $prijsVBA = $_POST['prijsvba'];
+                            $naam = $_POST['naam'];
+
+                            if (isset($_POST['OpslaanRegel']))
+                            {
+                                doSQL("UPDATE prijs SET "
+                                        . "PrijsKwekerij='$prijsKwekerij',"
+                                        . " PrijsVBA='$prijsVBA', "
+                                        . "ProductenCC='$percc', "
+                                        . "ProductenLaag='$perlaag',"
+                                        . " ProductenTray='$pertray', "
+                                        . "Naam='$naam',"
+                                        . " ExtraBeschrijving='$beschrijving',"
+                                        . " Potmaat='$potmaat'"
+                                        . " WHERE PrijsID=$id");
+                            }
+                            else
+                            {
+                                doSQL("INSERT INTO prijs (
+                                    `PrijsKwekerij`,
+                                    `PrijsVBA`,
+                                    `ProductenCC`,
+                                    `ProductenLaag`,
+                                    `ProductenTray`,
+                                    `Naam`,
+                                    `ExtraBeschrijving`,
+                                    `Potmaat`,
+                                    `CategoryID`) 
+                                    VALUES (
+                                    '$prijsKwekerij',"
+                                        . " '$prijsVBA', "
+                                        . "'$percc', "
+                                        . "'$perlaag',"
+                                        . " '$pertray',"
+                                        . " '$naam',"
+                                        . " '$beschrijving',"
+                                        . " '$potmaat',"
+                                        . " '$id')");
+                            }
+                        }
+                        if (isset($_POST['verwijderRegel']))
+                        {
+                            $id = $_POST['id'];
+
+                            doSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID='$id')");
+                            doSQL("DELETE FROM plant WHERE PrijsID='$id';");
+                            doSQL("DELETE FROM prijs WHERE PrijsID='$id';");
+                        }
+
+
+                        if (isset($_POST['category']))
+                        {
+                            $naam = $_POST['naam'];
+
+                            doSQL("INSERT INTO category (`CategoryNaam`) VALUES ('$naam')");
+                        }
+
+                        if (isset($_POST['OpslaanCat']))
+                        {
+                            $id = $_POST['id'];
+                            $naam = $_POST['naam'];
+                            doSQL("UPDATE category SET CategoryNaam='$naam' WHERE CategoryID=$id");
+                        }
+
+                        if (isset($_POST['verwijderCat']))
+                        {
+                            $id = $_POST['id'];
+
+                            doSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID='$id'))");
+                            doSQL("DELETE FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID='$id');");
+                            doSQL("DELETE FROM prijs WHERE CategoryID='$id';");
+                            doSQL("DELETE FROM category WHERE CategoryID='$id';");
+                        }
+                    }
                     ?>
-                    
+
                     <div id="printable"> 
                         <h1>Prijslijst</h1> 
                         <table class="pricelist">
@@ -58,7 +139,8 @@
                                 <col class="name"/>
                                 <col class="name"/>
                                 <?php
-                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                                {
                                     echo "<col class='name'/>";
                                 }
                                 ?>
@@ -72,7 +154,8 @@
                             </colgroup>
                             <tr>
                                 <?php
-                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                                {
                                     print("<th rowspan='2'></th>");
                                 }
                                 ?>
@@ -92,11 +175,14 @@
                             </tr>
                             <?php
                             $result = getSQLArray("SELECT * FROM Category");
-                            while ($row = $result->fetch()) {
+                            while ($row = $result->fetch())
+                            {
                                 $catID = $row['CategoryID'];
                                 $catNaam = $row["CategoryNaam"];
-                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
-                                    if (!(isset($_POST['bewerkCat']) && $catID == $_POST['id'])) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                                {
+                                    if (!(isset($_POST['bewerkCat']) && $catID == $_POST['id']))
+                                    {
                                         print ("<tr  class='notranslate' >");
                                         echo"<td><form onsubmit='return confirm(`Wilt u dit echt verwijderen?`);' action='pricelist.php' method='post'>"
                                         . "<input type='hidden' name='id'  value='$catID'>"
@@ -107,7 +193,9 @@
                                         . "<input style='width:69%' type='submit' name='bewerkCat'  value='Bewerken'>"
                                         . "</form>"
                                         . "</td>";
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         echo "<form action='pricelist.php' method='post'>";
                                         echo "<tr class='notranslate'>";
                                         echo "<td>"
@@ -116,11 +204,14 @@
                                         . "</td>";
                                     }
                                 }
-                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3 && isset($_POST['bewerkCat']) && $catID == $_POST['id']) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3 && isset($_POST['bewerkCat']) && $catID == $_POST['id'])
+                                {
                                     echo "<td class = 'name' colspan = '9'>"
                                     . "<input required type='text' name='naam' value='$catNaam' ></td>"
                                     . "</tr></form>";
-                                } else {
+                                }
+                                else
+                                {
                                     echo "<td class = 'name' colspan = '9'>"
                                     . "<h2><a href = '../Pages/catalog.php?category=$catID'>$catNaam</a></h2></td>"
                                     . "</tr>";
@@ -128,12 +219,15 @@
 
                                 $result2 = getSQLArray("SELECT * FROM prijs WHERE CategoryID=" . $catID);
 
-                                while ($row2 = $result2->fetch()) {
+                                while ($row2 = $result2->fetch())
+                                {
 
                                     $regelID = $row2["PrijsID"];
-                                    if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                                    if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                                    {
 
-                                        if (!(isset($_POST['bewerkRegel']) && $regelID == $_POST['id'])) {
+                                        if (!(isset($_POST['bewerkRegel']) && $regelID == $_POST['id']))
+                                        {
                                             echo '<tr class="notranslate">';
                                             echo"<td><form action='pricelist.php' method='post'>"
                                             . "<input type='hidden' name='id'  value='$regelID'>"
@@ -144,7 +238,9 @@
                                             . "<input style='width:69%' type='submit' name='bewerkRegel'  value='Bewerken'>"
                                             . "</form>"
                                             . "</td>";
-                                        } else {
+                                        }
+                                        else
+                                        {
                                             echo "<form action='pricelist.php' method='post'>";
                                             echo "<tr class='notranslate'>";
                                             echo "<td>"
@@ -170,21 +266,30 @@
                                     $Hoogte_Min = $plantHoogte['Hoogte_min'];
                                     $Hoogte_Max = $plantHoogte['Hoogte_max'];
 
-                                    if (!(isset($_POST['bewerkRegel']) && $regelID == $_POST['id'])) {
+                                    if (!(isset($_POST['bewerkRegel']) && $regelID == $_POST['id']))
+                                    {
 
-                                        if ($plantExtraBeschrijving != "") {
+                                        if ($plantExtraBeschrijving != "")
+                                        {
                                             print("<td>$plantNaam</td>");
                                             print("<td>$plantExtraBeschrijving</td>");
-                                        } else {
+                                        }
+                                        else
+                                        {
                                             print("<td colspan = '2' >$plantNaam</td>");
                                         }
 
                                         print("<td>$potmaat </td>");
-                                        if ($Hoogte_Min == 0 && $Hoogte_Min == 0) {
+                                        if ($Hoogte_Min == 0 && $Hoogte_Min == 0)
+                                        {
                                             print("<td></td>");
-                                        } elseif ($Hoogte_Min == $Hoogte_Max) {
+                                        }
+                                        elseif ($Hoogte_Min == $Hoogte_Max)
+                                        {
                                             print("<td>$Hoogte_Min</td>");
-                                        } else {
+                                        }
+                                        else
+                                        {
                                             print("<td>$Hoogte_Min/$Hoogte_Max</td>");
                                         }
                                         print("<td>$prijsKwekerij</td>"
@@ -193,7 +298,9 @@
                                                 . "<td>$productenLaag</td>"
                                                 . "<td>$productenTray</td>"
                                                 . "</tr>");
-                                    } else {
+                                    }
+                                    else
+                                    {
 
                                         $plantNaam = $row2['Naam'];
                                         $plantExtraBeschrijving = $row2['ExtraBeschrijving'];
@@ -237,7 +344,8 @@
                                         . "</form>";
                                     }
                                 }
-                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                                {
                                     echo "<form action='pricelist.php' method='post'>"
                                     . "<tr class='notranslate'> "
                                     . "<td>"
@@ -274,7 +382,8 @@
                                     . "</form>";
                                 }
                             }
-                            if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                            if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                            {
                                 echo "<form action='pricelist.php' method='post'>"
                                 . "<tr class='notranslate'> "
                                 . "<td> "
