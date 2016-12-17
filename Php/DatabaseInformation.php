@@ -18,15 +18,29 @@ function loadTextFromDB($textID)
 function insertNewsTextToDB($visibility, $text, $title)
 {
     $connection = connectToDatabase();
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $statement = $connection->prepare("INSERT INTO tekst (tekst) VALUES('" . htmlspecialchars($text) . "')");
-    $statement->execute();
+    try
+    {
+        $sql1 = "INSERT INTO tekst (tekst) VALUES('" . htmlspecialchars($text) . "');";
 
-    $lastTekstID = getMaxSQL("text", "TekstID");
+        $statement = $connection->prepare($sql1);
+        $statement->execute();
 
-    $statement = $connection->prepare("INSERT INTO aanbieding (Zichtbaar, TekstID, Titel) VALUES($visibility, $lastTekstID, $title)");
-    $statement->execute();
-    $connection = null;
+        $lastTextID = getMaxSQL("tekst", "TekstID");
+        $sql2 = "INSERT INTO aanbieding (AanbiedingID, Zichtbaar, DatumGeplaatst, TekstID, Titel) VALUES(NULL, $visibility, CURRENT_TIMESTAMP, $lastTextID, '$title')";
+
+        $statement = $connection->prepare($sql2);
+        $statement->execute();
+
+        $connection = null;
+
+        print($lastTextID);
+    }
+    catch (PDOException $ex)
+    {
+        print($ex->getMessage());
+    }
 }
 
 function saveTextToDB($textID, $text)

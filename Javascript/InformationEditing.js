@@ -88,6 +88,14 @@ function saveTextToDatabase(visibility, text, title)
 {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?newsVisibility=" + visibility + "&htmlInsertText=" + text + "&newsTitle=" + title, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            console.log(xmlhttp.responseText);
+            //location.reload();
+        }
+    };
     xmlhttp.send();
 }
 
@@ -362,7 +370,7 @@ function setContentEditable(element, isNew, isNews)
         {
             if (isNew)
             {
-                saveTextToDatabase(element.innerHTML);
+                saveTextToDatabase(1, element.innerHTML, "Nieuws");
             }
             else
             {
