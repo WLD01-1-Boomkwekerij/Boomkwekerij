@@ -6,6 +6,7 @@ var isLinkWindowOpen;
 var isFileManagerOpen;
 var isEditorOpen;
 var currentSavedHTML;
+var currentSavedTitle;
 
 window.onload = function ()
 {
@@ -295,18 +296,30 @@ function setContentEditable(element, isNew, isNews)
 {
     if (!isEditorOpen)
     {
+        var parent;
+        var elementTitle;
+
         if (!isNews)
         {
             element.contentEditable = true;
         }
         else
         {
-            var parent = $(element).parent()
+            parent = $(element).parent();
             element = $(parent).children()[2];
             element.contentEditable = true;
+
+            elementTitle = $(parent).children()[1];
+            elementTitle.contentEditable = true;
         }
 
         currentSavedHTML = element.innerHTML;
+
+        if (isNews)
+        {
+            currentSavedTitle = elementTitle.innerHTML;
+        }
+
         isEditorOpen = true;
         var parent = element.parentNode;
 
@@ -319,6 +332,13 @@ function setContentEditable(element, isNew, isNews)
         element.style.border = "solid 2px black";
         element.addEventListener("focusout", saveSelectorPoint());
 
+        if(isNews)
+        {
+            elementTitle.style.backgroundColor = "white";
+            elementTitle.style.border = "solid 2px black";
+            elementTitle.style.marginBottom = "4px";
+            elementTitle.addEventListener("focusout", saveSelectorPoint());
+        }
 
         var editorDiv = createElement("div");
         editorDiv.id = "Editor";
@@ -356,6 +376,16 @@ function setContentEditable(element, isNew, isNews)
             var childZero = $(element).parent().children()[0];
             $(childZero).show();
             $(childZero).addClass("ContentEditable");
+
+
+            if(isNews)
+            {
+                elementTitle.contentEditable = false;
+                elementTitle.style.border = "solid 0px black";
+                elementTitle.style.borderBottom = "solid 1px gray";
+                elementTitle.style.backgroundColor = elementTitle.parentNode.style.backgroundColor;
+            }
+
 
             isEditorOpen = false;
             element.innerHTML = currentSavedHTML;
