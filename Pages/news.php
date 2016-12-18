@@ -43,7 +43,8 @@
                     $sql = "SELECT t.Tekst, a.AanbiedingID, a.Titel, t.TekstID
                             FROM aanbieding a
                             JOIN tekst t
-                            ON a.TekstID = t.TekstID";
+                            ON a.TekstID = t.TekstID
+                            ORDER BY a.DatumGeplaatst DESC";
 
                     $connection = connectToDatabase();
                     $statement = $connection->prepare($sql);

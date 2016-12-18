@@ -339,7 +339,7 @@ function setContentEditable(element, isNew, isNews)
 {
     if (!isEditorOpen)
     {
-        var parent;
+        var parent = $(element).parent();
         var elementTitle;
 
         if (!isNews)
@@ -348,7 +348,6 @@ function setContentEditable(element, isNew, isNews)
         }
         else
         {
-            parent = $(element).parent();
             element = $(parent).children()[2];
             element.contentEditable = true;
 
@@ -373,14 +372,21 @@ function setContentEditable(element, isNew, isNews)
         $(element).addClass("ContentEditableOpen");
         element.style.backgroundColor = "white";
         element.style.border = "solid 2px black";
-        element.addEventListener("focusout", saveSelectorPoint());
+        element.addEventListener("focusout", function ()
+        {
+            saveSelectorPoint();
+        });
+
 
         if (isNews)
         {
             elementTitle.style.backgroundColor = "white";
             elementTitle.style.border = "solid 2px black";
             elementTitle.style.marginBottom = "4px";
-            elementTitle.addEventListener("focusout", saveSelectorPoint());
+            elementTitle.addEventListener("focusout", function ()
+            {
+                saveSelectorPoint()
+            });
         }
 
         var editorDiv = createElement("div");
@@ -455,10 +461,6 @@ function setContentEditable(element, isNew, isNews)
                 if (isNews)
                 {
                     insertNewsTextToDatabase(1, element.innerHTML, elementTitle.innerHTML);
-                }
-                else
-                {
-
                 }
             }
             else
@@ -561,6 +563,8 @@ $(document).ready(function ()
         {
             var parent = $(event.target).parent();
             var elementToPass = $(parent).children()[1];
+
+            console.log(elementToPass);
 
             var string = elementToPass.id.toString();
             var parentString = parent.attr('id');
