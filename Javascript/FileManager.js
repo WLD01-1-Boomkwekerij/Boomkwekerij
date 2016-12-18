@@ -53,6 +53,19 @@ function checkArrowColor()
 }
 
 /**
+ * Opens a folder and creates all the icons
+ * @param {string} directory
+ */
+function openFolder(directory)
+{
+    while (getElementById("Files").firstChild)
+    {
+        getElementById("Files").removeChild(getElementById("Files").firstChild);
+    }
+    createFileIcons(directory);
+}
+
+/**
  * Creates a folder icon and makes it clickable
  * @param {type} url
  * @param {type} name
@@ -179,19 +192,6 @@ function createFileIcons(directory)
 }
 
 /**
- * Opens a folder and creates all the icons
- * @param {string} directory
- */
-function openFolder(directory)
-{
-    while (getElementById("Files").firstChild)
-    {
-        getElementById("Files").removeChild(getElementById("Files").firstChild);
-    }
-    createFileIcons(directory);
-}
-
-/**
  * Creates the file manager
  * @param {bool} uploading
  * @param {element} element
@@ -272,7 +272,6 @@ function createManager(uploading, element)
     pathSelectedBar.style.left = "-50%";
     positionSetter.appendChild(pathSelectedBar);
 
-
     var filesDiv = createElement("div");
     filesDiv.id = "Files";
     managerDiv.appendChild(filesDiv);
@@ -344,7 +343,9 @@ function createManager(uploading, element)
             selectButton.addEventListener("click", function ()
             {
                 restoreSelectorPoint();
-                markupText("insertImage", currentSelectedPath);
+                
+                var img = "<img src='"+currentSelectedPath+"' onclick='editImage(this)' style='width: 50%; float: right; position: relative; top: 0px;'>";
+                document.execCommand("insertHTML", false, img);
                 destroyManager();
             });
         }

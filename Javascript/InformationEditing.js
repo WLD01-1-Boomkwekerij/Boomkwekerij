@@ -370,6 +370,7 @@ function setContentEditable(element, isNew, isNews)
         $(childZero).removeClass("ContentEditable");
 
         $(element).addClass("ContentEditableOpen");
+        $(element).addClass("clearFix");
         element.style.backgroundColor = "white";
         element.style.border = "solid 2px black";
         element.addEventListener("focusout", function ()
