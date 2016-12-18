@@ -65,32 +65,74 @@ function uploadImage()
         isFileManagerOpen = true;
     }
 }
+//General Text Inserting, Updating and Deleteing
 
 /**
- * Updatesthe provided text to the database
+ * Updates the provided text to the database
  * @param {string} text
  * @param {int} textID
  */
 function updateTextToDatabase(text, textID)
 {
-    console.log(textID);
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlUpdateText=" + text + "&textID=" + textID, true);
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?textID=" + textID + "&htmlUpdateText=" + text, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            console.log(xmlhttp.responseText);
-            //location.reload();
+            location.reload();
         }
     };
     xmlhttp.send();
 }
 
-function saveTextToDatabase(visibility, text, title)
+//News Inserting, Updating and Deleteing
+
+/**
+ * 
+ * @param {int} visibility
+ * @param {string} text
+ * @param {string} title
+ */
+function insertNewsTextToDatabase(visibility, text, title)
 {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsVisibility=" + visibility + "&htmlInsertText=" + text + "&newsTitle=" + title, true);
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsVisibility=" + visibility + "&newsHtmlInsertText=" + text + "&newsTitle=" + title, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            location.reload();
+        }
+    };
+    xmlhttp.send();
+}
+
+/**
+ * 
+ * @param {int} newsID
+ * @param {int} visibility
+ * @param {string} text
+ * @param {string} title
+ */
+function updateNewsTextToDatabase(newsID, visibility, text, title)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsHtmlUpdateText=" + text + "&newsID=" + newsID + "&newsTitle=" + title + "&newsVisibility=" + visibility, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            location.reload();
+        }
+    };
+    xmlhttp.send();
+}
+
+function deleteNewsText(newsID)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsDeleteID=" + newsID, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
@@ -391,6 +433,17 @@ function setContentEditable(element, isNew, isNews)
         };
         $(cancelButton).insertAfter(element);
 
+        if (isNews && !isNew)
+        {
+            var deleteButton = createElement("button");
+            $(deleteButton).addClass("fa fa-trash-o");
+            deleteButton.addEventListener("click", function ()
+            {
+                deleteNewsText(parseInt(parent.id.replace("newsID", "")));
+            });
+            $(deleteButton).insertAfter(cancelButton);
+        }
+
         var saveButton = createElement("button");
         saveButton.innerHTML = "Save";
         saveButton.style.marginTop = "4px";
@@ -399,11 +452,27 @@ function setContentEditable(element, isNew, isNews)
         {
             if (isNew)
             {
-                saveTextToDatabase(1, element.innerHTML, elementTitle.innerHTML);
+                if (isNews)
+                {
+                    insertNewsTextToDatabase(1, element.innerHTML, elementTitle.innerHTML);
+                }
+                else
+                {
+
+                }
             }
             else
             {
-                updateTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
+                if (isNews)
+                {
+                    //newsID, visibility, text, title
+                    updateNewsTextToDatabase(parseInt(parent.id.replace("newsID", "")), 1, element.innerHTML, elementTitle.innerHTML);
+                }
+                else
+                {
+                    updateTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
+                }
+
             }
         };
         $(saveButton).insertAfter(element);

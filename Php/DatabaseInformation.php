@@ -2,6 +2,23 @@
 
 include_once 'Database.php';
 
+//Plain Text
+function saveTextToDB($textID, $text)
+{
+    $connection = connectToDatabase();
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try
+    {
+        $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE TekstID=" . $textID);
+        $statement->execute();
+        $connection = null;
+    }
+    catch (PDOException $ex)
+    {
+        print($ex->getMessage());
+    }
+}
+
 function loadTextFromDB($textID)
 {
     $connection = connectToDatabase();
@@ -15,6 +32,25 @@ function loadTextFromDB($textID)
     }
 }
 
+//News (Title + text)
+
+function getTextIDFromNewsID($connection, $newsID)
+{
+    $sqlSelect = "SELECT t.TekstID "
+            . "FROM aanbieding a "
+            . "JOIN tekst t "
+            . "ON a.TekstID = t.TekstID "
+            . "WHERE a.aanbiedingID = $newsID";
+
+    $statement = $connection->prepare($sqlSelect);
+    $statement->execute();
+
+    $row = $statement->fetch();
+    $textID = $row["TekstID"];
+    return $textID;
+}
+
+//Inserting
 function insertNewsTextToDB($visibility, $text, $title)
 {
     $connection = connectToDatabase();
@@ -34,8 +70,6 @@ function insertNewsTextToDB($visibility, $text, $title)
         $statement->execute();
 
         $connection = null;
-
-        print($lastTextID);
     }
     catch (PDOException $ex)
     {
@@ -43,20 +77,49 @@ function insertNewsTextToDB($visibility, $text, $title)
     }
 }
 
-function saveTextToDB($textID, $text)
+//Updating
+function updateNewsTextToDB($newsID, $visibility, $text, $title)
 {
     $connection = connectToDatabase();
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     try
     {
-        $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE TekstID=" . $textID);
+        
+        $textID = getTextIDFromNewsID($connection, $newsID);
+
+        $sql1 = "UPDATE tekst "
+                . "SET Tekst='" . htmlspecialchars($text) . "' "
+                . "WHERE TekstID=$textID;";
+
+        $statement = $connection->prepare($sql1);
         $statement->execute();
+
+        $sql2 = "UPDATE aanbieding SET zichtbaar=$visibility, Titel='$title' WHERE aanbiedingID = $newsID";
+
+        $statement = $connection->prepare($sql2);
+        $statement->execute();
+
         $connection = null;
     }
     catch (PDOException $ex)
     {
         print($ex->getMessage());
     }
+}
+
+function DeleteNewsTextFromDB($newsID)
+{
+    $connection = connectToDatabase();
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $textID = getTextIDFromNewsID($connection, $newsID);
+    
+    $firstStatement = $connection->prepare("DELETE FROM aanbieding WHERE AanbiedingID=$newsID");
+    $firstStatement->execute();
+    
+    $statement = $connection->prepare("DELETE FROM tekst WHERE TekstID=$textID");
+    $statement->execute();
+    $connection = null;
 }
 
 function deletePlant($plantID)

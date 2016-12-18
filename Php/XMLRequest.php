@@ -2,16 +2,33 @@
 
 include 'DatabaseInformation.php';
 
-//Save text to the Text table
-if (isset($_GET["htmlUpdateText"], $_GET["textID"]))
+//Save Plain text to the Text table
+if (isset( $_GET["textID"], $_GET["htmlUpdateText"] ))
 {
     saveTextToDB($_GET["textID"], $_GET["htmlUpdateText"]);
 }
 
-if (isset($_GET["newsVisibility"], $_GET["htmlInsertText"], $_GET["newsTitle"]))
+//Saves news Text
+
+//Inserting
+if (isset($_GET["newsVisibility"], $_GET["newsHtmlInsertText"], $_GET["newsTitle"]))
 {
-    insertNewsTextToDB($_GET["newsVisibility"], $_GET["htmlInsertText"], $_GET["newsTitle"]);
+    insertNewsTextToDB($_GET["newsVisibility"], $_GET["newsHtmlInsertText"], $_GET["newsTitle"]);
 }
+
+//Updating
+if(isset($_GET["newsID"], $_GET["newsVisibility"], $_GET["newsHtmlUpdateText"], $_GET["newsTitle"]))
+{
+    updateNewsTextToDB($_GET["newsID"], $_GET["newsVisibility"], $_GET["newsHtmlUpdateText"], $_GET["newsTitle"]);
+}
+
+//Deleting
+if(isset($_GET["newsDeleteID"]))
+{
+    DeleteNewsTextFromDB($_GET["newsDeleteID"]);
+}
+
+
 
 //Gets all the files
 if (isset($_GET["fileDirectory"]))

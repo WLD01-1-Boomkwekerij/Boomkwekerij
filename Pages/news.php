@@ -56,16 +56,12 @@
                         $textID = $row["TekstID"];
                         $Title = $row["Titel"];
 
-                        print ("<div class='newsDiv' id='newsID' style='position: relative'>"
+                        print ("<div class='newsDiv' id='newsID$aanBiedingID' style='position: relative'>"
                                 . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'></div>"
-                                . "<div class='newsTop'> $Title
-                                . </div><div id='textID$textID' style=' padding: 5px;'>"
+                                . "<div class='newsTop'> $Title</div>"
+                                . "<div id='textID$textID' style=' padding: 5px;'>"
                                 . htmlspecialchars_decode($text)
                                 . "</div>");
-                        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
-                        {
-                            print("<button class='fa fa-trash-o' style='z-index: 1111' onclick='deleteArticle($aanBiedingID)'></button>");
-                        }
                         print("</div>");
                     }
                     ?>
