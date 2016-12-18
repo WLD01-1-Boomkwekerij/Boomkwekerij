@@ -46,9 +46,17 @@ function insertNewsTextToDB($visibility, $text, $title)
 function saveTextToDB($textID, $text)
 {
     $connection = connectToDatabase();
-    $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE TEKSTID=" . $textID);
-    $statement->execute();
-    $connection = null;
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try
+    {
+        $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE TekstID=" . $textID);
+        $statement->execute();
+        $connection = null;
+    }
+    catch (PDOException $ex)
+    {
+        print($ex->getMessage());
+    }
 }
 
 function deletePlant($plantID)

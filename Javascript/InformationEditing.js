@@ -68,18 +68,20 @@ function uploadImage()
 
 /**
  * Updatesthe provided text to the database
- * @param {type} text
- * @param {type} textID
+ * @param {string} text
+ * @param {int} textID
  */
 function updateTextToDatabase(text, textID)
 {
+    console.log(textID);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlUpdateText=" + text + "&textID=" + textID, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            location.reload();
+            console.log(xmlhttp.responseText);
+            //location.reload();
         }
     };
     xmlhttp.send();
@@ -93,8 +95,7 @@ function saveTextToDatabase(visibility, text, title)
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            console.log(xmlhttp.responseText);
-            //location.reload();
+            location.reload();
         }
     };
     xmlhttp.send();
@@ -332,7 +333,7 @@ function setContentEditable(element, isNew, isNews)
         element.style.border = "solid 2px black";
         element.addEventListener("focusout", saveSelectorPoint());
 
-        if(isNews)
+        if (isNews)
         {
             elementTitle.style.backgroundColor = "white";
             elementTitle.style.border = "solid 2px black";
@@ -377,7 +378,7 @@ function setContentEditable(element, isNew, isNews)
             $(childZero).show();
             $(childZero).addClass("ContentEditable");
 
-            if(isNews)
+            if (isNews)
             {
                 elementTitle.contentEditable = false;
                 elementTitle.style.border = "solid 0px black";
@@ -398,7 +399,7 @@ function setContentEditable(element, isNew, isNews)
         {
             if (isNew)
             {
-                saveTextToDatabase(1, element.innerHTML, "Nieuws");
+                saveTextToDatabase(1, element.innerHTML, elementTitle.innerHTML);
             }
             else
             {
@@ -466,15 +467,16 @@ document.onkeydown = document.onkeyup = function (e)
         markupText("insertHTML", "&#8197;");
         return false;
     }
-    
-     //Enter
-    if(element.className === "newsTop")
+
+    //Enter
+    if (element.className === "newsTop")
     {
-        if(map[13]){
+        if (map[13])
+        {
             e.preventDefault();
         }
-        
-        if(element.innerHTML.length >= 30 && !map[8])
+
+        if (element.innerHTML.length >= 30 && !map[8])
         {
             e.preventDefault();
         }

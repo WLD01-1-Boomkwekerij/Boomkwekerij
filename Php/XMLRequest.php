@@ -6,10 +6,9 @@ include 'DatabaseInformation.php';
 if (isset($_GET["htmlUpdateText"], $_GET["textID"]))
 {
     saveTextToDB($_GET["textID"], $_GET["htmlUpdateText"]);
-    print($_GET["htmlUpdateText"]);
 }
 
-if(isset($_GET["newsVisibility"], $_GET["htmlInsertText"], $_GET["newsTitle"]))
+if (isset($_GET["newsVisibility"], $_GET["htmlInsertText"], $_GET["newsTitle"]))
 {
     insertNewsTextToDB($_GET["newsVisibility"], $_GET["htmlInsertText"], $_GET["newsTitle"]);
 }
@@ -42,11 +41,11 @@ if (isset($_GET['name']))
     $phpImageArray = explode("*", $photoUrlArray);
     $phpImageArray = str_replace("*", "", $phpImageArray);
 
-    
+
 
     $bloeitijd = $bloeitijd1 . "-" . $bloeitijd2;
-    
-print($bloeitijd1);
+
+    print($bloeitijd1);
 
     $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Bloeiwijze) VALUES ('$Naam', $PrijsID, $Hoogte_Min, $Hoogte_Max, '$bloeitijd', '$bloeiwijze')";
     doSQL($sql);
@@ -65,8 +64,6 @@ print($bloeitijd1);
             doSQL($sql);
             $amount += 1;
         }
-
-        
     }
 }
 
