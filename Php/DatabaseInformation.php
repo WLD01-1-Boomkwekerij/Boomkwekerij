@@ -4,24 +4,32 @@ include_once 'Database.php';
 
 function loadTextFromDB($textID)
 {
-    $connection = connectToDatabase();
-    $statement = $connection->prepare("SELECT * FROM tekst WHERE TEKSTID=" . $textID);
-    $statement->execute();
-
-    while ($row = $statement->fetch())
+    try
     {
-        $text = $row["Tekst"];
-        print htmlspecialchars_decode($text) . "<br>";
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement = $connection->prepare("SELECT * FROM tekst WHERE TEKSTID=" . $textID);
+        $statement->execute();
+
+        while ($row = $statement->fetch())
+        {
+            $text = $row["Tekst"];
+            print htmlspecialchars_decode($text) . "<br>";
+        }
+    }
+    catch (Exception $ex)
+    {
+        print($ex->getMessage());
     }
 }
 
 //Plain Text
 function saveTextToDB($textID, $text)
 {
-    $connection = connectToDatabase();
-    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     try
     {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE TekstID=" . $textID);
         $statement->execute();
         $connection = null;
@@ -34,28 +42,34 @@ function saveTextToDB($textID, $text)
 
 function getTextIDFromNewsID($connection, $newsID)
 {
-    $sqlSelect = "SELECT t.TekstID "
-            . "FROM aanbieding a "
-            . "JOIN tekst t "
-            . "ON a.TekstID = t.TekstID "
-            . "WHERE a.aanbiedingID = $newsID";
+    try
+    {
+        $sqlSelect = "SELECT t.TekstID "
+                . "FROM aanbieding a "
+                . "JOIN tekst t "
+                . "ON a.TekstID = t.TekstID "
+                . "WHERE a.aanbiedingID = $newsID";
 
-    $statement = $connection->prepare($sqlSelect);
-    $statement->execute();
+        $statement = $connection->prepare($sqlSelect);
+        $statement->execute();
 
-    $row = $statement->fetch();
-    $textID = $row["TekstID"];
-    return $textID;
+        $row = $statement->fetch();
+        $textID = $row["TekstID"];
+        return $textID;
+    }
+    catch (Exception $ex)
+    {
+        print($ex->getMessage());
+    }
 }
 
 //Inserting
 function insertNewsTextToDB($visibility, $text, $title)
 {
-    $connection = connectToDatabase();
-    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     try
     {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql1 = "INSERT INTO tekst (tekst) VALUES('" . htmlspecialchars($text) . "');";
 
         $statement = $connection->prepare($sql1);
@@ -78,11 +92,11 @@ function insertNewsTextToDB($visibility, $text, $title)
 //Updating
 function updateNewsTextToDB($newsID, $visibility, $text, $title)
 {
-    $connection = connectToDatabase();
-    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     try
     {
-
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $textID = getTextIDFromNewsID($connection, $newsID);
 
         $sql1 = "UPDATE tekst "
