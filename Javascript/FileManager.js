@@ -184,6 +184,7 @@ function createFileIcons(directory)
 function destroyManager()
 {
     isFileManagerOpen = false;
+    document.body.style.overflow = "scroll";
     getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
 }
@@ -220,7 +221,7 @@ function createManager(uploading, element)
     backgroundColor.style.opacity = "0.7";
     backgroundColor.style.width = "100vw";
     backgroundColor.style.height = "100vh";
-    backgroundColor.style.zIndex = "100";
+    backgroundColor.style.zIndex = "1997";
     backgroundColor.style.top = "0";
     backgroundColor.style.left = "0";
     backgroundColor.style.position = "fixed";
@@ -305,7 +306,6 @@ function createManager(uploading, element)
         }
 
         destroyManager();
-        document.body.style.overflow = "visible";
     };
     bottomInfo.appendChild(cancelButton);
 

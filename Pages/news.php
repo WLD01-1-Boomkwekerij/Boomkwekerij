@@ -56,10 +56,10 @@
                         $Title = $row["Titel"];
                         $Datum = $row["DatumGeplaatst"];
 
-                        print ("<div class='newsDiv' id='newsID$aanBiedingID' style='position: relative'>"
-                                . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'></div>"
-                                . "<div class='newsTop'> $Title"
-                                . "<div style='float: right'>$Datum</div></div>"
+                        print ("<div class='newsDiv clearFix' id='newsID$aanBiedingID' style='position: relative'>"
+                                . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'><div style='float: right'>$Datum</div></div>"
+                                . "<div class='newsTop'> $Title </div>"
+                                . ""
                                 . "<div id='textID$textID' style=' padding: 5px;'>"
                                 . htmlspecialchars_decode($text) . "</div>");
                         print("</div>");

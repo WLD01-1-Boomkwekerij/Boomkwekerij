@@ -389,7 +389,7 @@ function setContentEditable(element, isNew, isNews)
         var saveButton = createElement("button");
         $(saveButton).addClass("EditorBottomButton");
         saveButton.innerHTML = "Save";
-        saveButton.onclick = function ()
+        saveButton.addEventListener("click", function ()
         {
             if (isNew)
             {
@@ -403,7 +403,7 @@ function setContentEditable(element, isNew, isNews)
                 if (isNews)
                 {
                     //newsID, visibility, text, title
-                    updateNewsTextToDatabase(parseInt(parent.id.replace("newsID", "")), 1, element.innerHTML, elementTitle.innerHTML);
+                    updateNewsTextToDatabase(parseInt($(parent).attr('id').replace("newsID", "")), 1, element.innerHTML, elementTitle.innerHTML);
                 }
                 else
                 {
@@ -411,7 +411,7 @@ function setContentEditable(element, isNew, isNews)
                 }
 
             }
-        };
+        });
         $(saveButton).insertAfter(parent);
 
         var deleteButton;
