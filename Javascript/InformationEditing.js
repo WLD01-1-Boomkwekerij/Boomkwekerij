@@ -396,6 +396,7 @@ function setContentEditable(element, isNew, isNews)
         saveButton.innerHTML = "Save";
         saveButton.style.marginTop = "4px";
         saveButton.style.marginBottom = "8px";
+        saveButton.style.height = "28px";
         saveButton.onclick = function ()
         {
             if (isNew)
@@ -425,6 +426,9 @@ function setContentEditable(element, isNew, isNews)
 
         var cancelButton = createElement("button");
         cancelButton.innerHTML = "Cancel";
+        cancelButton.style.marginTop = "4px";
+        cancelButton.style.marginBottom = "8px";
+        cancelButton.style.height = "28px";
         cancelButton.onclick = function ()
         {
             //Delete editor and buttons
@@ -440,8 +444,7 @@ function setContentEditable(element, isNew, isNews)
             //Change the element
             element.contentEditable = false;
             element.style.border = "solid 0px black";
-            cancelButton.style.marginTop = "4px";
-            cancelButton.style.marginBottom = "8px";
+
             element.style.backgroundColor = element.parentNode.style.backgroundColor;
             $(element).removeClass("ContentEditableOpen");
 
@@ -459,17 +462,20 @@ function setContentEditable(element, isNew, isNews)
             isEditorOpen = false;
             element.innerHTML = currentSavedHTML;
         };
-        $(cancelButton).insertAfter(parent);
+        $(cancelButton).insertAfter(saveButton);
 
         if (isNews && !isNew)
         {
             var deleteButton = createElement("button");
             $(deleteButton).addClass("fa fa-trash-o");
+            deleteButton.style.height = "28px";
+            deleteButton.style.marginTop = "4px";
+            deleteButton.style.marginBottom = "8px";
             deleteButton.addEventListener("click", function ()
             {
                 deleteNewsText(parseInt(parent.id.replace("newsID", "")));
             });
-            $(deleteButton).insertAfter(parent);
+            $(deleteButton).insertAfter(cancelButton);
         }
         parent.appendChild(element);
 

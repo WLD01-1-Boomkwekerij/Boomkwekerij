@@ -24,7 +24,6 @@
             </section>
             <section id="mid">
                 <section id="rightmenu">
-
                     <?php
                     include '../Php/rightmenu.php';
                     ?>
@@ -39,7 +38,7 @@
                                 . "<div style='padding 5px; min-height: 140px;'></div></div>");
                     }
 
-                    $sql = "SELECT t.Tekst, a.AanbiedingID, a.Titel, t.TekstID
+                    $sql = "SELECT t.Tekst, a.AanbiedingID, a.Titel, a.DatumGeplaatst, t.TekstID
                             FROM aanbieding a
                             JOIN tekst t
                             ON a.TekstID = t.TekstID
@@ -55,10 +54,12 @@
                         $aanBiedingID = $row["AanbiedingID"];
                         $textID = $row["TekstID"];
                         $Title = $row["Titel"];
+                        $Datum = $row["DatumGeplaatst"];
 
                         print ("<div class='newsDiv' id='newsID$aanBiedingID' style='position: relative'>"
                                 . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'></div>"
-                                . "<div class='newsTop'> $Title</div>"
+                                . "<div class='newsTop'> $Title"
+                                . "<div style='float: right'>$Datum</div></div>"
                                 . "<div id='textID$textID' style=' padding: 5px;'>"
                                 . htmlspecialchars_decode($text) . "</div>");
                         print("</div>");
