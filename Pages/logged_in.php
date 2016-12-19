@@ -32,32 +32,28 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                     <?php
                     include '../Php/POST.php';
                     if (isset($submit)) {
-                        if ($Wachtwoord1 != $Wachtwoord2) {
-                            print ('Wachtwoorden zijn niet hetzelfde, probeer het opnieuw.<br>');
+                        if (count($errors) > 0) { //laat foutmeldingen zien
+                            print_r(implode($errors, '<br>'));
                         } else {
-                            if (count($errors) > 0) { //laat foutmeldingen zien
-                                print_r(implode($errors, '<br>'));
+                            print('Wilt u de volgende gebruiker toevoegen?<br>'
+                                    . 'Naam: ' . $gebr_naam . '<br>'
+                                    . 'Email: ' . $gebr_mail . '<br>'
+                                    . 'Krijgt mail: ');
+                            if ($krijgt_mail == 0) {
+                                print('nee <br>');
                             } else {
-                                print('Wilt u de volgende gebruiker toevoegen?<br>'
-                                        . 'Naam: ' . $gebr_naam . '<br>'
-                                        . 'Email: ' . $gebr_mail . '<br>'
-                                        . 'Krijgt mail: ');
-                                if ($krijgt_mail == 0) {
-                                    print('nee <br>');
-                                } else {
-                                    print('ja <br>');
-                                }
-                                print('Type gebruiker: ' . $rol . '<br>');
-                                ?>
-                                <form action="../Php/user_add.php" method="post">
-                                    <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
-                                    <input type="submit" name="submit" value="Toevoegen"/>
-                                </form>
-                                <form action="../Pages/logged_in.php" method="post">
-                                    <input type="submit" name="cancel" value="Annuleren"/>
-                                </form> 
-                                <?php
+                                print('ja <br>');
                             }
+                            print('Type gebruiker: ' . $rol . '<br>');
+                            ?>
+                            <form action="../Php/user_add.php" method="post">
+                                <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
+                                <input type="submit" name="submit" value="Toevoegen"/>
+                            </form>
+                            <form action="../Pages/logged_in.php" method="post">
+                                <input type="submit" name="cancel" value="Annuleren"/>
+                            </form> 
+                            <?php
                         }
                         ?>
                         <form  action="../Pages/logged_in.php" method="post">
@@ -149,7 +145,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                     <td> 
                                         <select name="rol" tabindex="6">
                                             <option value="beheerder">Beheerder</option>
-                                            <option value="medewerker">Medewerker</option>
+                                            <option value="medewerker" selected="selected">Medewerker</option>
                                             <option value="vertaler">Vertaler</option>
                                         </select> 
                                     </td>

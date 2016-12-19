@@ -1,17 +1,20 @@
 .contact
 {
     border-radius:5px;
+    width:300px;
+    height:30px;
 }
 
 .contact_content
 {
-    min-width:400px;
+    min-width:900px;
     min-height:200px;
 }
 
 .contact_minWidth
 {
     min-width:300px;
+    width:400px;
 }
 
 #btn1
@@ -27,4 +30,35 @@
 {
     background-color:royalblue;
     color:white;
+}
+
+#logo{
+    width:160px;
+
+
+}
+
+#divlogo{
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+    position:absolute;
+    margin-left:600px;
+    height:203px;
+    margin-top:0px;
+   
+}
+
+.contactitel{
+    height:50px;
+    width:110%;
+    background-color:#5175b3;
+    margin-top:-50px;
+    margin-left:-10px;
+    
+    
+}
+
+.contactpadding{
+    padding-top:6px;
 }

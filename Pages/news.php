@@ -31,6 +31,8 @@
                 </section>
                 <section id="maincontent" style="overflow-y: scroll">
                     <?php
+                    
+                    
                     $sql = "SELECT t.Tekst, n.NieuwsberichtID
                             FROM nieuwsbericht n
                             JOIN tekst t
