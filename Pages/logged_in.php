@@ -145,7 +145,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                     <td> 
                                         <select name="rol" tabindex="6">
                                             <option value="beheerder">Beheerder</option>
-                                            <option value="medewerker">Medewerker</option>
+                                            <option value="medewerker" selected="selected">Medewerker</option>
                                             <option value="vertaler">Vertaler</option>
                                         </select> 
                                     </td>

@@ -5,8 +5,6 @@ var savedSelectorPoint;
 var isLinkWindowOpen;
 var isFileManagerOpen;
 var isEditorOpen;
-var currentSavedHTML;
-var currentSavedTitle;
 
 window.onload = function ()
 {
@@ -32,12 +30,9 @@ function getElementById(id)
  */
 function markupText(type, parameter)
 {
-    if (arguments.length === 1)
-    {
+    if (arguments.length === 1) {
         document.execCommand(type, false);
-    }
-    else
-    {
+    } else {
         document.execCommand(type, false, parameter);
     }
 }
@@ -59,87 +54,22 @@ function insertImage()
  */
 function uploadImage()
 {
-    if (!isFileManagerOpen)
+    if(!isFileManagerOpen)
     {
         createManager(true);
         isFileManagerOpen = true;
     }
 }
-//General Text Inserting, Updating and Deleteing
 
 /**
- * Updates the provided text to the database
- * @param {string} text
- * @param {int} textID
+ * Saves the provided text to the database
+ * @param {type} text
+ * @param {type} textID
  */
-function updateTextToDatabase(text, textID)
+function saveTextToDatabase(text, textID)
 {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?textID=" + textID + "&htmlUpdateText=" + text, true);
-    xmlhttp.onreadystatechange = function ()
-    {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            location.reload();
-        }
-    };
-    xmlhttp.send();
-}
-
-//News Inserting, Updating and Deleteing
-
-/**
- * 
- * @param {int} visibility
- * @param {string} text
- * @param {string} title
- */
-function insertNewsTextToDatabase(visibility, text, title)
-{
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsVisibility=" + visibility + "&newsHtmlInsertText=" + text + "&newsTitle=" + title, true);
-    xmlhttp.onreadystatechange = function ()
-    {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            location.reload();
-        }
-    };
-    xmlhttp.send();
-}
-
-/**
- * 
- * @param {int} newsID
- * @param {int} visibility
- * @param {string} text
- * @param {string} title
- */
-function updateNewsTextToDatabase(newsID, visibility, text, title)
-{
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsHtmlUpdateText=" + text + "&newsID=" + newsID + "&newsTitle=" + title + "&newsVisibility=" + visibility, true);
-    xmlhttp.onreadystatechange = function ()
-    {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            location.reload();
-        }
-    };
-    xmlhttp.send();
-}
-
-function deleteNewsText(newsID)
-{
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsDeleteID=" + newsID, true);
-    xmlhttp.onreadystatechange = function ()
-    {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            location.reload();
-        }
-    };
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlText=" + text + "&textID=" + textID, true);
     xmlhttp.send();
 }
 
@@ -160,8 +90,7 @@ function saveSelectorPoint()
             }
             savedSelectorPoint = ranges;
         }
-    }
-    else if (document.selection && document.selection.createRange)
+    } else if (document.selection && document.selection.createRange)
     {
         savedSelectorPoint = document.selection.createRange();
     }
@@ -180,8 +109,7 @@ function restoreSelectorPoint()
             {
                 sel.addRange(savedSel[i]);
             }
-        }
-        else if (document.selection && savedSel.select)
+        } else if (document.selection && savedSel.select)
         {
             savedSel.select();
         }
@@ -305,19 +233,18 @@ function createButton(type)
         case "link":
             button.onclick = function ()
             {
-                if (!isLinkWindowOpen)
-                {
+                if (!isLinkWindowOpen) {
                     createLink();
                 }
                 isLinkWindowOpen = true;
             };
             break;
         case "upload":
-            button.onclick = function ()
-            {
-                uploadImage();
-            };
-            break;
+        button.onclick = function ()
+        {
+            uploadImage();
+        };
+        break;
         default:
             button.onclick = function ()
             {
@@ -331,67 +258,25 @@ function createButton(type)
 
 /**
  * Togles the clicked element editable and adds the editing system
- * @param {element} element
- * @param {bool} isNew
- * @param {bool} isNews
+ * @param {type} element
  */
-function setContentEditable(element, isNew, isNews)
+function setContentEditable(element)
 {
-    if (!isEditorOpen)
-    {
-        var parent = $(element).parent();
-        var elementTitle;
 
-        if (!isNews)
-        {
-            element.contentEditable = true;
-        }
-        else
-        {
-            element = $(parent).children()[2];
-            element.contentEditable = true;
-
-            elementTitle = $(parent).children()[1];
-            elementTitle.contentEditable = true;
-        }
-
-        currentSavedHTML = element.innerHTML;
-
-        if (isNews)
-        {
-            currentSavedTitle = elementTitle.innerHTML;
-        }
-
+    if (!isEditorOpen) {
         isEditorOpen = true;
-        var parent = element.parentNode;
-
-        var childZero = $(element).parent().children()[0];
-        $(childZero).hide();
-        $(childZero).removeClass("ContentEditable");
-
-        $(element).addClass("ContentEditableOpen");
-        $(element).addClass("clearFix");
+        element.contentEditable = true;
+        element.className = "";
+        element.className = "ContentEditableOpen";
         element.style.backgroundColor = "white";
         element.style.border = "solid 2px black";
-        element.addEventListener("focusout", function ()
-        {
-            saveSelectorPoint();
-        });
+        element.addEventListener("focusout", saveSelectorPoint());
 
-
-        if (isNews)
-        {
-            elementTitle.style.backgroundColor = "white";
-            elementTitle.style.border = "solid 2px black";
-            elementTitle.style.marginBottom = "4px";
-            elementTitle.addEventListener("focusout", function ()
-            {
-                saveSelectorPoint()
-            });
-        }
+        var parent = element.parentNode;
 
         var editorDiv = createElement("div");
         editorDiv.id = "Editor";
+
         editorDiv.style.position = "relative";
         parent.insertBefore(editorDiv, parent.childNodes[0]);
 
@@ -411,8 +296,6 @@ function setContentEditable(element, isNew, isNews)
 
         var cancelButton = createElement("button");
         cancelButton.innerHTML = "Cancel";
-        cancelButton.style.marginTop = "4px";
-        cancelButton.style.marginBottom = "8px";
         cancelButton.onclick = function ()
         {
             editorDiv.parentNode.removeChild(editorDiv);
@@ -421,64 +304,19 @@ function setContentEditable(element, isNew, isNews)
             element.contentEditable = false;
             element.style.border = "solid 0px black";
             element.style.backgroundColor = element.parentNode.style.backgroundColor;
-            $(element).removeClass("ContentEditableOpen");
-
-            var childZero = $(element).parent().children()[0];
-            $(childZero).show();
-            $(childZero).addClass("ContentEditable");
-
-            if (isNews)
-            {
-                elementTitle.contentEditable = false;
-                elementTitle.style.border = "solid 0px black";
-                elementTitle.style.borderBottom = "solid 1px gray";
-                elementTitle.style.backgroundColor = elementTitle.parentNode.style.backgroundColor;
-            }
-
+            element.className = "ContentEditable";
             isEditorOpen = false;
-            element.innerHTML = currentSavedHTML;
         };
-        $(cancelButton).insertAfter(element);
 
-        if (isNews && !isNew)
-        {
-            var deleteButton = createElement("button");
-            $(deleteButton).addClass("fa fa-trash-o");
-            deleteButton.addEventListener("click", function ()
-            {
-                deleteNewsText(parseInt(parent.id.replace("newsID", "")));
-            });
-            $(deleteButton).insertAfter(cancelButton);
-        }
-
+        parent.appendChild(cancelButton);
         var saveButton = createElement("button");
         saveButton.innerHTML = "Save";
-        saveButton.style.marginTop = "4px";
-        saveButton.style.marginBottom = "8px";
         saveButton.onclick = function ()
         {
-            if (isNew)
-            {
-                if (isNews)
-                {
-                    insertNewsTextToDatabase(1, element.innerHTML, elementTitle.innerHTML);
-                }
-            }
-            else
-            {
-                if (isNews)
-                {
-                    //newsID, visibility, text, title
-                    updateNewsTextToDatabase(parseInt(parent.id.replace("newsID", "")), 1, element.innerHTML, elementTitle.innerHTML);
-                }
-                else
-                {
-                    updateTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
-                }
-
-            }
+            saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
+            //window.location.reload(false);
         };
-        $(saveButton).insertAfter(element);
+        parent.appendChild(saveButton);
     }
 }
 
@@ -487,8 +325,7 @@ function selectImage(imageID)
 {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/GetImages.php?imageList=" + imageID, true);
-    xmlhttp.onreadystatechange = function ()
-    {
+    xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200)
         {
             //Create image
@@ -509,7 +346,6 @@ function selectImage(imageID)
 var map = {};
 document.onkeydown = document.onkeyup = function (e)
 {
-    var element = e.target;
 
     e = e || event;
     map[e.keyCode] = e.type === "keydown";
@@ -519,8 +355,7 @@ document.onkeydown = document.onkeyup = function (e)
     {
         document.execCommand("redo", false);
         return false;
-    }
-    else if (map[17] && map[90])
+    } else if (map[17] && map[90])
     {
         document.execCommand("undo", false);
         return false;
@@ -533,62 +368,21 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Space
-    if (map[32] && element.className === "ContentEditableOpen")
-    {
+    if (map[32] && e.target.className === "ContentEditableOpen") {
         e.preventDefault();
         markupText("insertHTML", "&#8197;");
         return false;
-    }
-
-    //Enter
-    if (element.className === "newsTop")
-    {
-        if (map[13])
-        {
-            e.preventDefault();
-        }
-
-        if (element.innerHTML.length >= 30 && !map[8])
-        {
-            e.preventDefault();
-        }
     }
 };
 
 //Jquery Code
 $(document).ready(function ()
 {
-    $(".ContentEditable").click(function (event)
+    $(".ContentEditable").click(function ()
     {
-        if (!isEditorOpen)
-        {
-            var parent = $(event.target).parent();
-            var elementToPass = $(parent).children()[1];
-
-            console.log(elementToPass);
-
-            var string = elementToPass.id.toString();
-            var parentString = parent.attr('id');
-
-
-            //SETS the correct editor
-            if (string.indexOf("textID") !== -1)
-            {
-                //GENERAL TEXT EDITOR
-                setContentEditable(elementToPass, false);
-            }
-            else if (parentString.indexOf("newNews") !== -1)
-            {
-                //New News editor
-                setContentEditable(elementToPass, true, true);
-            }
-            else if (parentString.indexOf("newsID") !== -1)
-            {
-                //NEWS EDITOR
-                setContentEditable(elementToPass, false, true);
-            }
-
-            //isEditorOpen = true;
+        if (!isEditorOpen) {
+            setContentEditable($(this)[0]);
+            isEditorOpen = true;
         }
     });
 });

@@ -12,10 +12,12 @@
         U wordt automatisch omgeleid, als u niet wilt wachten, <a href="../Pages/logged_in.php">klik dan hier</a>.<br>
         <?php
         include '../Php/Database.php';
+        if (isset($_POST['submit'])) {
+            $submit = $_POST['submit'];
+            $rol= $_POST['Rol'];
+        }
         $data = unserialize($_POST['input_name']);
         $Wachtwoord = $data['Wachtwoord1'];
-        $submit = $data['submit'];
-        $rol=$data['rol'];
         if ($submit == 'Bewerken') {
             if ($rol == 'beheerder') {
                 $rol = 1;
@@ -43,11 +45,11 @@
 
             }
             doSQL($query);
-//            header('Refresh: 0; url=../Pages/logged_in.php');
+            header('Refresh: 0; url=../Pages/logged_in.php');
         } elseif ($submit == 'Verwijderen') {
             $query = ('DELETE FROM boomkwekerij.gebruiker WHERE GebruikerID =' . $gebruiker);
             doSQL($query);
-//            header('Refresh: 0; url=../Pages/logged_in.php');
+            header('Refresh: 0; url=../Pages/logged_in.php');
         }
         ?>
     </body>
