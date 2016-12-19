@@ -330,9 +330,9 @@ function setContentEditable(element, isNew, isNews)
 {
     if (!isEditorOpen)
     {
-
         var parent = $(element).parent();
         var elementTitle;
+
         if (!isNews)
         {
             element.contentEditable = true;
@@ -357,9 +357,6 @@ function setContentEditable(element, isNew, isNews)
         $(childZero).removeClass("ContentEditable");
         $(element).addClass("ContentEditableOpen");
         $(element).addClass("clearFix");
-        element.contentEditable = true;
-        element.className = "";
-        element.className = "ContentEditableOpen";
         element.style.backgroundColor = "white";
         element.style.border = "solid 2px black";
         element.addEventListener("focusout", function ()
@@ -422,24 +419,36 @@ function setContentEditable(element, isNew, isNews)
 
             }
         };
-        $(saveButton).insertAfter(element);
+        $(saveButton).insertAfter(parent);
+
+        var deleteButton;
 
         var cancelButton = createElement("button");
         cancelButton.innerHTML = "Cancel";
         cancelButton.onclick = function ()
         {
+            //Delete editor and buttons
             editorDiv.parentNode.removeChild(editorDiv);
             saveButton.parentNode.removeChild(saveButton);
             cancelButton.parentNode.removeChild(cancelButton);
+
+            if (isNews && !isNew)
+            {
+                deleteButton.parentNode.removeChild(deleteButton);
+            }
+
+            //Change the element
             element.contentEditable = false;
             element.style.border = "solid 0px black";
             cancelButton.style.marginTop = "4px";
             cancelButton.style.marginBottom = "8px";
             element.style.backgroundColor = element.parentNode.style.backgroundColor;
             $(element).removeClass("ContentEditableOpen");
+
             var childZero = $(element).parent().children()[0];
             $(childZero).show();
             $(childZero).addClass("ContentEditable");
+
             if (isNews)
             {
                 elementTitle.contentEditable = false;
@@ -450,7 +459,7 @@ function setContentEditable(element, isNew, isNews)
             isEditorOpen = false;
             element.innerHTML = currentSavedHTML;
         };
-        $(cancelButton).insertAfter(element);
+        $(cancelButton).insertAfter(parent);
 
         if (isNews && !isNew)
         {
@@ -460,7 +469,7 @@ function setContentEditable(element, isNew, isNews)
             {
                 deleteNewsText(parseInt(parent.id.replace("newsID", "")));
             });
-            $(deleteButton).insertAfter(cancelButton);
+            $(deleteButton).insertAfter(parent);
         }
         parent.appendChild(element);
 
@@ -548,8 +557,6 @@ $(document).ready(function ()
             var parent = $(event.target).parent();
             var elementToPass = $(parent).children()[1];
 
-            console.log(elementToPass);
-
             var string = elementToPass.id.toString();
             var parentString = parent.attr('id');
 
@@ -563,6 +570,7 @@ $(document).ready(function ()
             else if (parentString.indexOf("newNews") !== -1)
             {
                 //New News editor
+                console.log(elementToPass);
                 setContentEditable(elementToPass, true, true);
             }
             else if (parentString.indexOf("newsID") !== -1)
