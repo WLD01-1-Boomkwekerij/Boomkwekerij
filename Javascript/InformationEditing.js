@@ -136,31 +136,33 @@ function deleteNewsText(newsID)
     {
         if (this.readyState === 4 && this.status === 200)
         {
+            console.log(xmlhttp.responseText);
             location.reload();
         }
     };
-    /**
-     * Save the current position of the cursor when called
-     */
-    function saveSelectorPoint()
+    xmlhttp.send();
+}
+/**
+ * Save the current position of the cursor when called
+ */
+function saveSelectorPoint()
+{
+    if (window.getSelection)
     {
-        if (window.getSelection)
+        var sel = window.getSelection();
+        if (sel.getRangeAt && sel.rangeCount)
         {
-            var sel = window.getSelection();
-            if (sel.getRangeAt && sel.rangeCount)
+            var ranges = [];
+            for (var i = 0, len = sel.rangeCount; i < len; ++i)
             {
-                var ranges = [];
-                for (var i = 0, len = sel.rangeCount; i < len; ++i)
-                {
-                    ranges.push(sel.getRangeAt(i));
-                }
-                savedSelectorPoint = ranges;
+                ranges.push(sel.getRangeAt(i));
             }
+            savedSelectorPoint = ranges;
         }
-        else if (document.selection && document.selection.createRange)
-        {
-            savedSelectorPoint = document.selection.createRange();
-        }
+    }
+    else if (document.selection && document.selection.createRange)
+    {
+        savedSelectorPoint = document.selection.createRange();
     }
 }
 
@@ -393,44 +395,6 @@ function setContentEditable(element, isNew, isNews)
             editorDiv.appendChild(createButton(buttonArray[i]));
         }
 
-        var cancelButton = createElement("button");
-        cancelButton.innerHTML = "Cancel";
-        cancelButton.onclick = function ()
-        {
-            editorDiv.parentNode.removeChild(editorDiv);
-            saveButton.parentNode.removeChild(saveButton);
-            cancelButton.parentNode.removeChild(cancelButton);
-            element.contentEditable = false;
-            element.style.border = "solid 0px black";
-            cancelButton.style.marginTop = "4px";
-            cancelButton.style.marginBottom = "8px";
-            element.style.backgroundColor = element.parentNode.style.backgroundColor;
-            $(element).removeClass("ContentEditableOpen");
-            var childZero = $(element).parent().children()[0];
-            $(childZero).show();
-            $(childZero).addClass("ContentEditable");
-            if (isNews)
-            {
-                elementTitle.contentEditable = false;
-                elementTitle.style.border = "solid 0px black";
-                elementTitle.style.borderBottom = "solid 1px gray";
-                elementTitle.style.backgroundColor = elementTitle.parentNode.style.backgroundColor;
-            }
-            isEditorOpen = false;
-            element.innerHTML = currentSavedHTML;
-        };
-        $(cancelButton).insertAfter(element);
-        if (isNews && !isNew)
-        {
-            var deleteButton = createElement("button");
-            $(deleteButton).addClass("fa fa-trash-o");
-            deleteButton.addEventListener("click", function ()
-            {
-                deleteNewsText(parseInt(parent.id.replace("newsID", "")));
-            });
-            $(deleteButton).insertAfter(cancelButton);
-        }
-        parent.appendChild(cancelButton);
         var saveButton = createElement("button");
         saveButton.innerHTML = "Save";
         saveButton.style.marginTop = "4px";
@@ -459,6 +423,47 @@ function setContentEditable(element, isNew, isNews)
             }
         };
         $(saveButton).insertAfter(element);
+
+        var cancelButton = createElement("button");
+        cancelButton.innerHTML = "Cancel";
+        cancelButton.onclick = function ()
+        {
+            editorDiv.parentNode.removeChild(editorDiv);
+            saveButton.parentNode.removeChild(saveButton);
+            cancelButton.parentNode.removeChild(cancelButton);
+            element.contentEditable = false;
+            element.style.border = "solid 0px black";
+            cancelButton.style.marginTop = "4px";
+            cancelButton.style.marginBottom = "8px";
+            element.style.backgroundColor = element.parentNode.style.backgroundColor;
+            $(element).removeClass("ContentEditableOpen");
+            var childZero = $(element).parent().children()[0];
+            $(childZero).show();
+            $(childZero).addClass("ContentEditable");
+            if (isNews)
+            {
+                elementTitle.contentEditable = false;
+                elementTitle.style.border = "solid 0px black";
+                elementTitle.style.borderBottom = "solid 1px gray";
+                elementTitle.style.backgroundColor = elementTitle.parentNode.style.backgroundColor;
+            }
+            isEditorOpen = false;
+            element.innerHTML = currentSavedHTML;
+        };
+        $(cancelButton).insertAfter(element);
+
+        if (isNews && !isNew)
+        {
+            var deleteButton = createElement("button");
+            $(deleteButton).addClass("fa fa-trash-o");
+            deleteButton.addEventListener("click", function ()
+            {
+                deleteNewsText(parseInt(parent.id.replace("newsID", "")));
+            });
+            $(deleteButton).insertAfter(cancelButton);
+        }
+        parent.appendChild(element);
+
     }
 }
 

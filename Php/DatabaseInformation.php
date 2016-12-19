@@ -92,7 +92,6 @@ function insertNewsTextToDB($visibility, $text, $title)
 //Updating
 function updateNewsTextToDB($newsID, $visibility, $text, $title)
 {
-
     try
     {
         $connection = connectToDatabase();
@@ -121,17 +120,24 @@ function updateNewsTextToDB($newsID, $visibility, $text, $title)
 
 function DeleteNewsTextFromDB($newsID)
 {
-    $connection = connectToDatabase();
-    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try
+    {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $textID = getTextIDFromNewsID($connection, $newsID);
+        $textID = getTextIDFromNewsID($connection, $newsID);
 
-    $firstStatement = $connection->prepare("DELETE FROM aanbieding WHERE AanbiedingID=$newsID");
-    $firstStatement->execute();
+        $firstStatement = $connection->prepare("DELETE FROM aanbieding WHERE AanbiedingID=$newsID");
+        $firstStatement->execute();
 
-    $statement = $connection->prepare("DELETE FROM tekst WHERE TekstID=$textID");
-    $statement->execute();
-    $connection = null;
+        $statement = $connection->prepare("DELETE FROM tekst WHERE TekstID=$textID");
+        $statement->execute();
+        $connection = null;
+    }
+    catch (Exception $ex)
+    {
+        print($ex->getMessage());
+    }
 }
 
 function deletePlant($plantID)
