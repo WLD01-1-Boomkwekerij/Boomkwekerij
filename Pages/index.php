@@ -29,16 +29,15 @@
                     ?>
                 </section>
                 <section id="maincontent">
-                    
+
                     <?php
                     //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
-                    print("<div class='clearFix' id='tekstDIV' style='position: relative'>");
+                    print("<div ");
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
                     {
-                        //Overlay contentEditable Div
-                        print("<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'></div>");
+                        print("class='ContentEditable'");
                     }
-                    print("<div id='textID1'>");
+                    print("id = 'textID1'>");
                     loadTextFromDB(1);
                     print("</div>");
                     ?>
