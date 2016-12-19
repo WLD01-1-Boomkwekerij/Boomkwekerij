@@ -32,12 +32,12 @@
 
                     <?php
                     //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
-                    print("<div ");
+                    print("<div class='clearFix' id='tekstDIV' style='position: relative'>");
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
                     {
-                        print("class='ContentEditable'");
+                        print("<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'></div>");
                     }
-                    print("id = 'textID1'>");
+                    print("<div id='textID1'>");
                     loadTextFromDB(1);
                     print("</div>");
                     ?>

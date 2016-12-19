@@ -109,6 +109,40 @@ h3
     padding: 0px;
 }
 
+.clearFix:after
+{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearFix:after
+{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearFix 
+{ 
+    display: inline-block;
+}
+
+* html .clearfix
+{
+    height: 1%;
+}
+.clearFix 
+{
+    display: block;
+}
+
 #maincontent
 {
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);

@@ -36,7 +36,8 @@ function checkArrowColor()
     if (currentPathNumber > 0)
     {
         left.style.color = "#222222";
-    } else
+    }
+    else
     {
         left.style.color = "#777777";
     }
@@ -44,7 +45,8 @@ function checkArrowColor()
     if (futurePathNumber > 0)
     {
         right.style.color = "#222222";
-    } else
+    }
+    else
     {
         right.style.color = "#777777";
     }
@@ -149,7 +151,8 @@ function createFileIcons(directory)
             if (filesWidth > 150 && filesWidth < 600)
             {
                 arrayInt = fileArray.length % 3;
-            } else
+            }
+            else
             {
                 arrayInt = fileArray.length % 4;
             }
@@ -159,7 +162,8 @@ function createFileIcons(directory)
                 if (fileArray[i].includes("."))
                 {
                     createFileIcon(directory, fileArray[i]);
-                } else
+                }
+                else
                 {
                     createFolderIcon(directory, fileArray[i]);
                 }
@@ -322,7 +326,8 @@ function createManager(uploading, element)
 
         bottomInfo.appendChild(uploadForm);
 
-    } else
+    }
+    else
     {
         var selectButton = createElement("button");
         selectButton.id = "fileManagerSelectButton";
@@ -339,10 +344,12 @@ function createManager(uploading, element)
             selectButton.addEventListener("click", function ()
             {
                 restoreSelectorPoint();
-                markupText("insertImage", currentSelectedPath);
+                var img = "<img src='" + currentSelectedPath + "' onclick='editImage(this)' style='width: 50%; float: right; position: relative; top: 0px;'>";
+                document.execCommand("insertHTML", false, img);
                 destroyManager();
             });
-        } else
+        }
+        else
         {
             selectButton.addEventListener("click", function ()
             {
@@ -425,7 +432,7 @@ function createCatalogAddition()
                         "&hoogte_max=" + four.value +
                         "&bloeitijd1=" + five.value +
                         "&bloeitijd2=" + six.value +
-                        "&bloeiwijze=" + seven.value + 
+                        "&bloeiwijze=" + seven.value +
                         "&imageUrl=" + eight;
 
                 var xmlhttp = new XMLHttpRequest();
@@ -434,8 +441,8 @@ function createCatalogAddition()
                 {
                     if (this.readyState === 4 && this.status === 200)
                     {
-                        console.log(xmlhttp.responseText);
-                        //location.reload();
+                        //console.log(xmlhttp.responseText);
+                        location.reload();
                     }
                 };
                 xmlhttp.send();
@@ -607,7 +614,7 @@ function createCatalogAddition()
     imageButton.innerHTML = "Voeg foto toe";
     imageButton.style.marginLeft = "105px";
     imageButton.style.backgroundColor = "#8D99C8";
-            
+
     sectionDiv.appendChild(imageButton);
     imageButton.addEventListener("click", function ()
     {

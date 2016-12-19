@@ -42,12 +42,91 @@
                 </section>
                 <section id="maincontent">
                     <?php
-                    include '../Php/AddRegel.php';
-                    include '../Php/AddCategory.php';
-                    include '../Php/DeleteRegel.php';
-                    include '../Php/DeleteCategory.php';
-                    include '../Php/UpdateRegel.php';
-                    include '../Php/UpdateCategory.php';
+                    if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                     {
+                         if (isset($_POST['regel']) || isset($_POST['OpslaanRegel']))
+                         {
+                             $id = $_POST['id'];
+                             $potmaat = $_POST['potmaat'];
+                             $beschrijving = $_POST['beschrijving'];
+                             $percc = $_POST['percc'];
+                             $perlaag = $_POST['perlaag'];
+                             $pertray = $_POST['pertray'];
+                             $prijsKwekerij = $_POST['prijskwekerij'];
+                             $prijsVBA = $_POST['prijsvba'];
+                             $naam = $_POST['naam'];
+ 
+                             if (isset($_POST['OpslaanRegel']))
+                             {
+                                 doSQL("UPDATE prijs SET "
+                                         . "PrijsKwekerij='$prijsKwekerij',"
+                                         . " PrijsVBA='$prijsVBA', "
+                                         . "ProductenCC='$percc', "
+                                         . "ProductenLaag='$perlaag',"
+                                         . " ProductenTray='$pertray', "
+                                         . "Naam='$naam',"
+                                         . " ExtraBeschrijving='$beschrijving',"
+                                         . " Potmaat='$potmaat'"
+                                         . " WHERE PrijsID=$id");
+                             }
+                             else
+                             {
+                                 doSQL("INSERT INTO prijs (
+                                     `PrijsKwekerij`,
+                                     `PrijsVBA`,
+                                     `ProductenCC`,
+                                     `ProductenLaag`,
+                                     `ProductenTray`,
+                                     `Naam`,
+                                     `ExtraBeschrijving`,
+                                     `Potmaat`,
+                                     `CategoryID`) 
+                                     VALUES (
+                                     '$prijsKwekerij',"
+                                         . " '$prijsVBA', "
+                                         . "'$percc', "
+                                         . "'$perlaag',"
+                                         . " '$pertray',"
+                                         . " '$naam',"
+                                         . " '$beschrijving',"
+                                         . " '$potmaat',"
+                                         . " '$id')");
+                             }
+                         }
+                         if (isset($_POST['verwijderRegel']))
+                         {
+                             $id = $_POST['id'];
+ 
+                             doSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID='$id')");
+                             doSQL("DELETE FROM plant WHERE PrijsID='$id';");
+                             doSQL("DELETE FROM prijs WHERE PrijsID='$id';");
+                         }
+ 
+ 
+                         if (isset($_POST['category']))
+                         {
+                             $naam = $_POST['naam'];
+ 
+                             doSQL("INSERT INTO category (`CategoryNaam`) VALUES ('$naam')");
+                         }
+ 
+                         if (isset($_POST['OpslaanCat']))
+                         {
+                             $id = $_POST['id'];
+                             $naam = $_POST['naam'];
+                             doSQL("UPDATE category SET CategoryNaam='$naam' WHERE CategoryID=$id");
+                         }
+ 
+                         if (isset($_POST['verwijderCat']))
+                         {
+                             $id = $_POST['id'];
+ 
+                             doSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID='$id'))");
+                             doSQL("DELETE FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID='$id');");
+                             doSQL("DELETE FROM prijs WHERE CategoryID='$id';");
+                             doSQL("DELETE FROM category WHERE CategoryID='$id';");
+                         }
+                     }
                     ?>
 
                     <div id="printable"> 

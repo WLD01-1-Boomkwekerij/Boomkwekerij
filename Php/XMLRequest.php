@@ -2,11 +2,31 @@
 
 include 'DatabaseInformation.php';
 
-//Save text to the Text table
-if (isset($_GET["htmlText"]) && isset($_GET["textID"]))
+//Save Plain text to the Text table
+if (isset($_GET["textID"], $_GET["htmlUpdateText"]))
 {
-    saveTextToDB($_GET["textID"], $_GET["htmlText"]);
+    saveTextToDB($_GET["textID"], $_GET["htmlUpdateText"]);
 }
+
+//Saves news Text
+//Inserting
+if (isset($_GET["newsVisibility"], $_GET["newsHtmlInsertText"], $_GET["newsTitle"]))
+{
+    insertNewsTextToDB($_GET["newsVisibility"], $_GET["newsHtmlInsertText"], $_GET["newsTitle"]);
+}
+
+//Updating
+if (isset($_GET["newsID"], $_GET["newsVisibility"], $_GET["newsHtmlUpdateText"], $_GET["newsTitle"]))
+{
+    updateNewsTextToDB($_GET["newsID"], $_GET["newsVisibility"], $_GET["newsHtmlUpdateText"], $_GET["newsTitle"]);
+}
+
+//Deleting
+if (isset($_GET["newsDeleteID"]))
+{
+    DeleteNewsTextFromDB($_GET["newsDeleteID"]);
+}
+
 
 //Gets all the files
 if (isset($_GET["fileDirectory"]))
@@ -36,11 +56,9 @@ if (isset($_GET['name']))
     $phpImageArray = explode("*", $photoUrlArray);
     $phpImageArray = str_replace("*", "", $phpImageArray);
 
-    
-
     $bloeitijd = $bloeitijd1 . "-" . $bloeitijd2;
-    
-print($bloeitijd1);
+
+    print($bloeitijd1);
 
     $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Bloeiwijze) VALUES ('$Naam', $PrijsID, $Hoogte_Min, $Hoogte_Max, '$bloeitijd', '$bloeiwijze')";
     doSQL($sql);
@@ -59,8 +77,6 @@ print($bloeitijd1);
             doSQL($sql);
             $amount += 1;
         }
-
-        
     }
 }
 

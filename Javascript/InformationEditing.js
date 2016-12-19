@@ -5,6 +5,8 @@ var savedSelectorPoint;
 var isLinkWindowOpen;
 var isFileManagerOpen;
 var isEditorOpen;
+var currentSavedHTML;
+var currentSavedTitle;
 
 window.onload = function ()
 {
@@ -30,9 +32,12 @@ function getElementById(id)
  */
 function markupText(type, parameter)
 {
-    if (arguments.length === 1) {
+    if (arguments.length === 1)
+    {
         document.execCommand(type, false);
-    } else {
+    }
+    else
+    {
         document.execCommand(type, false, parameter);
     }
 }
@@ -54,7 +59,7 @@ function insertImage()
  */
 function uploadImage()
 {
-    if(!isFileManagerOpen)
+    if (!isFileManagerOpen)
     {
         createManager(true);
         isFileManagerOpen = true;
@@ -62,37 +67,100 @@ function uploadImage()
 }
 
 /**
- * Saves the provided text to the database
- * @param {type} text
- * @param {type} textID
+ * Updates the provided text to the database
+ * @param {string} text
+ * @param {int} textID
  */
-function saveTextToDatabase(text, textID)
+function updateTextToDatabase(text, textID)
 {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?htmlText=" + text + "&textID=" + textID, true);
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?textID=" + textID + "&htmlUpdateText=" + text, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            location.reload();
+        }
+    };
+    xmlhttp.send();
+}
+
+//News Inserting, Updating and Deleteing
+
+/**
+ * 
+ * @param {int} visibility
+ * @param {string} text
+ * @param {string} title
+ */
+function insertNewsTextToDatabase(visibility, text, title)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsVisibility=" + visibility + "&newsHtmlInsertText=" + text + "&newsTitle=" + title, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            location.reload();
+        }
+    };
     xmlhttp.send();
 }
 
 /**
- * Save the current position of the cursor when called
+ * 
+ * @param {int} newsID
+ * @param {int} visibility
+ * @param {string} text
+ * @param {string} title
  */
-function saveSelectorPoint()
+function updateNewsTextToDatabase(newsID, visibility, text, title)
 {
-    if (window.getSelection)
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsHtmlUpdateText=" + text + "&newsID=" + newsID + "&newsTitle=" + title + "&newsVisibility=" + visibility, true);
+    xmlhttp.onreadystatechange = function ()
     {
-        var sel = window.getSelection();
-        if (sel.getRangeAt && sel.rangeCount)
+        if (this.readyState === 4 && this.status === 200)
         {
-            var ranges = [];
-            for (var i = 0, len = sel.rangeCount; i < len; ++i)
-            {
-                ranges.push(sel.getRangeAt(i));
-            }
-            savedSelectorPoint = ranges;
+            location.reload();
         }
-    } else if (document.selection && document.selection.createRange)
+    };
+    xmlhttp.send();
+}
+
+function deleteNewsText(newsID)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsDeleteID=" + newsID, true);
+    xmlhttp.onreadystatechange = function ()
     {
-        savedSelectorPoint = document.selection.createRange();
+        if (this.readyState === 4 && this.status === 200)
+        {
+            location.reload();
+        }
+    };
+    /**
+     * Save the current position of the cursor when called
+     */
+    function saveSelectorPoint()
+    {
+        if (window.getSelection)
+        {
+            var sel = window.getSelection();
+            if (sel.getRangeAt && sel.rangeCount)
+            {
+                var ranges = [];
+                for (var i = 0, len = sel.rangeCount; i < len; ++i)
+                {
+                    ranges.push(sel.getRangeAt(i));
+                }
+                savedSelectorPoint = ranges;
+            }
+        }
+        else if (document.selection && document.selection.createRange)
+        {
+            savedSelectorPoint = document.selection.createRange();
+        }
     }
 }
 
@@ -109,7 +177,8 @@ function restoreSelectorPoint()
             {
                 sel.addRange(savedSel[i]);
             }
-        } else if (document.selection && savedSel.select)
+        }
+        else if (document.selection && savedSel.select)
         {
             savedSel.select();
         }
@@ -131,7 +200,6 @@ function insertLink(name, url)
 function createLink()
 {
     var editorDiv = getElementById("Editor");
-
     var linkDiv = createElement("div");
     linkDiv.style.width = "235px";
     linkDiv.style.height = "110px";
@@ -141,7 +209,6 @@ function createLink()
     linkDiv.style.left = "70px";
     linkDiv.style.boxShadow = "0px 0px 5px 3px black";
     editorDiv.appendChild(linkDiv);
-
     var linkName = createElement("input");
     linkName.setAttribute("type", "text");
     linkName.style.marginRight = "0px";
@@ -149,7 +216,6 @@ function createLink()
     linkName.style.marginTop = "15px";
     linkName.style.marginRight = "5px";
     linkDiv.appendChild(linkName);
-
     var linkInput = createElement("input");
     linkInput.setAttribute("type", "text");
     linkInput.id = "url";
@@ -157,17 +223,14 @@ function createLink()
     linkInput.style.marginRight = "5px";
     linkInput.style.float = "Right";
     linkDiv.appendChild(linkInput);
-
     var linkText1 = createElement("p");
     linkText1.innerHTML = "Naam:";
     linkText1.style.marginLeft = "5px";
     linkDiv.appendChild(linkText1);
-
     var linkText2 = createElement("p");
     linkText2.innerHTML = "Link:";
     linkText2.style.marginLeft = "5px";
     linkDiv.appendChild(linkText2);
-
     var submit = createElement("button");
     submit.innerHTML = "Invoegen";
     submit.style.position = "absolute";
@@ -181,7 +244,6 @@ function createLink()
         isLinkWindowOpen = false;
     };
     linkDiv.appendChild(submit);
-
     var cancel = createElement("button");
     cancel.innerHTML = "Cancel";
     cancel.style.position = "absolute";
@@ -199,7 +261,6 @@ function createLink()
 function createButton(type)
 {
     var button = createElement("button");
-
     switch (type)
     {
         case "justifyLeft":
@@ -233,18 +294,19 @@ function createButton(type)
         case "link":
             button.onclick = function ()
             {
-                if (!isLinkWindowOpen) {
+                if (!isLinkWindowOpen)
+                {
                     createLink();
                 }
                 isLinkWindowOpen = true;
             };
             break;
         case "upload":
-        button.onclick = function ()
-        {
-            uploadImage();
-        };
-        break;
+            button.onclick = function ()
+            {
+                uploadImage();
+            };
+            break;
         default:
             button.onclick = function ()
             {
@@ -258,28 +320,66 @@ function createButton(type)
 
 /**
  * Togles the clicked element editable and adds the editing system
- * @param {type} element
+ * @param {element} element
+ * @param {bool} isNew
+ * @param {bool} isNews
  */
-function setContentEditable(element)
+function setContentEditable(element, isNew, isNews)
 {
+    if (!isEditorOpen)
+    {
 
-    if (!isEditorOpen) {
+        var parent = $(element).parent();
+        var elementTitle;
+        if (!isNews)
+        {
+            element.contentEditable = true;
+        }
+        else
+        {
+            element = $(parent).children()[2];
+            element.contentEditable = true;
+            elementTitle = $(parent).children()[1];
+            elementTitle.contentEditable = true;
+        }
+
+        currentSavedHTML = element.innerHTML;
+        if (isNews)
+        {
+            currentSavedTitle = elementTitle.innerHTML;
+        }
+
         isEditorOpen = true;
+        var childZero = $(element).parent().children()[0];
+        $(childZero).hide();
+        $(childZero).removeClass("ContentEditable");
+        $(element).addClass("ContentEditableOpen");
+        $(element).addClass("clearFix");
         element.contentEditable = true;
         element.className = "";
         element.className = "ContentEditableOpen";
         element.style.backgroundColor = "white";
         element.style.border = "solid 2px black";
-        element.addEventListener("focusout", saveSelectorPoint());
+        element.addEventListener("focusout", function ()
+        {
+            saveSelectorPoint();
+        });
+        if (isNews)
+        {
+            elementTitle.style.backgroundColor = "white";
+            elementTitle.style.border = "solid 2px black";
+            elementTitle.style.marginBottom = "4px";
+            elementTitle.addEventListener("focusout", function ()
+            {
+                saveSelectorPoint();
+            });
+        }
 
         var parent = element.parentNode;
-
         var editorDiv = createElement("div");
         editorDiv.id = "Editor";
-
         editorDiv.style.position = "relative";
         parent.insertBefore(editorDiv, parent.childNodes[0]);
-
         //Buttons
         var buttonArray =
                 [
@@ -288,7 +388,6 @@ function setContentEditable(element)
                     "insertOrderedList", "insertUnorderedList",
                     "link", "image", "upload"
                 ];
-
         for (var i = 0; i < buttonArray.length; i++)
         {
             editorDiv.appendChild(createButton(buttonArray[i]));
@@ -303,20 +402,63 @@ function setContentEditable(element)
             cancelButton.parentNode.removeChild(cancelButton);
             element.contentEditable = false;
             element.style.border = "solid 0px black";
+            cancelButton.style.marginTop = "4px";
+            cancelButton.style.marginBottom = "8px";
             element.style.backgroundColor = element.parentNode.style.backgroundColor;
-            element.className = "ContentEditable";
+            $(element).removeClass("ContentEditableOpen");
+            var childZero = $(element).parent().children()[0];
+            $(childZero).show();
+            $(childZero).addClass("ContentEditable");
+            if (isNews)
+            {
+                elementTitle.contentEditable = false;
+                elementTitle.style.border = "solid 0px black";
+                elementTitle.style.borderBottom = "solid 1px gray";
+                elementTitle.style.backgroundColor = elementTitle.parentNode.style.backgroundColor;
+            }
             isEditorOpen = false;
+            element.innerHTML = currentSavedHTML;
         };
-
+        $(cancelButton).insertAfter(element);
+        if (isNews && !isNew)
+        {
+            var deleteButton = createElement("button");
+            $(deleteButton).addClass("fa fa-trash-o");
+            deleteButton.addEventListener("click", function ()
+            {
+                deleteNewsText(parseInt(parent.id.replace("newsID", "")));
+            });
+            $(deleteButton).insertAfter(cancelButton);
+        }
         parent.appendChild(cancelButton);
         var saveButton = createElement("button");
         saveButton.innerHTML = "Save";
+        saveButton.style.marginTop = "4px";
+        saveButton.style.marginBottom = "8px";
         saveButton.onclick = function ()
         {
-            saveTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
-            //window.location.reload(false);
+            if (isNew)
+            {
+                if (isNews)
+                {
+                    insertNewsTextToDatabase(1, element.innerHTML, elementTitle.innerHTML);
+                }
+            }
+            else
+            {
+                if (isNews)
+                {
+                    //newsID, visibility, text, title
+                    updateNewsTextToDatabase(parseInt(parent.id.replace("newsID", "")), 1, element.innerHTML, elementTitle.innerHTML);
+                }
+                else
+                {
+                    updateTextToDatabase(element.innerHTML, parseInt(element.id.replace("textID", "")));
+                }
+
+            }
         };
-        parent.appendChild(saveButton);
+        $(saveButton).insertAfter(element);
     }
 }
 
@@ -325,7 +467,8 @@ function selectImage(imageID)
 {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/GetImages.php?imageList=" + imageID, true);
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function ()
+    {
         if (this.readyState === 4 && this.status === 200)
         {
             //Create image
@@ -346,16 +489,16 @@ function selectImage(imageID)
 var map = {};
 document.onkeydown = document.onkeyup = function (e)
 {
-
+    var element = e.target;
     e = e || event;
     map[e.keyCode] = e.type === "keydown";
-
     //Redo and Undo
     if (map[17] && map[90] && map[16])
     {
         document.execCommand("redo", false);
         return false;
-    } else if (map[17] && map[90])
+    }
+    else if (map[17] && map[90])
     {
         document.execCommand("undo", false);
         return false;
@@ -368,21 +511,62 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Space
-    if (map[32] && e.target.className === "ContentEditableOpen") {
+    if (map[32] && element.className === "ContentEditableOpen")
+    {
         e.preventDefault();
         markupText("insertHTML", "&#8197;");
         return false;
+    }
+
+    //Enter
+    if (element.className === "newsTop")
+    {
+        if (map[13])
+        {
+            e.preventDefault();
+        }
+
+        if (element.innerHTML.length >= 30 && !map[8])
+        {
+            e.preventDefault();
+        }
     }
 };
 
 //Jquery Code
 $(document).ready(function ()
 {
-    $(".ContentEditable").click(function ()
+    $(".ContentEditable").click(function (event)
     {
-        if (!isEditorOpen) {
-            setContentEditable($(this)[0]);
-            isEditorOpen = true;
+        if (!isEditorOpen)
+        {
+            var parent = $(event.target).parent();
+            var elementToPass = $(parent).children()[1];
+
+            console.log(elementToPass);
+
+            var string = elementToPass.id.toString();
+            var parentString = parent.attr('id');
+
+
+            //SETS the correct editor
+            if (string.indexOf("textID") !== -1)
+            {
+                //GENERAL TEXT EDITOR
+                setContentEditable(elementToPass, false);
+            }
+            else if (parentString.indexOf("newNews") !== -1)
+            {
+                //New News editor
+                setContentEditable(elementToPass, true, true);
+            }
+            else if (parentString.indexOf("newsID") !== -1)
+            {
+                //NEWS EDITOR
+                setContentEditable(elementToPass, false, true);
+            }
+
+            //isEditorOpen = true;
         }
     });
 });
