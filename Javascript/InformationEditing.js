@@ -357,17 +357,13 @@ function setContentEditable(element, isNew, isNews)
         $(childZero).removeClass("ContentEditable");
         $(element).addClass("ContentEditableOpen");
         $(element).addClass("clearFix");
-        element.style.backgroundColor = "#EEECFF";
-        element.style.border = "solid 2px black";
         element.addEventListener("focusout", function ()
         {
             saveSelectorPoint();
         });
         if (isNews)
         {
-            elementTitle.style.backgroundColor = "#E0DEF0";
-            elementTitle.style.border = "solid 2px black";
-            elementTitle.style.marginBottom = "4px";
+            $(elementTitle).addClass("ContentTitle");
             elementTitle.addEventListener("focusout", function ()
             {
                 saveSelectorPoint();
@@ -375,9 +371,8 @@ function setContentEditable(element, isNew, isNews)
         }
 
         var editorDiv = createElement("div");
-        editorDiv.id = "Editor";
-        editorDiv.style.position = "relative";
-        $(editorDiv).insertBefore(parent)
+        $(editorDiv).addClass("Editor");
+        $(editorDiv).insertBefore(parent);
         //Buttons
         var buttonArray =
                 [
@@ -392,10 +387,8 @@ function setContentEditable(element, isNew, isNews)
         }
 
         var saveButton = createElement("button");
+        $(saveButton).addClass("EditorBottomButton");
         saveButton.innerHTML = "Save";
-        saveButton.style.marginTop = "4px";
-        saveButton.style.marginBottom = "8px";
-        saveButton.style.height = "28px";
         saveButton.onclick = function ()
         {
             if (isNew)
@@ -425,9 +418,7 @@ function setContentEditable(element, isNew, isNews)
 
         var cancelButton = createElement("button");
         cancelButton.innerHTML = "Cancel";
-        cancelButton.style.marginTop = "4px";
-        cancelButton.style.marginBottom = "8px";
-        cancelButton.style.height = "28px";
+        $(cancelButton).addClass("EditorBottomButton");
         cancelButton.onclick = function ()
         {
             //Delete editor and buttons
@@ -442,9 +433,6 @@ function setContentEditable(element, isNew, isNews)
 
             //Change the element
             element.contentEditable = false;
-            element.style.border = "solid 0px black";
-
-            element.style.backgroundColor = element.parentNode.style.backgroundColor;
             $(element).removeClass("ContentEditableOpen");
 
             var childZero = $(element).parent().children()[0];
@@ -454,9 +442,7 @@ function setContentEditable(element, isNew, isNews)
             if (isNews)
             {
                 elementTitle.contentEditable = false;
-                elementTitle.style.border = "solid 0px black";
-                elementTitle.style.borderBottom = "solid 1px gray";
-                elementTitle.style.backgroundColor = elementTitle.parentNode.style.backgroundColor;
+                $(elementTitle).removeClass("ContentTitle");
             }
             isEditorOpen = false;
             element.innerHTML = currentSavedHTML;
@@ -467,9 +453,7 @@ function setContentEditable(element, isNew, isNews)
         {
             var deleteButton = createElement("button");
             $(deleteButton).addClass("fa fa-trash-o");
-            deleteButton.style.height = "28px";
-            deleteButton.style.marginTop = "4px";
-            deleteButton.style.marginBottom = "8px";
+            $(deleteButton).addClass("EditorBottomButton");
             deleteButton.addEventListener("click", function ()
             {
                 deleteNewsText(parseInt(parent.id.replace("newsID", "")));
