@@ -33,7 +33,7 @@
 }
 
 #logo{
-    width:200px;
+    width:160px;
 
 
 }
@@ -42,9 +42,23 @@
     border-width:2px;
     border-style:solid;
     border-color:black;
-    height:300px;
     position:absolute;
     margin-left:600px;
-    height:252px;
-    margin-top:-100px;
+    height:203px;
+    margin-top:0px;
+   
+}
+
+.contactitel{
+    height:50px;
+    width:110%;
+    background-color:#5175b3;
+    margin-top:-50px;
+    margin-left:-10px;
+    
+    
+}
+
+.contactpadding{
+    padding-top:6px;
 }

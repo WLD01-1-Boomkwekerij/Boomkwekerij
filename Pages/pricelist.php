@@ -51,7 +51,7 @@
                     ?>
 
                     <div id="printable"> 
-                        <h1>Prijslijst</h1> 
+                        <div class="pricelisttitel"> <center><h1 class="h1prijslijst">Prijslijst</h1></center> </div>
                         <table class="pricelist">
                             <colgroup>
                                 <col class="name"/>

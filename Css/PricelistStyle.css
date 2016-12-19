@@ -71,3 +71,16 @@ input
 {
  width:1231px;  
 }
+
+.pricelisttitel{
+    height:50px;
+    width:100%;
+    background-color:#5175b3;
+    margin-top:-40px;
+    
+    
+}
+
+.h1prijslijst{
+    padding-top:6px;
+}
