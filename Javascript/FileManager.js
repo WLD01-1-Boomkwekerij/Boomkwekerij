@@ -179,6 +179,16 @@ function createFileIcons(directory)
 }
 
 /**
+ * Destroys the manager
+ */
+function destroyManager()
+{
+    isFileManagerOpen = false;
+    getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
+    getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
+}
+
+/**
  * Opens a folder and creates all the icons
  * @param {string} directory
  */
@@ -197,7 +207,7 @@ function openFolder(directory)
  * @param {element} element
  */
 function createManager(uploading, element)
-{
+{    
     isUploading = uploading;
     currentSelectedPath = "";
     currentPathHistory[0] = "../Images/";
@@ -344,7 +354,12 @@ function createManager(uploading, element)
             selectButton.addEventListener("click", function ()
             {
                 restoreSelectorPoint();
-                var img = "<img src='" + currentSelectedPath + "' onclick='editImage(this)' style='width: 50%; float: right; position: relative; top: 0px;'>";
+                var img = "<img src='" + currentSelectedPath + "' onclick='editImage(this)' style='" +
+                        "width: 50%;" +
+                        "float: right;" +
+                        "clear: right;" +
+                        "top: 0px;" +
+                        "'>";
                 document.execCommand("insertHTML", false, img);
                 destroyManager();
             });
@@ -364,15 +379,6 @@ function createManager(uploading, element)
     }
 
     createFileIcons("../Images");
-}
-
-/**
- * Destroys the manager
- */
-function destroyManager()
-{
-    getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
-    getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
 }
 
 
@@ -454,7 +460,7 @@ function createCatalogAddition()
     var textAddPlant = createElement("p");
     textAddPlant.innerHTML = "Plant Toevoegen";
     textAddPlant.style.lineHeight = "30px";
-    textAddPlant.style.margin = "0px";
+    textAddPlant.style.margin = "0";
     textAddPlant.style.marginLeft = "5px";
     textAddPlant.style.fontWeight = "bold";
     topDiv.appendChild(textAddPlant);
