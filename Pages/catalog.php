@@ -71,7 +71,7 @@
                     $sqlCategory = getSQLArray("SELECT * FROM category WHERE CategoryID = $category");
                     $categoryRegel = $sqlCategory->fetch();
                     $categoryNaam = $categoryRegel["CategoryNaam"];
-                    echo "<div id='cataloguscat'><center><h1 id='cattitel'>$categoryNaam</h1></center></div>";
+                    echo "<h1>$categoryNaam</h1>";
 
                     $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE CategoryID = $category");
 

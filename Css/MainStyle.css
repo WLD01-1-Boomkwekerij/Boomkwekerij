@@ -26,6 +26,11 @@ h1
 {
     font-size: 30px;
     font-weight: bold;
+    text-align: center;
+    height: 50px;
+    width: 100%;
+    background-color: #5175b3;
+    margin-top: 0px;
 }
 
 h2
@@ -125,7 +130,7 @@ h3
     margin-left: 10px;
     background-color:#ccccff;
     list-style-type: none;
-    
+
 }
 
 #rightmenu ul{
@@ -195,7 +200,7 @@ body {
     border-width:3px;
     border-color:royalblue;
     border-style:solid;
-  
+
 }
 
 #logintitel{

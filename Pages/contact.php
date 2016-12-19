@@ -31,7 +31,7 @@
                     ?>
                 </section>
                 <section id="maincontent">
-                    <div class="contactitel"><center><h1 class="contactpadding">Contactformulier</h1></center></div>
+                    <h1>Contactformulier</h1>
                     <br>
                     <div id="divlogo"> <img id="logo" src="../images/image001.png"></div>
                     <form action="contactSend.php" method="post">
