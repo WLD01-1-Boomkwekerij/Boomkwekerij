@@ -611,6 +611,9 @@ function createCatalogAddition()
 
     var imageButton = createElement("Button");
     imageButton.innerHTML = "Voeg foto toe";
+    imageButton.style.marginLeft = "105px";
+    imageButton.style.backgroundColor = "#8D99C8";
+            
     sectionDiv.appendChild(imageButton);
     imageButton.addEventListener("click", function ()
     {

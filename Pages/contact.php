@@ -32,12 +32,13 @@
                 </section>
                 <section id="maincontent">
                     <h1>Contactformulier</h1>
+                    <div id="divlogo"> <img id="logo" src="../images/image001.png"></div>
                     <form action="contactSend.php" method="post">
-                        Naam: <br>      <input required class="contact" placeholder="Uw naam" type="text" name="contact_name" required><br>
-                        Onderwerp: <br> <input required class="contact" placeholder="Onderwerp" type="text" name="contact_subject" required><br>
-                        E-mail: <br>    <input required class="contact contact_minWidth" placeholder="Op welke email kunnen we u contacteren?" type="email" name="contact_email" required><br>
+                        Naam: <br>      <input required class="contact" placeholder="Uw naam" type="text" name="contact_name" ><br>
+                        Onderwerp: <br> <input required class="contact" placeholder="Onderwerp" type="text" name="contact_subject" ><br>
+                        E-mail: <br>    <input required class="contact contact_minWidth" placeholder="Op welke email kunnen we u contacteren?" type="email" name="contact_email" ><br>
                         Website:<br>    <input class="contact contact_minWidth" placeholder="Optionele website" type="text" name="contact_website"><br>
-                        Reactie: <br>   <textarea required class="contact contact_content" placeholder="Vul hier uw aanvraag in" name="contact_content" required></textarea><br>
+                        Reactie: <br>   <textarea required class="contact contact_content" placeholder="Vul hier uw aanvraag in" name="contact_content" ></textarea><br>
                         <br> 
                         <div id="captcha"  class="g-recaptcha" data-sitekey="6LcOWw4UAAAAAFffv4utJ8htj9p8y5IKfL2eJ0mZ"></div>
                         <br>

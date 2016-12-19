@@ -36,6 +36,7 @@
                         }
                     </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                     <h3>Catalogus</h3>
+                
                     <ul id="catalogus">
                         <?php
                         //Creates the sidevar category options
@@ -48,6 +49,7 @@
                         }
                         ?>
                     </ul>
+            
                 </section>
 
                 <section id="maincontent">
@@ -69,7 +71,7 @@
                     $sqlCategory = getSQLArray("SELECT * FROM category WHERE CategoryID = $category");
                     $categoryRegel = $sqlCategory->fetch();
                     $categoryNaam = $categoryRegel["CategoryNaam"];
-                    echo "<h1>$categoryNaam</h1>";
+                    echo "<div id='cataloguscat'><center><h1 id='cattitel'>$categoryNaam</h1></center></div>";
 
                     $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE CategoryID = $category");
 
