@@ -357,7 +357,7 @@ function setContentEditable(element, isNew, isNews)
         $(childZero).removeClass("ContentEditable");
         $(element).addClass("ContentEditableOpen");
         $(element).addClass("clearFix");
-        element.style.backgroundColor = "white";
+        element.style.backgroundColor = "#EEECFF";
         element.style.border = "solid 2px black";
         element.addEventListener("focusout", function ()
         {
@@ -365,7 +365,7 @@ function setContentEditable(element, isNew, isNews)
         });
         if (isNews)
         {
-            elementTitle.style.backgroundColor = "white";
+            elementTitle.style.backgroundColor = "#E0DEF0";
             elementTitle.style.border = "solid 2px black";
             elementTitle.style.marginBottom = "4px";
             elementTitle.addEventListener("focusout", function ()
@@ -374,11 +374,10 @@ function setContentEditable(element, isNew, isNews)
             });
         }
 
-        var parent = element.parentNode;
         var editorDiv = createElement("div");
         editorDiv.id = "Editor";
         editorDiv.style.position = "relative";
-        parent.insertBefore(editorDiv, parent.childNodes[0]);
+        $(editorDiv).insertBefore(parent)
         //Buttons
         var buttonArray =
                 [
