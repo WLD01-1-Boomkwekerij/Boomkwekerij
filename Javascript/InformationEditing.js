@@ -189,7 +189,7 @@ function createLink()
     
     var linkDiv = createElement("div");
     linkDiv.id = "linkDiv";
-    $(linkDiv).insertBefore(editorDiv);
+    $(editorDiv).append(linkDiv);
     
     var linkName = createElement("input");
     linkName.id = "linkName";
@@ -223,10 +223,7 @@ function createLink()
     linkDiv.appendChild(submit);
     var cancel = createElement("button");
     cancel.innerHTML = "Cancel";
-    cancel.style.position = "absolute";
-    cancel.style.left = "0px";
-    cancel.style.top = "80px";
-    cancel.style.marginLeft = "5px";
+    cancel.id = "linkCancel";
     cancel.onclick = function ()
     {
         linkDiv.parentNode.removeChild(linkDiv);
