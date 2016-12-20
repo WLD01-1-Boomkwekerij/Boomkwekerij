@@ -5,7 +5,7 @@
         <title class="notranslate">Boomkwekerij - Home</title>
         <!-- Icon Pack -->
         <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
-
+        <link rel="plant icon" href="../Images/plant_icon.png">
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/PlantStyle.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
