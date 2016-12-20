@@ -135,12 +135,14 @@ function createEmtpyIcon()
  */
 function createFileIcons(directory)
 {
+    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?fileDirectory=" + directory, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
         {
+            console.log();
             var files = xmlhttp.responseText;
 
             var fileArray = files.split("*");
@@ -387,7 +389,7 @@ function createCatalogAddition()
 {
     var section = createElement("section");
     section.id = "addPlantMenu";
-    section.style.Height = "800px";
+    section.style.minHeight = "100px";
     section.style.boxShadow = "0px 0px 20px 5px black";
     getElementById("mid").appendChild(section);
 

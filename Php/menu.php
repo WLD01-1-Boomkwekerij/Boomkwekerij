@@ -7,6 +7,8 @@
         <li><a href="../pages/pricelist.php">Prijslijst</a></li> 
         <li><a href="../pages/contact.php">Contact</a></li>
         <?php
+        include 'DatabaseInformation.php';
+        
         if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] == 1) {
             print("<li><a href='../pages/logged_in.php'>Beheerderspagina</a></li>");
 

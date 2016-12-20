@@ -8,10 +8,8 @@
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
-        include_once '../Php/DatabaseInformation.php';
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
         {
-            include_once '../Php/DatabaseInformation.php';
             include '../Php/loggedInEditor.php';
         }
         ?>

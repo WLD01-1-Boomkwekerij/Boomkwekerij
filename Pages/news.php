@@ -25,7 +25,7 @@
             <section id="mid">
                 <section id="rightmenu">
                     <?php
-                    include '../Php/rightmenu.php';
+                    include '../Php/rightmenu.php'; 
                     ?>
                 </section>
                 <section id="maincontent" style="overflow-y: scroll">
@@ -58,7 +58,7 @@
 
                         print ("<div class='newsDiv clearFix' id='newsID$aanBiedingID' style='position: relative'>"
                                 . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'><div style='float: right'><p id='timestamp'>$Datum</p></div></div>"
-                                . "<div class='newsTop'> $Title </div>"
+                                 . "<div class='newsTop'> $Title </div>"
                                 . ""
                                 . "<div id='textID$textID' style=' padding: 5px;'>"
                                 . htmlspecialchars_decode($text) . "</div>");
