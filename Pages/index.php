@@ -35,7 +35,7 @@
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
                         print("<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'></div>");
                     }
-                    print("<div id='textID1'>");
+                    print("<div id='textID1' class='editContent'>");
                     loadTextFromDB(1);
                     print("</div></div>");
                     ?>
