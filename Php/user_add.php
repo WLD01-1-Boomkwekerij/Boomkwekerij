@@ -10,9 +10,7 @@
             exit();
         }
         ?>
-        You are being automatically redirected to a new location.<br />
-        If your browser does not redirect you in few seconds, or you do
-        not wish to wait, <a href="../Pages/logged_in.php">click here</a>.
+        U wordt automatisch omgeleid, als u niet wilt wachten, <a href="../Pages/logged_in.php">klik dan hier</a>.<br>
         <?php
         include_once '../Php/Database.php';
         $data = unserialize($_POST['input_name']);

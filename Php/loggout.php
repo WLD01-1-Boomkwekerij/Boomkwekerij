@@ -18,6 +18,6 @@ if (ini_get("session.use_cookies")) {
 // Finally, destroy the session.
 session_destroy();
 
-header('refresh:2; url=../pages/index.php');
-echo "Je bent succesvol uitgelogd. Je word doorgestuurd.";
+header('refresh:0; url=../pages/index.php');
+print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/index.php">klik dan hier</a>');
 ?>
