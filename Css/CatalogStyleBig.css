@@ -17,7 +17,7 @@
 #rightmenu
 {
     clear: both;
-    min-height: 250px;
+    min-height: 300px;
 }
 
 
@@ -172,4 +172,21 @@
 #cattitel{
     padding-top:5px;
 
+}
+
+
+h1{
+
+    padding-top:6px;
+    margin-top:-1.1%;
+    width:102.1%;
+    margin-left:-1.1%;
+}
+
+#catatabel{
+    width:80%;
+}
+
+td:hover{
+    background-color:#8D99C8;
 }

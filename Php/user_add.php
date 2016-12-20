@@ -5,13 +5,12 @@
     </head>
     <body>
         <?php
+        session_start();
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSION['toegang'] != 1) {
             exit();
         }
         ?>
-        You are being automatically redirected to a new location.<br />
-        If your browser does not redirect you in few seconds, or you do
-        not wish to wait, <a href="../Pages/logged_in.php">click here</a>.
+        U wordt automatisch omgeleid, als u niet wilt wachten, <a href="../Pages/logged_in.php">klik dan hier</a>.<br>
         <?php
         include_once '../Php/Database.php';
         $data = unserialize($_POST['input_name']);

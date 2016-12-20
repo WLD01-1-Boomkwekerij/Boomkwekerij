@@ -22,8 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Doorsturen en melding geven 
             if ($_SESSION['toegang'] == 1) {
                 header('Refresh: 0; url=../Pages/logged_in.php');
+                print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/logged_in.php">klik dan hier</a>');
             } else {
                 header('Refresh: 0; url=../Pages/index.php');
+                print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/index.php">klik dan hier</a>');
             }
         } else {
             // Terugsturen en foutmelding geven 
