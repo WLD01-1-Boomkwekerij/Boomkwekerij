@@ -10,6 +10,7 @@
     height: 30px;
     background-color: #add2f5; 
     border-bottom: solid 1px gray;
+  
 }
 
 .newsTop button
@@ -25,3 +26,10 @@
    margin-top:0px;
    margin-right:2px;
 }
+
+#timestamp{
+    color:grey;
+    margin-top:7px;
+    margin-right:3px;
+}
+
