@@ -53,7 +53,8 @@
                 </section>
 
                 <section id="maincontent">
-                    <?php
+                    
+                 <?php
                     include_once '../Php/DatabaseInformation.php';
 
                     if (isset($_GET["plantID"]))
