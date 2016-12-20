@@ -46,8 +46,8 @@
     margin-left:600px;
     height:203px;
     margin-top:-25px;
-       box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
-   
+    box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
+
 }
 
 .contactitel{
@@ -56,8 +56,8 @@
     background-color:#5175b3;
     margin-top:-50px;
     margin-left:-10px;
-    
-    
+
+
 }
 
 .contactpadding{
@@ -65,7 +65,22 @@
 }
 
 h1{
-     margin-top:-1.1%;
+    margin-top:-1.1%;
     width:102.1%;
     margin-left:-1.1%;
+}
+
+#captchatekst{
+    height:40px;
+    margin-top:-50px;
+    padding-top:-20px;
+    border-radius:4px;
+}
+
+#captcha{
+    position:absolute;
+    margin-left:160px;
+    margin-top:-10px;
+    height:40px;
+    border-radius:4px;
 }
