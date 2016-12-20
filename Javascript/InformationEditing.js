@@ -185,50 +185,35 @@ function insertLink(name, url)
 
 function createLink()
 {
-    var editorDiv = getElementById("Editor");
+    var editorDiv = $(".Editor");
     
     var linkDiv = createElement("div");
-    linkDiv.style.width = "235px";
-    linkDiv.style.height = "110px";
-    linkDiv.style.backgroundColor = "white";
-    linkDiv.style.position = "absolute";
-    linkDiv.style.top = "-130px";
-    linkDiv.style.left = "70px";
-    linkDiv.style.boxShadow = "0px 0px 5px 3px black";
-    editorDiv.appendChild(linkDiv);
+    linkDiv.id = "linkDiv";
+    $(linkDiv).insertBefore(editorDiv);
     
     var linkName = createElement("input");
+    linkName.id = "linkName";
     linkName.setAttribute("type", "text");
-    linkName.style.marginRight = "0px";
-    linkName.style.float = "Right";
-    linkName.style.marginTop = "15px";
-    linkName.style.marginRight = "5px";
     linkDiv.appendChild(linkName);
     
     var linkInput = createElement("input");
     linkInput.setAttribute("type", "text");
     linkInput.id = "url";
-    linkInput.style.marginTop = "12px";
-    linkInput.style.marginRight = "5px";
-    linkInput.style.float = "Right";
     linkDiv.appendChild(linkInput);
     
     var linkText1 = createElement("p");
     linkText1.innerHTML = "Naam:";
-    linkText1.style.marginLeft = "5px";
+    linkText1.id = "linkText1";
     linkDiv.appendChild(linkText1);
     
     var linkText2 = createElement("p");
     linkText2.innerHTML = "Link:";
-    linkText2.style.marginLeft = "5px";
+    linkText2.id = "linkText2";
     linkDiv.appendChild(linkText2);
     
     var submit = createElement("button");
     submit.innerHTML = "Invoegen";
-    submit.style.position = "absolute";
-    submit.style.right = "0px";
-    submit.style.top = "80px";
-    submit.style.marginRight = "5px";
+    submit.id = "linkSubmit";
     submit.onclick = function ()
     {
         insertLink(linkName.value, linkInput.value);
@@ -487,11 +472,11 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Enter
-    //if(map[13] && element.className === "")
-    //{
-    //    e.preventDefault();
-    //    
-    //}
+    if(map[13] && element.className === "")
+    {
+        e.preventDefault();
+        
+    }
     
     if ($(element).hasClass("newsTop"))
     {
