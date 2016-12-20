@@ -387,6 +387,7 @@ function createCatalogAddition()
 {
     var section = createElement("section");
     section.id = "addPlantMenu";
+    section.style.Height = "800px";
     section.style.boxShadow = "0px 0px 20px 5px black";
     getElementById("mid").appendChild(section);
 
