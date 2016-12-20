@@ -17,7 +17,7 @@
 #rightmenu
 {
     clear: both;
-    min-height: 250px;
+    min-height: 300px;
 }
 
 
@@ -185,5 +185,5 @@ h1{
 }
 
 td:hover{
-    background-color:royalblue;
+    background-color:#8D99C8;
 }

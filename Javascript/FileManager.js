@@ -1,4 +1,4 @@
-var currentPathHistory = [];
+ var currentPathHistory = [];
 var currentPathNumber = 0;
 var futurePathNumber = 0;
 var currentSelectedPath = "";
