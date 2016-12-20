@@ -180,3 +180,10 @@ h1{
     padding-top:6px;
 }
 
+#catatabel{
+    width:80%;
+}
+
+td:hover{
+    background-color:royalblue;
+}
