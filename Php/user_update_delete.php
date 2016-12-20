@@ -11,6 +11,7 @@
         ?>
         U wordt automatisch omgeleid, als u niet wilt wachten, <a href="../Pages/logged_in.php">klik dan hier</a>.<br>
         <?php
+        include '../Php/Database.php';
         $data = unserialize($_POST['input_name']);
         $Wachtwoord = $data['Wachtwoord1'];
         $submit = $data['submit'];
