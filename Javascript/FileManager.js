@@ -142,7 +142,7 @@ function createFileIcons(directory)
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            console.log(directory);
+            console.log();
             var files = xmlhttp.responseText;
 
             var fileArray = files.split("*");

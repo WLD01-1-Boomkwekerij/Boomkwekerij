@@ -487,13 +487,13 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Enter
-    if(map[13] && element.className === "")
-    {
-        e.preventDefault();
-        
-    }
+    //if(map[13] && element.className === "")
+    //{
+    //    e.preventDefault();
+    //    
+    //}
     
-    if (element.className === "newsTop")
+    if ($(element).hasClass("newsTop"))
     {
         if (map[13])
         {
