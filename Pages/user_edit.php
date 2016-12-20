@@ -17,7 +17,6 @@
         <section id="wrapper">
             <section id="top">
                 <section id="header"></section>
-
                 <?php
                 include '../Php/menu.php';
                 ?>
@@ -39,7 +38,7 @@
                                 while ($data = $array->fetch()) {
                                     print('<h5>' . $data['Naam'] . '</h5>');
                                     ?>
-                                    <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _</i><br>
+                                    <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _ ! ?</i><br>
                                     <table>
                                         <tr>
                                             <th>Naam</th>
@@ -115,7 +114,7 @@
                                 </form>
                                 <?php
                             }
-                        } elseif ($submit == 'Bewerken' && count($errors) == 0 ) {
+                        } elseif ($submit == 'Bewerken' && count($errors) == 0) {
                             print('Wilt u de volgende gebruiker bewerken?<br>'
                                     . 'Naam: ' . $gebr_naam . '<br>'
                                     . 'Email: ' . $gebr_mail . '<br>'
@@ -135,18 +134,18 @@
                                 <input type="submit" name="cancel" value="Annuleren"/>
                             </form>
                             <?php
+                        } elseif ($submit == 'Verwijderen') {
+                            print('Weet u zeker dat u ' . $gebr_naam . ' wilt verwijderen? <br>');
+                            ?>
+                            <form action="../Php/user_update_delete.php" method="post">
+                                <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
+                                <input type="submit" name="submit" value="Verwijderen"/>
+                            </form>
+                            <form action="../Pages/logged_in.php" method="post">
+                                <input type="submit" name="cancel" value="Annuleren"/>
+                            </form>
+                            <?php
                         }
-                    } elseif ($submit == 'Verwijderen') {
-                        print('Weet u zeker dat u ' . $gebr_naam . ' wilt verwijderen? <br>');
-                        ?>
-                        <form action="../Php/user_update_delete.php" method="post">
-                            <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
-                            <input type="submit" name="submit" value="Verwijderen"/>
-                        </form>
-                        <form action="../Pages/logged_in.php" method="post">
-                            <input type="submit" name="cancel" value="Annuleren"/>
-                        </form>
-                        <?php
                     }
                     ?>
                 </section>

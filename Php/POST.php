@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
         } else {
             if (!empty($_POST['Wachtwoord1'])) {
                 $Wachtwoord1 = $_POST['Wachtwoord1'];
-                if (!preg_match('/^[A-Za-z0-9#@%&-_]*$/', $Wachtwoord1)) {
+                if (!preg_match('/^[A-Za-z0-9#@%&-_!?]*$/', $Wachtwoord1)) {
                     $errors[1] = 'Ongeldige tekens';
                 }
                 if (strlen($Wachtwoord1) < 8) {
@@ -50,4 +50,5 @@ if (isset($_POST['submit'])) {
         $rol = $_POST['rol'];
     }
 }
+
 ?>
