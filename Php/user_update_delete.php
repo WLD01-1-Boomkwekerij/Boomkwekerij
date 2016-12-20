@@ -12,12 +12,10 @@
         U wordt automatisch omgeleid, als u niet wilt wachten, <a href="../Pages/logged_in.php">klik dan hier</a>.<br>
         <?php
         include '../Php/Database.php';
-        if (isset($_POST['submit'])) {
-            $submit = $_POST['submit'];
-            $rol= $_POST['Rol'];
-        }
         $data = unserialize($_POST['input_name']);
         $Wachtwoord = $data['Wachtwoord1'];
+        $submit = $data['submit'];
+        $rol = $data['rol'];
         if ($submit == 'Bewerken') {
             if ($rol == 'beheerder') {
                 $rol = 1;
@@ -26,6 +24,7 @@
             } elseif ($rol == 'vertaler') {
                 $rol = 3;
             }
+            print($rol);
             if (isset($Wachtwoord1)) {
                 $query = ('UPDATE `boomkwekerij`.`gebruiker`'
                         . ' SET `Naam` ="' . $data["gebr_naam"] . '",'
@@ -41,8 +40,7 @@
                         . ' `KrijgtEmail` = "' . $data["krijgt_mail"] . '",'
                         . ' `Rol` = ' . $rol . ''
                         . ' WHERE `GebruikerID` =' . $data["gebruiker"]);
-                            print($query);
-
+                print($query);
             }
             doSQL($query);
             header('Refresh: 0; url=../Pages/logged_in.php');

@@ -1,4 +1,4 @@
-var currentPathHistory = [];
+ var currentPathHistory = [];
 var currentPathNumber = 0;
 var futurePathNumber = 0;
 var currentSelectedPath = "";
@@ -387,6 +387,7 @@ function createCatalogAddition()
 {
     var section = createElement("section");
     section.id = "addPlantMenu";
+    section.style.Height = "800px";
     section.style.boxShadow = "0px 0px 20px 5px black";
     getElementById("mid").appendChild(section);
 

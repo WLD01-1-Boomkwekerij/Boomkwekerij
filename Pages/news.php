@@ -8,7 +8,8 @@
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
+        {
             include '../Php/loggedInEditor.php';
         }
         ?>
@@ -29,8 +30,9 @@
                 </section>
                 <section id="maincontent" style="overflow-y: scroll">
                     <?php
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-                        print("<div class='newsDiv' id='newNews' style='position: relative;'>"
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
+                    {
+                        print("<div class='newsDiv' id='newNews' style='position: relative'>"
                                 . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'></div>"
                                 . "<div class='newsTop'>Nieuw Bericht toevoegen</div>"
                                 . "<div style='padding 5px; min-height: 140px;'></div></div>");
@@ -46,7 +48,8 @@
                     $statement = $connection->prepare($sql);
                     $statement->execute();
 
-                    while ($row = $statement->fetch()) {
+                    while ($row = $statement->fetch())
+                    {
                         $text = $row["Tekst"];
                         $aanBiedingID = $row["AanbiedingID"];
                         $textID = $row["TekstID"];
@@ -54,7 +57,7 @@
                         $Datum = $row["DatumGeplaatst"];
 
                         print ("<div class='newsDiv clearFix' id='newsID$aanBiedingID' style='position: relative'>"
-                                . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'><div style='float: right'>$Datum</div></div>"
+                                . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'><div style='float: right'><p id='timestamp'>$Datum</p></div></div>"
                                 . "<div class='newsTop'> $Title </div>"
                                 . ""
                                 . "<div id='textID$textID' style=' padding: 5px;'>"
