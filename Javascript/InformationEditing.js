@@ -25,6 +25,20 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
+function doXMLHttp(GetArray)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/XMLRequest.php?" + GetArray, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            location.reload();
+        }
+    };
+    xmlhttp.send();
+}
+
 /**
  * Inserts markup with execCommand
  * @param {type} type
@@ -73,16 +87,7 @@ function uploadImage()
  */
 function updateTextToDatabase(text, textID)
 {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?textID=" + textID + "&htmlUpdateText=" + text, true);
-    xmlhttp.onreadystatechange = function ()
-    {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            location.reload();
-        }
-    };
-    xmlhttp.send();
+    doXMLHttp("textID=" + textID + "&htmlUpdateText=" + text);
 }
 
 //News Inserting, Updating and Deleteing
@@ -95,16 +100,7 @@ function updateTextToDatabase(text, textID)
  */
 function insertNewsTextToDatabase(visibility, text, title)
 {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsVisibility=" + visibility + "&newsHtmlInsertText=" + text + "&newsTitle=" + title, true);
-    xmlhttp.onreadystatechange = function ()
-    {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            location.reload();
-        }
-    };
-    xmlhttp.send();
+    doXMLHttp("newsVisibility=" + visibility + "&newsHtmlInsertText=" + text + "&newsTitle=" + title);    
 }
 
 /**
@@ -116,31 +112,12 @@ function insertNewsTextToDatabase(visibility, text, title)
  */
 function updateNewsTextToDatabase(newsID, visibility, text, title)
 {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsHtmlUpdateText=" + text + "&newsID=" + newsID + "&newsTitle=" + title + "&newsVisibility=" + visibility, true);
-    xmlhttp.onreadystatechange = function ()
-    {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            location.reload();
-        }
-    };
-    xmlhttp.send();
+    doXMLHttp("newsHtmlUpdateText=" + text + "&newsID=" + newsID + "&newsTitle=" + title + "&newsVisibility=" + visibility);    
 }
 
 function deleteNewsText(newsID)
 {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?newsDeleteID=" + newsID, true);
-    xmlhttp.onreadystatechange = function ()
-    {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            console.log(xmlhttp.responseText);
-            location.reload();
-        }
-    };
-    xmlhttp.send();
+    doXMLHttp("newsDeleteID=" + newsID);
 }
 /**
  * Save the current position of the cursor when called
