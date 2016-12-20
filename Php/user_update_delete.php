@@ -24,7 +24,6 @@
             } elseif ($rol == 'vertaler') {
                 $rol = 3;
             }
-            print($rol);
             if (isset($Wachtwoord1)) {
                 $query = ('UPDATE `boomkwekerij`.`gebruiker`'
                         . ' SET `Naam` ="' . $data["gebr_naam"] . '",'
