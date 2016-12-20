@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if (isset($_SESSION['logged_in'])) {
     include 'DatabaseInformation.php';
@@ -81,12 +82,12 @@ if (isset($_SESSION['logged_in'])) {
             foreach ($i as $j) {
                 print($j . "*");
             }
-            // print($i . "*");
+// print($i . "*");
         }
 
         for ($i = 0; $i < sizeof($row); $i++) {
 
-            //print($row[$i] . "*");
+//print($row[$i] . "*");
         }
     }
 
