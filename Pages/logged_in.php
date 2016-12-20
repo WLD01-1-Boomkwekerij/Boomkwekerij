@@ -1,5 +1,4 @@
 <?php
-// We werken ook hier met sessies 
 session_start();
 
 // Controleren of de bezoeker ingelogd is 
@@ -31,10 +30,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                     <h5>Nieuw gebruiker toevoegen</h5>
                     <?php
                     include '../Php/POST.php';
-                    if (isset($submit)) {
+                    if (isset($submit)) { // Eerst wordt er gekeken of er al een aanpassing geverivïeerd moet worden, als dat niet zo is zie de 'else'
                         if (count($errors) > 0) { //laat foutmeldingen zien
                             print_r(implode($errors, '<br>'));
-                        } else {
+                        } else { // Als er geen fouten zijn moet de informatie getoond worden te bevesting van de gegevens.
                             print('Wilt u de volgende gebruiker toevoegen?<br>'
                                     . 'Naam: ' . $gebr_naam . '<br>'
                                     . 'Email: ' . $gebr_mail . '<br>'
@@ -47,16 +46,20 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                             print('Type gebruiker: ' . $rol . '<br>');
                             ?>
                             <form action="../Php/user_add.php" method="post">
+                                <!--Toevoeg knop met informatie wordt geserialiseerd-->
                                 <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
                                 <input type="submit" name="submit" value="Toevoegen"/>
                             </form>
                             <form action="../Pages/logged_in.php" method="post">
+                                <!--Annuleer knop-->
                                 <input type="submit" name="cancel" value="Annuleren"/>
                             </form> 
                             <?php
                         }
                         ?>
                         <form  action="../Pages/logged_in.php" method="post">
+                            <!--formulier voor het aanmaken van nieuwe gebruikers
+                            Deze is al ingevuld mocht het wachtwoord niet aan de eisen voldoen of niet hezelfde is-->
                             <table>
                                 <tr>
                                     <th>Naam</th>
@@ -68,9 +71,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                     <th>Toevoegen</th>
                                 </tr>
                                 <tr>
-                                    <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($gebr_naam); ?>"></td>
-                                    <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required value="<?php print($gebr_mail); ?>"></td>
-                                    <td>
+                                    <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($gebr_naam); ?>"></td><!--Naam van de gebruiker-->
+                                    <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required value="<?php print($gebr_mail); ?>"></td><!--emailadres-->
+                                    <td> <!--uitrolmenu voor krijgt mail keuze-->
                                         <select name="krijgt_mail" tabindex="3">
                                             <?php if ($krijgt_mail == 1) { ?>
                                                 <option value="0">Nee</option>
@@ -81,9 +84,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                             <?php } ?>
                                         </select> 
                                     </td>
-                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
+                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td><!--Wachtwoord 1 en 2 moeten hetzelfde zijn-->
                                     <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
-                                    <td> 
+                                    <td> <!--Rol van de gebruiker-->
                                         <?php
                                         if ($rol == 'beheerder') {
                                             ?>          
@@ -112,14 +115,15 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                         }
                                         ?>                                        
                                     </td>
-                                    <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td>
+                                    <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td> <!--toevoegknop-->
                                 </tr>
                             </table>
                         </form>
                         <?php
                     } else {
                         ?>
-                        <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _</i><br>
+                        <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _ ! ?</i><br>
+                        <!--Vereisten van het wachtwoord weergeven-->
                         <form  action="../Pages/logged_in.php" method="post">
                             <table>
                                 <tr>
@@ -132,20 +136,20 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                     <th>Toevoegen</th>
                                 </tr>
                                 <tr>
-                                    <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required></td>
-                                    <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required></td>
+                                    <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required></td><!--gebruikersnaam-->
+                                    <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required></td><!--emailadres voor notificaties-->
                                     <td>
-                                        <select name="krijgt_mail" tabindex="3">
+                                        <select name="krijgt_mail" tabindex="3"><!--krijgt mail optie-->
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select> 
                                     </td>
-                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td>
+                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td><!--beiden wachtwoorden moeten hetzelfde zijn om typo's te verkomen-->
                                     <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
                                     <td> 
-                                        <select name="rol" tabindex="6">
+                                        <select name="rol" tabindex="6"> <!--de rechten van de nieuwe gebruiker-->
                                             <option value="beheerder">Beheerder</option>
-                                            <option value="medewerker" selected="selected">Medewerker</option>
+                                            <option value="medewerker" selected="selected">Medewerker</option><!--medewerker is de standaard om te verkomen dat er per ongeluk een nieuwe beheerder aangemaakt wordt-->
                                             <option value="vertaler">Vertaler</option>
                                         </select> 
                                     </td>
@@ -156,6 +160,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                         <?php
                     }
                     include_once '../Php/Database.php';
+                    // het laden van alle gebruikers
                     $gebruikers = getSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker');
                     ?>
                     <h5>Gebruikers wijzigen</h5>
@@ -171,9 +176,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                         while ($rij = $gebruikers->fetch()) {
                             ?>
                             <tr>
-                                <td> <?php print($rij['Naam']); ?> </td>
-                                <td> <?php print($rij['Email']); ?> </td>
-                                <td> <?php
+                                <td> <?php print($rij['Naam']); ?> </td><!--naam van de gebruiker-->
+                                <td> <?php print($rij['Email']); ?> </td><!--email van gebruiker-->
+                                <td> 
+                                    <?php
+                                    // Het weergeven van de juiste gebruikersrol ipv getal
                                     if ($rij['Rol'] == '1') {
                                         $rij['Rol'] = 'Beheerder';
                                     } elseif ($rij['Rol'] == '2') {
@@ -182,12 +189,17 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                         $rij['Rol'] = 'Vertaler';
                                     }
                                     print($rij['Rol']);
-                                    ?></td>
-                                <td><form action="../Pages/user_edit.php" method="POST">
+                                    ?>
+                                </td>
+                                <td>
+                                    <form action="../Pages/user_edit.php" method="POST"> <!--doorsturen naar aanpaspagina-->
                                         <input type='hidden' name='gebruiker' value="<?php print($rij['GebruikerID']) ?>" />
                                         <input type="submit" name="submit" value="Bewerk"/>
-                                    </form></td>
-                            <?php } ?>
+                                    </form>
+                                </td>
+                                <?php
+                            }
+                            ?>
                         </tr>
                     </table>
                 </section>

@@ -44,7 +44,7 @@
             doSQL($query);
             header('Refresh: 0; url=../Pages/logged_in.php');
         } elseif ($submit == 'Verwijderen') {
-            $query = ('DELETE FROM boomkwekerij.gebruiker WHERE GebruikerID =' . $gebruiker);
+            $query = ('DELETE FROM boomkwekerij.gebruiker WHERE GebruikerID =' . $data["gebruiker"]);
             doSQL($query);
             header('Refresh: 0; url=../Pages/logged_in.php');
         }
