@@ -7,9 +7,9 @@
 <h3>Contact informatie</h3>
 <div class="notranslate">
     <?php
-    include_once '../Php/DatabaseInformation.php';
     print("<div ");
     if (isset($_SESSION['logged_in'])) {
+        include_once '../Php/DatabaseInformation.php';
         print("class='ContentEditable'");
     }
     print("<id = 'textID2'>" . loadTextFromDB(2) . "</div>");

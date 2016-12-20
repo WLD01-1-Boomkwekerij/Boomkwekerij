@@ -68,9 +68,13 @@
                                          . " ExtraBeschrijving='$beschrijving',"
                                          . " Potmaat='$potmaat'"
                                          . " WHERE PrijsID=$id");
+                                 if($pertray==0){
+                                     doSQL("UPDATE prijs SET ProductenTray = NULL WHERE PrijsID=$id");
+                                 }
                              }
                              else
                              {
+                                 if($_POST['pertray']!=0){
                                  doSQL("INSERT INTO prijs (
                                      `PrijsKwekerij`,
                                      `PrijsVBA`,
@@ -91,6 +95,26 @@
                                          . " '$beschrijving',"
                                          . " '$potmaat',"
                                          . " '$id')");
+                                 }else{
+                                  doSQL("INSERT INTO prijs (
+                                     `PrijsKwekerij`,
+                                     `PrijsVBA`,
+                                     `ProductenCC`,
+                                     `ProductenLaag`,
+                                     `Naam`,
+                                     `ExtraBeschrijving`,
+                                     `Potmaat`,
+                                     `CategoryID`) 
+                                     VALUES (
+                                     '$prijsKwekerij',"
+                                         . " '$prijsVBA', "
+                                         . "'$percc', "
+                                         . "'$perlaag',"
+                                         . " '$naam',"
+                                         . " '$beschrijving',"
+                                         . " '$potmaat',"
+                                         . " '$id')");                                    
+                                 }
                              }
                          }
                          if (isset($_POST['verwijderRegel']))
