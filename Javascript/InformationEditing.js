@@ -33,7 +33,14 @@ function doXMLHttp(GetArray)
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            location.reload();
+            if (xmlhttp.responseText === "")
+            {
+                location.reload();
+            }
+            else
+            {
+                console.log(xmlhttp.responseText);
+            }
         }
     };
     xmlhttp.send();
@@ -100,7 +107,7 @@ function updateTextToDatabase(text, textID)
  */
 function insertNewsTextToDatabase(visibility, text, title)
 {
-    doXMLHttp("newsVisibility=" + visibility + "&newsHtmlInsertText=" + text + "&newsTitle=" + title);    
+    doXMLHttp("newsVisibility=" + visibility + "&newsHtmlInsertText=" + text + "&newsTitle=" + title);
 }
 
 /**
@@ -112,7 +119,7 @@ function insertNewsTextToDatabase(visibility, text, title)
  */
 function updateNewsTextToDatabase(newsID, visibility, text, title)
 {
-    doXMLHttp("newsHtmlUpdateText=" + text + "&newsID=" + newsID + "&newsTitle=" + title + "&newsVisibility=" + visibility);    
+    doXMLHttp("newsHtmlUpdateText=" + text + "&newsID=" + newsID + "&newsTitle=" + title + "&newsVisibility=" + visibility);
 }
 
 function deleteNewsText(newsID)
@@ -433,12 +440,11 @@ function setContentEditable(element, isNew, isNews)
             $(deleteButton).addClass("EditorBottomButton");
             deleteButton.addEventListener("click", function ()
             {
-                deleteNewsText(parseInt(parent.id.replace("newsID", "")));
+                deleteNewsText(parseInt($(parent).attr('id').replace("newsID", "")));
             });
             $(deleteButton).insertAfter(cancelButton);
         }
-        parent.appendChild(element);
-
+        $(parent).append(element);
     }
 }
 
@@ -499,6 +505,12 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Enter
+    if(map[13] && element.className === "")
+    {
+        e.preventDefault();
+        
+    }
+    
     if (element.className === "newsTop")
     {
         if (map[13])
@@ -526,7 +538,6 @@ $(document).ready(function ()
             var string = elementToPass.id.toString();
             var parentString = parent.attr('id');
 
-
             //SETS the correct editor
             if (string.indexOf("textID") !== -1)
             {
@@ -536,7 +547,6 @@ $(document).ready(function ()
             else if (parentString.indexOf("newNews") !== -1)
             {
                 //New News editor
-                console.log(elementToPass);
                 setContentEditable(elementToPass, true, true);
             }
             else if (parentString.indexOf("newsID") !== -1)
