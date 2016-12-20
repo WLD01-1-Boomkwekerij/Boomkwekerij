@@ -186,6 +186,7 @@ function insertLink(name, url)
 function createLink()
 {
     var editorDiv = getElementById("Editor");
+    
     var linkDiv = createElement("div");
     linkDiv.style.width = "235px";
     linkDiv.style.height = "110px";
@@ -195,6 +196,7 @@ function createLink()
     linkDiv.style.left = "70px";
     linkDiv.style.boxShadow = "0px 0px 5px 3px black";
     editorDiv.appendChild(linkDiv);
+    
     var linkName = createElement("input");
     linkName.setAttribute("type", "text");
     linkName.style.marginRight = "0px";
@@ -202,6 +204,7 @@ function createLink()
     linkName.style.marginTop = "15px";
     linkName.style.marginRight = "5px";
     linkDiv.appendChild(linkName);
+    
     var linkInput = createElement("input");
     linkInput.setAttribute("type", "text");
     linkInput.id = "url";
@@ -209,14 +212,17 @@ function createLink()
     linkInput.style.marginRight = "5px";
     linkInput.style.float = "Right";
     linkDiv.appendChild(linkInput);
+    
     var linkText1 = createElement("p");
     linkText1.innerHTML = "Naam:";
     linkText1.style.marginLeft = "5px";
     linkDiv.appendChild(linkText1);
+    
     var linkText2 = createElement("p");
     linkText2.innerHTML = "Link:";
     linkText2.style.marginLeft = "5px";
     linkDiv.appendChild(linkText2);
+    
     var submit = createElement("button");
     submit.innerHTML = "Invoegen";
     submit.style.position = "absolute";
@@ -448,30 +454,6 @@ function setContentEditable(element, isNew, isNews)
     }
 }
 
-//Get image url from database
-function selectImage(imageID)
-{
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/GetImages.php?imageList=" + imageID, true);
-    xmlhttp.onreadystatechange = function ()
-    {
-        if (this.readyState === 4 && this.status === 200)
-        {
-            //Create image
-            var img = createElement("img");
-            img.src = "../images/" + xmlhttp.responseText;
-            img.className = "editableImage";
-            img.style.width = "300px";
-            img.style.border = "solid 2px black";
-            //img.onclick = function () {
-            //    editImage(this);
-            //  };
-            document.body.appendChild(img);
-        }
-    };
-    xmlhttp.send();
-}
-
 var map = {};
 document.onkeydown = document.onkeyup = function (e)
 {
@@ -518,7 +500,7 @@ document.onkeydown = document.onkeyup = function (e)
             e.preventDefault();
         }
 
-        if (element.innerHTML.length >= 30 && !map[8])
+        if (element.innerHTML.length >= 45 && !map[8])
         {
             e.preventDefault();
         }

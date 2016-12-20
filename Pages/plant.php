@@ -13,8 +13,6 @@
         <?php  
         session_start();
 
-        include_once '../Php/DatabaseInformation.php';
-
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
             
             include '../Php/loggedInEditor.php';
