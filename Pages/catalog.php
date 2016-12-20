@@ -35,17 +35,18 @@
                             new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
                         }
                     </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-                    <h3>Catalogus</h3>
+                    <h3>Soorten</h3>
                 
                     <ul id="catalogus">
                         <?php
                         //Creates the sidevar category options
                         $sqlCategory = getSQLArray("SELECT * FROM category");
+                       
                         while ($row = $sqlCategory->fetch())
                         {
                             $categoryNaam = $row["CategoryNaam"];
                             $id = $row["CategoryID"];
-                            print("<a href='catalog.php?category=$id'><li>$categoryNaam</li></a>");
+                           echo "<table id='catatabel' border='3'><td> <a href='catalog.php?category=$id'><li>$categoryNaam</li></a></td> </table> ";
                         }
                         ?>
                     </ul>
@@ -53,7 +54,8 @@
                 </section>
 
                 <section id="maincontent">
-                    <?php
+                    
+                 <?php
                     include_once '../Php/DatabaseInformation.php';
 
                     if (isset($_GET["plantID"]))
