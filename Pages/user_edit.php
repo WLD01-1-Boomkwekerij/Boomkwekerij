@@ -26,7 +26,6 @@
                 <section id="maincontent">
                     <h4>Bewerken</h4>
                     <?php
-                    print_r($_POST);
                     $gebruiker = $_POST["gebruiker"];
                     if (isset($_POST["submit"])) {
                         include '../Php/POST.php';
