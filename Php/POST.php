@@ -28,6 +28,7 @@ if (isset($_POST['submit'])) {
                     $errors[6] = 'Gebruik minimaal 1 kleine letter';
                 }
                 $Wachtwoord1 = hash('sha256', $Wachtwoord1);
+                $_POST['Wachtwoord1']=$Wachtwoord1;
             }
         }
     }
