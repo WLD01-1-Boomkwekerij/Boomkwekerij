@@ -26,14 +26,18 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
             <section id="mid">
                 <section id="maincontent">
                     <h1>Beheerderspagina</h1>
+                    <div class="WidthFix">                    
                     <h4>Gebruikers beheren</h4> 
                     <h5>Nieuw gebruiker toevoegen</h5>
                     <?php
                     include '../Php/POST.php';
-                    if (isset($submit)) { // Eerst wordt er gekeken of er al een aanpassing geverivïeerd moet worden, als dat niet zo is zie de 'else'
-                        if (count($errors) > 0) { //laat foutmeldingen zien
+                    // Eerst wordt er gekeken of er al een aanpassing geverivïeerd moet worden, als dat niet zo is zie de 'else'                        
+                    if (isset($submit)) {
+                        if (count($errors) > 0) { 
+                            //laat foutmeldingen zien
                             print_r(implode($errors, '<br>'));
-                        } else { // Als er geen fouten zijn moet de informatie getoond worden te bevesting van de gegevens.
+                        } else { 
+                            // Als er geen fouten zijn moet de informatie getoond worden te bevesting van de gegevens.
                             print('Wilt u de volgende gebruiker toevoegen?<br>'
                                     . 'Naam: ' . $gebr_naam . '<br>'
                                     . 'Email: ' . $gebr_mail . '<br>'
@@ -202,6 +206,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                             ?>
                         </tr>
                     </table>
+                    </div>
                 </section>
             </section>
         </section>

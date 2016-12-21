@@ -1,5 +1,6 @@
 .newsDiv
 {
+    top: 10px;
     margin-bottom: 20px;
     box-shadow: 0px 0px 5px 2px black;
 }
@@ -30,5 +31,10 @@
     color:grey;
     margin-top:7px;
     margin-right:3px;
+}
+
+#newNews
+{
+    top: 10px;
 }
 
