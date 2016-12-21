@@ -30,6 +30,7 @@
                 </section>
                 <section id="maincontent">
                     <h1>Contactformulier</h1>
+                    <div class="WidthFix">                    
                     <br>
                     <div id="divlogo"> <img id="logo" src="../images/image001.png"></div>
                     <form action="contactSend.php" method="post">
@@ -48,6 +49,7 @@
                         <input type="submit" ID="btn1" name="submit" value="Aanvraag indienen" /> 
 
                     </form>
+                    </div>
                 </section>
             </section>
         </section>

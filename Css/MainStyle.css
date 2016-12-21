@@ -159,6 +159,13 @@ h3
     display: block;
 }
 
+.WidthFix
+{
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+
 #maincontent
 {
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
@@ -167,18 +174,6 @@ h3
     margin-right: 270px;
     background-color:#d0e6fa;
     margin-bottom: 20px;
-}
-
-#maincontent div
-{
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#maincontent div div
-{
-    width: 100%;
 }
 
 #rightmenu
