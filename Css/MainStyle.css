@@ -278,3 +278,12 @@ body {
 {
     content: url(../Icons/Image-Add.svg);
 }
+
+#capthaerror{
+    border-width: 2px;
+    border-style: dotted;
+    border-color:black;
+    width:60%;
+    margin-left:20%;
+    
+}

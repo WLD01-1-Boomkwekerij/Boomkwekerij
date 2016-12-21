@@ -79,10 +79,11 @@ echo "
      echo"
    
                     </section>
-                    <section id='maincontent'>
-                       <center> <h2> U heeft uw captcha niet correct ingevuld!</h2>
-                        <h2>U wordt doorverwezen.</h2></center>
-                       
+                    <section id='maincontent'><br>
+                       <div id='capthaerror'>
+                        <center> <h4> U heeft uw captcha niet correct ingevuld!</h4>
+                        <h4>U wordt doorverwezen.</h4></center>
+                       </div>
                     </section>
                 </section>
             </section>
