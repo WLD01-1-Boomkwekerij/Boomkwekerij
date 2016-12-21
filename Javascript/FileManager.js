@@ -56,12 +56,12 @@ function createFolderIcon(url, name)
     {
         openFolder(url + "/" + name);
         PathHistory[PathHistory.length] = url + "/" + name;
-        currentPathNumber++;
+        currentPathIndex++;
         checkArrowColor();
 
         if (isUploading)
         {
-            getElementById("uploadFilePathURL").value = currentPathHistory[currentPathHistory.length - 1];
+            getElementById("uploadFilePathURL").value = PathHistory[PathHistory.length - 1];
         }
 
     });
@@ -203,7 +203,7 @@ function createManager(uploading, element)
 {    
     isUploading = uploading;
     currentSelectedPath = "";
-    currentPathHistory[0] = "../Images/";
+    PathHistory[0] = "../Images/";
 
     document.body.style.overflow = "hidden";
 
@@ -225,11 +225,11 @@ function createManager(uploading, element)
     leftArrow.id = "LeftArrow";
     leftArrow.onclick = function ()
     {
-        if (currentPathNumber > 0)
+        if (currentPathIndex > 0)
         {
-            currentPathNumber--;
-            openFolder(currentPathHistory[currentPathNumber]);
-            futurePathNumber++;
+            currentPathIndex--;
+            openFolder(PathHistory[PathHistory]);
+            currentPathIndex++;
             checkArrowColor();
         }
     };
@@ -241,11 +241,11 @@ function createManager(uploading, element)
     rightArrow.innerHTML = "&#8594;";
     rightArrow.onclick = function ()
     {
-        if (futurePathNumber > 0)
+        if (currentPathIndex > 0)
         {
-            currentPathNumber++;
-            openFolder(currentPathHistory[currentPathNumber]);
-            futurePathNumber--;
+            currentPathIndex++;
+            openFolder(PathHistory[currentPathIndex]);
+            currentPathIndex--;
             checkArrowColor();
         }
     };
@@ -291,7 +291,7 @@ function createManager(uploading, element)
         fileUrl.type = "text";
         fileUrl.name = "UploadUrl";
         fileUrl.id = "uploadFilePathURL";
-        fileUrl.value = currentPathHistory[currentPathHistory.length - 1];
+        fileUrl.value = PathHistory[PathHistory.length - 1];
         uploadForm.appendChild(fileUrl);
 
         var fileInput = createElement("input");
