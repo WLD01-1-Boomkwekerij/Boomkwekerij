@@ -21,6 +21,7 @@ if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == 
             <meta charset="UTF-8">
             <title>Boomkwekerij - Contact</title>
             <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+            <link href="../Css/ContactStyle.css" rel="stylesheet" type="text/css">
         </head>
         <body>
             <section id="wrapper">
@@ -52,9 +53,39 @@ if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == 
     </html>
     <?php
 } else {
+    header('Refresh: 5; url=../Pages/Contact.php');
+echo "
+   <html>
+        <head>
+            <meta charset='UTF-8'>
+            <title>Boomkwekerij - Contact</title>
+            <link href='../Css/MainStyle.css' rel='stylesheet' type='text/css'>
+            <link href='../Css/ContactStyle.css' rel='stylesheet' type='text/css'>
+        </head>
+        <body>
+            <section id='wrapper'>
+                <section id='top'>
+                    <section id='header'></section>
+                    ";
+                    include '../Php/menu.php';
+                 echo "
+                </section>
+                <section id='mid'>
+                    <section id='rightmenu'>;
+                        
+                        
+                       
+             ";     include '../Php/rightmenu.php';
+     echo"
+   
+                    </section>
+                    <section id='maincontent'>
+                       <center> <h2> U heeft uw captcha niet correct ingevuld!</h2>
+                        <h2>U wordt doorverwezen.</h2></center>
+                       
+                    </section>
+                </section>
+            </section>
 
-    header('Refresh: 1; url=../Pages/contact.php');
-    
-}
+</html>";}
 ?>
-

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,7 +43,7 @@
                         <br>
                         <img id='captcha' src="../Php/captha.php" />
 
-                        <input name="captcha" id='captchatekst' placeholder="Voer de 4 getallen in" type="text">
+                        <input name="captcha" required id='captchatekst' placeholder="Voer de 4 getallen in" type="text">
                         <br><br>
                         <input type="submit" ID="btn1" name="submit" value="Aanvraag indienen" /> 
 
@@ -55,3 +56,6 @@
         ?>
     </body>
 </html>
+
+
+
