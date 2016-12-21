@@ -1,7 +1,7 @@
 <?php
 
-function connectToDatabase() {
-
+function connectToDatabase()
+{
     $username = "root";
     $password = "usbw";
     $servername = "mysql:host=localhost;dbname=boomkwekerij;port=3307";
@@ -9,26 +9,29 @@ function connectToDatabase() {
     return $connection;
 }
 
-function getSQL($sqlCode, $rowName) {
-
+function getSQL($sqlCode, $rowName)
+{
     $connection = connectToDatabase();
     $statement = $connection->prepare($sqlCode);
     $statement->execute();
 
-    while ($row = $statement->fetch()) {
+    while ($row = $statement->fetch())
+    {
         $text = $row[$rowName];
         return $text;
     }
 }
 
-function getMaxSQL($table, $maxRow) {
+function getMaxSQL($table, $maxRow)
+{
     $connection = connectToDatabase();
     $statement = $connection->prepare("SELECT MAX($maxRow) FROM $table");
     $statement->execute();
-    return $statement->fetchColumn();    
+    return $statement->fetchColumn();
 }
 
-function getSQLArray($sqlCode) {
+function getSQLArray($sqlCode)
+{
 
     $connection = connectToDatabase();
     $statement = $connection->prepare($sqlCode);
@@ -37,13 +40,17 @@ function getSQLArray($sqlCode) {
     return $statement;
 }
 
-function doSQL($sqlCode) {
-    try {
+function doSQL($sqlCode)
+{
+    try
+    {
         $connection = connectToDatabase();
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement = $connection->prepare($sqlCode);
         $statement->execute();
-    } catch (PDOException $e) {
+    }
+    catch (PDOException $e)
+    {
         echo $sqlCode . "<br>" . $e->getMessage();
         echo '<br><br>';
     }
