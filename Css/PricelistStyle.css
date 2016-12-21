@@ -3,7 +3,7 @@
     border: 3px solid white;
     border-collapse: collapse;
     text-align: center;
-    padding: 2px 5px 2px 5px;
+    padding: 2px 2px 2px 2px;
 }
 
 
@@ -23,21 +23,21 @@ h2{
 
 .name
 {
-    width: 100px;
+    /*width: 100px;*/
     background-color:#d0e6fa; 
     text-align: left;
 }
 
 .white
 {
-    width: 60px;
+    /*width: 60px;*/
     background-color:#d0e6fa; 
 
 }
 
 .blue
 {
-    width: 60px;
+    /*width: 60px;*/
     background-color: aqua; 
 }
 
@@ -45,7 +45,6 @@ input
 {
     float: left;
     display: inline-block;
-    width:100%;
     min-width: 38px;
 }
 
@@ -55,52 +54,60 @@ input
     float: right;
 }
 
-#printbutton
-{
-    float: right;
-}
 
 #wrapper
 {
     width:1231px;  
 }
+
 #printable
 {
-    width: 100%;
     margin: 0px;
     padding: 0px;
 }
 
 #printheader {
-    
-    background-repeat: no-repeat;
     padding: 0px;
-    width: 101%;
-    display: none; 
+    /*display: none; */
     padding-right:0px;
     padding-bottom: 10px;
+    margin-right:0px;
+    width:100%;
 }
+
+
 @media print {
     #printbutton{
-     dislay:none;   
+       display:none;   
     }
-     input {
+    
+    input {
         display: none;
     }
+    
+    #printheader {
+        width:1080px;
+    }
+    
     #printheader{
-       display: block;
-       margin-right:0px;
+        display: block;
     }
-    .pricelist
-    {
-   width: 100%;
+    
+    .pricetable{
+        width:1080px;
     }
-   body{
+    
+    .pricelist{
+        width:1080px;
+    }
+    
+    body{
         background-image: none;
     }
+    
     h1{
-    margin-bottom: 1px;
-}
+        margin-bottom: 1px;
     }
+}
 
 
