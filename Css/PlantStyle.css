@@ -5,7 +5,7 @@
 
 #PhotoFrame
 {
-    
+
 }
 
 #ImageFrame
@@ -29,11 +29,8 @@
     margin-top: 4px;
 }
 
-.UnderImage{
-<<<<<<< HEAD
-    width: 10%;
-=======
->>>>>>> de5e44ac0a88e4e0867776904b2d30952ade97c3
+.UnderImage
+{
     box-shadow: 0px 0px 2px 1px black;
 }
 
@@ -90,5 +87,5 @@
 {
     clear: both;
     min-height: 200px;
-    
+
 }
