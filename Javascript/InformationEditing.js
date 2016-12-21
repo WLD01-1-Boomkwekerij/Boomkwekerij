@@ -186,31 +186,31 @@ function insertLink(name, url)
 function createLink()
 {
     var editorDiv = $(".Editor");
-    
+
     var linkDiv = createElement("div");
     linkDiv.id = "linkDiv";
     $(editorDiv).append(linkDiv);
-    
+
     var linkName = createElement("input");
     linkName.id = "linkName";
     linkName.setAttribute("type", "text");
     linkDiv.appendChild(linkName);
-    
+
     var linkInput = createElement("input");
     linkInput.setAttribute("type", "text");
     linkInput.id = "url";
     linkDiv.appendChild(linkInput);
-    
+
     var linkText1 = createElement("p");
     linkText1.innerHTML = "Naam:";
     linkText1.id = "linkText1";
     linkDiv.appendChild(linkText1);
-    
+
     var linkText2 = createElement("p");
     linkText2.innerHTML = "Link:";
     linkText2.id = "linkText2";
     linkDiv.appendChild(linkText2);
-    
+
     var submit = createElement("button");
     submit.innerHTML = "Invoegen";
     submit.id = "linkSubmit";
@@ -344,6 +344,12 @@ function setContentEditable(element, isNew, isNews)
 
         var editorDiv = createElement("div");
         $(editorDiv).addClass("Editor");
+
+
+
+
+
+
         $(editorDiv).insertBefore(parent);
         //Buttons
         var buttonArray =
@@ -469,12 +475,12 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Enter
-    if(map[13] && element.className === "")
+    if (map[13] && element.className === "")
     {
         e.preventDefault();
-        
+
     }
-    
+
     if ($(element).hasClass("newsTop"))
     {
         if (map[13])
