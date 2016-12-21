@@ -13,7 +13,8 @@
         <?php
         session_start();
 
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && $_SESSION['toegang'] != 3) {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && $_SESSION['toegang'] != 3)
+        {
 
             include '../Php/loggedInEditor.php';
         }
@@ -36,13 +37,18 @@
             <section id="mid">
                 <section id="rightmenu">
                     <?php
-                    if (isset($_GET["plant"])) {
+                    if (isset($_GET["plant"]))
+                    {
                         $plant = $_GET["plant"];
-                    } else {
+                    }
+                    else
+                    {
                         $plant = 3;
                     }
-                    if (isset($_GET["PlantBewerken"])) {
-                        if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                    if (isset($_GET["PlantBewerken"]))
+                    {
+                        if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                        {
                             $Hoogtemax = $_GET["Hoogtemax"];
                             $Hoogtemin = $_GET["Hoogtemin"];
                             $Bloeitijd = $_GET["Bloeitijd"];
@@ -64,7 +70,8 @@
                     $naam = $plantRegel['Naam'];
                     $hoogte = $plantRegel['Hoogte_min'] . "/" . $plantRegel['Hoogte_max'];
                     ;
-                    if ($plantRegel['Hoogte_min'] == $plantRegel['Hoogte_max']) {
+                    if ($plantRegel['Hoogte_min'] == $plantRegel['Hoogte_max'])
+                    {
                         $hoogte = $plantRegel['Hoogte_min'];
                     }
                     $bloeitijd = $plantRegel['Bloeitijd'];
@@ -113,37 +120,42 @@
                     ?>
                 </section>
 
-                    <?php
-                    if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
-                        echo "<section id='PlantUpdateMenu'>";
+                <?php
+                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                {
+                    echo "<section id='PlantUpdateMenu'>";
 
-                        if (isset($_GET["plant"])) {
-                            $plant = $_GET["plant"];
-                        } else {
-                            $plant = 3;
-                        }
-                        $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = $plant)");
-                        $row = $sqlPrijs->fetch();
-                        $prijsID = $row["PrijsID"];
-                        $potmaat = $row["Potmaat"];
-                        $prijsKwekerij = $row["PrijsKwekerij"];
-                        $prijsVBA = $row["PrijsVBA"];
-                        $perCC = $row["ProductenCC"];
-                        $perLaag = $row["ProductenLaag"];
-                        $perTray = $row["ProductenTray"];
-                        $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PlantID = $plant");
-                        $plantRegel = $sqlPlant->fetch();
-                        $naam = $plantRegel['Naam'];
-                        $hoogte = $plantRegel['Hoogte_min'] . "/" . $plantRegel['Hoogte_max'];
-                        $hoogtemin = $plantRegel['Hoogte_min'];
-                        $hoogtemax = $plantRegel['Hoogte_max'];
-                        if ($plantRegel['Hoogte_min'] == $plantRegel['Hoogte_max']) {
-                            $hoogte = $plantRegel['Hoogte_min'];
-                        }
-                        $bloeitijd = $plantRegel['Bloeitijd'];
-                        $bloeiwijze = $plantRegel['Bloeiwijze'];
+                    if (isset($_GET["plant"]))
+                    {
+                        $plant = $_GET["plant"];
+                    }
+                    else
+                    {
+                        $plant = 3;
+                    }
+                    $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = $plant)");
+                    $row = $sqlPrijs->fetch();
+                    $prijsID = $row["PrijsID"];
+                    $potmaat = $row["Potmaat"];
+                    $prijsKwekerij = $row["PrijsKwekerij"];
+                    $prijsVBA = $row["PrijsVBA"];
+                    $perCC = $row["ProductenCC"];
+                    $perLaag = $row["ProductenLaag"];
+                    $perTray = $row["ProductenTray"];
+                    $sqlPlant = getSQLArray("SELECT * FROM plant WHERE PlantID = $plant");
+                    $plantRegel = $sqlPlant->fetch();
+                    $naam = $plantRegel['Naam'];
+                    $hoogte = $plantRegel['Hoogte_min'] . "/" . $plantRegel['Hoogte_max'];
+                    $hoogtemin = $plantRegel['Hoogte_min'];
+                    $hoogtemax = $plantRegel['Hoogte_max'];
+                    if ($plantRegel['Hoogte_min'] == $plantRegel['Hoogte_max'])
+                    {
+                        $hoogte = $plantRegel['Hoogte_min'];
+                    }
+                    $bloeitijd = $plantRegel['Bloeitijd'];
+                    $bloeiwijze = $plantRegel['Bloeiwijze'];
 
-                        echo "<div class='item'>
+                    echo "<div class='item'>
                             <form action='Plant.php' method='get'>
                             <table>
                                 <tr>
@@ -165,27 +177,28 @@
                             <input type='submit' name='PlantBewerken' value='Opslaan'>
                             </form>
                         </div>";
-                    }
-                    echo "</section>";
-                    ?>
+                }
+                echo "</section>";
+                ?>
 
                 <section id="maincontent">
                     <div id="plantnaamfoto"><center><?php echo $naam; ?></center></div>
                     <section id="PhotoFrame">
-                <?php
-                $EersteFoto = getSQLArray("SELECT * FROM plantfoto WHERE PlantID = $plant AND TypeFoto = 1");
-                $EersteFotoRegel = $EersteFoto->fetch();
-                $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
-                print("<img id='ImageFrame' src='$EersteFotoUrl'>");
-                ?>
+                        <?php
+                        $EersteFoto = getSQLArray("SELECT * FROM plantfoto WHERE PlantID = $plant AND TypeFoto = 1");
+                        $EersteFotoRegel = $EersteFoto->fetch();
+                        $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
+                        print("<img id='ImageFrame' src='$EersteFotoUrl'>");
+                        ?>
                         <div id="Positioner">
-                <?php
-                $Fotoos = getSQLArray("SELECT * FROM plantfoto  WHERE PlantID = $plant");
-                while ($row = $Fotoos->fetch()) {
-                    $url = $row["FotoUrl"];
-                    print("<img id='fotoos' onclick='ChangeImage()' class='UnderImage' src='$url'> " . " ");
-                }
-                ?>
+                            <?php
+                            $Fotoos = getSQLArray("SELECT * FROM plantfoto  WHERE PlantID = $plant");
+                            while ($row = $Fotoos->fetch())
+                            {
+                                $url = $row["FotoUrl"];
+                                print("<img id='fotoos' onclick='ChangeImage()' class='UnderImage' src='$url'> " . " ");
+                            }
+                            ?>
                             <br>
                             <img class="icon-image-add" style="width: 50px">
 
@@ -194,8 +207,8 @@
                 </section>
             </section>
         </section>
-                            <?php
-                            include '../Php/footer.php';
-                            ?>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>

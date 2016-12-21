@@ -219,14 +219,6 @@ function createManager(uploading, element)
 
     var backgroundColor = createElement("div");
     backgroundColor.id = "BackgroundColor";
-    backgroundColor.style.backgroundColor = "Gray";
-    backgroundColor.style.opacity = "0.7";
-    backgroundColor.style.width = "100vw";
-    backgroundColor.style.height = "100vh";
-    backgroundColor.style.zIndex = "1997";
-    backgroundColor.style.top = "0";
-    backgroundColor.style.left = "0";
-    backgroundColor.style.position = "fixed";
     document.body.appendChild(backgroundColor);
 
     var managerDiv = createElement("div");
@@ -270,19 +262,11 @@ function createManager(uploading, element)
     topInfo.appendChild(rightArrow);
 
     var positionSetter = createElement("div");
-    positionSetter.style.position = "absolute";
-    positionSetter.style.left = "50%";
-    positionSetter.style.top = "10px";
-    positionSetter.style.width = "70%";
+    positionSetter.id = "positionSetter";
     topInfo.appendChild(positionSetter);
 
     var pathSelectedBar = createElement("div");
-    pathSelectedBar.style.position = "relative";
-    pathSelectedBar.style.backgroundColor = "beige";
-    pathSelectedBar.style.minWidth = "200px";
-    pathSelectedBar.style.height = "30px";
-    pathSelectedBar.style.boxShadow = "0px 0px 2px 0px black";
-    pathSelectedBar.style.left = "-50%";
+    pathSelectedBar.id = "pathSelectedBar";
     positionSetter.appendChild(pathSelectedBar);
 
 
@@ -295,10 +279,7 @@ function createManager(uploading, element)
     managerDiv.appendChild(bottomInfo);
 
     var cancelButton = createElement("button");
-    cancelButton.style.position = "absolute";
-    cancelButton.style.marginLeft = "5px";
-    cancelButton.style.border = "none";
-    cancelButton.style.bottom = "5px";
+    cancelButton.id = "cancelButton";
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function ()
     {
@@ -343,12 +324,6 @@ function createManager(uploading, element)
     {
         var selectButton = createElement("button");
         selectButton.id = "fileManagerSelectButton";
-        selectButton.style.position = "absolute";
-        selectButton.style.position = "absolute";
-        selectButton.style.marginRight = "5px";
-        selectButton.style.border = "none";
-        selectButton.style.bottom = "5px";
-        selectButton.style.right = "5px";
         selectButton.innerHTML = "Select";
 
         if (arguments.length === 1)
@@ -381,6 +356,18 @@ function createManager(uploading, element)
     }
 
     createFileIcons("../Images");
+    
+    var sideMenu = createElement("div");
+    sideMenu.id = "sideMenu";
+    document.body.appendChild(sideMenu);
+    
+    var PushButton = createElement("div");
+    PushButton.id = "PushButton";
+    document.body.appendChild(PushButton);
+    
+    var PullButton = createElement("div");
+    PullButton.id = "PullButton";
+    document.body.appendChild(PullButton);
 }
 
 
