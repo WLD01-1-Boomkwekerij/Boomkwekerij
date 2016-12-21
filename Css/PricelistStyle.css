@@ -56,12 +56,6 @@ input
 }
 
 
-@media print {
-    .printbutton{
-     dislay:none;   
-    } }
-    
-
 
 #printbutton{
     float: right;
@@ -83,3 +77,34 @@ h1{
     margin-left:-1.1%;
     
 }
+#printheader {
+    
+    background-repeat: no-repeat;
+    padding: 0px;
+    width: 101%;
+    display: none; 
+    padding-right:0px;
+    padding-bottom: 10px;
+}
+@media print {
+    #printbutton{
+     dislay:none;   
+    }
+     input {
+        display: none;
+    }
+    #printheader{
+       display: block;
+       margin-right:0px;
+    }
+    .pricelist
+    {
+   width: 100%;
+    }
+   body{
+        background-image: none;
+    }
+    h1{
+    margin-bottom: 1px;
+}
+    }

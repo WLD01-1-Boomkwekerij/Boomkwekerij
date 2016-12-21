@@ -145,6 +145,7 @@
                     ?>
 
                     <div id="printable"> 
+                        <img src="../images/banner.jpg" id="printheader" alt="header">
                         <h1>Prijslijst</h1>
                         <table class="pricelist">
                             <colgroup>
