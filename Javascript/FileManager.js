@@ -1,6 +1,5 @@
- var currentPathHistory = [];
-var currentPathNumber = 0;
-var futurePathNumber = 0;
+var PathHistory = [];
+var currentPathIndex = 0;
 var currentSelectedPath = "";
 var isUploading;
 var plantAdded = false;
@@ -28,28 +27,19 @@ function getElementById(id)
 }
 
 /**
+ * Selects a clicked item and deselects the previous
+ */
+function setItemSelected()
+{
+    //TODO
+}
+
+/**
  *Checks the arrow color, if there is an history / future, change the color
  */
 function checkArrowColor()
 {
-    var left = getElementById("LeftArrow");
-    if (currentPathNumber > 0)
-    {
-        left.style.color = "#222222";
-    }
-    else
-    {
-        left.style.color = "#777777";
-    }
-    var right = getElementById("RightArrow");
-    if (futurePathNumber > 0)
-    {
-        right.style.color = "#222222";
-    }
-    else
-    {
-        right.style.color = "#777777";
-    }
+    //TODO
 }
 
 /**
@@ -65,7 +55,7 @@ function createFolderIcon(url, name)
     folder.addEventListener("dblclick", function ()
     {
         openFolder(url + "/" + name);
-        currentPathHistory[currentPathHistory.length] = url + "/" + name;
+        PathHistory[PathHistory.length] = url + "/" + name;
         currentPathNumber++;
         checkArrowColor();
 
@@ -269,7 +259,6 @@ function createManager(uploading, element)
     pathSelectedBar.id = "pathSelectedBar";
     positionSetter.appendChild(pathSelectedBar);
 
-
     var filesDiv = createElement("div");
     filesDiv.id = "Files";
     managerDiv.appendChild(filesDiv);
@@ -294,8 +283,6 @@ function createManager(uploading, element)
 
     if (isUploading)
     {
-
-
         var uploadForm = createElement("form");
         uploadForm.method = "post";
         uploadForm.enctype = "multipart/form-data";
@@ -318,7 +305,6 @@ function createManager(uploading, element)
         uploadForm.appendChild(fileSend);
 
         bottomInfo.appendChild(uploadForm);
-
     }
     else
     {
@@ -363,10 +349,12 @@ function createManager(uploading, element)
     
     var PushButton = createElement("div");
     PushButton.id = "PushButton";
+    PushButton.innerHTML = ">";
     document.body.appendChild(PushButton);
     
     var PullButton = createElement("div");
     PullButton.id = "PullButton";
+    PullButton.innerHTML = "<";
     document.body.appendChild(PullButton);
 }
 
