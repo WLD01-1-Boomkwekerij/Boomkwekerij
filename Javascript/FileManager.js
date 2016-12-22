@@ -249,6 +249,7 @@ function createManager(uploading, element)
     leftArrow.id = "LeftArrow";
     leftArrow.onclick = function ()
     {
+        //Go back in history
         if (currentPathIndex > 0)
         {
             currentPathIndex--;
@@ -265,6 +266,7 @@ function createManager(uploading, element)
     rightArrow.innerHTML = "&#8594;";
     rightArrow.onclick = function ()
     {
+        //Go to the future
         if (currentPathIndex > 0)
         {
             currentPathIndex++;
@@ -296,6 +298,7 @@ function createManager(uploading, element)
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function ()
     {
+        console.log(arguments.length);
         if (arguments.length > 1)
         {
             element.parentNode.removeChild(element);
