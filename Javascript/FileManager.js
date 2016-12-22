@@ -1,5 +1,6 @@
 var PathHistory = [];
-    PathHistory[0] = "../Images/Afbeeldingen";
+    PathHistory[0] = "../Images/Afbeeldingen/";
+var managerImageList = [];
 var currentPathIndex = 0;
 var currentSelectedPath = "";
 var isUploading;
@@ -45,19 +46,24 @@ function checkArrowColor()
 
 /**
  * Creates a folder icon and makes it clickable
- * @param {type} url
- * @param {type} name
+ * @param {string} url The url of the folder
+ * @param {string} name The name of the folder
  */
 function createFolderIcon(url, name)
 {
     var fileManager = getElementById("Files");
+    
+    //Create a folder Div
     var folder = createElement("div");
     folder.className = "fileManagerFolder";
     folder.addEventListener("dblclick", function ()
     {
+        //On Double click: Open the folder
         openFolder(url + "/" + name);
+        //--Change to always current--
         PathHistory[PathHistory.length] = url + "/" + name;
         currentPathIndex++;
+        //Arrow color (Maybe change to classes)
         checkArrowColor();
 
         if (isUploading)
@@ -68,10 +74,12 @@ function createFolderIcon(url, name)
     });
     fileManager.appendChild(folder);
 
+    //Adds the icon for the folder
     var folderIcon = createElement("img");
-    folderIcon.src = "../Images/folder.png";
+    folderIcon.src = "../Images/SiteImages/folder.png";
     folder.appendChild(folderIcon);
 
+    //Adds the name for the folder
     var folderName = createElement("p");
     folderName.innerHTML = name;
     folder.appendChild(folderName);
@@ -79,8 +87,8 @@ function createFolderIcon(url, name)
 
 /**
  * Creates a file icon and makes it selectable / unselectable
- * @param {type} url
- * @param {type} name
+ * @param {string} url
+ * @param {string} name
  */
 function createFileIcon(url, name)
 {
@@ -122,33 +130,19 @@ function createEmtpyIcon()
 
 /**
  * Creates all the icons
- * @param {type} directory
+ * @param {string} directory
  */
 function createFileIcons(directory)
 {
-    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?fileDirectory=" + directory, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            console.log();
             var files = xmlhttp.responseText;
-
+            
             var fileArray = files.split("*");
-
-            var arrayInt = 0;
-            var filesWidth = parseInt(getElementById("Files").style.width);
-
-            if (filesWidth > 150 && filesWidth < 600)
-            {
-                arrayInt = fileArray.length % 3;
-            }
-            else
-            {
-                arrayInt = fileArray.length % 4;
-            }
 
             for (var i = 0; i < fileArray.length - 1; i++)
             {
@@ -160,11 +154,6 @@ function createFileIcons(directory)
                 {
                     createFolderIcon(directory, fileArray[i]);
                 }
-            }
-
-            for (var j = 0; j < arrayInt; j++)
-            {
-                createEmtpyIcon();
             }
         }
     };
@@ -188,11 +177,43 @@ function destroyManager()
  */
 function openFolder(directory)
 {
+    //Goes through all the current displayed files and deletes them.
     while (getElementById("Files").firstChild)
     {
         getElementById("Files").removeChild(getElementById("Files").firstChild);
     }
+    //Create the icons from the new directory
     createFileIcons(directory);
+}
+
+function updateImageList()
+{
+          //TODO  
+}
+
+/**
+ * Adds an Image to the list of selected images
+ * @param {string} selectedImage
+ */
+function addImageToList(selectedImage)
+{
+    managerImageList[managerImageList.length] = selectedImage;
+    updateImageList();
+}
+
+/**
+ * Removes an Image from the list of selected images
+ * @param {string} selectedImage
+ */
+function removeImageToList(selectedImage)
+{
+    for(var i = 1; i < managerImageList.length; i++)
+    {
+        if(managerImageList[i] === selectedImage)
+        {
+            managerImageList = managerImageList.splice(managerImageList[i], 1);
+        }
+    }
 }
 
 /**
@@ -350,11 +371,19 @@ function createManager(uploading, element)
     var PushButton = createElement("div");
     PushButton.id = "PushButton";
     PushButton.innerHTML = ">";
+    PushButton.addEventListener("click", function()
+    {
+        addImageToList(currentSelectedPath);
+    });
     document.body.appendChild(PushButton);
     
     var PullButton = createElement("div");
     PullButton.id = "PullButton";
     PullButton.innerHTML = "<";
+    PullButton.addEventListener("click", function()
+    {
+        removeImageFromList(currentSelectedPath);
+    });
     document.body.appendChild(PullButton);
 }
 
