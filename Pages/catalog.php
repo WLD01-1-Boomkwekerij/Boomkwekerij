@@ -45,7 +45,7 @@
                     <ul id="catalogus">
                         <?php
                         //Creates the sidevar category options
-                        $sqlCategory = getSQLArray("SELECT * FROM category");
+                        $sqlCategory = BeveiligGetSQL("SELECT * FROM category",array());
 
                         while ($row = $sqlCategory->fetch()) {
                             $categoryNaam = $row["CategoryNaam"];
@@ -69,12 +69,12 @@
                     } else {
                         $category = $_GET['category'];
                     }
-                    $sqlCategory = getSQLArray("SELECT * FROM category WHERE CategoryID = $category");
+                    $sqlCategory = BeveiligGetSQL("SELECT * FROM category WHERE CategoryID = ?",array($category));
                     $categoryRegel = $sqlCategory->fetch();
                     $categoryNaam = $categoryRegel["CategoryNaam"];
                     echo "<h1>$categoryNaam</h1>";
 
-                    $sqlPrijs = getSQLArray("SELECT * FROM prijs WHERE CategoryID = $category");
+                    $sqlPrijs = BeveiligGetSQL("SELECT * FROM prijs WHERE CategoryID = ?",array($category));
 
                     while ($row = $sqlPrijs->fetch()) {
                         $prijsID = $row["PrijsID"];
@@ -85,12 +85,12 @@
                         $perCC = $row["ProductenCC"];
                         $perLaag = $row["ProductenLaag"];
                         $perTray = $row["ProductenTray"];
-                        $sqlPlant = getSQLArray(
+                        $sqlPlant = BeveiligGetSQL(
                                 "SELECT * 
                                  FROM plant 
                                  LEFT JOIN plantfoto pf
                                  ON plant.PlantID=pf.PlantID
-                                 WHERE plant.PrijsID = $prijsID AND pf.TypeFoto = 1"
+                                 WHERE plant.PrijsID = ? AND pf.TypeFoto = 1",array($prijsID)
                         );
 
                         while ($plant = $sqlPlant->fetch()) {

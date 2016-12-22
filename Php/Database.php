@@ -11,7 +11,9 @@ function connectToDatabase() {
 
 function getSQL($sqlCode, $rowName) {
 
+
     $connection = connectToDatabase();
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $statement = $connection->prepare($sqlCode);
     $statement->execute();
 
@@ -22,20 +24,58 @@ function getSQL($sqlCode, $rowName) {
 }
 
 function getMaxSQL($table, $maxRow) {
-    $connection = connectToDatabase();
-    $statement = $connection->prepare("SELECT MAX($maxRow) FROM $table");
-    $statement->execute();
-    return $statement->fetchColumn();    
+    try {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement = $connection->prepare("SELECT MAX($maxRow) FROM $table");
+        $statement->execute();
+        return $statement->fetchColumn();
+    } catch (PDOException $e) {
+        echo $sqlCode . "<br>" . $e->getMessage();
+        echo '<br><br>';
+    }
 }
 
 function getSQLArray($sqlCode) {
-
-    $connection = connectToDatabase();
-    $statement = $connection->prepare($sqlCode);
-    $statement->execute();
-
+    echo $sqlCode;
+    try {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement = $connection->prepare($sqlCode);
+        $statement->execute();
+    } catch (PDOException $e) {
+        echo $sqlCode . "<br>" . $e->getMessage();
+        echo '<br><br>';
+    }
     return $statement;
 }
+
+function BeveiligGetSQL($sqlCode,$variables){
+    try {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement = $connection->prepare($sqlCode);
+        $statement->execute($variables);
+    } catch (PDOException $e) {
+        echo $sqlCode . "<br>" . $e->getMessage();
+        echo '<br><br>';
+    }
+    return $statement;    
+}
+
+function BeveiligDoSQL($sqlCode,$variables){
+    try {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement = $connection->prepare($sqlCode);
+        $statement->execute($variables);
+    } catch (PDOException $e) {
+        echo $sqlCode . "<br>" . $e->getMessage();
+        echo '<br><br>';
+    }    
+}
+
+//http://localhost:8080/pages/catalog.php?category=1 OR 1=1#
 
 function doSQL($sqlCode) {
     try {
