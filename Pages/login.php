@@ -5,7 +5,7 @@
         <title>Boomkwekerij - Catalogus</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
-            </head>
+    </head>
     <body>
         <section id="wrapper">
             <section id="top">
@@ -20,6 +20,25 @@
                             <div id="logintitel">
                                 <p>Inloggen</p>
                             </div>
+                            <?php
+                            include_once '../Php/Database.php';
+                            date_default_timezone_set('Europe/Amsterdam');
+                            
+                            $query = 'SELECT `Attempts` FROM `LoginAttempts` WHERE IP = ?';
+                            $variable = array($_SERVER['REMOTE_ADDR']);
+                            $pogingen = BeveiligdGetSQL($query, 'Attempts', $variable);
+
+                            $query = 'SELECT `LastLogin` FROM `LoginAttempts` WHERE ip = ?';
+                            $timestamp = BeveiligdGetSQL($query, 'LastLogin', $variable);
+
+                            $tijd = time();
+                            $tijdverschil = $tijd - $timestamp;
+
+                            if ($tijdverschil >= 2 && isset($timestamp) && $pogingen > 7) {
+                                $wachttijd = 300 - $tijdverschil;
+                                print('U kunt over ' . $wachttijd . ' seconden inloggen');
+                            }
+                            ?>
                             <form id="loggiforum" method="post" action="../Php/verify.php">
                                 <table border="1">
                                     <tr>

@@ -37,7 +37,7 @@ function getMaxSQL($table, $maxRow) {
 }
 
 function getSQLArray($sqlCode) {
-    echo $sqlCode;
+
     try {
         $connection = connectToDatabase();
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
