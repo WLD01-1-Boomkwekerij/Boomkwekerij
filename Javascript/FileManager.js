@@ -1,5 +1,5 @@
 var PathHistory = [];
-    PathHistory[0] = "../Images/Afbeeldingen/";
+PathHistory[0] = "../Images/Afbeeldingen/";
 var managerImageList = [];
 var currentPathIndex = 0;
 var currentSelectedPath = "";
@@ -52,7 +52,7 @@ function checkArrowColor()
 function createFolderIcon(url, name)
 {
     var fileManager = getElementById("Files");
-    
+
     //Create a folder Div
     var folder = createElement("div");
     folder.className = "fileManagerFolder";
@@ -141,7 +141,7 @@ function createFileIcons(directory)
         if (this.readyState === 4 && this.status === 200)
         {
             var files = xmlhttp.responseText;
-            
+
             var fileArray = files.split("*");
 
             for (var i = 0; i < fileArray.length - 1; i++)
@@ -169,6 +169,9 @@ function destroyManager()
     document.body.style.overflow = "scroll";
     getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
+    getElementById("PushButton").parentNode.removeChild(getElementById("PushButton"));
+    getElementById("PullButton").parentNode.removeChild(getElementById("PullButton"));
+    getElementById("sideMenu").parentNode.removeChild(getElementById("sideMenu"));
 }
 
 /**
@@ -188,7 +191,7 @@ function openFolder(directory)
 
 function updateImageList()
 {
-          //TODO  
+    //TODO  
 }
 
 /**
@@ -207,9 +210,9 @@ function addImageToList(selectedImage)
  */
 function removeImageToList(selectedImage)
 {
-    for(var i = 1; i < managerImageList.length; i++)
+    for (var i = 1; i < managerImageList.length; i++)
     {
-        if(managerImageList[i] === selectedImage)
+        if (managerImageList[i] === selectedImage)
         {
             managerImageList = managerImageList.splice(managerImageList[i], 1);
         }
@@ -222,7 +225,7 @@ function removeImageToList(selectedImage)
  * @param {element} element
  */
 function createManager(uploading, element)
-{    
+{
     isUploading = uploading;
     currentSelectedPath = "";
 
@@ -362,25 +365,25 @@ function createManager(uploading, element)
         bottomInfo.appendChild(selectButton);
     }
 
-    createFileIcons("../Images");
-    
+    createFileIcons(PathHistory[0]);
+
     var sideMenu = createElement("div");
     sideMenu.id = "sideMenu";
     document.body.appendChild(sideMenu);
-    
+
     var PushButton = createElement("div");
     PushButton.id = "PushButton";
     PushButton.innerHTML = ">";
-    PushButton.addEventListener("click", function()
+    PushButton.addEventListener("click", function ()
     {
         addImageToList(currentSelectedPath);
     });
     document.body.appendChild(PushButton);
-    
+
     var PullButton = createElement("div");
     PullButton.id = "PullButton";
     PullButton.innerHTML = "<";
-    PullButton.addEventListener("click", function()
+    PullButton.addEventListener("click", function ()
     {
         removeImageFromList(currentSelectedPath);
     });
