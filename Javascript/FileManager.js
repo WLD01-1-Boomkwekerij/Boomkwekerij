@@ -1,4 +1,5 @@
 var PathHistory = [];
+    PathHistory[0] = "../Images/Afbeeldingen";
 var currentPathIndex = 0;
 var currentSelectedPath = "";
 var isUploading;
@@ -203,7 +204,6 @@ function createManager(uploading, element)
 {    
     isUploading = uploading;
     currentSelectedPath = "";
-    PathHistory[0] = "../Images/";
 
     document.body.style.overflow = "hidden";
 
