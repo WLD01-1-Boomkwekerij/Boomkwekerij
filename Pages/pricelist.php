@@ -55,22 +55,25 @@
                             $naam = $_POST['naam'];
 
                             if (isset($_POST['OpslaanRegel'])) {
-                                doSQL("UPDATE prijs SET "
-                                        . "PrijsKwekerij='$prijsKwekerij',"
-                                        . " PrijsVBA='$prijsVBA', "
-                                        . "ProductenCC='$percc', "
-                                        . "ProductenLaag='$perlaag',"
-                                        . " ProductenTray='$pertray', "
-                                        . "Naam='$naam',"
-                                        . " ExtraBeschrijving='$beschrijving',"
-                                        . " Potmaat='$potmaat'"
-                                        . " WHERE PrijsID=$id");
+                                BeveiligDoSQL("UPDATE prijs SET "
+                                        . "PrijsKwekerij=?,"
+                                        . " PrijsVBA=?, "
+                                        . "ProductenCC=?, "
+                                        . "ProductenLaag=?,"
+                                        . " ProductenTray=?, "
+                                        . "Naam=?,"
+                                        . " ExtraBeschrijving=?,"
+                                        . " Potmaat=?"
+                                        . " WHERE PrijsID=?",
+                                        array($prijsKwekerij,$prijsVBA,$percc,$perlaag,$pertray,$naam,$beschrijving,$potmaat,$id)
+                                        );                                
+                                
                                 if ($pertray == 0) {
-                                    doSQL("UPDATE prijs SET ProductenTray = NULL WHERE PrijsID=$id");
+                                    BeveiligDoSQL("UPDATE prijs SET ProductenTray = NULL WHERE PrijsID=?",array($id));
                                 }
                             } else {
                                 if ($_POST['pertray'] != 0) {
-                                    doSQL("INSERT INTO prijs (
+                                    BeveiligDoSQL("INSERT INTO prijs (
                                      `PrijsKwekerij`,
                                      `PrijsVBA`,
                                      `ProductenCC`,
@@ -81,17 +84,20 @@
                                      `Potmaat`,
                                      `CategoryID`) 
                                      VALUES (
-                                     '$prijsKwekerij',"
-                                            . " '$prijsVBA', "
-                                            . "'$percc', "
-                                            . "'$perlaag',"
-                                            . " '$pertray',"
-                                            . " '$naam',"
-                                            . " '$beschrijving',"
-                                            . " '$potmaat',"
-                                            . " '$id')");
+                                         ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?)",
+                                            array($prijsKwekerij,$prijsVBA,$percc,$perlaag,$pertray,$naam,$beschrijving,$potmaat,$id)
+                                            );
+                                    
                                 } else {
-                                    doSQL("INSERT INTO prijs (
+                                    BeveiligDoSQL("INSERT INTO prijs (
                                      `PrijsKwekerij`,
                                      `PrijsVBA`,
                                      `ProductenCC`,
@@ -101,45 +107,48 @@
                                      `Potmaat`,
                                      `CategoryID`) 
                                      VALUES (
-                                     '$prijsKwekerij',"
-                                            . " '$prijsVBA', "
-                                            . "'$percc', "
-                                            . "'$perlaag',"
-                                            . " '$naam',"
-                                            . " '$beschrijving',"
-                                            . " '$potmaat',"
-                                            . " '$id')");
+                                     ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?,"
+                                            . " ?)",
+                                            array($prijsKwekerij,$prijsVBA,$percc,$perlaag,$naam,$beschrijving,$potmaat,$id)
+                                            );
                                 }
                             }
                         }
                         if (isset($_POST['verwijderRegel'])) {
                             $id = $_POST['id'];
 
-                            doSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID='$id')");
-                            doSQL("DELETE FROM plant WHERE PrijsID='$id';");
-                            doSQL("DELETE FROM prijs WHERE PrijsID='$id';");
+                            BeveiligDoSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID=?)",array($id));
+                            BeveiligDoSQL("DELETE FROM plant WHERE PrijsID=?)",array($id));
+                            BeveiligDoSQL("DELETE FROM prijs WHERE PrijsID=?)",array($id));
                         }
 
 
                         if (isset($_POST['category'])) {
                             $naam = $_POST['naam'];
 
-                            doSQL("INSERT INTO category (`CategoryNaam`) VALUES ('$naam')");
+                            BeveiligDoSQL("INSERT INTO category (`CategoryNaam`) VALUES (?)",array($naam));
                         }
 
                         if (isset($_POST['OpslaanCat'])) {
                             $id = $_POST['id'];
                             $naam = $_POST['naam'];
-                            doSQL("UPDATE category SET CategoryNaam='$naam' WHERE CategoryID=$id");
+                            BeveiligDoSQL("UPDATE category SET CategoryNaam=? WHERE CategoryID=?",array($naam,$id));
                         }
 
                         if (isset($_POST['verwijderCat'])) {
                             $id = $_POST['id'];
 
-                            doSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID='$id'))");
-                            doSQL("DELETE FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID='$id');");
-                            doSQL("DELETE FROM prijs WHERE CategoryID='$id';");
-                            doSQL("DELETE FROM category WHERE CategoryID='$id';");
+                            BeveiligDoSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID=?))",array($id));
+                            BeveiligDoSQL("DELETE FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID=?);",array($id));
+                            BeveiligDoSQL("DELETE FROM prijs WHERE CategoryID=?;",array($id));
+                            BeveiligDoSQL("DELETE FROM category WHERE CategoryID=?;",array($id));
                         }
                     }
                     ?>
@@ -185,7 +194,7 @@
                                 <td>tray</td>
                             </tr>
                             <?php
-                            $result = getSQLArray("SELECT * FROM Category");
+                            $result = BeveiligGetSQLArray("SELECT * FROM Category",array());
                             while ($row = $result->fetch()) {
                                 $catID = $row['CategoryID'];
                                 $catNaam = $row["CategoryNaam"];
@@ -220,7 +229,7 @@
                                     . "</tr>";
                                 }
 
-                                $result2 = getSQLArray("SELECT * FROM prijs WHERE CategoryID=" . $catID);
+                                $result2 = BeveiligGetSQLArray("SELECT * FROM prijs WHERE CategoryID=?",array($catID));
 
                                 while ($row2 = $result2->fetch()) {
 
@@ -259,7 +268,7 @@
                                     $productenLaag = $row2['ProductenLaag'];
                                     $productenTray = $row2['ProductenTray'];
 
-                                    $result3 = getSQLArray("SELECT Hoogte_min, Hoogte_max FROM plant WHERE PrijsID=" . $row2['PrijsID']);
+                                    $result3 = BeveiligGetSQLArray("SELECT Hoogte_min, Hoogte_max FROM plant WHERE PrijsID=?",array($row2['PrijsID']));
                                     $plantHoogte = $result3->fetch();
                                     $Hoogte_Min = $plantHoogte['Hoogte_min'];
                                     $Hoogte_Max = $plantHoogte['Hoogte_max'];
@@ -381,7 +390,7 @@
                             ?>
                         </table>
                     </div>
-                </section>
+                </section><!DOCTYPE html>
             </section>
         </section>
         <?php
