@@ -1,8 +1,21 @@
+
+#BackgroundColor
+{
+    background-color : Gray;
+    opacity : 0.9;
+    width : 100vw;
+    height : 100vh;
+    z-index : 1997;
+    top : 0;
+    left : 0;
+    position : fixed;
+}
+
 #FileManager
 {
     position: fixed;
     top: 2vh;
-    left: 20%;
+    left: 50px;
     background-color: bisque;
     min-width: 400px;
     width: 60vw;
@@ -11,12 +24,12 @@
     z-index: 2001;
     opacity: 1;
 
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9f7c2+37,d3cb72+100 */
-    background: #f9f7c2; /* Old browsers */
-    background: -moz-linear-gradient(-45deg,  #f9f7c2 37%, #d3cb72 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg,  #f9f7c2 37%,#d3cb72 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg,  #f9f7c2 37%,#d3cb72 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f7c2', endColorstr='#d3cb72',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
 }
 
@@ -37,11 +50,24 @@
     float: left;
 }
 
+.fileManagerFolder img
+{
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    max-height: 90%;
+    display: block;
+    left: 50%;
+    margin-left: -75px;
+}
+
 .fileManagerFolder p
 {
+    height: 10%;
     position: absolute;
     bottom: 0px;
     width: 100%;
+    margin-bottom: 0px;
 }
 
 .fileManagerFile
@@ -56,12 +82,12 @@
 .fileManagerFile img
 {
     position: absolute;
-    top: 0px;
+    bottom: 15px;
     width: 100%;
     max-height: 90%;
     display: block;
     left: 50%;
-    margin-left: -75px
+    margin-left: -75px;
 }
 
 .fileManagerFile p
@@ -89,6 +115,14 @@
     width: 100%;
     box-shadow: 0px -2px 4px 0px black;
 
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d3d3d3+0,c6c6c6+100 */
+    background: #d3d3d3; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #d3d3d3 0%, #c6c6c6 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  #d3d3d3 0%,#c6c6c6 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  #d3d3d3 0%,#c6c6c6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d3d3d3', endColorstr='#c6c6c6',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
 }
 
 #FileManager #topInfo
@@ -99,6 +133,15 @@
     width: 100%;
     box-shadow: 0px 2px 4px 0px black;
     display: inline-block;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e0e0e0+0,c6c6c6+100 */
+    background: #e0e0e0; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #e0e0e0 0%, #c6c6c6 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  #e0e0e0 0%,#c6c6c6 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  #e0e0e0 0%,#c6c6c6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0e0e0', endColorstr='#c6c6c6',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
 }
 
 .ArrowHistory
@@ -113,4 +156,109 @@
 .ArrowHistory:hover
 {
     color: #333377;
+}
+
+#positionSetter
+{
+    position : absolute;
+    left : 50%;
+    top : 10px;
+    width : 70%;
+}
+
+#pathSelectedBar
+{
+    position : relative;
+    background-color : beige;
+    min-width : 200px;
+    height : 50px;
+    box-shadow : 0px 0px 2px 0px black;
+    left : -50%;
+}
+
+#cancelButton
+{
+    position : absolute;
+    margin-left : 5px;
+    border : none;
+    bottom : 5px;
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #777777;
+    cursor: pointer;
+}
+
+#fileManagerSelectButton
+{
+    position : absolute;
+    margin-right : 5px;
+    border : none;
+    bottom : 5px;
+    right : 5px;
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #777777;
+    cursor: pointer;
+}
+
+#sideMenu
+{
+    position: fixed;
+    top: 20%;
+    right: 150px;
+    background-color: bisque;
+    min-width: 100px;
+    width: 10vw;
+    height: 60vh;
+    box-shadow: 0px 0px 12px 4px black;
+    z-index: 2001;
+    opacity: 1;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+#PushButton
+{
+    position: fixed;
+    top: 30vh;
+    right: 28vw;
+    background-color: bisque;
+    min-width: 50px;
+    height: 10vh;
+    box-shadow: 0px 0px 12px 4px black;
+    z-index: 2001;
+    opacity: 1;
+    font-size: 50px;
+    line-height: 10vh;
+    text-align: center;
+    text-shadow: 3px 3px 3px gray;
+    cursor: pointer;
+}
+
+#PullButton
+{
+    position: fixed;
+    top: 45vh;
+    right: 28vw;
+    background-color: bisque;
+    min-width: 50px;
+    height: 10vh;
+    box-shadow: 0px 0px 12px 4px black;
+    z-index: 2001;
+    opacity: 1;
+    font-size: 50px;
+    line-height: 10vh;
+    text-align: center;
+    text-shadow: 3px 3px 3px gray;
+    cursor: pointer;
 }

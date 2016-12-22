@@ -28,7 +28,7 @@
                     include '../Php/rightmenu.php'; 
                     ?>
                 </section>
-                <section id="maincontent" style="overflow-y: scroll">
+                <section id="maincontent">
                     <?php
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
                     {

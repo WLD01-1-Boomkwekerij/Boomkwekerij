@@ -1,6 +1,7 @@
- var currentPathHistory = [];
-var currentPathNumber = 0;
-var futurePathNumber = 0;
+var PathHistory = [];
+    PathHistory[0] = "../Images/Afbeeldingen/";
+var managerImageList = [];
+var currentPathIndex = 0;
 var currentSelectedPath = "";
 var isUploading;
 var plantAdded = false;
@@ -28,59 +29,57 @@ function getElementById(id)
 }
 
 /**
+ * Selects a clicked item and deselects the previous
+ */
+function setItemSelected()
+{
+    //TODO
+}
+
+/**
  *Checks the arrow color, if there is an history / future, change the color
  */
 function checkArrowColor()
 {
-    var left = getElementById("LeftArrow");
-    if (currentPathNumber > 0)
-    {
-        left.style.color = "#222222";
-    }
-    else
-    {
-        left.style.color = "#777777";
-    }
-    var right = getElementById("RightArrow");
-    if (futurePathNumber > 0)
-    {
-        right.style.color = "#222222";
-    }
-    else
-    {
-        right.style.color = "#777777";
-    }
+    //TODO
 }
 
 /**
  * Creates a folder icon and makes it clickable
- * @param {type} url
- * @param {type} name
+ * @param {string} url The url of the folder
+ * @param {string} name The name of the folder
  */
 function createFolderIcon(url, name)
 {
     var fileManager = getElementById("Files");
+    
+    //Create a folder Div
     var folder = createElement("div");
     folder.className = "fileManagerFolder";
     folder.addEventListener("dblclick", function ()
     {
+        //On Double click: Open the folder
         openFolder(url + "/" + name);
-        currentPathHistory[currentPathHistory.length] = url + "/" + name;
-        currentPathNumber++;
+        //--Change to always current--
+        PathHistory[PathHistory.length] = url + "/" + name;
+        currentPathIndex++;
+        //Arrow color (Maybe change to classes)
         checkArrowColor();
 
         if (isUploading)
         {
-            getElementById("uploadFilePathURL").value = currentPathHistory[currentPathHistory.length - 1];
+            getElementById("uploadFilePathURL").value = PathHistory[PathHistory.length - 1];
         }
 
     });
     fileManager.appendChild(folder);
 
+    //Adds the icon for the folder
     var folderIcon = createElement("img");
-    folderIcon.src = "../Images/folder.png";
+    folderIcon.src = "../Images/SiteImages/folder.png";
     folder.appendChild(folderIcon);
 
+    //Adds the name for the folder
     var folderName = createElement("p");
     folderName.innerHTML = name;
     folder.appendChild(folderName);
@@ -88,8 +87,8 @@ function createFolderIcon(url, name)
 
 /**
  * Creates a file icon and makes it selectable / unselectable
- * @param {type} url
- * @param {type} name
+ * @param {string} url
+ * @param {string} name
  */
 function createFileIcon(url, name)
 {
@@ -131,33 +130,19 @@ function createEmtpyIcon()
 
 /**
  * Creates all the icons
- * @param {type} directory
+ * @param {string} directory
  */
 function createFileIcons(directory)
 {
-    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/XMLRequest.php?fileDirectory=" + directory, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            console.log();
             var files = xmlhttp.responseText;
-
+            
             var fileArray = files.split("*");
-
-            var arrayInt = 0;
-            var filesWidth = parseInt(getElementById("Files").style.width);
-
-            if (filesWidth > 150 && filesWidth < 600)
-            {
-                arrayInt = fileArray.length % 3;
-            }
-            else
-            {
-                arrayInt = fileArray.length % 4;
-            }
 
             for (var i = 0; i < fileArray.length - 1; i++)
             {
@@ -169,11 +154,6 @@ function createFileIcons(directory)
                 {
                     createFolderIcon(directory, fileArray[i]);
                 }
-            }
-
-            for (var j = 0; j < arrayInt; j++)
-            {
-                createEmtpyIcon();
             }
         }
     };
@@ -197,11 +177,43 @@ function destroyManager()
  */
 function openFolder(directory)
 {
+    //Goes through all the current displayed files and deletes them.
     while (getElementById("Files").firstChild)
     {
         getElementById("Files").removeChild(getElementById("Files").firstChild);
     }
+    //Create the icons from the new directory
     createFileIcons(directory);
+}
+
+function updateImageList()
+{
+          //TODO  
+}
+
+/**
+ * Adds an Image to the list of selected images
+ * @param {string} selectedImage
+ */
+function addImageToList(selectedImage)
+{
+    managerImageList[managerImageList.length] = selectedImage;
+    updateImageList();
+}
+
+/**
+ * Removes an Image from the list of selected images
+ * @param {string} selectedImage
+ */
+function removeImageToList(selectedImage)
+{
+    for(var i = 1; i < managerImageList.length; i++)
+    {
+        if(managerImageList[i] === selectedImage)
+        {
+            managerImageList = managerImageList.splice(managerImageList[i], 1);
+        }
+    }
 }
 
 /**
@@ -213,20 +225,11 @@ function createManager(uploading, element)
 {    
     isUploading = uploading;
     currentSelectedPath = "";
-    currentPathHistory[0] = "../Images/";
 
     document.body.style.overflow = "hidden";
 
     var backgroundColor = createElement("div");
     backgroundColor.id = "BackgroundColor";
-    backgroundColor.style.backgroundColor = "Gray";
-    backgroundColor.style.opacity = "0.7";
-    backgroundColor.style.width = "100vw";
-    backgroundColor.style.height = "100vh";
-    backgroundColor.style.zIndex = "1997";
-    backgroundColor.style.top = "0";
-    backgroundColor.style.left = "0";
-    backgroundColor.style.position = "fixed";
     document.body.appendChild(backgroundColor);
 
     var managerDiv = createElement("div");
@@ -243,11 +246,11 @@ function createManager(uploading, element)
     leftArrow.id = "LeftArrow";
     leftArrow.onclick = function ()
     {
-        if (currentPathNumber > 0)
+        if (currentPathIndex > 0)
         {
-            currentPathNumber--;
-            openFolder(currentPathHistory[currentPathNumber]);
-            futurePathNumber++;
+            currentPathIndex--;
+            openFolder(PathHistory[PathHistory]);
+            currentPathIndex++;
             checkArrowColor();
         }
     };
@@ -259,32 +262,23 @@ function createManager(uploading, element)
     rightArrow.innerHTML = "&#8594;";
     rightArrow.onclick = function ()
     {
-        if (futurePathNumber > 0)
+        if (currentPathIndex > 0)
         {
-            currentPathNumber++;
-            openFolder(currentPathHistory[currentPathNumber]);
-            futurePathNumber--;
+            currentPathIndex++;
+            openFolder(PathHistory[currentPathIndex]);
+            currentPathIndex--;
             checkArrowColor();
         }
     };
     topInfo.appendChild(rightArrow);
 
     var positionSetter = createElement("div");
-    positionSetter.style.position = "absolute";
-    positionSetter.style.left = "50%";
-    positionSetter.style.top = "10px";
-    positionSetter.style.width = "70%";
+    positionSetter.id = "positionSetter";
     topInfo.appendChild(positionSetter);
 
     var pathSelectedBar = createElement("div");
-    pathSelectedBar.style.position = "relative";
-    pathSelectedBar.style.backgroundColor = "beige";
-    pathSelectedBar.style.minWidth = "200px";
-    pathSelectedBar.style.height = "30px";
-    pathSelectedBar.style.boxShadow = "0px 0px 2px 0px black";
-    pathSelectedBar.style.left = "-50%";
+    pathSelectedBar.id = "pathSelectedBar";
     positionSetter.appendChild(pathSelectedBar);
-
 
     var filesDiv = createElement("div");
     filesDiv.id = "Files";
@@ -295,10 +289,7 @@ function createManager(uploading, element)
     managerDiv.appendChild(bottomInfo);
 
     var cancelButton = createElement("button");
-    cancelButton.style.position = "absolute";
-    cancelButton.style.marginLeft = "5px";
-    cancelButton.style.border = "none";
-    cancelButton.style.bottom = "5px";
+    cancelButton.id = "cancelButton";
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function ()
     {
@@ -313,8 +304,6 @@ function createManager(uploading, element)
 
     if (isUploading)
     {
-
-
         var uploadForm = createElement("form");
         uploadForm.method = "post";
         uploadForm.enctype = "multipart/form-data";
@@ -323,7 +312,7 @@ function createManager(uploading, element)
         fileUrl.type = "text";
         fileUrl.name = "UploadUrl";
         fileUrl.id = "uploadFilePathURL";
-        fileUrl.value = currentPathHistory[currentPathHistory.length - 1];
+        fileUrl.value = PathHistory[PathHistory.length - 1];
         uploadForm.appendChild(fileUrl);
 
         var fileInput = createElement("input");
@@ -337,18 +326,11 @@ function createManager(uploading, element)
         uploadForm.appendChild(fileSend);
 
         bottomInfo.appendChild(uploadForm);
-
     }
     else
     {
         var selectButton = createElement("button");
         selectButton.id = "fileManagerSelectButton";
-        selectButton.style.position = "absolute";
-        selectButton.style.position = "absolute";
-        selectButton.style.marginRight = "5px";
-        selectButton.style.border = "none";
-        selectButton.style.bottom = "5px";
-        selectButton.style.right = "5px";
         selectButton.innerHTML = "Select";
 
         if (arguments.length === 1)
@@ -381,6 +363,28 @@ function createManager(uploading, element)
     }
 
     createFileIcons("../Images");
+    
+    var sideMenu = createElement("div");
+    sideMenu.id = "sideMenu";
+    document.body.appendChild(sideMenu);
+    
+    var PushButton = createElement("div");
+    PushButton.id = "PushButton";
+    PushButton.innerHTML = ">";
+    PushButton.addEventListener("click", function()
+    {
+        addImageToList(currentSelectedPath);
+    });
+    document.body.appendChild(PushButton);
+    
+    var PullButton = createElement("div");
+    PullButton.id = "PullButton";
+    PullButton.innerHTML = "<";
+    PullButton.addEventListener("click", function()
+    {
+        removeImageFromList(currentSelectedPath);
+    });
+    document.body.appendChild(PullButton);
 }
 
 

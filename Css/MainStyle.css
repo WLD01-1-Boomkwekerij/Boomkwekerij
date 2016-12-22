@@ -11,7 +11,7 @@ html, body{
 
 body
 {
-    background-image: url("../images/background6.jpg");
+    background-image: url("../Images/SiteImages/background6.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -63,7 +63,7 @@ h3
 #top
 {
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
-    background-image: url(../images/banner.jpg);
+    background-image: url(../Images/SiteImages/banner.jpg);
     background-repeat: no-repeat;
     padding:0px;
     height: 209px;
@@ -276,7 +276,7 @@ body {
 
 .icon-image-add
 {
-    content: url(../Icons/Image-Add.svg);
+    content: url(../Images/Icons/Image-Add.svg);
 }
 
 #capthaerror{
