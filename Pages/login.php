@@ -16,11 +16,26 @@
             </section>
             <section id="mid">
                 <section id="maincontent">
-                    <center> <div id="loginkader">
+                    <div id="loginkader">
                             <div id="logintitel">
                                 <p>Inloggen</p>
                             </div>
-                            <?php
+                                                       <form id="loggiforum" method="post" action="../Php/verify.php">
+                                <table border="1">
+                                    <tr>
+                                        <td>Gebruikersnaam:</td>
+                                        <td><input type="text" id="user" name="user"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wachtwoord:</td>
+                                        <td><input type="password" id="pass" name="pass"></td>
+                                    </tr>
+                                </table>
+                                <br>
+                                <input type="submit" id="btn2" name="btn2" value="Inloggen">
+
+                            </form>
+                             <?php
                             include_once '../Php/Database.php';
                             date_default_timezone_set('Europe/Amsterdam');
                             
@@ -39,23 +54,7 @@
                                 print('U kunt over ' . $wachttijd . ' seconden inloggen');
                             }
                             ?>
-                            <form id="loggiforum" method="post" action="../Php/verify.php">
-                                <table border="1">
-                                    <tr>
-                                        <td>Gebruikersnaam:</td>
-                                        <td><input type="text" id="user" name="user"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Wachtwoord:</td>
-                                        <td><input type="password" id="pass" name="pass"></td>
-                                    </tr>
-                                </table>
-                                <br>
-                                <input type="submit" id="btn2" name="btn2" value="Inloggen">
-
-                            </form>
-
-                        </div></center>
+                        </div>
                 </section>
             </section>
         </section>
