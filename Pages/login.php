@@ -17,44 +17,41 @@
             <section id="mid">
                 <section id="maincontent">
                     <div id="loginkader">
-                            <div id="logintitel">
-                                <p>Inloggen</p>
-                            </div>
-                                                       <form id="loggiforum" method="post" action="../Php/verify.php">
-                                <table border="1">
-                                    <tr>
-                                        <td>Gebruikersnaam:</td>
-                                        <td><input type="text" id="user" name="user"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Wachtwoord:</td>
-                                        <td><input type="password" id="pass" name="pass"></td>
-                                    </tr>
-                                </table>
-                                <br>
-                                <input type="submit" id="btn2" name="btn2" value="Inloggen">
+                        <h1 id="logintitel">Inloggen</h1>
+                        <?php
+                        include_once '../Php/Database.php';
+                        date_default_timezone_set('Europe/Amsterdam');
 
-                            </form>
-                             <?php
-                            include_once '../Php/Database.php';
-                            date_default_timezone_set('Europe/Amsterdam');
-                            
-                            $query = 'SELECT `Attempts` FROM `LoginAttempts` WHERE IP = ?';
-                            $variable = array($_SERVER['REMOTE_ADDR']);
-                            $pogingen = BeveiligdGetSQL($query, 'Attempts', $variable);
+                        $query = 'SELECT `Attempts` FROM `LoginAttempts` WHERE IP = ?';
+                        $variable = array($_SERVER['REMOTE_ADDR']);
+                        $pogingen = BeveiligdGetSQL($query, 'Attempts', $variable);
 
-                            $query = 'SELECT `LastLogin` FROM `LoginAttempts` WHERE ip = ?';
-                            $timestamp = BeveiligdGetSQL($query, 'LastLogin', $variable);
+                        $query = 'SELECT `LastLogin` FROM `LoginAttempts` WHERE ip = ?';
+                        $timestamp = BeveiligdGetSQL($query, 'LastLogin', $variable);
 
-                            $tijd = time();
-                            $tijdverschil = $tijd - $timestamp;
+                        $tijd = time();
+                        $tijdverschil = $tijd - $timestamp;
 
-                            if ($tijdverschil >= 2 && isset($timestamp) && $pogingen > 7) {
-                                $wachttijd = 300 - $tijdverschil;
-                                print('U kunt over ' . $wachttijd . ' seconden inloggen');
-                            }
-                            ?>
-                        </div>
+                        if ($tijdverschil >= 2 && isset($timestamp) && $pogingen >= 7) {
+                            $wachttijd = 300 - $tijdverschil;
+                            print('U kunt over ' . $wachttijd . ' seconden inloggen');
+                        }
+                        ?>
+                        <form id="loggiforum" method="post" action="../Php/verify.php">
+                            <table border="1">
+                                <tr>
+                                    <td>Gebruikersnaam:</td>
+                                    <td><input type="text" id="user" name="user"></td>
+                                </tr>
+                                <tr>
+                                    <td>Wachtwoord:</td>
+                                    <td><input type="password" id="pass" name="pass"></td>
+                                </tr>
+                            </table>
+                            <br>
+                            <input type="submit" id="btn2" name="btn2" value="Inloggen">
+                        </form>
+                    </div>
                 </section>
             </section>
         </section>
