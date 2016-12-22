@@ -23,6 +23,8 @@ function getSQL($sqlCode, $rowName) {
     }
 }
 
+
+
 function getMaxSQL($table, $maxRow) {
     try {
         $connection = connectToDatabase();
@@ -48,6 +50,18 @@ function getSQLArray($sqlCode) {
         echo '<br><br>';
     }
     return $statement;
+}
+
+function BeveiligdGetRowSQL($sqlCode, $rowName,$variables) {
+    $connection = connectToDatabase();
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $statement = $connection->prepare($sqlCode);
+    $statement->execute($variables);
+
+    while ($row = $statement->fetch()) {
+        $text = $row[$rowName];
+        return $text;
+    }
 }
 
 function BeveiligGetSQL($sqlCode,$variables){

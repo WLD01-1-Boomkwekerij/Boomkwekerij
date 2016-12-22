@@ -165,7 +165,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                     }
                     include_once '../Php/Database.php';
                     // het laden van alle gebruikers
-                    $gebruikers = getSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker');
+                    $gebruikers = BeveiligGetSQL('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker',array());
                     ?>
                     <h5>Gebruikers wijzigen</h5>
                     <?php ?>

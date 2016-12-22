@@ -44,9 +44,8 @@
                             ON a.TekstID = t.TekstID
                             ORDER BY a.DatumGeplaatst DESC";
 
-                    $connection = connectToDatabase();
-                    $statement = $connection->prepare($sql);
-                    $statement->execute();
+                  
+                    $statement=  BeveiligGetSQL($sql, array());
 
                     while ($row = $statement->fetch())
                     {
