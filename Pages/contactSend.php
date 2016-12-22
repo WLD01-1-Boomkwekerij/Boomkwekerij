@@ -4,7 +4,7 @@ if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == 
     include '../Php/Database.php';
 
     function SendMail($sender, $subject, $message, $Naam, $Website) {
-        $sendEmailTo = BeveiligGetSQL("SELECT Email FROM gebruiker WHERE KrijgtEmail = 1",array());
+        $sendEmailTo = BeveiligGetSQLArray("SELECT Email FROM gebruiker WHERE KrijgtEmail = 1",array());
         while ($row = $sendEmailTo->fetch()) {
             print('send');
             $receiver = $row['Email'];

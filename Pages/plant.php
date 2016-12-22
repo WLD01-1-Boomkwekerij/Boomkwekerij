@@ -56,7 +56,7 @@
                             BeveiligDoSQL("UPDATE plant SET hoogte_min = ?, hoogte_max = ?, bloeitijd = '?', bloeiwijze = '?' WHERE PlantID = ? ",array($Hoogtemin,$Hoogtemax,$Bloeitijd,$plant));
                         }
                     }
-                    $sqlPrijs = BeveiligGetSQL("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)",array($plant));
+                    $sqlPrijs = BeveiligGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)",array($plant));
                     $row = $sqlPrijs->fetch();
                     $prijsID = $row["PrijsID"];
                     $potmaat = $row["Potmaat"];
@@ -65,7 +65,7 @@
                     $perCC = $row["ProductenCC"];
                     $perLaag = $row["ProductenLaag"];
                     $perTray = $row["ProductenTray"];
-                    $sqlPlant = BeveiligGetSQL("SELECT * FROM plant WHERE PlantID = ?",array($plant));
+                    $sqlPlant = BeveiligGetSQLArray("SELECT * FROM plant WHERE PlantID = ?",array($plant));
                     $plantRegel = $sqlPlant->fetch();
                     $naam = $plantRegel['Naam'];
                     $hoogte = $plantRegel['Hoogte_min'] . "/" . $plantRegel['Hoogte_max'];
@@ -133,7 +133,7 @@
                     {
                         $plant = 3;
                     }
-                    $sqlPrijs = BeveiligGetSQL("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)",array($plant));
+                    $sqlPrijs = BeveiligGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)",array($plant));
                     $row = $sqlPrijs->fetch();
                     $prijsID = $row["PrijsID"];
                     $potmaat = $row["Potmaat"];
@@ -142,7 +142,7 @@
                     $perCC = $row["ProductenCC"];
                     $perLaag = $row["ProductenLaag"];
                     $perTray = $row["ProductenTray"];
-                    $sqlPlant = BeveiligGetSQL("SELECT * FROM plant WHERE PlantID = ?",array($plant));
+                    $sqlPlant = BeveiligGetSQLArray("SELECT * FROM plant WHERE PlantID = ?",array($plant));
                     $plantRegel = $sqlPlant->fetch();
                     $naam = $plantRegel['Naam'];
                     $hoogte = $plantRegel['Hoogte_min'] . "/" . $plantRegel['Hoogte_max'];
@@ -185,14 +185,14 @@
                     <div id="plantnaamfoto"><center><?php echo $naam; ?></center></div>
                     <section id="PhotoFrame">
                         <?php
-                        $EersteFoto = BeveiligGetSQL("SELECT * FROM plantfoto WHERE PlantID = ? AND TypeFoto = 1",array($plant));
+                        $EersteFoto = BeveiligGetSQLArray("SELECT * FROM plantfoto WHERE PlantID = ? AND TypeFoto = 1",array($plant));
                         $EersteFotoRegel = $EersteFoto->fetch();
                         $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
                         print("<img id='ImageFrame' src='$EersteFotoUrl'>");
                         ?>
                         <div id="Positioner">
                             <?php
-                            $Fotoos = BeveiligGetSQL("SELECT * FROM plantfoto  WHERE PlantID = ?",array($plant));
+                            $Fotoos = BeveiligGetSQLArray("SELECT * FROM plantfoto  WHERE PlantID = ?",array($plant));
                             while ($row = $Fotoos->fetch())
                             {
                                 $url = $row["FotoUrl"];

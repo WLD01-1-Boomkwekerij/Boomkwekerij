@@ -23,8 +23,6 @@ function getSQL($sqlCode, $rowName) {
     }
 }
 
-
-
 function getMaxSQL($table, $maxRow) {
     try {
         $connection = connectToDatabase();
@@ -52,7 +50,7 @@ function getSQLArray($sqlCode) {
     return $statement;
 }
 
-function BeveiligdGetRowSQL($sqlCode, $rowName,$variables) {
+function BeveiligdGetSQL($sqlCode, $rowName, $variables) {
     $connection = connectToDatabase();
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $statement = $connection->prepare($sqlCode);
@@ -64,7 +62,7 @@ function BeveiligdGetRowSQL($sqlCode, $rowName,$variables) {
     }
 }
 
-function BeveiligGetSQL($sqlCode,$variables){
+function BeveiligGetSQLArray($sqlCode, $variables) {
     try {
         $connection = connectToDatabase();
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -74,10 +72,10 @@ function BeveiligGetSQL($sqlCode,$variables){
         echo $sqlCode . "<br>" . $e->getMessage();
         echo '<br><br>';
     }
-    return $statement;    
+    return $statement;
 }
 
-function BeveiligDoSQL($sqlCode,$variables){
+function BeveiligDoSQL($sqlCode, $variables) {
     try {
         $connection = connectToDatabase();
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -86,7 +84,7 @@ function BeveiligDoSQL($sqlCode,$variables){
     } catch (PDOException $e) {
         echo $sqlCode . "<br>" . $e->getMessage();
         echo '<br><br>';
-    }    
+    }
 }
 
 //http://localhost:8080/pages/catalog.php?category=1 OR 1=1#

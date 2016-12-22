@@ -45,7 +45,7 @@
                     <ul id="catalogus">
                         <?php
                         //Creates the sidevar category options
-                        $sqlCategory = BeveiligGetSQL("SELECT * FROM category",array());
+                        $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category",array());
 
                         while ($row = $sqlCategory->fetch()) {
                             $categoryNaam = $row["CategoryNaam"];
@@ -69,12 +69,12 @@
                     } else {
                         $category = $_GET['category'];
                     }
-                    $sqlCategory = BeveiligGetSQL("SELECT * FROM category WHERE CategoryID = ?",array($category));
+                    $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category WHERE CategoryID = ?",array($category));
                     $categoryRegel = $sqlCategory->fetch();
                     $categoryNaam = $categoryRegel["CategoryNaam"];
                     echo "<h1>$categoryNaam</h1>";
 
-                    $sqlPrijs = BeveiligGetSQL("SELECT * FROM prijs WHERE CategoryID = ?",array($category));
+                    $sqlPrijs = BeveiligGetSQLArray("SELECT * FROM prijs WHERE CategoryID = ?",array($category));
 
                     while ($row = $sqlPrijs->fetch()) {
                         $prijsID = $row["PrijsID"];
@@ -85,7 +85,7 @@
                         $perCC = $row["ProductenCC"];
                         $perLaag = $row["ProductenLaag"];
                         $perTray = $row["ProductenTray"];
-                        $sqlPlant = BeveiligGetSQL(
+                        $sqlPlant = BeveiligGetSQLArray(
                                 "SELECT * 
                                  FROM plant 
                                  LEFT JOIN plantfoto pf

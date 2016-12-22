@@ -45,7 +45,7 @@
                             ORDER BY a.DatumGeplaatst DESC";
 
                   
-                    $statement=  BeveiligGetSQL($sql, array());
+                    $statement=  BeveiligGetSQLArray($sql, array());
 
                     while ($row = $statement->fetch())
                     {
