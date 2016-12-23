@@ -217,7 +217,8 @@
     box-shadow: 0px 0px 12px 4px black;
     z-index: 2001;
     opacity: 1;
-
+    overflow: scroll;
+    
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(-45deg,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
@@ -245,26 +246,27 @@
     cursor: pointer;
 }
 
-#PullButton
-{
-    position: fixed;
-    top: 45vh;
-    right: 28vw;
-    background-color: bisque;
-    min-width: 50px;
-    height: 10vh;
-    box-shadow: 0px 0px 12px 4px black;
-    z-index: 2001;
-    opacity: 1;
-    font-size: 50px;
-    line-height: 10vh;
-    text-align: center;
-    text-shadow: 3px 3px 3px gray;
-    cursor: pointer;
-}
-
 .selectedItem
 {
     box-shadow: 0 0 3px 1px red;
     background-color: gray;
+}
+
+.imageDiv
+{
+    position: relative;
+    width: 100%;
+}
+
+.imageImg
+{
+    width: 100%;
+}
+
+.imageDeleteButton
+{
+    background-color: coral;
+    z-index: 2002;
+    width: 30px;
+    height: 30px;
 }

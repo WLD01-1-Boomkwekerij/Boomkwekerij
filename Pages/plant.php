@@ -183,6 +183,7 @@
                 ?>
 
                 <section id="maincontent">
+                    <br>
                     <div id="plantnaamfoto"><center><?php echo $naam; ?></center></div>
                     <section id="PhotoFrame">
                         <?php

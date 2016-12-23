@@ -14,6 +14,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
         <title>Boomkwekerij - Beheerderspagina</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
         <section id="wrapper">
@@ -26,10 +29,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
             </section>
             <section id="mid">
                 <section id="maincontent">
-                    <h1>Beheerderspagina</h1>
+                    <center><h1>Beheerderspagina</h1></center>
+                   
                     <div class="WidthFix">                    
-                    <h4>Gebruikers beheren</h4> 
-                    <h5>Nieuw gebruiker toevoegen</h5>
+                        <center><h4>Gebruikers beheren</h4> </center>
+                        <center><h5>Nieuw gebruiker toevoegen</h5></center>
                     <?php
                     include '../Php/POST.php';
                     // Eerst wordt er gekeken of er al een aanpassing geverivïeerd moet worden, als dat niet zo is zie de 'else'                        
@@ -127,48 +131,50 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                         <?php
                     } else {
                         ?>
-                        <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _ ! ?</i><br>
+                    <div id='voorwaarden'><i>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens:# @ % & - _ ! ?</i></div>
                         <!--Vereisten van het wachtwoord weergeven-->
-                        <form  action="../Pages/logged_in.php" method="post">
-                            <table>
-                                <tr>
-                                    <th>Naam</th>
-                                    <th>Email</th>
-                                    <th>Krijgt notifactie</th>
-                                    <th>Wachtwoord</th>
-                                    <th>Wachtwoord opnieuw</th>
-                                    <th>Rechten</th>
-                                    <th>Toevoegen</th>
-                                </tr>
-                                <tr>
+                        <center><form  action="../Pages/logged_in.php" method="post">
+                            <table id="gebruikertoevoegen">
+                              
+                                <td><b>Naam</b></td>
                                     <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required></td><!--gebruikersnaam-->
+                                <tr>
+                                    <td><b>Email</b></td>
                                     <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required></td><!--emailadres voor notificaties-->
-                                    <td>
+                                <tr>
+                                    
+                                    <td><b>Krijgt notifactie</b></td>
+                                     <td>
                                         <select name="krijgt_mail" tabindex="3"><!--krijgt mail optie-->
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select> 
                                     </td>
-                                    <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td><!--beiden wachtwoorden moeten hetzelfde zijn om typo's te verkomen-->
-                                    <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
-                                    <td> 
+                                <tr>
+                                    <td><b>Wachtwoord</b></td>
+                                     <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" required></td><!--beiden wachtwoorden moeten hetzelfde zijn om typo's te verkomen-->
+                                <tr>
+                                    <td><b>Wachtwoord opnieuw</b></td>
+                                     <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" required></td>
+                                <tr>
+                                    <td><b>Rechten</b></td>
+                                     <td> 
                                         <select name="rol" tabindex="6"> <!--de rechten van de nieuwe gebruiker-->
                                             <option value="beheerder">Beheerder</option>
                                             <option value="medewerker" selected="selected">Medewerker</option><!--medewerker is de standaard om te verkomen dat er per ongeluk een nieuwe beheerder aangemaakt wordt-->
                                             <option value="vertaler">Vertaler</option>
                                         </select> 
                                     </td>
-                                    <td><input type="submit" name="submit" value="Toevoegen" tabindex="7"/></td>
-                                </tr>
-                            </table>
-                        </form>
+                            </table><br>
+                                <td><input type="submit" class="btn btn-success" id='submit' name="submit" value="Toevoegen" tabindex="7"/></td>
+                            </form></center>
                         <?php
                     }
                     include_once '../Php/Database.php';
                     // het laden van alle gebruikers
                     $gebruikers = BeveiligGetSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker',array());
-                    ?>
-                    <h5>Gebruikers wijzigen</h5>
+                    ?><br>
+                        <center>  <h5>Gebruikers wijzigen</h5>
                     <?php ?>
                     <table>
                         <tr>
@@ -206,7 +212,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                             }
                             ?>
                         </tr>
-                    </table>
+                    </table></center>
                     </div>
                 </section>
             </section>

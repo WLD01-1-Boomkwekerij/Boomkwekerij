@@ -1,12 +1,24 @@
+
+//The history of all items clicked, left arrow will use it to go back
 var PathHistory = [];
-PathHistory[0] = "../Images/Afbeeldingen/";
+//The first history is always the main folder
+PathHistory[0] = "../Images/Afbeeldingen";
+//All the selected items in the right side list
 var managerImageList = [];
+//The currentPathIndex, used to determine where in the PathHistory you are
 var currentPathIndex = 0;
+//The url of the current selected path
 var currentSelectedPath = "";
+//The current selected Element
 var currentSelectedElement;
+//The current selected Image, in the sidebar
+var currentSelectedSidebarImage;
+//Is uploading, should de manager upload or not
 var isUploading;
-var plantAdded = false;
+
 //Catalog
+//If you added a plant
+var plantAdded = false;
 var images = [];
 
 /**
@@ -41,7 +53,6 @@ function setItemSelected(element, url, name)
     currentSelectedElement = element;
     $(currentSelectedElement).addClass("selectedItem");
     currentSelectedPath = url + "/" + name;
-    //TODO
 }
 
 /**
@@ -118,7 +129,6 @@ function createFileIcon(url, name)
         file.addEventListener("click", function ()
         {
             setItemSelected(this, url, name);
-            getElementById("fileManagerSelectButton").value = currentSelectedPath;
         });
     }
 }
@@ -197,7 +207,36 @@ function openFolder(directory)
 
 function updateImageList()
 {
-    //TODO  
+    //The sidebar menu
+    var sidebar = getElementById("sideMenu");
+
+    //First delete every item
+    while (sidebar.firstChild)
+    {
+        sidebar.removeChild(sidebar.firstChild);
+    }
+
+    for (var j = 0; j < managerImageList.length; j++)
+    {
+        (function (j) {
+            var imageDiv = createElement("div");
+            $(imageDiv).addClass("imageDiv");
+            sidebar.appendChild(imageDiv);
+
+            var imageImg = createElement("img");
+            imageImg.src = managerImageList[j];
+            $(imageImg).addClass("imageImg");
+            imageDiv.appendChild(imageImg);
+
+            var imageDeleteButton = createElement("div");
+            $(imageDeleteButton).addClass("imageDeleteButton");
+            imageDeleteButton.onclick = function ()
+            {
+                removeImageFromList(managerImageList[j]);
+            };
+            sidebar.appendChild(imageDeleteButton);
+        }(j));
+    }
 }
 
 /**
@@ -214,13 +253,14 @@ function addImageToList(selectedImage)
  * Removes an Image from the list of selected images
  * @param {string} selectedImage
  */
-function removeImageToList(selectedImage)
+function removeImageFromList(selectedImage)
 {
-    for (var i = 1; i < managerImageList.length; i++)
+    for (var i = 0; i < managerImageList.length; i++)
     {
         if (managerImageList[i] === selectedImage)
         {
-            managerImageList = managerImageList.splice(managerImageList[i], 1);
+            managerImageList.splice(i, 1);
+            updateImageList();
         }
     }
 }
@@ -229,7 +269,7 @@ function getImageByName(name)
 {
     var urlArray = name.split("/");
     var realName = urlArray[urlArray.length - 1];
-    
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName" + realName, true);
     xmlhttp.onreadystatechange = function ()
@@ -370,16 +410,16 @@ function createManager(uploading, element)
             selectButton.addEventListener("click", function ()
             {
                 restoreSelectorPoint();
-                for(var i = 0; i < managerImageList.length; i++)
+                for (var i = 0; i < managerImageList.length; i++)
                 {
-                   var img = "<img src='" + getImageByName(managerImageList[i]) + "' onclick='editImage(this)' style='" +
-                        "width: 50%;" +
-                        "float: right;" +
-                        "clear: right;" +
-                        "top: 0;" +
-                        "'>";
-                document.execCommand("insertHTML", false, img);
-                destroyManager(); 
+                    var img = "<img src='" + getImageByName(managerImageList[i]) + "' onclick='editImage(this)' style='" +
+                            "width: 50%;" +
+                            "float: right;" +
+                            "clear: right;" +
+                            "top: 0;" +
+                            "'>";
+                    document.execCommand("insertHTML", false, img);
+                    destroyManager();
                 }
             });
         }
@@ -407,7 +447,10 @@ function createManager(uploading, element)
     PushButton.innerHTML = ">";
     PushButton.addEventListener("click", function ()
     {
-        addImageToList(currentSelectedPath);
+        if (currentSelectedPath !== "")
+        {
+            addImageToList(currentSelectedPath);
+        }
     });
     document.body.appendChild(PushButton);
 

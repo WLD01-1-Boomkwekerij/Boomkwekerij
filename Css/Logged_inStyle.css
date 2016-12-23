@@ -20,3 +20,22 @@ input {
 #loginkader{
     margin: auto;
 }
+
+#voorwaarden{
+    border-width:2px;
+    border-color:red;
+    border-style:solid;
+    height:130px;
+    width:200px;
+    position:absolute;
+    margin-left:800px;
+    
+}
+
+#gebruikertoevoegen{
+    float:center;
+}
+
+#submit{
+    margin-left:80px;
+}
