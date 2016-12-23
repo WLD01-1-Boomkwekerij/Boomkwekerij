@@ -11,9 +11,9 @@ function loadImageById($Id)
     print(getSQL("SELECT FotoUrl FROM foto WHERE FotoID = $Id", "FotoUrl"));
 }
 
-function loadImageByName($Name)
+if(isset($_GET["getImageByName"]))
 {
-    print(getSQL("SELECT FotoUrl FROM foto WHERE FotoNaam = $Name", "FotoUrl"));
+    print(getSQL("SELECT FotoUrl FROM foto WHERE FotoNaam = '" . $_GET["getImageByName"] . "'", "FotoUrl"));
 }
 
 function updateImageById($Id, $newUrl, $Name)
