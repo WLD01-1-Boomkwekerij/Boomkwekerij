@@ -430,6 +430,7 @@ function createManager(uploading, element)
                 for (var i = 0; i <  managerImageList.length; i++)
                 {
                     var imgInput = createElement("input");
+                    $(imgInput).addClass("imgInput");
                     imgInput.readOnly = true;
                     imgInput.value = managerImageList[i];
                     element.insertBefore(imgInput, element.lastChild);
@@ -482,9 +483,7 @@ function createCatalogAddition()
 
     var buttonAddPlant = createElement("button");
     buttonAddPlant.innerHTML = "Voeg toe";
-    buttonAddPlant.style.float = "right";
-    buttonAddPlant.style.marginTop = "5px";
-    buttonAddPlant.style.marginRight = "5px";
+    buttonAddPlant.id = "buttonAddPlant";
     buttonAddPlant.addEventListener("click", function ()
     {
         if (!plantAdded)
@@ -542,10 +541,7 @@ function createCatalogAddition()
 
     var textAddPlant = createElement("p");
     textAddPlant.innerHTML = "Plant Toevoegen";
-    textAddPlant.style.lineHeight = "30px";
-    textAddPlant.style.margin = "0";
-    textAddPlant.style.marginLeft = "5px";
-    textAddPlant.style.fontWeight = "bold";
+    textAddPlant.id = "textAddPlant";
     topDiv.appendChild(textAddPlant);
 
     var sectionDiv = createElement("div");
@@ -554,17 +550,10 @@ function createCatalogAddition()
 
     var rightDiv = createElement("div");
     rightDiv.id = "elementTwo";
-    rightDiv.style.width = "60%";
-    rightDiv.style.height = "auto";
-    rightDiv.style.float = "right";
-    rightDiv.style.marginTop = "10px";
     sectionDiv.appendChild(rightDiv);
 
     var leftDiv = createElement("div");
     leftDiv.id = "elementOne";
-    leftDiv.style.width = "40%";
-    leftDiv.style.height = "auto";
-    leftDiv.style.marginTop = "10px";
     sectionDiv.appendChild(leftDiv);
 
 
@@ -701,8 +690,7 @@ function createCatalogAddition()
 
     var imageButton = createElement("Button");
     imageButton.innerHTML = "Voeg foto toe";
-    imageButton.style.marginLeft = "105px";
-    imageButton.style.backgroundColor = "#f2f2f2";
+    imageButton.id = "imageButton";
 
     sectionDiv.appendChild(imageButton);
     imageButton.addEventListener("click", function ()

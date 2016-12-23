@@ -1,14 +1,112 @@
 
+#catalogAddDivSide
+{
+    position:relative;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    display:inline-block;
+}
+
+#addPlantMenu p
+{
+    margin: 0px;
+    margin-top: 2px;
+    margin-left: 6px;
+    height: 25px;
+    line-height: 25px;
+}
+
+#addPlantMenu input
+{
+    margin-top: 2px;
+    width: 95%;
+    height: 25px;
+}
+
+#addPlantMenu select:nth-of-type(1)
+{
+    width: 148px;
+    height: 25px;
+}
+
+#addPlantMenu select:nth-of-type(2)
+{
+    width: 74px;
+    height: 25px;
+}
+
+#addPlantMenu select:nth-of-type(3)
+{
+    width: 74px;
+    height: 25px;
+}
+
+#addPlantMenu img
+{
+    max-width: 280px;
+    margin-bottom:30%;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+}
+
 #addPlantMenu
 {
+    height: auto;
     min-height: 100px;
     box-shadow: 0 0 20px 5px black;
 }
 
-#topDiv
+#addPlantMenu #topDiv
 {
     height: 30px;
     width: auto;
     background-color: #C0C0C0;
     border-bottom: solid 1px gray
+}
+
+#addPlantMenu #buttonAddPlant
+{
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+#addPlantMenu #textAddPlant
+{
+    line-height: 30px;
+    margin: 0;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+#addPlantMenu #elementOne
+{
+    width: 40%;
+    height: auto;
+    margin-top: 10px;
+}
+
+#addPlantMenu #elementTwo
+{
+    width: 60%;
+    height: auto;
+    float: right;
+    margin-top: 10px;
+}
+
+#addPlantMenu .imgInput
+{
+    direction: rtl;
+}
+
+#addPlantMenu #imageButton
+{
+    position: relative;
+    margin-left: 104px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100px;
+    background-color: #f2f2f2;
 }
