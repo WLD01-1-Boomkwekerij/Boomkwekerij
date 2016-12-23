@@ -102,13 +102,7 @@ h3
     text-align: center;
     line-height: 40px; 
 
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5175b3+0,5189cf+15,5189cf+15,5189cf+67,759dce+100 */
-   // background: #5175b3; /* Old browsers */
-    //background: -moz-linear-gradient(top,  #5175b3 0%, #5189cf 15%, #5189cf 15%, #5189cf 67%, #759dce 100%); /* FF3.6-15 */
-    //background: -webkit-linear-gradient(top,  #5175b3 0%,#5189cf 15%,#5189cf 15%,#5189cf 67%,#759dce 100%); /* Chrome10-25,Safari5.1-6 */
-    //background: linear-gradient(to bottom,  #5175b3 0%,#5189cf 15%,#5189cf 15%,#5189cf 67%,#759dce 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5175b3', endColorstr='#759dce',GradientType=0 ); /* IE6-9 */
-
+  
 }
 
 #topmenu ul li
@@ -270,15 +264,16 @@ body {
 #loginkader{
     width:400px;
     border-width:3px;
-    border-color:royalblue;
+    border-color:#C0C0C0;
     border-style:solid;
+    padding-top:30px;
 
 }
 
 #logintitel{
-    background-color:royalblue;
+    background-color:#C0C0C0;
     height:30px;
-    margin-top:-16px;
+    margin-top:0px;
 }
 
 #loggiforum{

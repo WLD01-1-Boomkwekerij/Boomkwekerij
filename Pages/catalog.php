@@ -46,7 +46,7 @@
                     <ul id="catalogus">
                         <?php
                         //Creates the sidevar category options
-                        $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category",array());
+                        $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category", array());
 
                         while ($row = $sqlCategory->fetch()) {
                             $categoryNaam = $row["CategoryNaam"];
@@ -66,47 +66,43 @@
                     }
 
                     if (!isset($_GET['category'])) {
-                        $category = 1;
-                    } else {
-                        $category = $_GET['category'];
-                    }
-                    $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category WHERE CategoryID = ?",array($category));
-                    $categoryRegel = $sqlCategory->fetch();
-                    $categoryNaam = $categoryRegel["CategoryNaam"];
-                    echo "<h1>$categoryNaam</h1>";
+                        $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category", array());
+                        $categoryRegel = $sqlCategory->fetch();
+                        $categoryNaam = $categoryRegel["CategoryNaam"];
+                        echo "<h1>$categoryNaam</h1>";
 
-                    $sqlPrijs = BeveiligGetSQLArray("SELECT * FROM prijs WHERE CategoryID = ?",array($category));
+                        $sqlPrijs = BeveiligGetSQLArray("SELECT * FROM prijs", array());
 
-                    while ($row = $sqlPrijs->fetch()) {
-                        $prijsID = $row["PrijsID"];
-                        $potmaat = $row["Potmaat"];
-                        $hoogte = $row["Potmaat"];
-                        $prijsKwekerij = $row["PrijsKwekerij"];
-                        $prijsVBA = $row["PrijsVBA"];
-                        $perCC = $row["ProductenCC"];
-                        $perLaag = $row["ProductenLaag"];
-                        $perTray = $row["ProductenTray"];
-                        $sqlPlant = BeveiligGetSQLArray(
-                                "SELECT * 
+                        while ($row = $sqlPrijs->fetch()) {
+                            $prijsID = $row["PrijsID"];
+                            $potmaat = $row["Potmaat"];
+                            $hoogte = $row["Potmaat"];
+                            $prijsKwekerij = $row["PrijsKwekerij"];
+                            $prijsVBA = $row["PrijsVBA"];
+                            $perCC = $row["ProductenCC"];
+                            $perLaag = $row["ProductenLaag"];
+                            $perTray = $row["ProductenTray"];
+                            $sqlPlant = BeveiligGetSQLArray(
+                                    "SELECT * 
                                  FROM plant 
                                  LEFT JOIN plantfoto pf
                                  ON plant.PlantID=pf.PlantID
-                                 WHERE plant.PrijsID = ? AND pf.TypeFoto = 1",array($prijsID)
-                        );
+                                 WHERE plant.PrijsID = ? AND pf.TypeFoto = 1", array($prijsID)
+                            );
 
-                        while ($plant = $sqlPlant->fetch()) {
-                            $plantId = $plant['PlantID'];
-                            $naam = $plant['Naam'];
-                            $Hoogte_min = $plant['Hoogte_min'];
-                            $Hoogte_max = $plant['Hoogte_max'];
-                            $bloeiwijze = $plant['Bloeiwijze'];
-                            $bloeitijd = $plant['Bloeitijd'];
-                            $plantFotoUrl = $plant['FotoUrl'];
+                            while ($plant = $sqlPlant->fetch()) {
+                                $plantId = $plant['PlantID'];
+                                $naam = $plant['Naam'];
+                                $Hoogte_min = $plant['Hoogte_min'];
+                                $Hoogte_max = $plant['Hoogte_max'];
+                                $bloeiwijze = $plant['Bloeiwijze'];
+                                $bloeitijd = $plant['Bloeitijd'];
+                                $plantFotoUrl = $plant['FotoUrl'];
 
-                            $hidden = "hidden";
-                            $position = "absolute";
+                                $hidden = "hidden";
+                                $position = "absolute";
 
-                            print("<div class='item2' id='plantID$plantId'>
+                                print("<div class='item2' id='plantID$plantId'>
                             <div>
                             <form method='get'>
                             <table>
@@ -117,10 +113,67 @@
                             </table>
                             </div>");
 
-                            if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
-                                print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                                    print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
+                                }
+                                print"</form></div>";
                             }
-                            print"</form></div>";
+                        }
+                    } else {
+                        $category = $_GET['category'];
+
+                        $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category WHERE CategoryID = ?", array($category));
+                        $categoryRegel = $sqlCategory->fetch();
+                        $categoryNaam = $categoryRegel["CategoryNaam"];
+                        echo "<h1>$categoryNaam</h1>";
+
+                        $sqlPrijs = BeveiligGetSQLArray("SELECT * FROM prijs WHERE CategoryID = ?", array($category));
+
+                        while ($row = $sqlPrijs->fetch()) {
+                            $prijsID = $row["PrijsID"];
+                            $potmaat = $row["Potmaat"];
+                            $hoogte = $row["Potmaat"];
+                            $prijsKwekerij = $row["PrijsKwekerij"];
+                            $prijsVBA = $row["PrijsVBA"];
+                            $perCC = $row["ProductenCC"];
+                            $perLaag = $row["ProductenLaag"];
+                            $perTray = $row["ProductenTray"];
+                            $sqlPlant = BeveiligGetSQLArray(
+                                    "SELECT * 
+                                 FROM plant 
+                                 LEFT JOIN plantfoto pf
+                                 ON plant.PlantID=pf.PlantID
+                                 WHERE plant.PrijsID = ? AND pf.TypeFoto = 1", array($prijsID)
+                            );
+
+                            while ($plant = $sqlPlant->fetch()) {
+                                $plantId = $plant['PlantID'];
+                                $naam = $plant['Naam'];
+                                $Hoogte_min = $plant['Hoogte_min'];
+                                $Hoogte_max = $plant['Hoogte_max'];
+                                $bloeiwijze = $plant['Bloeiwijze'];
+                                $bloeitijd = $plant['Bloeitijd'];
+                                $plantFotoUrl = $plant['FotoUrl'];
+
+                                $hidden = "hidden";
+                                $position = "absolute";
+
+                                print("<div class='item2' id='plantID$plantId'>
+                            <div>
+                            <form method='get'>
+                            <table>
+                                <tr >
+                                    <div id='catatitel'> <center><p id='planttitel'>$naam</p></center></div>
+                                    <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
+                                    <span></span><a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
+                            </table>
+                            </div>");
+
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                                    print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
+                                }
+                                print"</form></div>";
+                            }
                         }
                     }
                     ?>
