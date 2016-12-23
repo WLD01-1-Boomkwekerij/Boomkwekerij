@@ -2,35 +2,25 @@
 
 //The file for all Image Commands
 //Insert Image
-function insertImage($Url, $Name)
+if (isset($_GET["insertImage"], $_GET["url"]))
 {
-    BeveiligDoSQL("INSERT INTO foto (FotoUrl, FotoNaam) VALUES (?, ?)",array($Url, $Name));
+    BeveiligDoSQL("INSERT INTO foto (FotoUrl, FotoNaam) VALUES (?, ?)", array($_GET["url"], $_GET["insertImage"]));
 }
 
 //Load image
-function loadImageById($Id)
-{
-    print(BeveiligdGetSQL("SELECT FotoUrl FROM foto WHERE FotoID = ?", "FotoUrl",array($Id)));
-}
-
-if(isset($_GET["getImageByName"]))
+if (isset($_GET["getImageByName"]))
 {
     print(getSQL("SELECT FotoUrl FROM foto WHERE FotoNaam = '" . $_GET["getImageByName"] . "'", "FotoUrl"));
 }
 
 //Update
-function updateImageById($Id, $newUrl, $Name)
+if (isset($_GET["updateImageByName"], $_GET["imageUrl"]))
 {
-    BeveiligDoSQL("UPDATE foto SET FotoUrl = ?, FotoNaam = ? WHERE FotoID = ?",array($newUrl,$Name,$Id));
-}
-
-function deleteImageById($Id)
-{
-    BeveiligDoSQL("DELETE FROM foto WHERE FotoID = ?",array($Id));
+    BeveiligDoSQL("UPDATE foto SET FotoNaam = ? , FotoUrl = ? WHERE FotoNaam = ?", array($_GET["updateImageByName"], $_GET["imageUrl"], $_GET["updateImageByName"]));
 }
 
 //Delete
-function deleteImageByName($Name)
+if(isset($_GET["deleteImageByName"]))
 {
-    BeveiligDoSQL("DELETE FROM foto WHERE FotoNaam = ?",array($Name));
+    BeveiligDoSQL("DELETE FROM foto WHERE FotoNaam = ?", array($_GET["deleteImageByName"]));
 }
