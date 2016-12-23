@@ -17,14 +17,7 @@
     width:400px;
 }
 
-#btn1
-{
-    width:150px;
-    height:35px;
-    border-radius:10px;
-    background-color:#f2f2f2;
-    color:black;
-}
+
 
 #btn1:hover
 {
@@ -45,7 +38,7 @@
     position:absolute;
     margin-left:600px;
     height:203px;
-    margin-top:-25px;
+    margin-top:1px;
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
 
 }
@@ -53,7 +46,7 @@
 .contactitel{
     height:50px;
     width:110%;
-    background-color:#5175b3;
+    background-color:#87a6bc;
     margin-top:-50px;
     margin-left:-10px;
 }

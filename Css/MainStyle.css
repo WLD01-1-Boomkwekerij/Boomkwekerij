@@ -32,7 +32,7 @@ h1
     width: 100%;
     margin: 0px;
     padding-top:6px;
-    background-color:	#C0C0C0; /* IE6-9 */
+    background-color:	#87a6bc; /* IE6-9 */
     color: #404040;
 
 }
@@ -72,7 +72,7 @@ h5
 #titlediv{
     background-color:#F5F5DC;
     margin-top:40px;
-    margin-left:-20px;
+    margin-left:0px;
     width:700px;
     height:75px;
     position:absolute;
@@ -109,7 +109,7 @@ h5
 
 #topmenu ul
 {
-    background-color:#c5acd2;
+    background-color:rgba(120, 200, 230, 0.5);
     text-align: center;
     line-height: 40px; 
 
@@ -193,7 +193,7 @@ h5
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
     width: auto;
     height: auto;
-    background-color:#f2f2f2;
+    background-color:#c8d7e1;
     margin-right: 270px;
 }
 
@@ -205,7 +205,7 @@ h5
     height: auto;
     padding: 10px;
     margin-left: 10px;
-    background-color:#e6e6e6;
+    background-color:#a1c8e0;
     list-style-type: none;
 
 }
@@ -220,7 +220,7 @@ h5
 {
     position: relative;
     padding: 1rem;
-    background-color:#c5acd2;
+    background-color:rgba(120, 200, 230, 0.5);
     margin: 0 auto;
     max-width: 1231px;
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
@@ -231,7 +231,7 @@ h5
 div.goog-te-gadget-simple
 {
     border-radius:8px !important;
-    background-color: #e6e6e6 !important;
+    background-color: #a1c8e0 !important;
 }
 
 a.goog-te-menu-value > span
@@ -307,4 +307,72 @@ body {
 
 #btn2{
     margin-left: 32%;
+}
+
+.button-green {
+    background-color: #4CAF50; /* groen */
+    border: none;
+    color: white;
+    padding: 7px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+.button-red {
+    background-color:  #f44336; /* rood*/
+    border: none;
+    color: white;
+    padding: 7px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    width:25px;
+}
+
+.button-blue {
+    background-color: #008CBA; /*blauw */
+    border: none;
+    color: white;
+    padding: 7px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.btnpricelist-green {
+    background-color: #4CAF50; /* groen */
+    border: none;
+    color: white;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+.btnpricelist-red {
+    background-color:  #f44336; /* rood*/
+    border: none;
+    color: white;
+    padding: 4px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+
+}
+
+
+.btnpricelist-blue {
+    background-color: #008CBA; /*blauw */
+    border: none;
+    color: white;
+    padding: 4px;
+    width:25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
 }

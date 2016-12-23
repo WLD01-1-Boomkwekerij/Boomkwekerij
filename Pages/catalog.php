@@ -114,7 +114,7 @@
                             </div>");
 
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
-                                    print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
+                                    print("<input type='submit' name='btnvinkje' id='btnvinkje' class= 'btnpricelist-red' style='font-size:12px' value='&#x2612;'>");
                                 }
                                 print"</form></div>";
                             }

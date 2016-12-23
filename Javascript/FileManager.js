@@ -479,7 +479,14 @@ function createCatalogAddition()
     getElementById("mid").appendChild(section);
 
     var topDiv = createElement("div");
+<<<<<<< HEAD
+    topDiv.style.height = "30px";
+    topDiv.style.width = "auto";
+    topDiv.style.backgroundColor = "#a1c8e0";
+    topDiv.style.borderBottom = "solid 1px gray";
+=======
     topDiv.id = "topDiv";
+>>>>>>> 9eaa140d48888d432eb3ce41502267b7a5567a28
     section.appendChild(topDiv);
 
     var buttonAddPlant = createElement("button");
