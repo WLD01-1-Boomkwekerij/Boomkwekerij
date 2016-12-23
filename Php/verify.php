@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (confirmIP($_SERVER['REMOTE_ADDR']) < 7) {
         include_once '../Php/Database.php';
         $sGebruikerControle = trim($_POST['user']);
-        $sWachtwoordControle = getSQL('SELECT Wachtwoord FROM gebruiker WHERE Naam="' . $sGebruikerControle . '"', 'Wachtwoord');
+        $sWachtwoordControle = BeveiligdGetSQL('SELECT Wachtwoord FROM gebruiker WHERE Naam=?', 'Wachtwoord', array($sGebruikerControle));
         // Gebruikersnaam en wachtwoord instellen
         if (isset($_POST['user'], $_POST['pass'])) {
             // Overbodige spaties verwijderen 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Juiste gebruikersnaam en wachtwoord: inloggen! 
                 $_SESSION['logged_in'] = true;
                 $_SESSION['gebruiker'] = $sGebruiker;
-                $_SESSION['toegang'] = getSQL('SELECT Rol FROM gebruiker WHERE Naam="' . $sGebruikerControle . '"', 'Rol');
+                $_SESSION['toegang'] = BeveiligdGetSQL('SELECT Rol FROM gebruiker WHERE Naam=?', 'Rol',array($sGebruikerControle));
                 $query = 'DELETE FROM `loginattempts` WHERE IP=?';
                 $variable=array($_SERVER['REMOTE_ADDR']);
                 BeveiligDoSQL($query, $variable);

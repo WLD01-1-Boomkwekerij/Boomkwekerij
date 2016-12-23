@@ -18,8 +18,8 @@ if (isset($_POST['submit'])) {
                 if (preg_match('/\d/', $Wachtwoord1) == 0) {
                     $errors[3] = 'Gebruik minimaal 1 getal';
                 }
-                if (preg_match('/[# @ % & \ - _ ]/', $Wachtwoord1) == 0) {
-                    $errors[4] = 'Gerbuik minimaal 1 van de volgende tekens: <i># @ % & - _ </i>';
+                if (preg_match('/[# @ % & \ - _ ! ?]/', $Wachtwoord1) == 0) {
+                    $errors[4] = 'Gerbuik minimaal 1 van de volgende tekens: <i># @ % & - _ ! ?</i>';
                 }
                 if (preg_match('/[A-Z]/', $Wachtwoord1) == 0) {
                     $errors[5] = 'Gebruik minimaal 1 hoofdletter';

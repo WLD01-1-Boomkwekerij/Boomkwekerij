@@ -6,8 +6,9 @@
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
     </head>
-    <body>
-        <section id="wrapper">
+    <body>    
+            <section id="wrapper">
+                <section id='titlediv'>TJEST</section>
             <section id="top">
                 <section id="header"></section>
                 <?php
@@ -58,5 +59,6 @@
         <?php
         include '../Php/footer.php';
         ?>
+       
     </body>
 </html>

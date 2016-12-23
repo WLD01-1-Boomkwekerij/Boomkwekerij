@@ -11,7 +11,6 @@ html, body{
 
 body
 {
-    background-image: url("../Images/SiteImages/background6.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -20,6 +19,7 @@ body
     position: relative;
     font-family: arial;
     min-width: 1300px;
+    background-color:#e1d4e8;
 }
 
 h1
@@ -30,11 +30,7 @@ h1
     height: 50px;
     width: 100%;
     padding-top:6px;
-    background: #5175b3; /* Old browsers */
-    background: -moz-linear-gradient(top,  #5175b3 0%, #5189cf 15%, #5189cf 15%, #5189cf 67%, #759dce 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  #5175b3 0%,#5189cf 15%,#5189cf 15%,#5189cf 67%,#759dce 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  #5175b3 0%,#5189cf 15%,#5189cf 15%,#5189cf 67%,#759dce 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5175b3', endColorstr='#759dce',GradientType=0 ); /* IE6-9 */
+    background-color:	#C0C0C0; /* IE6-9 */
     color: #404040;
 
 }
@@ -55,15 +51,36 @@ h3
 
 #wrapper
 {
+   
     margin: 0 auto;
     max-width: 1231px;
     min-height: 91vh;
+    
+}
+
+#titlediv{
+    background-color:#F5F5DC;
+    margin-top:40px;
+    margin-left:-20px;
+    width:700px;
+    height:75px;
+    position:absolute;
+    opacity: 0.7;
+}
+
+#imgtitle{
+    font-family: 'sans-serif';
+    font-size:48px;
+    margin-top:0px;
+    padding-top:10px;
+    margin-left:50px;
 }
 
 #top
 {
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
-    background-image: url(../Images/SiteImages/banner.jpg);
+    background-image: url('../Images/SiteImages/banner3.jpg');
+    background-size: 1231px 220px;
     background-repeat: no-repeat;
     padding:0px;
     height: 209px;
@@ -81,18 +98,11 @@ h3
 
 #topmenu ul
 {
-    background-color: #5175b3;
-    width: auto;
+    background-color:#ffffe6;
     text-align: center;
     line-height: 40px; 
 
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5175b3+0,5189cf+15,5189cf+15,5189cf+67,759dce+100 */
-    background: #5175b3; /* Old browsers */
-    background: -moz-linear-gradient(top,  #5175b3 0%, #5189cf 15%, #5189cf 15%, #5189cf 67%, #759dce 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  #5175b3 0%,#5189cf 15%,#5189cf 15%,#5189cf 67%,#759dce 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  #5175b3 0%,#5189cf 15%,#5189cf 15%,#5189cf 67%,#759dce 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5175b3', endColorstr='#759dce',GradientType=0 ); /* IE6-9 */
-
+  
 }
 
 #topmenu ul li
@@ -172,7 +182,7 @@ h3
     width: auto;
     height: auto;
     margin-right: 270px;
-    background-color:#d0e6fa;
+    background-color:#f2f2f2;
     margin-bottom: 20px;
 }
 
@@ -184,7 +194,7 @@ h3
     height: auto;
     padding: 10px;
     margin-left: 10px;
-    background-color:#ccccff;
+    background-color:#e6e6e6;
     list-style-type: none;
 
 }
@@ -199,12 +209,7 @@ h3
 {
     position: relative;
     padding: 1rem;
-    background: #5175b3; /* Old browsers */
-    background: -moz-linear-gradient(top,  #5175b3 0%, #5189cf 15%, #5189cf 15%, #5189cf 67%, #759dce 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  #5175b3 0%,#5189cf 15%,#5189cf 15%,#5189cf 67%,#759dce 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  #5175b3 0%,#5189cf 15%,#5189cf 15%,#5189cf 67%,#759dce 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5175b3', endColorstr='#759dce',GradientType=0 ); /* IE6-9 */
-
+    background-color:#ffffe6;
     margin: 0 auto;
     max-width: 1231px;
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
@@ -215,7 +220,7 @@ h3
 div.goog-te-gadget-simple
 {
     border-radius:8px !important;
-    background-color: #ccccff !important;
+    background-color: #e6e6e6 !important;
 }
 
 a.goog-te-menu-value > span
@@ -259,15 +264,16 @@ body {
 #loginkader{
     width:400px;
     border-width:3px;
-    border-color:royalblue;
+    border-color:#C0C0C0;
     border-style:solid;
+    padding-top:30px;
 
 }
 
 #logintitel{
-    background-color:royalblue;
+    background-color:#C0C0C0;
     height:30px;
-    margin-top:-16px;
+    margin-top:0px;
 }
 
 #loggiforum{

@@ -3,6 +3,7 @@ PathHistory[0] = "../Images/Afbeeldingen/";
 var managerImageList = [];
 var currentPathIndex = 0;
 var currentSelectedPath = "";
+var currentSelectedElement;
 var isUploading;
 var plantAdded = false;
 //Catalog
@@ -30,9 +31,16 @@ function getElementById(id)
 
 /**
  * Selects a clicked item and deselects the previous
+ * @param {element} element
+ * @param {string} url 
+ * @param {string} name 
  */
-function setItemSelected()
+function setItemSelected(element, url, name)
 {
+    $(currentSelectedElement).removeClass("selectedItem");
+    currentSelectedElement = element;
+    $(currentSelectedElement).addClass("selectedItem");
+    currentSelectedPath = url + "/" + name;
     //TODO
 }
 
@@ -109,9 +117,7 @@ function createFileIcon(url, name)
     {
         file.addEventListener("click", function ()
         {
-            currentSelectedPath = url + "/" + name;
-            file.style.boxShadow = "0px 0px 4px 0px lightgray";
-            file.style.backgroundColor = "lightgray";
+            setItemSelected(this, url, name);
             getElementById("fileManagerSelectButton").value = currentSelectedPath;
         });
     }
@@ -219,6 +225,25 @@ function removeImageToList(selectedImage)
     }
 }
 
+function getImageByName(name)
+{
+    var urlArray = name.split("/");
+    var realName = urlArray[urlArray.length - 1];
+    
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName" + realName, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            console.log(xmlhttp.responseText);
+            return xmlhttp.responseText;
+        }
+    };
+    xmlhttp.send();
+}
+
+
 /**
  * Creates the file manager
  * @param {bool} uploading
@@ -298,16 +323,15 @@ function createManager(uploading, element)
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function ()
     {
-        console.log(arguments.length);
         if (arguments.length > 1)
         {
             element.parentNode.removeChild(element);
         }
-
         destroyManager();
     };
     bottomInfo.appendChild(cancelButton);
 
+    //Create the Upload Images HTML
     if (isUploading)
     {
         var uploadForm = createElement("form");
@@ -335,25 +359,31 @@ function createManager(uploading, element)
     }
     else
     {
+        //Create the select button
         var selectButton = createElement("button");
         selectButton.id = "fileManagerSelectButton";
         selectButton.innerHTML = "Select";
 
+        //General Text image adding
         if (arguments.length === 1)
         {
             selectButton.addEventListener("click", function ()
             {
                 restoreSelectorPoint();
-                var img = "<img src='" + currentSelectedPath + "' onclick='editImage(this)' style='" +
+                for(var i = 0; i < managerImageList.length; i++)
+                {
+                   var img = "<img src='" + getImageByName(managerImageList[i]) + "' onclick='editImage(this)' style='" +
                         "width: 50%;" +
                         "float: right;" +
                         "clear: right;" +
-                        "top: 0px;" +
+                        "top: 0;" +
                         "'>";
                 document.execCommand("insertHTML", false, img);
-                destroyManager();
+                destroyManager(); 
+                }
             });
         }
+        //Input image adding
         else
         {
             selectButton.addEventListener("click", function ()
@@ -363,8 +393,6 @@ function createManager(uploading, element)
                 images[images.length] = element.value;
             });
         }
-
-
         bottomInfo.appendChild(selectButton);
     }
 
@@ -393,20 +421,19 @@ function createManager(uploading, element)
     document.body.appendChild(PullButton);
 }
 
-
 //CATALOG
 function createCatalogAddition()
 {
     var section = createElement("section");
     section.id = "addPlantMenu";
     section.style.minHeight = "100px";
-    section.style.boxShadow = "0px 0px 20px 5px black";
+    section.style.boxShadow = "0 0 20px 5px black";
     getElementById("mid").appendChild(section);
 
     var topDiv = createElement("div");
     topDiv.style.height = "30px";
     topDiv.style.width = "auto";
-    topDiv.style.backgroundColor = "#8D99C8";
+    topDiv.style.backgroundColor = "#C0C0C0";
     topDiv.style.borderBottom = "solid 1px gray";
     section.appendChild(topDiv);
 
@@ -632,7 +659,7 @@ function createCatalogAddition()
     var imageButton = createElement("Button");
     imageButton.innerHTML = "Voeg foto toe";
     imageButton.style.marginLeft = "105px";
-    imageButton.style.backgroundColor = "#8D99C8";
+    imageButton.style.backgroundColor = "#f2f2f2";
 
     sectionDiv.appendChild(imageButton);
     imageButton.addEventListener("click", function ()

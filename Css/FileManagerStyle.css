@@ -262,3 +262,9 @@
     text-shadow: 3px 3px 3px gray;
     cursor: pointer;
 }
+
+.selectedItem
+{
+    box-shadow: 0 0 3px 1px red;
+    background-color: gray;
+}

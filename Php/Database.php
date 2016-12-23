@@ -9,8 +9,24 @@ function connectToDatabase() {
     return $connection;
 }
 
-function getSQL($sqlCode, $rowName) {
+//-----------Depracted
 
+function doSQL($sqlCode) {
+    //trigger_error("Deprecated function called.", E_USER_NOTICE);
+    try {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement = $connection->prepare($sqlCode);
+        $statement->execute();
+    } catch (PDOException $e) {
+        echo $sqlCode . "<br>" . $e->getMessage();
+        echo '<br><br>';
+    }
+}
+
+
+function getSQL($sqlCode, $rowName) {
+    //trigger_error("Deprecated function called.", E_USER_NOTICE);
 
     $connection = connectToDatabase();
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -24,6 +40,7 @@ function getSQL($sqlCode, $rowName) {
 }
 
 function getMaxSQL($table, $maxRow) {
+    //trigger_error("Deprecated function called.", E_USER_NOTICE);
     try {
         $connection = connectToDatabase();
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -37,7 +54,7 @@ function getMaxSQL($table, $maxRow) {
 }
 
 function getSQLArray($sqlCode) {
-
+    //trigger_error("Deprecated function called.", E_USER_NOTICE);
     try {
         $connection = connectToDatabase();
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -49,6 +66,22 @@ function getSQLArray($sqlCode) {
     }
     return $statement;
 }
+
+//----------------beveiligd
+
+function BeveiligdGetMaxSQL($table, $maxRow) {
+    try {
+        $connection = connectToDatabase();
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement = $connection->prepare("SELECT MAX(?) FROM ?");
+        $statement->execute(array($table,$maxRow));
+        return $statement->fetchColumn();
+    } catch (PDOException $e) {
+        echo $sqlCode . "<br>" . $e->getMessage();
+        echo '<br><br>';
+    }
+}
+
 
 function BeveiligdGetSQL($sqlCode, $rowName, $variables) {
     $connection = connectToDatabase();
@@ -89,14 +122,3 @@ function BeveiligDoSQL($sqlCode, $variables) {
 
 //http://localhost:8080/pages/catalog.php?category=1 OR 1=1#
 
-function doSQL($sqlCode) {
-    try {
-        $connection = connectToDatabase();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement = $connection->prepare($sqlCode);
-        $statement->execute();
-    } catch (PDOException $e) {
-        echo $sqlCode . "<br>" . $e->getMessage();
-        echo '<br><br>';
-    }
-}
