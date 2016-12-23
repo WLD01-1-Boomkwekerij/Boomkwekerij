@@ -1,6 +1,7 @@
 html, body{
     height: 100%;
     box-sizing: border-box;
+
 }
 
 *,
@@ -292,4 +293,8 @@ body {
     width:60%;
     margin-left:20%;
     
+}
+
+#btn2{
+    margin-left: 32%;
 }
