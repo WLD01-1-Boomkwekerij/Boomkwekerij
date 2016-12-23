@@ -52,7 +52,7 @@
 
 #plantnaamfoto{
     height:25px;
-    background-color:#c5acd2;
+    background-color:#87a6bc;
     border-radius:4px;
     box-shadow: 0px 0px 2px 2px black;
     margin-left:5%;
@@ -78,7 +78,8 @@
     height: auto;
     float: right;
     margin-bottom: 15px;
-    background-color: #ccccff;
+    background-color: #a1c8e0;
+    box-shadow: 0px 0px 2px 2px black;
     padding:10px;
     margin-top: 15px;
 }
@@ -87,5 +88,24 @@
 {
     clear: both;
     min-height: 200px;
+
+}
+
+#opslaan2{
+    margin-left:34%;
+}
+
+#plantinfotitel, #plantinfotitel2{
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    height: 25px;
+    width: 108.3%;
+    margin-left:-4%;
+    margin-top:-4.5%;
+
+    background-color:	#87a6bc; /* IE6-9 */
+    color: #404040;
+    border-bottom:solid black;
 
 }

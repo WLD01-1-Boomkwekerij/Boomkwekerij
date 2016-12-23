@@ -29,7 +29,7 @@
                     ?>
                 </section>
                 <section id="maincontent">
-
+   <h1>Boomkwekerij - Familie P. Boer</h1>
                     <?php
                     //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
                     print("<div class='clearFix WidthFix' id='tekstDIV' style='position: relative'>");

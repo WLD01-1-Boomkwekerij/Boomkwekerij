@@ -79,6 +79,7 @@
                     $bloeiwijze = $plantRegel['Bloeiwijze'];
 
                     echo "<div class='item'>
+                        <p id='plantinfotitel2'>Informatie</p>
                             <table>
                                 <tr>
                                     <td>Bloeitijd:</td>
@@ -158,6 +159,7 @@
 
                     echo "<div class='item'>
                             <form action='Plant.php' method='get'>
+                            <p id='plantinfotitel'>Bewerken</p>
                             <table>
                                 <tr>
                                     <td>Bloeitijd:</td>
@@ -168,14 +170,16 @@
                                     <td><input type='text' name='Bloeiwijze' value='$bloeiwijze'></td>
                                 </tr>
                                 <tr>
-                                    <td>hoogte:</td>
-                                    <td><input type='number' name='Hoogtemin' value='$hoogtemin'></td>
-                                    <td><input type='number' name='Hoogtemax' value='$hoogtemax'></td>
+                                    <td>Hoogte:</td>
+                                    <td><input type='number' placeholder='Minimale Hoogte'  name='Hoogtemin' value='$hoogtemin'></td>
+                                    <tr>
+                                    <td></td>
+                                    <td><input type='number'placeholder='Maximale Hoogte' name='Hoogtemax' value='$hoogtemax'></td>
                                 </tr>
 
                             </table>
                             <input type='hidden' name='plant' value='$plant'>
-                            <input type='submit' name='PlantBewerken' value='Opslaan'>
+                            <input type='submit' id='opslaan2' name='PlantBewerken' class='button-green' value='Opslaan'>
                             </form>
                         </div>";
                 }

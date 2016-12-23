@@ -69,7 +69,7 @@
                         $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category", array());
                         $categoryRegel = $sqlCategory->fetch();
                         $categoryNaam = $categoryRegel["CategoryNaam"];
-                        echo "<h1>$categoryNaam</h1>";
+                        echo "<h1 id='catalogustitle2'>$categoryNaam</h1>";
 
                         $sqlPrijs = BeveiligGetSQLArray("SELECT * FROM prijs", array());
 

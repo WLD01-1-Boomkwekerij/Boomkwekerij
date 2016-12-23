@@ -1,6 +1,21 @@
 h1 
 {
-    margin-left: -15px;
+    margin-left: -25px;
+
+}
+
+#catalogustitle2{
+     font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    height: 50px;
+    width: 101.55%;
+    margin: 0px;
+    padding-top:6px;
+    background-color:	#87a6bc; /* IE6-9 */
+    color: #404040;
+    margin-left:-15px;
+
 }
 #wrapper
 {
