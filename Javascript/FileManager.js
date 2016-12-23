@@ -218,7 +218,8 @@ function updateImageList()
 
     for (var j = 0; j < managerImageList.length; j++)
     {
-        (function (j) {
+        (function (j)
+        {
             var imageDiv = createElement("div");
             $(imageDiv).addClass("imageDiv");
             sidebar.appendChild(imageDiv);
@@ -363,10 +364,6 @@ function createManager(uploading, element)
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function ()
     {
-        if (arguments.length > 1)
-        {
-            element.parentNode.removeChild(element);
-        }
         destroyManager();
     };
     bottomInfo.appendChild(cancelButton);
@@ -426,19 +423,20 @@ function createManager(uploading, element)
         //Input image adding
         else
         {
+            //If the managerlist is not empty
             selectButton.addEventListener("click", function ()
             {
                 //Loop through every image array item and create a new input item
-                for (var i = 0; i <images.length; i++)
+                for (var i = 0; i <  managerImageList.length; i++)
                 {
                     var imgInput = createElement("input");
+                    $(imgInput).addClass("imgInput");
                     imgInput.readOnly = true;
-                    sectionDiv.insertBefore(imgInput, sectionDiv.lastChild);
+                    imgInput.value = managerImageList[i];
+                    element.insertBefore(imgInput, element.lastChild);
+                    images[images.length] = managerImageList[i];
                 }
-
-                element.value = currentSelectedPath;
                 destroyManager();
-                images[images.length] = element.value;
             });
         }
         bottomInfo.appendChild(selectButton);
@@ -477,22 +475,22 @@ function createCatalogAddition()
 {
     var section = createElement("section");
     section.id = "addPlantMenu";
-    section.style.minHeight = "100px";
-    section.style.boxShadow = "0 0 20px 5px black";
     getElementById("mid").appendChild(section);
 
     var topDiv = createElement("div");
+<<<<<<< HEAD
     topDiv.style.height = "30px";
     topDiv.style.width = "auto";
     topDiv.style.backgroundColor = "#a1c8e0";
     topDiv.style.borderBottom = "solid 1px gray";
+=======
+    topDiv.id = "topDiv";
+>>>>>>> 9eaa140d48888d432eb3ce41502267b7a5567a28
     section.appendChild(topDiv);
 
     var buttonAddPlant = createElement("button");
     buttonAddPlant.innerHTML = "Voeg toe";
-    buttonAddPlant.style.float = "right";
-    buttonAddPlant.style.marginTop = "5px";
-    buttonAddPlant.style.marginRight = "5px";
+    buttonAddPlant.id = "buttonAddPlant";
     buttonAddPlant.addEventListener("click", function ()
     {
         if (!plantAdded)
@@ -550,10 +548,7 @@ function createCatalogAddition()
 
     var textAddPlant = createElement("p");
     textAddPlant.innerHTML = "Plant Toevoegen";
-    textAddPlant.style.lineHeight = "30px";
-    textAddPlant.style.margin = "0";
-    textAddPlant.style.marginLeft = "5px";
-    textAddPlant.style.fontWeight = "bold";
+    textAddPlant.id = "textAddPlant";
     topDiv.appendChild(textAddPlant);
 
     var sectionDiv = createElement("div");
@@ -562,17 +557,10 @@ function createCatalogAddition()
 
     var rightDiv = createElement("div");
     rightDiv.id = "elementTwo";
-    rightDiv.style.width = "60%";
-    rightDiv.style.height = "auto";
-    rightDiv.style.float = "right";
-    rightDiv.style.marginTop = "10px";
     sectionDiv.appendChild(rightDiv);
 
     var leftDiv = createElement("div");
     leftDiv.id = "elementOne";
-    leftDiv.style.width = "40%";
-    leftDiv.style.height = "auto";
-    leftDiv.style.marginTop = "10px";
     sectionDiv.appendChild(leftDiv);
 
 
@@ -709,8 +697,7 @@ function createCatalogAddition()
 
     var imageButton = createElement("Button");
     imageButton.innerHTML = "Voeg foto toe";
-    imageButton.style.marginLeft = "105px";
-    imageButton.style.backgroundColor = "#f2f2f2";
+    imageButton.id = "imageButton";
 
     sectionDiv.appendChild(imageButton);
     imageButton.addEventListener("click", function ()
