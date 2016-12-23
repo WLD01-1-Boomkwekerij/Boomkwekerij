@@ -1,4 +1,7 @@
-
+h1 
+{
+    margin-left: -15px;
+}
 #wrapper
 {
     max-width: 1231px;
@@ -9,7 +12,8 @@
     clear: both;
     display: block;
     width: 260px;
-    height: auto;
+    height: 225px;
+    background-color: #ccccff;
     float: right;
     margin-bottom: 15px;
 }
@@ -20,6 +24,10 @@
     min-height: 300px;
 }
 
+#maincontent
+{
+    padding-left: 15px;
+}
 
 #catalogAddDivSide
 {
