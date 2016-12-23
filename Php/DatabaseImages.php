@@ -11,9 +11,9 @@ function loadImageById($Id)
     print(BeveiligdGetSQL("SELECT FotoUrl FROM foto WHERE FotoID = ?", "FotoUrl",array($Id)));
 }
 
-function loadImageByName($Name)
+if(isset($_GET["getImageByName"]))
 {
-    print(BeveiligdGetSQL("SELECT FotoUrl FROM foto WHERE FotoNaam = ?", "FotoUrl",array($Name)));
+    print(getSQL("SELECT FotoUrl FROM foto WHERE FotoNaam = '" . $_GET["getImageByName"] . "'", "FotoUrl"));
 }
 
 function updateImageById($Id, $newUrl, $Name)
