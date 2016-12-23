@@ -218,7 +218,8 @@ function updateImageList()
 
     for (var j = 0; j < managerImageList.length; j++)
     {
-        (function (j) {
+        (function (j)
+        {
             var imageDiv = createElement("div");
             $(imageDiv).addClass("imageDiv");
             sidebar.appendChild(imageDiv);
@@ -363,10 +364,6 @@ function createManager(uploading, element)
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function ()
     {
-        if (arguments.length > 1)
-        {
-            element.parentNode.removeChild(element);
-        }
         destroyManager();
     };
     bottomInfo.appendChild(cancelButton);
@@ -426,19 +423,19 @@ function createManager(uploading, element)
         //Input image adding
         else
         {
+            //If the managerlist is not empty
             selectButton.addEventListener("click", function ()
             {
                 //Loop through every image array item and create a new input item
-                for (var i = 0; i <images.length; i++)
+                for (var i = 0; i <  managerImageList.length; i++)
                 {
                     var imgInput = createElement("input");
                     imgInput.readOnly = true;
-                    sectionDiv.insertBefore(imgInput, sectionDiv.lastChild);
+                    imgInput.value = managerImageList[i];
+                    element.insertBefore(imgInput, element.lastChild);
+                    images[images.length] = managerImageList[i];
                 }
-
-                element.value = currentSelectedPath;
                 destroyManager();
-                images[images.length] = element.value;
             });
         }
         bottomInfo.appendChild(selectButton);
@@ -477,15 +474,10 @@ function createCatalogAddition()
 {
     var section = createElement("section");
     section.id = "addPlantMenu";
-    section.style.minHeight = "100px";
-    section.style.boxShadow = "0 0 20px 5px black";
     getElementById("mid").appendChild(section);
 
     var topDiv = createElement("div");
-    topDiv.style.height = "30px";
-    topDiv.style.width = "auto";
-    topDiv.style.backgroundColor = "#C0C0C0";
-    topDiv.style.borderBottom = "solid 1px gray";
+    topDiv.id = "topDiv";
     section.appendChild(topDiv);
 
     var buttonAddPlant = createElement("button");

@@ -1,0 +1,14 @@
+
+#addPlantMenu
+{
+    min-height: 100px;
+    box-shadow: 0 0 20px 5px black;
+}
+
+#topDiv
+{
+    height: 30px;
+    width: auto;
+    background-color: #C0C0C0;
+    border-bottom: solid 1px gray
+}
