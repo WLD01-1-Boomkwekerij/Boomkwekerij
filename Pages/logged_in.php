@@ -14,15 +14,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
         <title>Boomkwekerij - Beheerderspagina</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-
-
-
-
-        </script>
+        
+    
     </head>
     <body>
         <section id="wrapper">
@@ -37,8 +30,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                 <section id="maincontent">
                     <center><h1>Beheerderspagina</h1></center>
 
-                    <div class="WidthFix">                    
-                        <center><h4>Gebruikers beheren</h4> </center>
+                    <div class="WidthFix"> <br>                   
+                        <center><h4>Gebruikers beheren</h4> </center><br>
                         <center><h5>Nieuw gebruiker toevoegen</h5></center>
                         <?php
                         include '../Php/POST.php';
@@ -63,11 +56,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                 <form action="../Php/user_add.php" method="post">
                                     <!--Toevoeg knop met informatie wordt geserialiseerd-->
                                     <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
-                                    <input type="submit" class ="btn btn-success" id="userconfirm" name="submit" value="Bevestigen"/>
+                                    <input type="submit" class ="button-green" id="userconfirm" name="submit" value="Bevestigen"/>
                                 </form>
                                 <form action="../Pages/logged_in.php" method="post">
                                     <!--Annuleer knop-->
-                                    <input class="btn btn-danger" id="usercancel" type="submit" name="cancel" value="Annuleren"/>
+                                    <input class="button-redr" id="usercancel" type="submit" name="cancel" value="Annuleren"/>
                                 </form> <br><br><br>
                                 <?php
                             }
@@ -135,7 +128,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
 
                                 </table>
                                 <br>
-                                   <input type="submit" name="submit" class="btn btn-success" value="Toevoegen" tabindex="7"/> <!--toevoegknop--> 
+                                   <input type="submit" name="submit" class="button-green" value="Toevoegen" tabindex="7"/> <!--toevoegknop--> 
                             </form>
                             <?php
                         } else {
@@ -175,7 +168,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                                 </select> 
                                             </td>
                                     </table><br>
-                                    <td><input type="submit" class="btn btn-success" id='submit' name="submit" value="Toevoegen" tabindex="7"/></td>
+                                    <td><input type="submit" class="button-green" id='submit' name="submit" value="Toevoegen" tabindex="7"/></td>
                                 </form></center>
                             <?php
                         }
@@ -215,11 +208,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                         <td>
                                             <form action="../Pages/user_edit.php" method="POST"> <!--doorsturen naar aanpaspagina-->
                                                 <input type='hidden' name='gebruiker' value="<?php print($rij['GebruikerID']) ?>" />
-                                                <input type="submit" class="btn btn-info btn-sm" name="submit" value="Bewerk"/>
+                                                <input type="submit" class="button-blue" name="submit" value="Bewerk"/>
                                             </form>
                                         </td>
 
-                                        <td id="verwijdertd"> <input type="submit"  class="btn btn-danger btn-sm" name="submit" value="X"/></td>
+                                        <td id="verwijdertd"> <input type="submit"  class="button-red" name="submit" value="X"/></td>
                                             <?php
                                         }
                                         ?>

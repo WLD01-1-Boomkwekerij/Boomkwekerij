@@ -5,6 +5,7 @@
         <title class="notranslate">Boomkwekerij - Beheerderspagina</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
+
         <?php
         session_start();
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSION['toegang'] != 1) {
@@ -34,25 +35,20 @@
                             <form method="post" action="../Pages/user_edit.php">
                                 <?php
                                 include_once '../Php/Database.php';
-                                $array = BeveiligGetSQLArray('SELECT * FROM boomkwekerij.gebruiker WHERE GebruikerID =?',array($gebruiker));
+                                $array = BeveiligGetSQLArray('SELECT * FROM boomkwekerij.gebruiker WHERE GebruikerID =?', array($gebruiker));
                                 while ($data = $array->fetch()) {
                                     print('<h5>' . $data['Naam'] . '</h5>');
                                     ?>
                                     <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _ ! ?</i><br>
                                     <table>
                                         <tr>
-                                            <th>Naam</th>
-                                            <th>Email</th>
-                                            <th>Krijgt notifactie</th>
-                                            <th>Wachtwoord</th>
-                                            <th>Wachtwoord opnieuw</th>
-                                            <th>Rechten</th>
-                                            <th>Bewerken</th>
-                                            <th>Verwijderen</th>
-                                        </tr>
-                                        <tr>
+                                            <td>Naam</td>
                                             <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($data['Naam']); ?>"></td>
+                                        <tr>
+                                            <td>Email</td>
                                             <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required value="<?php print($data['Email']); ?>"></td>
+                                        <tr>
+                                            <td>Krijgt notifactie</td>
                                             <td>
                                                 <?php
                                                 if ($data['KrijgtEmail'] == 0) {
@@ -70,8 +66,14 @@
                                                     </select> 
                                                 <?php } ?>
                                             </td>
+                                        <tr>
+                                            <td>Wachtwoord</td>
                                             <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" ></td>
+                                        <tr>
+                                            <td>Wachtwoord opnieuw</td>
                                             <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" ></td>
+                                        <tr>
+                                            <td>Rechten</td>
                                             <td> 
                                                 <?php
                                                 if ($data['Rol'] == '1') {
@@ -101,16 +103,16 @@
                                                 }
                                                 ?>                                    
                                             </td>
-                                            <td>
-                                                <input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" />
-                                                <input type="submit" name="submit" value="Bewerken"/>
-                                            </td>
-                                            <td>
-                                                <input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" />
-                                                <input type="submit" name="submit" value="Verwijderen"/>
-                                            </td>
-                                        </tr>
+
+
                                     </table>
+
+                                    <input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" />
+                                    <input type="submit" class="button-red" name="submit" value="Verwijderen"/>
+                                    
+                                        <input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" />
+                                    <input type="submit" class="button-green" name="submit" value="Opslaan"/>
+
                                 </form>
                                 <?php
                             }

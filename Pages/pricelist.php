@@ -195,11 +195,11 @@
                                         print ("<tr  class='notranslate' >");
                                         echo"<td><form onsubmit='return confirm(`Wilt u dit echt verwijderen?`);' action='pricelist.php' method='post'>"
                                         . "<input type='hidden' name='id'  value='$catID'>"
-                                        . "<input style='width:30%; background-color:red' type='submit' name='verwijderCat'  value='X'>"
+                                        . "<input style='width:30%; background-color:#f44336; border:none; font-size:14px; color:white;' type='submit' name='verwijderCat'  value='X'>"
                                         . "</form>"
                                         . "<form  action='pricelist.php' method='post'>"
                                         . "<input type='hidden' name='id'  value='$catID'>"
-                                        . "<input style='width:69%' type='submit' name='bewerkCat'  value='Bewerken'>"
+                                        . "<input style='width:69%' class='btnpricelist-blue' type='submit' name='bewerkCat'  value='Bewerken'>"
                                         . "</form>"
                                         . "</td>";
                                     } else {
@@ -232,18 +232,18 @@
                                             echo '<tr class="notranslate">';
                                             echo"<td><form action='pricelist.php' method='post'>"
                                             . "<input type='hidden' name='id'  value='$regelID'>"
-                                            . "<input style='width:30%' type='submit' name='verwijderRegel'  value='X'>"
+                                            . "<input style='width:30%; background-color:#f44336; border:none;font-size:14px; color:white;' type='submit' name='verwijderRegel'  value='X'>"
                                             . "</form>"
                                             . "<form action='pricelist.php' method='post'>"
                                             . "<input type='hidden' name='id'  value='$regelID'>"
-                                            . "<input style='width:69%' type='submit' name='bewerkRegel'  value='Bewerken'>"
+                                            . "<input style='width:69%' type='submit' name='bewerkRegel'  class='btnpricelist-blue' value='Bewerken'>"
                                             . "</form>"
                                             . "</td>";
                                         } else {
                                             echo "<form action='pricelist.php' method='post'>";
                                             echo "<tr class='notranslate'>";
                                             echo "<td>"
-                                            . "<input type='submit' name='OpslaanRegel'  value='Opslaan'>"
+                                            . "<input type='submit' name='OpslaanRegel' class='btnpricelist-green' value='Opslaan'>"
                                             . "<input type='hidden' name='id'  value='$regelID'>"
                                             ;
                                         }
@@ -337,7 +337,7 @@
                                     . "<tr class='notranslate'> "
                                     . "<td>"
                                     . "<input type='hidden' name='id'  value='$catID'>"
-                                    . "<input type='submit' name='regel'  value='Regel toevoegen'>"
+                                    . "<input type='submit' class='btnpricelist-green' name='regel'  value='Regel toevoegen'>"
                                     . "</td>"
                                     . "<td>"
                                     . "<input required type='text' name='naam'>"
@@ -373,7 +373,7 @@
                                 echo "<form action='pricelist.php' method='post'>"
                                 . "<tr class='notranslate'> "
                                 . "<td> "
-                                . "<input type='submit' name='category'  value='Category toevoegen'>"
+                                . "<input type='submit' name='category' class='btnpricelist-green' value='Category toevoegen'>"
                                 . "</td><td colspan='2'>"
                                 . "<input required type='text' name='naam'>"
                                 . "</td> "

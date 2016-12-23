@@ -47,7 +47,7 @@
 
                         <input name="captcha" required id='captchatekst' placeholder="Voer de 4 getallen in" type="text">
                         <br><br>
-                        <input type="submit" ID="btn1" name="submit" value="Aanvraag indienen" /> 
+                        <input type="submit" I name="submit" style="border-radius:8px;margin-bottom:5px;" class="button-green" value="Aanvraag indienen" /> 
 
                     </form>
                     </div>

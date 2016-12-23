@@ -484,7 +484,7 @@ function createCatalogAddition()
     var topDiv = createElement("div");
     topDiv.style.height = "30px";
     topDiv.style.width = "auto";
-    topDiv.style.backgroundColor = "#C0C0C0";
+    topDiv.style.backgroundColor = "#a1c8e0";
     topDiv.style.borderBottom = "solid 1px gray";
     section.appendChild(topDiv);
 
