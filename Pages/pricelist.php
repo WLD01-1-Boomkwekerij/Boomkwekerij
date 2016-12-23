@@ -107,16 +107,7 @@
                                      `ExtraBeschrijving`,
                                      `Potmaat`,
                                      `CategoryID`) 
-                                     VALUES (
-                                     ?,"
-                                            . " ?,"
-                                            . " ?,"
-                                            . " ?,"
-                                            . " ?,"
-                                            . " ?,"
-                                            . " ?,"
-                                            . " ?,"
-                                            . " ?)",
+                                     VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)",
                                             array($prijsKwekerij,$prijsVBA,$percc,$perlaag,$naam,$beschrijving,$potmaat,$id)
                                             );
                                 }
