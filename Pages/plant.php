@@ -28,6 +28,7 @@
     </head>
     <body>
         <section id="wrapper">
+            <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
             <section id="top">
                 <section id="header"></section>
                 <?php

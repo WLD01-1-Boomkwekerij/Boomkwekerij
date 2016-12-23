@@ -27,6 +27,7 @@
     </head>
     <body>
         <section id="wrapper">
+            <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
             <section id="top">
                 <section id="header"></section>
                 <?php
@@ -154,7 +155,7 @@
                     ?>
 
                     <div id='printable'> 
-                        <img src="../images/banner.jpg" id="printheader" alt="header">      
+                    
                         <h1>Prijslijst</h1>
                         <table class="pricelist">
                             <colgroup>
