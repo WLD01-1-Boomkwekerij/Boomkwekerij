@@ -2,158 +2,57 @@
 
 include_once 'Database.php';
 
-function loadTextFromDB($textID)
-{
-    try
-    {
-        $connection = connectToDatabase();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement = $connection->prepare("SELECT * FROM tekst WHERE TEKSTID=" . $textID);
-        $statement->execute();
-
-        while ($row = $statement->fetch())
-        {
-            $text = $row["Tekst"];
-            print htmlspecialchars_decode($text) . "<br>";
-        }
-    }
-    catch (Exception $ex)
-    {
-        print($ex->getMessage());
+function loadTextFromDB($textID) {
+    $statement = BeveiligGetSQLArray("SELECT * FROM tekst WHERE TEKSTID=?", array($textID));
+    while ($row = $statement->fetch()) {
+        $text = $row["Tekst"];
+        print htmlspecialchars_decode($text) . "<br>";
     }
 }
 
 //Plain Text
-function saveTextToDB($textID, $text)
-{
-    try
-    {
-        $connection = connectToDatabase();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement = $connection->prepare("UPDATE tekst SET Tekst='" . htmlspecialchars($text) . "' WHERE TekstID=" . $textID);
-        $statement->execute();
-        $connection = null;
-    }
-    catch (PDOException $ex)
-    {
-        print($ex->getMessage());
-    }
+function saveTextToDB($textID, $text) {
+    $statement = BeveiligDoSQL("UPDATE tekst SET Tekst='?' WHERE TekstID=?", array(htmlspecialchars($text), $textID));
 }
 
-function getTextIDFromNewsID($connection, $newsID)
-{
-    try
-    {
-        $sqlSelect = "SELECT t.TekstID "
-                . "FROM aanbieding a "
-                . "JOIN tekst t "
-                . "ON a.TekstID = t.TekstID "
-                . "WHERE a.aanbiedingID = $newsID";
-
-        $statement = $connection->prepare($sqlSelect);
-        $statement->execute();
-
-        $row = $statement->fetch();
-        $textID = $row["TekstID"];
-        return $textID;
-    }
-    catch (Exception $ex)
-    {
-        print($ex->getMessage());
-    }
+function getTextIDFromNewsID($newsID) {
+    $sqlSelect = "SELECT t.TekstID FROM aanbieding a JOIN tekst t ON a.TekstID = t.TekstID WHERE a.aanbiedingID = ?";
+    $statement = BeveiligGetSQLArray($sqlSelect, array($newsID));
+    $row = $statement->fetch();
+    $textID = $row["TekstID"];
+    return $textID;
 }
 
 //Inserting
-function insertNewsTextToDB($visibility, $text, $title)
-{
-    try
-    {
-        $connection = connectToDatabase();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql1 = "INSERT INTO tekst (tekst) VALUES('" . htmlspecialchars($text) . "');";
-
-        $statement = $connection->prepare($sql1);
-        $statement->execute();
-
-        $lastTextID = getMaxSQL("tekst", "TekstID");
-        $sql2 = "INSERT INTO aanbieding (AanbiedingID, Zichtbaar, DatumGeplaatst, TekstID, Titel) VALUES(NULL, $visibility, CURRENT_TIMESTAMP, $lastTextID, '$title')";
-
-        $statement = $connection->prepare($sql2);
-        $statement->execute();
-
-        $connection = null;
-    }
-    catch (PDOException $ex)
-    {
-        print($ex->getMessage());
-    }
+function insertNewsTextToDB($visibility, $text, $title) {
+    $sql1 = "INSERT INTO tekst (tekst) VALUES('?');";
+    $statement = BeveiligDoSQL($sql1, array(htmlspecialchars($text)));
+    $lastTextID = BeveiligdGetMaxSQL("tekst", "TekstID");
+    $sql2 = "INSERT INTO aanbieding (AanbiedingID, Zichtbaar, DatumGeplaatst, TekstID, Titel) VALUES(NULL, ?, CURRENT_TIMESTAMP, ?, ?)";
+    BeveiligDoSQL($sql2, array($visibility, $lastTextID, $title));
 }
 
 //Updating
-function updateNewsTextToDB($newsID, $visibility, $text, $title)
-{
-    try
-    {
-        $connection = connectToDatabase();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+function updateNewsTextToDB($newsID, $visibility, $text, $title) {
+        $textID = getTextIDFromNewsID($newsID);
+        $sql1 = "UPDATE tekst SET Tekst=? WHERE TekstID=?;";
+        BeveiligDoSQL($sql1, array(htmlspecialchars($text),$textID));
+        $sql2 = "UPDATE aanbieding SET zichtbaar=?, Titel=? WHERE aanbiedingID = ?";
+        BeveiligDoSQL($sql2,array($visibility,$title,$newsID));
+}
+
+function DeleteNewsTextFromDB($newsID) {
         $textID = getTextIDFromNewsID($connection, $newsID);
-
-        $sql1 = "UPDATE tekst "
-                . "SET Tekst='" . htmlspecialchars($text) . "' "
-                . "WHERE TekstID=$textID;";
-
-        $statement = $connection->prepare($sql1);
-        $statement->execute();
-
-        $sql2 = "UPDATE aanbieding SET zichtbaar=$visibility, Titel='$title' WHERE aanbiedingID = $newsID";
-
-        $statement = $connection->prepare($sql2);
-        $statement->execute();
-
-        $connection = null;
-    }
-    catch (PDOException $ex)
-    {
-        print($ex->getMessage());
-    }
+        BeveiligDoSQL("DELETE FROM aanbieding WHERE AanbiedingID=?",array($newsID));
+        BeveiligDoSQL("DELETE FROM tekst WHERE TekstID=?",array($textID));
 }
 
-function DeleteNewsTextFromDB($newsID)
-{
-    try
-    {
-        $connection = connectToDatabase();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $textID = getTextIDFromNewsID($connection, $newsID);
-
-        $firstStatement = $connection->prepare("DELETE FROM aanbieding WHERE AanbiedingID=$newsID");
-        $firstStatement->execute();
-
-        $statement = $connection->prepare("DELETE FROM tekst WHERE TekstID=$textID");
-        $statement->execute();
-        $connection = null;
-    }
-    catch (Exception $ex)
-    {
-        print($ex->getMessage());
-    }
+function deletePlant($plantID) {
+    BeveiligDoSQL("DELETE FROM plantfoto WHERE PlantID=?", array($plantID));
+    BeveiligDoSQL("DELETE FROM plant WHERE PlantID=?", array($plantID));
 }
 
-function deletePlant($plantID)
-{
-    $connection = connectToDatabase();
-    $firstStatement = $connection->prepare("DELETE FROM plantfoto WHERE PlantID=$plantID");
-    $firstStatement->execute();
-    $statement = $connection->prepare("DELETE FROM plant WHERE PlantID=$plantID");
-    $statement->execute();
-    $connection = null;
-}
-
-function deleteArticle($newsID)
-{
-    $connection = connectToDatabase();
-    $firstStatement = $connection->prepare("DELETE FROM aanbieding WHERE AanbiedingID=$newsID");
-    $firstStatement->execute();
-    $connection = null;
+function deleteArticle($newsID) {
+    $firstStatement = $connection->prepare("DELETE FROM aanbieding WHERE AanbiedingID=?");
+    BeveiligDoSQL($firstStatement, array($newsID));
 }
