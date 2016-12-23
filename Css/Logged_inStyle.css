@@ -39,3 +39,27 @@ input {
 #submit{
     margin-left:80px;
 }
+
+#usercancel{
+    position:absolute;
+    margin-left:30%;
+    margin-top:1%;
+}
+
+#userconfirm{
+    position:absolute;
+    margin-left:40%;
+    margin-top:1%;
+}
+
+#usertableconfirm{
+    margin-left:37.5%;
+}
+
+#krijgt_mail1, #gebr_naam1,  #gebr_mail1, #rol1{
+    background-color:lightgrey;
+}
+
+#verwijdertd{
+    width:100px;
+}
