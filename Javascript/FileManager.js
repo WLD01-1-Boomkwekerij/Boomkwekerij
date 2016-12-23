@@ -433,7 +433,7 @@ function createCatalogAddition()
     var topDiv = createElement("div");
     topDiv.style.height = "30px";
     topDiv.style.width = "auto";
-    topDiv.style.backgroundColor = "#8D99C8";
+    topDiv.style.backgroundColor = "#C0C0C0";
     topDiv.style.borderBottom = "solid 1px gray";
     section.appendChild(topDiv);
 
@@ -659,7 +659,7 @@ function createCatalogAddition()
     var imageButton = createElement("Button");
     imageButton.innerHTML = "Voeg foto toe";
     imageButton.style.marginLeft = "105px";
-    imageButton.style.backgroundColor = "#8D99C8";
+    imageButton.style.backgroundColor = "#f2f2f2";
 
     sectionDiv.appendChild(imageButton);
     imageButton.addEventListener("click", function ()

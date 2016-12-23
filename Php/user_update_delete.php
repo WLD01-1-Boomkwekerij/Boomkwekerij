@@ -26,25 +26,27 @@
             }
             if (isset($Wachtwoord)) { // als er geen wachtwoord is veranderd wordt een SQL query gegenereerd zonder wachtwoord
                 $query = ('UPDATE `boomkwekerij`.`gebruiker`'
-                        . ' SET `Naam` ="' . $data["gebr_naam"] . '",'
-                        . ' `Email` = "' . $data["gebr_mail"] . '",'
-                        . ' `KrijgtEmail` = "' . $data["krijgt_mail"] . '",'
-                        . ' `Wachtwoord` ="' . $Wachtwoord . '",'
-                        . ' `Rol` = ' . $rol . ''
-                        . ' WHERE `GebruikerID` =' . $data["gebruiker"]);
+                        . ' SET `Naam` =?,'
+                        . ' `Email` = ?,'
+                        . ' `KrijgtEmail` = ?,'
+                        . ' `Wachtwoord` =?,'
+                        . ' `Rol` = ?'
+                        . ' WHERE `GebruikerID` =?');
+                    BeveiligDoSQL($query, array($data["gebr_naam"],$data["gebr_mail"],$data["krijgt_mail"],$Wachtwoord,$rol,$data["gebruiker"]));
             } else {
                 $query = ('UPDATE `boomkwekerij`.`gebruiker`'
-                        . ' SET `Naam` ="' . $data["gebr_naam"] . '",'
-                        . ' `Email` = "' . $data["gebr_mail"] . '",'
-                        . ' `KrijgtEmail` = "' . $data["krijgt_mail"] . '",'
-                        . ' `Rol` = ' . $rol . ''
-                        . ' WHERE `GebruikerID` =' . $data["gebruiker"]);
+                        . ' SET `Naam` =?,'
+                        . ' `Email` = ?,'
+                        . ' `KrijgtEmail` = ?,'
+                        . ' `Rol` = ?'
+                        . ' WHERE `GebruikerID` =?');
+                
+                    BeveiligDoSQL($query, array($data["gebr_naam"],$data["gebr_mail"],$data["krijgt_mail"],$rol,$data["gebruiker"]));
             }
-            doSQL($query);
 //            header('Refresh: 0; url=../Pages/logged_in.php'); //terug naar beheerderspagina
         } elseif ($submit == 'Verwijderen') { //verwijder SQL code genereren
-            $query = ('DELETE FROM boomkwekerij.gebruiker WHERE GebruikerID =' . $data["gebruiker"]);
-            doSQL($query);
+            $query = ('DELETE FROM boomkwekerij.gebruiker WHERE GebruikerID =?');
+            BeveiligDoSQL($query,array($data["gebruiker"]));
 //            header('Refresh: 0; url=../Pages/logged_in.php'); // terug naar beheerderspagina
         }
         ?>

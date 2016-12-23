@@ -17,6 +17,7 @@
     </head>
     <body>
         <section id="wrapper">
+            <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
             <section id="top">
                 <section id="header"></section>
                 <?php
@@ -32,7 +33,7 @@
                     <h1>Contactformulier</h1>
                     <div class="WidthFix">                    
                     <br>
-                    <div id="divlogo"> <img id="logo" src="../images/image001.png"></div>
+                    <div id="divlogo"> <img id="logo" src="../Images/SiteImages/image001.png"></div>
                     <form action="contactSend.php" method="post">
                         Naam: <br>      <input required class="contact" placeholder="Uw naam" type="text" name="contact_name" ><br>
                         Onderwerp: <br> <input required class="contact" placeholder="Onderwerp" type="text" name="contact_subject" ><br>
