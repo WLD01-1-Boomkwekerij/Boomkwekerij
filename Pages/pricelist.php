@@ -56,7 +56,7 @@
                             $naam = $_POST['naam'];
 
                             if (isset($_POST['OpslaanRegel'])) {
-                                BeveiligDoSQL("UPDATE prijs SET "
+                                ProtectedDoSQL("UPDATE prijs SET "
                                         . "PrijsKwekerij=?,"
                                         . " PrijsVBA=?, "
                                         . "ProductenCC=?, "
@@ -70,11 +70,11 @@
                                         );                                
                                 
                                 if ($pertray == 0) {
-                                    BeveiligDoSQL("UPDATE prijs SET ProductenTray = NULL WHERE PrijsID=?",array($id));
+                                    ProtectedDoSQL("UPDATE prijs SET ProductenTray = NULL WHERE PrijsID=?",array($id));
                                 }
                             } else {
                                 if ($_POST['pertray'] != 0) {
-                                    BeveiligDoSQL("INSERT INTO prijs (
+                                    ProtectedDoSQL("INSERT INTO prijs (
                                      `PrijsKwekerij`,
                                      `PrijsVBA`,
                                      `ProductenCC`,
@@ -98,7 +98,7 @@
                                             );
                                     
                                 } else {
-                                    BeveiligDoSQL("INSERT INTO prijs (
+                                    ProtectedDoSQL("INSERT INTO prijs (
                                      `PrijsKwekerij`,
                                      `PrijsVBA`,
                                      `ProductenCC`,
@@ -116,31 +116,31 @@
                         if (isset($_POST['verwijderRegel'])) {
                             $id = $_POST['id'];
 
-                            BeveiligDoSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID=?)",array($id));
-                            BeveiligDoSQL("DELETE FROM plant WHERE PrijsID=?)",array($id));
-                            BeveiligDoSQL("DELETE FROM prijs WHERE PrijsID=?)",array($id));
+                            ProtectedDoSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID=?)",array($id));
+                            ProtectedDoSQL("DELETE FROM plant WHERE PrijsID=?)",array($id));
+                            ProtectedDoSQL("DELETE FROM prijs WHERE PrijsID=?)",array($id));
                         }
 
 
                         if (isset($_POST['category'])) {
                             $naam = $_POST['naam'];
 
-                            BeveiligDoSQL("INSERT INTO category (`CategoryNaam`) VALUES (?)",array($naam));
+                            ProtectedDoSQL("INSERT INTO category (`CategoryNaam`) VALUES (?)",array($naam));
                         }
 
                         if (isset($_POST['OpslaanCat'])) {
                             $id = $_POST['id'];
                             $naam = $_POST['naam'];
-                            BeveiligDoSQL("UPDATE category SET CategoryNaam=? WHERE CategoryID=?",array($naam,$id));
+                            ProtectedDoSQL("UPDATE category SET CategoryNaam=? WHERE CategoryID=?",array($naam,$id));
                         }
 
                         if (isset($_POST['verwijderCat'])) {
                             $id = $_POST['id'];
 
-                            BeveiligDoSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID=?))",array($id));
-                            BeveiligDoSQL("DELETE FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID=?);",array($id));
-                            BeveiligDoSQL("DELETE FROM prijs WHERE CategoryID=?;",array($id));
-                            BeveiligDoSQL("DELETE FROM category WHERE CategoryID=?;",array($id));
+                            ProtectedDoSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID=?))",array($id));
+                            ProtectedDoSQL("DELETE FROM plant WHERE PrijsID IN(SELECT PrijsID FROM prijs WHERE CategoryID=?);",array($id));
+                            ProtectedDoSQL("DELETE FROM prijs WHERE CategoryID=?;",array($id));
+                            ProtectedDoSQL("DELETE FROM category WHERE CategoryID=?;",array($id));
                         }
                     }
                     ?>
@@ -186,7 +186,7 @@
                                 <td>tray</td>
                             </tr>
                             <?php
-                            $result = BeveiligGetSQLArray("SELECT * FROM Category",array());
+                            $result = ProtectedGetSQLArray("SELECT * FROM Category",array());
                             while ($row = $result->fetch()) {
                                 $catID = $row['CategoryID'];
                                 $catNaam = $row["CategoryNaam"];
@@ -221,7 +221,7 @@
                                     . "</tr>";
                                 }
 
-                                $result2 = BeveiligGetSQLArray("SELECT * FROM prijs WHERE CategoryID=?",array($catID));
+                                $result2 = ProtectedGetSQLArray("SELECT * FROM prijs WHERE CategoryID=?",array($catID));
 
                                 while ($row2 = $result2->fetch()) {
 
@@ -260,7 +260,7 @@
                                     $productenLaag = $row2['ProductenLaag'];
                                     $productenTray = $row2['ProductenTray'];
 
-                                    $result3 = BeveiligGetSQLArray("SELECT Hoogte_min, Hoogte_max FROM plant WHERE PrijsID=?",array($row2['PrijsID']));
+                                    $result3 = ProtectedGetSQLArray("SELECT Hoogte_min, Hoogte_max FROM plant WHERE PrijsID=?",array($row2['PrijsID']));
                                     $plantHoogte = $result3->fetch();
                                     $Hoogte_Min = $plantHoogte['Hoogte_min'];
                                     $Hoogte_Max = $plantHoogte['Hoogte_max'];

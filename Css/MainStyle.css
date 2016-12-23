@@ -353,6 +353,7 @@ body {
     display: inline-block;
     font-size: 12px;
 }
+
 .btnpricelist-red {
     background-color:  #f44336; /* rood*/
     border: none;
@@ -364,7 +365,6 @@ body {
     font-size: 10px;
 
 }
-
 
 .btnpricelist-blue {
     background-color: #008CBA; /*blauw */

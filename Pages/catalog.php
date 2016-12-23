@@ -46,7 +46,7 @@
                     <ul id="catalogus">
                         <?php
                         //Creates the sidevar category options
-                        $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category", array());
+                        $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category", array());
 
                         while ($row = $sqlCategory->fetch()) {
                             $categoryNaam = $row["CategoryNaam"];
@@ -66,12 +66,12 @@
                     }
 
                     if (!isset($_GET['category'])) {
-                        $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category", array());
+                        $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category", array());
                         $categoryRegel = $sqlCategory->fetch();
                         $categoryNaam = $categoryRegel["CategoryNaam"];
                         echo "<h1 id='catalogustitle2'>$categoryNaam</h1>";
 
-                        $sqlPrijs = BeveiligGetSQLArray("SELECT * FROM prijs", array());
+                        $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs", array());
 
                         while ($row = $sqlPrijs->fetch()) {
                             $prijsID = $row["PrijsID"];
@@ -82,7 +82,7 @@
                             $perCC = $row["ProductenCC"];
                             $perLaag = $row["ProductenLaag"];
                             $perTray = $row["ProductenTray"];
-                            $sqlPlant = BeveiligGetSQLArray(
+                            $sqlPlant = ProtectedGetSQLArray(
                                     "SELECT * 
                                  FROM plant 
                                  LEFT JOIN plantfoto pf
@@ -122,12 +122,12 @@
                     } else {
                         $category = $_GET['category'];
 
-                        $sqlCategory = BeveiligGetSQLArray("SELECT * FROM category WHERE CategoryID = ?", array($category));
+                        $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category WHERE CategoryID = ?", array($category));
                         $categoryRegel = $sqlCategory->fetch();
                         $categoryNaam = $categoryRegel["CategoryNaam"];
                         echo "<h1>$categoryNaam</h1>";
 
-                        $sqlPrijs = BeveiligGetSQLArray("SELECT * FROM prijs WHERE CategoryID = ?", array($category));
+                        $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE CategoryID = ?", array($category));
 
                         while ($row = $sqlPrijs->fetch()) {
                             $prijsID = $row["PrijsID"];
@@ -138,7 +138,7 @@
                             $perCC = $row["ProductenCC"];
                             $perLaag = $row["ProductenLaag"];
                             $perTray = $row["ProductenTray"];
-                            $sqlPlant = BeveiligGetSQLArray(
+                            $sqlPlant = ProtectedGetSQLArray(
                                     "SELECT * 
                                  FROM plant 
                                  LEFT JOIN plantfoto pf
