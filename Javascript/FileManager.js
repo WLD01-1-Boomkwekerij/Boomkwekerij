@@ -270,6 +270,8 @@ function getImageByName(name)
 {
     var urlArray = name.split("/");
     var realName = urlArray[urlArray.length - 1];
+    
+    console.log(realName);
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName" + realName, true);
@@ -277,7 +279,6 @@ function getImageByName(name)
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            console.log(xmlhttp.responseText);
             return xmlhttp.responseText;
         }
     };
@@ -426,7 +427,7 @@ function createManager(uploading, element)
             //If the managerlist is not empty
             selectButton.addEventListener("click", function ()
             {
-                //Loop through every image array item and create a new input item
+                //Loop through every managerImageList array item and create a new input item
                 for (var i = 0; i <  managerImageList.length; i++)
                 {
                     var imgInput = createElement("input");
@@ -478,14 +479,7 @@ function createCatalogAddition()
     getElementById("mid").appendChild(section);
 
     var topDiv = createElement("div");
-<<<<<<< HEAD
-    topDiv.style.height = "30px";
-    topDiv.style.width = "auto";
-    topDiv.style.backgroundColor = "#a1c8e0";
-    topDiv.style.borderBottom = "solid 1px gray";
-=======
     topDiv.id = "topDiv";
->>>>>>> 9eaa140d48888d432eb3ce41502267b7a5567a28
     section.appendChild(topDiv);
 
     var buttonAddPlant = createElement("button");
