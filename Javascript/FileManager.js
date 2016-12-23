@@ -428,6 +428,14 @@ function createManager(uploading, element)
         {
             selectButton.addEventListener("click", function ()
             {
+                //Loop through every image array item and create a new input item
+                for (var i = 0; i <images.length; i++)
+                {
+                    var imgInput = createElement("input");
+                    imgInput.readOnly = true;
+                    sectionDiv.insertBefore(imgInput, sectionDiv.lastChild);
+                }
+
                 element.value = currentSelectedPath;
                 destroyManager();
                 images[images.length] = element.value;
@@ -707,10 +715,7 @@ function createCatalogAddition()
     sectionDiv.appendChild(imageButton);
     imageButton.addEventListener("click", function ()
     {
-        var imgInput = createElement("input");
-        imgInput.readOnly = true;
-        sectionDiv.insertBefore(imgInput, sectionDiv.lastChild);
-        createManager(false, imgInput);
+        createManager(false, sectionDiv);
     });
 }
 
