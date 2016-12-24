@@ -1,16 +1,18 @@
 <?php
 
+include_once 'Database.php';
+
 //The file for all Image Commands
 //Insert Image
 function insertImage($name, $url)
 {
-     ProtectedDoSQL("INSERT INTO foto (FotoUrl, FotoNaam) VALUES (?, ?)", array($name, $url));
+     ProtectedDoSQL("INSERT INTO foto (FotoUrl, FotoNaam) VALUES (?, ?)", array($url, $name));
 }
 
 //Load image
 if (isset($_GET["getImageByName"]))
 {
-    print(getSQL("SELECT FotoUrl FROM foto WHERE FotoNaam = '" . $_GET["getImageByName"] . "'", "FotoUrl"));
+    print(ProtectedGetSQL("SELECT FotoUrl FROM foto WHERE FotoNaam = ?", "FotoUrl", array($_GET["getImageByName"])));
 }
 
 //Update

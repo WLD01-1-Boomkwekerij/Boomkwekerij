@@ -268,20 +268,25 @@ function removeImageFromList(selectedImage)
     }
 }
 
-function getImageByName(name)
+function createImageByName(name)
 {
     var urlArray = name.split("/");
     var realName = urlArray[urlArray.length - 1];
-    
-    console.log(realName);
 
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName" + realName, true);
+    xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName=" + realName, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            return xmlhttp.responseText;
+            var img = "<img src='" + xmlhttp.responseText + "' onclick='editImage(this)' style='" +
+                    "width: 50%;" +
+                    "float: right;" +
+                    "clear: right;" +
+                    "top: 0;" +
+                    "'>";
+            document.execCommand("insertHTML", false, img);
+            destroyManager();
         }
     };
     xmlhttp.send();
@@ -414,14 +419,7 @@ function createManager(uploading, element)
                 restoreSelectorPoint();
                 for (var i = 0; i < managerImageList.length; i++)
                 {
-                    var img = "<img src='" + getImageByName(managerImageList[i]) + "' onclick='editImage(this)' style='" +
-                            "width: 50%;" +
-                            "float: right;" +
-                            "clear: right;" +
-                            "top: 0;" +
-                            "'>";
-                    document.execCommand("insertHTML", false, img);
-                    destroyManager();
+                    createImageByName(managerImageList[i]);
                 }
             });
         }
@@ -432,7 +430,7 @@ function createManager(uploading, element)
             selectButton.addEventListener("click", function ()
             {
                 //Loop through every managerImageList array item and create a new input item
-                for (var i = 0; i <  managerImageList.length; i++)
+                for (var i = 0; i < managerImageList.length; i++)
                 {
                     var imgInput = createElement("input");
                     $(imgInput).addClass("imgInput");
