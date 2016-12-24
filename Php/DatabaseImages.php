@@ -2,9 +2,9 @@
 
 //The file for all Image Commands
 //Insert Image
-if (isset($_GET["insertImage"], $_GET["url"]))
+function insertImage($name, $url)
 {
-    BeveiligDoSQL("INSERT INTO foto (FotoUrl, FotoNaam) VALUES (?, ?)", array($_GET["url"], $_GET["insertImage"]));
+     ProtectedDoSQL("INSERT INTO foto (FotoUrl, FotoNaam) VALUES (?, ?)", array($name, $url));
 }
 
 //Load image
@@ -16,11 +16,11 @@ if (isset($_GET["getImageByName"]))
 //Update
 if (isset($_GET["updateImageByName"], $_GET["imageUrl"]))
 {
-    BeveiligDoSQL("UPDATE foto SET FotoNaam = ? , FotoUrl = ? WHERE FotoNaam = ?", array($_GET["updateImageByName"], $_GET["imageUrl"], $_GET["updateImageByName"]));
+    ProtectedDoSQL("UPDATE foto SET FotoNaam = ? , FotoUrl = ? WHERE FotoNaam = ?", array($_GET["updateImageByName"], $_GET["imageUrl"], $_GET["updateImageByName"]));
 }
 
 //Delete
 if(isset($_GET["deleteImageByName"]))
 {
-    BeveiligDoSQL("DELETE FROM foto WHERE FotoNaam = ?", array($_GET["deleteImageByName"]));
+    ProtectedDoSQL("DELETE FROM foto WHERE FotoNaam = ?", array($_GET["deleteImageByName"]));
 }

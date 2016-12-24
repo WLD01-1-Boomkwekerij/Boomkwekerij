@@ -15,6 +15,8 @@ var currentSelectedElement;
 var currentSelectedSidebarImage;
 //Is uploading, should de manager upload or not
 var isUploading;
+//The fileSend element where the name of the image goes as value
+var fileSend;
 
 //Catalog
 //If you added a plant
@@ -383,12 +385,14 @@ function createManager(uploading, element)
         fileUrl.value = PathHistory[PathHistory.length - 1];
         uploadForm.appendChild(fileUrl);
 
+        //The file upload input
         var fileInput = createElement("input");
         fileInput.type = "file";
-        fileInput.name = "UploadFile";
+        fileInput.multiple = true;
+        fileInput.name = "UploadFile[]";
         uploadForm.appendChild(fileInput);
 
-        var fileSend = createElement("input");
+        fileSend = createElement("input");
         fileSend.type = "submit";
         fileSend.name = "submitUploadFile";
         uploadForm.appendChild(fileSend);
