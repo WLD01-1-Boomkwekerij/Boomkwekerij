@@ -3,51 +3,66 @@
 // We gaan sessies gebruiken 
 session_start();
 // Controle of het formulier verzonden is 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
     // Controle of benodigde velden wel ingevuld zijn 
     include_once '../Php/Inlogverify.php';
-    if (confirmIP($_SERVER['REMOTE_ADDR']) < 7) {
+    if (confirmIP($_SERVER['REMOTE_ADDR']) < 7)
+    {
         include_once '../Php/Database.php';
         $sGebruikerControle = trim($_POST['user']);
-        $sWachtwoordControle = BeveiligdGetSQL('SELECT Wachtwoord FROM gebruiker WHERE Naam=?', 'Wachtwoord', array($sGebruikerControle));
+        $sWachtwoordControle = ProtectedGetSQL('SELECT Wachtwoord FROM gebruiker WHERE Naam=?', 'Wachtwoord', array($sGebruikerControle));
         // Gebruikersnaam en wachtwoord instellen
-        if (isset($_POST['user'], $_POST['pass'])) {
+        if (isset($_POST['user'], $_POST['pass']))
+        {
             // Overbodige spaties verwijderen 
             $sGebruiker = htmlentities(trim($_POST['user']));
             $sWachtwoord = hash('sha256', htmlentities(trim($_POST['pass'])));
             // Gebruikersnaam en wachtwoord controleren 
-            if ($sGebruiker == $sGebruikerControle && $sWachtwoord == $sWachtwoordControle) {
+            if ($sGebruiker == $sGebruikerControle && $sWachtwoord == $sWachtwoordControle)
+            {
                 // Juiste gebruikersnaam en wachtwoord: inloggen! 
                 $_SESSION['logged_in'] = true;
                 $_SESSION['gebruiker'] = $sGebruiker;
-                $_SESSION['toegang'] = BeveiligdGetSQL('SELECT Rol FROM gebruiker WHERE Naam=?', 'Rol',array($sGebruikerControle));
+                $_SESSION['toegang'] = ProtectedGetSQL('SELECT Rol FROM gebruiker WHERE Naam=?', 'Rol', array($sGebruikerControle));
                 $query = 'DELETE FROM `loginattempts` WHERE IP=?';
-                $variable=array($_SERVER['REMOTE_ADDR']);
-                BeveiligDoSQL($query, $variable);
+                $variable = array($_SERVER['REMOTE_ADDR']);
+                ProtectedDoSQL($query, $variable);
                 // Doorsturen en melding geven 
-                if ($_SESSION['toegang'] == 1) {
+                if ($_SESSION['toegang'] == 1)
+                {
                     header('Refresh: 0; url=../Pages/logged_in.php');
                     print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/logged_in.php">klik dan hier</a>');
-                } else {
+                }
+                else
+                {
                     header('Refresh: 0; url=../Pages/index.php');
                     print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/index.php">klik dan hier</a>');
                 }
-            } else {
+            }
+            else
+            {
                 // Terugsturen en foutmelding geven 
                 header('Refresh: 2; url=../Pages/login.php');
                 echo 'Deze combinatie van gebruikersnaam en wachtwoord is niet juist!';
             }
-        } else {
+        }
+        else
+        {
             header('Refresh: 2; url=login.php');
             echo 'Een vereist veld is niet ingevuld!';
         }
-    } else {
+    }
+    else
+    {
         // Terug naar het formulier 
         Print('7 pogingen gehad, probeer het over 5 minuten weer.');
         header('Refresh: 5; url=../Pages/login.php');
         exit();
     }
-} else {
+}
+else
+{
 //    header('Refresh: 5; url=../Pages/login.php');
     exit();
 }

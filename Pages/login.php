@@ -26,10 +26,10 @@
 
                         $query = 'SELECT `Attempts` FROM `LoginAttempts` WHERE IP = ?';
                         $variable = array($_SERVER['REMOTE_ADDR']);
-                        $pogingen = BeveiligdGetSQL($query, 'Attempts', $variable);
+                        $pogingen = ProtectedGetSQL($query, 'Attempts', $variable);
 
                         $query = 'SELECT `LastLogin` FROM `LoginAttempts` WHERE ip = ?';
-                        $timestamp = BeveiligdGetSQL($query, 'LastLogin', $variable);
+                        $timestamp = ProtectedGetSQL($query, 'LastLogin', $variable);
 
                         $tijd = time();
                         $tijdverschil = $tijd - $timestamp;

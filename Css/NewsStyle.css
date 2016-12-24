@@ -1,7 +1,6 @@
 .newsDiv
 {
-    top: 10px;
-    margin-bottom: 20px;
+    margin-top: 20px;
     box-shadow: 0px 0px 5px 2px black;
     background-color:#c8d7e1;
 }
@@ -36,6 +35,11 @@
 
 #newNews
 {
-    top: 10px;
+    margin-top: 20px;
 }
 
+#downPositioner
+{
+    height: 40px;
+    width: 100%;
+}

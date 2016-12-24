@@ -64,6 +64,9 @@
                                 . htmlspecialchars_decode($text) . "</div>");
                         print("</div>");
                     }
+                    
+                    print("<div id='downPositioner'></div>");
+                    
                     ?>
                 </section>
             </section>
