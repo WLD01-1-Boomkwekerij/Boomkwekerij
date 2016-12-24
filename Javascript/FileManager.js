@@ -279,7 +279,7 @@ function createImageByName(name)
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            var img = "<img src='" + xmlhttp.responseText + "' onclick='editImage(this)' style='" +
+            var img = "<img class='imageDraggable' src='" + xmlhttp.responseText + "' onclick='editImage(this)' style='" +
                     "width: 50%;" +
                     "float: right;" +
                     "clear: right;" +

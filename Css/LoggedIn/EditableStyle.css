@@ -146,3 +146,17 @@
     top: 80px;
     margin-left: 5px;
 }
+
+.imageDraggable:hover
+{
+    cursor: pointer;
+}
+
+img
+{
+     -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
