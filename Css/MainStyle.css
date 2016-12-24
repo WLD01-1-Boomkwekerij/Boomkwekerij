@@ -1,7 +1,6 @@
 html, body{
     height: 100%;
     box-sizing: border-box;
-
 }
 
 *,
@@ -35,7 +34,6 @@ h1
     background-color:	#87a6bc; /* IE6-9 */
     color: #404040;
     border-bottom:solid black;
-
 }
 
 h2
@@ -70,7 +68,8 @@ h5
     min-height: 94vh;
 }
 
-#titlediv{
+#titlediv
+{
     background-color:#F5F5DC;
     margin-top:40px;
     margin-left:0px;
@@ -80,7 +79,8 @@ h5
     opacity: 0.7;
 }
 
-#imgtitle{
+#imgtitle
+{
     font-family: 'sans-serif';
     font-size:48px;
     margin-top:0px;
@@ -113,8 +113,6 @@ h5
     background-color:rgba(120, 200, 230, 0.5);
     text-align: center;
     line-height: 40px; 
-
-  
 }
 
 #topmenu ul li
@@ -282,13 +280,15 @@ body {
 
 }
 
-#logintitel{
+#logintitel
+{
     background-color:#C0C0C0;
     height:30px;
     margin-top:0px;
 }
 
-#loggiforum{
+#loggiforum
+{
     padding-top:5px;
 }
 
@@ -297,20 +297,23 @@ body {
     content: url(../Images/Icons/Image-Add.svg);
 }
 
-#capthaerror{
+#capthaerror
+{
     border-width: 2px;
     border-style: dotted;
     border-color:black;
     width:60%;
     margin-left:20%;
-    
+
 }
 
-#btn2{
+#btn2
+{
     margin-left: 32%;
 }
 
-.button-green {
+.button-green 
+{
     background-color: #4CAF50; /* groen */
     border: none;
     color: white;
@@ -320,7 +323,9 @@ body {
     display: inline-block;
     font-size: 12px;
 }
-.button-red {
+
+.button-red 
+{
     background-color:  #f44336; /* rood*/
     border: none;
     color: white;
@@ -332,7 +337,8 @@ body {
     width:25px;
 }
 
-.button-blue {
+.button-blue 
+{
     background-color: #008CBA; /*blauw */
     border: none;
     color: white;
@@ -343,7 +349,8 @@ body {
     font-size: 12px;
 }
 
-.btnpricelist-green {
+.btnpricelist-green 
+{
     background-color: #4CAF50; /* groen */
     border: none;
     color: white;
@@ -354,7 +361,8 @@ body {
     font-size: 12px;
 }
 
-.btnpricelist-red {
+.btnpricelist-red 
+{
     background-color:  #f44336; /* rood*/
     border: none;
     color: white;
@@ -363,10 +371,10 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 10px;
-
 }
 
-.btnpricelist-blue {
+.btnpricelist-blue 
+{
     background-color: #008CBA; /*blauw */
     border: none;
     color: white;
