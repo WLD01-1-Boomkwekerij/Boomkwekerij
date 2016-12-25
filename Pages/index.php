@@ -47,6 +47,7 @@
                     print("</div");
                     ?>
                     <br>
+                    <div class="downPositioner"></div>
                 </section>
             </section>
         </section>

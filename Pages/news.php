@@ -65,7 +65,7 @@
                         print("</div>");
                     }
                     
-                    print("<div id='downPositioner'></div>");
+                    print("<div class='downPositioner'></div>");
                     
                     ?>
                 </section>
