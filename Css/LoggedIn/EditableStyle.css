@@ -154,5 +154,5 @@
 
 img
 {
-    border-style: none;
+    backface-visibility: hidden;
 }
