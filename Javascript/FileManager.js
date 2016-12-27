@@ -43,6 +43,24 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
+function doXMLHttpImages(GetArray)
+{
+    var xmlhttp = new XMLHttpRequest();
+    console.log(GetArray);
+    xmlhttp.open("GET", "../PHP/DatabaseImages.php?" + GetArray, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            if (xmlhttp.responseText !== "")
+            {
+                console.log(xmlhttp.responseText);
+            }
+        }
+    };
+    xmlhttp.send();
+}
+
 function allowDrop(ev)
 {
     ev.preventDefault();
@@ -50,14 +68,33 @@ function allowDrop(ev)
 
 function drag(ev)
 {
-    //ev.dataTransfer.setData("Icon", ev.target.id);
+    ev.dataTransfer.setData("Icon", ev.target.id);
 }
 
 function drop(ev)
 {
     ev.preventDefault();
-    //var data = ev.dataTransfer.getData("Icon");
-    //ev.target.appendChild(document.getElementById(data));
+    var data = ev.dataTransfer.getData("Icon");
+    doXMLHttpImages("updateImageByName=" + data + "&imageUrl=" + PathHistory[currentPathIndex]);
+}
+
+function loadImagesFromDatabase()
+{
+    $(".imageDatabaseLoading").each(function ()
+    {
+        var imageId = $(this).attr("id");
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName=" + imageId, true);
+        xmlhttp.onreadystatechange = function ()
+        {
+            if (this.readyState === 4 && this.status === 200)
+            {
+                getElementById(imageId).src = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.send();
+    });
 }
 
 /**
@@ -93,6 +130,7 @@ function createFolderIcon(url, name)
 
     //Create a folder Div
     var folder = createElement("div");
+    folder.id = name;
     folder.className = "fileManagerFolder";
     folder.ondrop = function ()
     {
@@ -109,10 +147,16 @@ function createFolderIcon(url, name)
     };
     folder.addEventListener("dblclick", function ()
     {
-        //On Double click: Open the folder
-        openFolder(url + "/" + name);
         //--Change to always current--
-        PathHistory[PathHistory.length] = url + "/" + name;
+        if(name === "specialHomeFolder")
+        {
+            PathHistory[PathHistory.length] = url + "/" + name;
+        }
+        else
+        {
+            PathHistory[PathHistory.length] = url + "/" + name;
+        }       
+        
         currentPathIndex++;
         //Arrow color (Maybe change to classes)
         checkArrowColor();
@@ -121,6 +165,8 @@ function createFolderIcon(url, name)
         {
             getElementById("uploadFilePathURL").value = PathHistory[PathHistory.length - 1];
         }
+        //On Double click: Open the folder
+        openFolder(url + "/" + name);
 
     });
     fileManager.appendChild(folder);
@@ -132,7 +178,15 @@ function createFolderIcon(url, name)
 
     //Adds the name for the folder
     var folderName = createElement("p");
-    folderName.innerHTML = name;
+    if(name === "specialHomeFolder")
+        {
+             folderName.innerHTML = "...";
+        }
+        else
+        {
+            folderName.innerHTML = name;
+        }    
+    
     folder.appendChild(folderName);
 }
 
@@ -145,9 +199,13 @@ function createFileIcon(url, name)
 {
     var fileManager = getElementById("Files");
     var file = createElement("div");
+    file.id = name;
     file.className = "fileManagerFile";
     file.draggable = true;
-    file.ondragstart = drag(event);
+    file.ondragstart = function(event)
+    {
+        drag(event);
+    };
     fileManager.appendChild(file);
 
     var fileIcon = createElement("img");
@@ -194,6 +252,11 @@ function createFileIcons(directory)
 
             var fileArray = files.split("*");
 
+            if (directory !== PathHistory[0])
+            {
+                createFolderIcon(PathHistory[PathHistory.length - 2], "specialHomeFolder");
+            }
+
             for (var i = 0; i < fileArray.length - 1; i++)
             {
                 if (fileArray[i].includes("."))
@@ -230,6 +293,11 @@ function destroyManager()
  */
 function openFolder(directory)
 {
+    for (var i = 0; i < PathHistory.length; i++)
+    {
+        console.log(PathHistory[i]);
+    }
+
     //Goes through all the current displayed files and deletes them.
     while (getElementById("Files").firstChild)
     {
@@ -319,6 +387,7 @@ function createImageByName(name)
                     "'>";
             document.execCommand("insertHTML", false, img);
             destroyManager();
+            loadImagesFromDatabase();
         }
     };
     xmlhttp.send();
@@ -747,20 +816,5 @@ function deleteArticle(newsID)
 //JQuery
 $(document).ready(function ()
 {
-    $(".imageDatabaseLoading").each(function ()
-    {
-        var imageId = $(this).attr("id");
-
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName=" + imageId, true);
-        xmlhttp.onreadystatechange = function ()
-        {
-            if (this.readyState === 4 && this.status === 200)
-            {
-                console.log(xmlhttp.responseText);
-                getElementById(imageId).src = xmlhttp.responseText;
-            }
-        };
-        xmlhttp.send();
-    });
+    loadImagesFromDatabase();
 });

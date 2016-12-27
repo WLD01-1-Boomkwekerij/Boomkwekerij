@@ -18,6 +18,7 @@ if (isset($_GET["getImageByName"]))
 //Update
 if (isset($_GET["updateImageByName"], $_GET["imageUrl"]))
 {
+    rename($_GET["updateImageByName"], $_GET["imageUrl"]);
     ProtectedDoSQL("UPDATE foto SET FotoNaam = ? , FotoUrl = ? WHERE FotoNaam = ?", array($_GET["updateImageByName"], $_GET["imageUrl"], $_GET["updateImageByName"]));
 }
 

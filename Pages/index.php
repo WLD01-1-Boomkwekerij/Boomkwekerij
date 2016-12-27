@@ -40,11 +40,7 @@
                     }
                     print("<div id='textID1' class='editContent'>");
                     loadTextFromDB(1);
-                    print("</div>");
-                    
-                    print("<div id='images'></div>");
-                    
-                    print("</div");
+                    print("</div></div");
                     ?>
                     <br>
                     <div class="downPositioner"></div>

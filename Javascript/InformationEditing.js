@@ -2,18 +2,11 @@
 
 //Saved Selection
 var savedSelectorPoint;
-var isLinkWindowOpen;
-var isFileManagerOpen;
-var isEditorOpen;
+var isLinkWindowOpen = false;
+var isFileManagerOpen = false;
+var isEditorOpen = false;
 var currentSavedHTML;
 var currentSavedTitle;
-
-window.onload = function ()
-{
-    isLinkWindowOpen = false;
-    isFileManagerOpen = false;
-    isEditorOpen = false;
-};
 
 function createElement(element)
 {
@@ -302,6 +295,7 @@ function setContentEditable(element, isNew, isNews)
 {
     if (!isEditorOpen)
     {
+        isEditorOpen = true;
         var parent = $(element).parent();
         var elementTitle;
 
@@ -323,7 +317,6 @@ function setContentEditable(element, isNew, isNews)
             currentSavedTitle = elementTitle.innerHTML;
         }
 
-        isEditorOpen = true;
         var childZero = $(element).parent().children()[0];
         $(childZero).hide();
         $(childZero).removeClass("ContentEditable");
@@ -344,13 +337,8 @@ function setContentEditable(element, isNew, isNews)
 
         var editorDiv = createElement("div");
         $(editorDiv).addClass("Editor");
-
-
-
-
-
-
         $(editorDiv).insertBefore(parent);
+
         //Buttons
         var buttonArray =
                 [
@@ -359,6 +347,7 @@ function setContentEditable(element, isNew, isNews)
                     "insertOrderedList", "insertUnorderedList",
                     "link", "image", "upload"
                 ];
+                
         for (var i = 0; i < buttonArray.length; i++)
         {
             editorDiv.appendChild(createButton(buttonArray[i]));

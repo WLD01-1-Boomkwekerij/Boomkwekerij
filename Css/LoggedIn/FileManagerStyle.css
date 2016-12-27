@@ -88,6 +88,7 @@
     display: block;
     left: 50%;
     margin-left: -75px;
+    z-index: -1;
 }
 
 .fileManagerFile p
@@ -97,6 +98,7 @@
     bottom: 0px;
     width: 100%;
     margin-bottom: 0px;
+    z-index: -1;
 }
 
 .fileManagerEmpty
