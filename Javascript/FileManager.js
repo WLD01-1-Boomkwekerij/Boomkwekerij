@@ -43,6 +43,21 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("Icon", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    alert(data);
+    var data = ev.dataTransfer.getData("Icon");
+    ev.target.appendChild(document.getElementById(data));
+}
+
 /**
  * Selects a clicked item and deselects the previous
  * @param {element} element
@@ -77,6 +92,10 @@ function createFolderIcon(url, name)
     //Create a folder Div
     var folder = createElement("div");
     folder.className = "fileManagerFolder";
+    folder.ondrop = drop(event);
+    folder.ondragover = allowDrop(event);
+    folder.draggable = true;
+    folder.ondragstart = drag(event);
     folder.addEventListener("dblclick", function ()
     {
         //On Double click: Open the folder
@@ -116,6 +135,8 @@ function createFileIcon(url, name)
     var fileManager = getElementById("Files");
     var file = createElement("div");
     file.className = "fileManagerFile";
+    file.draggable=true;
+    file.ondragstart= drag(event)
     fileManager.appendChild(file);
 
     var fileIcon = createElement("img");
