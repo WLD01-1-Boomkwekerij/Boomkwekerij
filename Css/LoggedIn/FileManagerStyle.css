@@ -59,6 +59,7 @@
     display: block;
     left: 50%;
     margin-left: -75px;
+    z-index: -1;
 }
 
 .fileManagerFolder p
@@ -68,6 +69,7 @@
     bottom: 0px;
     width: 100%;
     margin-bottom: 0px;
+    z-index: -1;
 }
 
 .fileManagerFile
@@ -220,7 +222,7 @@
     z-index: 2001;
     opacity: 1;
     overflow: scroll;
-    
+
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(-45deg,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */

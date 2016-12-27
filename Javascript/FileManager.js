@@ -46,7 +46,6 @@ function getElementById(id)
 function doXMLHttpImages(GetArray)
 {
     var xmlhttp = new XMLHttpRequest();
-    console.log(GetArray);
     xmlhttp.open("GET", "../PHP/DatabaseImages.php?" + GetArray, true);
     xmlhttp.onreadystatechange = function ()
     {
@@ -73,9 +72,12 @@ function drag(ev)
 
 function drop(ev)
 {
+    console.log(PathHistory[currentPathIndex] + ev.target.id);
     ev.preventDefault();
     var data = ev.dataTransfer.getData("Icon");
-    doXMLHttpImages("updateImageByName=" + data + "&imageUrl=" + PathHistory[currentPathIndex]);
+    doXMLHttpImages("updateImageByName=" + data +
+            "&oldImageUrl=" + PathHistory[currentPathIndex] +
+            "&newImageUrl=" + PathHistory[currentPathIndex] + "/" + ev.target.id);
 }
 
 function loadImagesFromDatabase()
@@ -124,14 +126,20 @@ function checkArrowColor()
  * @param {string} url The url of the folder
  * @param {string} name The name of the folder
  */
-function createFolderIcon(url, name)
+function createFolderIcon(url, name, isReturn)
 {
     var fileManager = getElementById("Files");
 
     //Create a folder Div
     var folder = createElement("div");
     folder.id = name;
-    folder.className = "fileManagerFolder";
+    
+    if(isReturn)
+    {
+        $(folder).addClass("specialHomeFolder");
+    }
+    
+    $(folder).addClass("fileManagerFolder");
     folder.ondrop = function ()
     {
         drop(event);
@@ -147,16 +155,9 @@ function createFolderIcon(url, name)
     };
     folder.addEventListener("dblclick", function ()
     {
-        //--Change to always current--
-        if(name === "specialHomeFolder")
-        {
-            PathHistory[PathHistory.length] = url + "/" + name;
-        }
-        else
-        {
-            PathHistory[PathHistory.length] = url + "/" + name;
-        }       
-        
+        //--Change to always current--        
+        PathHistory[PathHistory.length] = url + "/" + name;
+
         currentPathIndex++;
         //Arrow color (Maybe change to classes)
         checkArrowColor();
@@ -178,15 +179,15 @@ function createFolderIcon(url, name)
 
     //Adds the name for the folder
     var folderName = createElement("p");
-    if(name === "specialHomeFolder")
-        {
-             folderName.innerHTML = "...";
-        }
-        else
-        {
-            folderName.innerHTML = name;
-        }    
-    
+    if (name === "specialHomeFolder")
+    {
+        folderName.innerHTML = "...";
+    }
+    else
+    {
+        folderName.innerHTML = name;
+    }
+
     folder.appendChild(folderName);
 }
 
@@ -202,7 +203,7 @@ function createFileIcon(url, name)
     file.id = name;
     file.className = "fileManagerFile";
     file.draggable = true;
-    file.ondragstart = function(event)
+    file.ondragstart = function (event)
     {
         drag(event);
     };
@@ -254,7 +255,9 @@ function createFileIcons(directory)
 
             if (directory !== PathHistory[0])
             {
-                createFolderIcon(PathHistory[PathHistory.length - 2], "specialHomeFolder");
+                console.log(PathHistory[PathHistory.length - 2]);
+                console.log(fileArray[i]);
+                createFolderIcon(PathHistory[PathHistory.length - 2], fileArray[i - 1], true);
             }
 
             for (var i = 0; i < fileArray.length - 1; i++)

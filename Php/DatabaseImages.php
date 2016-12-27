@@ -16,10 +16,10 @@ if (isset($_GET["getImageByName"]))
 }
 
 //Update
-if (isset($_GET["updateImageByName"], $_GET["imageUrl"]))
+if (isset($_GET["updateImageByName"], $_GET["oldImageUrl"], $_GET["newImageUrl"]))
 {
-    rename($_GET["updateImageByName"], $_GET["imageUrl"]);
-    ProtectedDoSQL("UPDATE foto SET FotoNaam = ? , FotoUrl = ? WHERE FotoNaam = ?", array($_GET["updateImageByName"], $_GET["imageUrl"], $_GET["updateImageByName"]));
+    rename($_GET["oldImageUrl"] . "/" . $_GET["updateImageByName"] , $_GET["newImageUrl"] . "/" . $_GET["updateImageByName"]);
+    ProtectedDoSQL("UPDATE foto SET FotoNaam = ? , FotoUrl = ? WHERE FotoNaam = ?", array($_GET["updateImageByName"], $_GET["newImageUrl"], $_GET["updateImageByName"]));
 }
 
 //Delete
