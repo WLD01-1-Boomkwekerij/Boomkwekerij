@@ -43,19 +43,21 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
-function allowDrop(ev) {
+function allowDrop(ev)
+{
     ev.preventDefault();
 }
 
-function drag(ev) {
-    ev.dataTransfer.setData("Icon", ev.target.id);
+function drag(ev)
+{
+    //ev.dataTransfer.setData("Icon", ev.target.id);
 }
 
-function drop(ev) {
+function drop(ev)
+{
     ev.preventDefault();
-    alert(data);
-    var data = ev.dataTransfer.getData("Icon");
-    ev.target.appendChild(document.getElementById(data));
+    //var data = ev.dataTransfer.getData("Icon");
+    //ev.target.appendChild(document.getElementById(data));
 }
 
 /**
@@ -92,10 +94,19 @@ function createFolderIcon(url, name)
     //Create a folder Div
     var folder = createElement("div");
     folder.className = "fileManagerFolder";
-    folder.ondrop = drop(event);
-    folder.ondragover = allowDrop(event);
+    folder.ondrop = function ()
+    {
+        drop(event);
+    };
+    folder.ondragover = function ()
+    {
+        allowDrop(event);
+    };
     folder.draggable = true;
-    folder.ondragstart = drag(event);
+    folder.ondragstart = function ()
+    {
+        drag(event);
+    };
     folder.addEventListener("dblclick", function ()
     {
         //On Double click: Open the folder
@@ -135,8 +146,8 @@ function createFileIcon(url, name)
     var fileManager = getElementById("Files");
     var file = createElement("div");
     file.className = "fileManagerFile";
-    file.draggable=true;
-    file.ondragstart= drag(event)
+    file.draggable = true;
+    file.ondragstart = drag(event);
     fileManager.appendChild(file);
 
     var fileIcon = createElement("img");
@@ -300,7 +311,7 @@ function createImageByName(name)
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            var img = "<img draggable='true' class='imageDraggable' src='" + xmlhttp.responseText + "' onclick='editImage(this)' style='" +
+            var img = "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable' src='' onclick='editImage(this)' style='" +
                     "width: 50%;" +
                     "float: right;" +
                     "clear: right;" +
@@ -730,3 +741,26 @@ function deleteArticle(newsID)
     xmlhttp.open("GET", "../PHP/XMLRequest.php?DeleteArticle=" + newsID, true);
     xmlhttp.send();
 }
+
+
+
+//JQuery
+$(document).ready(function ()
+{
+    $(".imageDatabaseLoading").each(function ()
+    {
+        var imageId = $(this).attr("id");
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName=" + imageId, true);
+        xmlhttp.onreadystatechange = function ()
+        {
+            if (this.readyState === 4 && this.status === 200)
+            {
+                console.log(xmlhttp.responseText);
+                getElementById(imageId).src = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.send();
+    });
+});
