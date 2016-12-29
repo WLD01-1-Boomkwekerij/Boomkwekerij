@@ -41,7 +41,7 @@
                     {
                          if (move_uploaded_file($_FILES["UploadFile"]["tmp_name"][$i], $target_file))
                          {
-                             insertImage($_FILES["UploadFile"]["name"][$i], $_POST["UploadUrl"] . "/" . $_FILES["UploadFile"]["name"][$i]);
+                             insertImage($_FILES["UploadFile"]["name"][$i], $_POST["UploadUrl"]);
                          }
                     }
                 }

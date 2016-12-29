@@ -91,7 +91,7 @@ function loadImagesFromDatabase()
         {
             if (this.readyState === 4 && this.status === 200)
             {
-                getElementById(imageId).src = xmlhttp.responseText;
+                getElementById(imageId).src = xmlhttp.responseText + "/" + imageId;
             }
         };
         xmlhttp.send();
