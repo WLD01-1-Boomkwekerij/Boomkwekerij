@@ -72,7 +72,6 @@ function drag(ev)
 
 function drop(ev)
 {
-    console.log(PathHistory[currentPathIndex] + ev.target.id);
     ev.preventDefault();
     var data = ev.dataTransfer.getData("Icon");
     doXMLHttpImages("updateImageByName=" + data +
@@ -255,8 +254,6 @@ function createFileIcons(directory)
 
             if (directory !== PathHistory[0])
             {
-                console.log(PathHistory[PathHistory.length - 2]);
-                console.log(fileArray[i]);
                 createFolderIcon(PathHistory[PathHistory.length - 2], fileArray[i - 1], true);
             }
 
