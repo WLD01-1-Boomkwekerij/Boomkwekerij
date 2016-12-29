@@ -60,25 +60,51 @@ function doXMLHttpImages(GetArray)
     xmlhttp.send();
 }
 
+/**
+ * Cancel default event on items that are allowed to be dropped on
+ * @param {type} ev
+ */
 function allowDrop(ev)
 {
     ev.preventDefault();
 }
 
+/**
+ * Sets the Icon data of the current dragged item
+ * @param {type} ev
+ */
 function drag(ev)
 {
     ev.dataTransfer.setData("Icon", ev.target.id);
 }
 
+/**
+ * Updates the image url in the database
+ * @param {type} ev
+ */
 function drop(ev)
 {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("Icon");
-    doXMLHttpImages("updateImageByName=" + data +
+    if($(ev.target).hasClass("specialHomeFolder"))
+    {
+        var specialFolderData = ev.dataTransfer.getData("specialHomeFolderUrl");
+        
+        doXMLHttpImages("updateImageByName=" + data +
+            "&oldImageUrl=" + PathHistory[currentPathIndex] +
+            "&newImageUrl=" + PathHistory[currentPathIndex - 1] + "/" + specialFolderData);
+    }
+    else
+    {
+        doXMLHttpImages("updateImageByName=" + data +
             "&oldImageUrl=" + PathHistory[currentPathIndex] +
             "&newImageUrl=" + PathHistory[currentPathIndex] + "/" + ev.target.id);
+    }    
 }
 
+/**
+ * Loads all the images from the databse and sets their .src
+ */
 function loadImagesFromDatabase()
 {
     $(".imageDatabaseLoading").each(function ()
@@ -120,10 +146,33 @@ function checkArrowColor()
     //TODO
 }
 
+function goBackInPath()
+{
+    //Go back in history
+    if (currentPathIndex > 0)
+    {
+        currentPathIndex--;
+        openFolder(PathHistory[currentPathIndex]);
+        checkArrowColor();
+    }
+}
+
+function goForwardInPath()
+{
+    //Go to the future
+    if (currentPathIndex > 0)
+    {
+        currentPathIndex++;
+        openFolder(PathHistory[currentPathIndex]);
+        checkArrowColor();
+    }
+}
+
 /**
  * Creates a folder icon and makes it clickable
  * @param {string} url The url of the folder
  * @param {string} name The name of the folder
+ * @param {bool} isReturn If the folder is a return folder, make it a bit special
  */
 function createFolderIcon(url, name, isReturn)
 {
@@ -132,12 +181,12 @@ function createFolderIcon(url, name, isReturn)
     //Create a folder Div
     var folder = createElement("div");
     folder.id = name;
-    
-    if(isReturn)
+
+    if (isReturn)
     {
         $(folder).addClass("specialHomeFolder");
     }
-    
+
     $(folder).addClass("fileManagerFolder");
     folder.ondrop = function ()
     {
@@ -154,19 +203,26 @@ function createFolderIcon(url, name, isReturn)
     };
     folder.addEventListener("dblclick", function ()
     {
-        //--Change to always current--        
-        PathHistory[PathHistory.length] = url + "/" + name;
-
-        currentPathIndex++;
-        //Arrow color (Maybe change to classes)
-        checkArrowColor();
-
-        if (isUploading)
+        if (isReturn)
         {
-            getElementById("uploadFilePathURL").value = PathHistory[PathHistory.length - 1];
+            goBackInPath();
         }
-        //On Double click: Open the folder
-        openFolder(url + "/" + name);
+        else
+        {
+            //--Change to always current--        
+            PathHistory[PathHistory.length] = url + "/" + name;
+
+            currentPathIndex++;
+            //Arrow color (Maybe change to classes)
+            checkArrowColor();
+
+            if (isUploading)
+            {
+                getElementById("uploadFilePathURL").value = PathHistory[PathHistory.length - 1];
+            }
+            //On Double click: Open the folder
+            openFolder(url + "/" + name);
+        }
 
     });
     fileManager.appendChild(folder);
@@ -178,7 +234,7 @@ function createFolderIcon(url, name, isReturn)
 
     //Adds the name for the folder
     var folderName = createElement("p");
-    if (name === "specialHomeFolder")
+    if (isReturn)
     {
         folderName.innerHTML = "...";
     }
@@ -254,7 +310,8 @@ function createFileIcons(directory)
 
             if (directory !== PathHistory[0])
             {
-                createFolderIcon(PathHistory[PathHistory.length - 2], fileArray[i - 1], true);
+                var fileName = PathHistory[PathHistory.length - 2].split("/");
+                createFolderIcon(PathHistory[PathHistory.length - 2], fileName[fileName.length - 1], true);
             }
 
             for (var i = 0; i < fileArray.length - 1; i++)
@@ -293,11 +350,6 @@ function destroyManager()
  */
 function openFolder(directory)
 {
-    for (var i = 0; i < PathHistory.length; i++)
-    {
-        console.log(PathHistory[i]);
-    }
-
     //Goes through all the current displayed files and deletes them.
     while (getElementById("Files").firstChild)
     {
@@ -393,7 +445,6 @@ function createImageByName(name)
     xmlhttp.send();
 }
 
-
 /**
  * Creates the file manager
  * @param {bool} uploading
@@ -424,14 +475,7 @@ function createManager(uploading, element)
     leftArrow.id = "LeftArrow";
     leftArrow.onclick = function ()
     {
-        //Go back in history
-        if (currentPathIndex > 0)
-        {
-            currentPathIndex--;
-            openFolder(PathHistory[PathHistory]);
-            currentPathIndex++;
-            checkArrowColor();
-        }
+        goBackInPath();
     };
     topInfo.appendChild(leftArrow);
 
@@ -441,14 +485,7 @@ function createManager(uploading, element)
     rightArrow.innerHTML = "&#8594;";
     rightArrow.onclick = function ()
     {
-        //Go to the future
-        if (currentPathIndex > 0)
-        {
-            currentPathIndex++;
-            openFolder(PathHistory[currentPathIndex]);
-            currentPathIndex--;
-            checkArrowColor();
-        }
+        goForwardInPath();
     };
     topInfo.appendChild(rightArrow);
 
