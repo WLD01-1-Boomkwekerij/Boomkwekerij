@@ -1,0 +1,12 @@
+
+#plantDiv
+{
+    border: solid 4px black;
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    width: 200px;
+    min-height: 100px;
+    height: auto;
+    background-color: #F5F5DC;
+}

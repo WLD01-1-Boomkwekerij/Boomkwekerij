@@ -10,7 +10,8 @@
         <?php
         session_start();
 
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
+        {
             include '../Php/loggedInEditor.php';
         }
         ?>
@@ -26,7 +27,8 @@
             </section>
             <section id="mid">
                 <?php
-                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                {
                     ?>
                     <script>
                         createCatalogAddition();
@@ -48,7 +50,8 @@
                         //Creates the sidevar category options
                         $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category", array());
 
-                        while ($row = $sqlCategory->fetch()) {
+                        while ($row = $sqlCategory->fetch())
+                        {
                             $categoryNaam = $row["CategoryNaam"];
                             $id = $row["CategoryID"];
                             echo "<table id='catatabel' border='3'><td> <a href='catalog.php?category=$id'><li>$categoryNaam</li></a></td> </table> ";
@@ -61,11 +64,13 @@
                 <section id="maincontent">
 
                     <?php
-                    if (isset($_GET["plantID"])) {
+                    if (isset($_GET["plantID"]))
+                    {
                         deletePlant($_GET["plantID"]);
                     }
 
-                    if (!isset($_GET['category'])) {
+                    if (!isset($_GET['category']))
+                    {
                         $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category", array());
                         $categoryRegel = $sqlCategory->fetch();
                         $categoryNaam = $categoryRegel["CategoryNaam"];
@@ -73,7 +78,8 @@
 
                         $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs", array());
 
-                        while ($row = $sqlPrijs->fetch()) {
+                        while ($row = $sqlPrijs->fetch())
+                        {
                             $prijsID = $row["PrijsID"];
                             $potmaat = $row["Potmaat"];
                             $hoogte = $row["Potmaat"];
@@ -90,7 +96,8 @@
                                  WHERE plant.PrijsID = ? AND pf.TypeFoto = 1", array($prijsID)
                             );
 
-                            while ($plant = $sqlPlant->fetch()) {
+                            while ($plant = $sqlPlant->fetch())
+                            {
                                 $plantId = $plant['PlantID'];
                                 $naam = $plant['Naam'];
                                 $Hoogte_min = $plant['Hoogte_min'];
@@ -113,13 +120,16 @@
                             </table>
                             </div>");
 
-                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                                {
                                     print("<input type='submit' name='btnvinkje' id='btnvinkje' class= 'btnpricelist-red' style='font-size:12px' value='&#x2612;'>");
                                 }
                                 print"</form></div>";
                             }
                         }
-                    } else {
+                    }
+                    else
+                    {
                         $category = $_GET['category'];
 
                         $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category WHERE CategoryID = ?", array($category));
@@ -129,7 +139,8 @@
 
                         $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE CategoryID = ?", array($category));
 
-                        while ($row = $sqlPrijs->fetch()) {
+                        while ($row = $sqlPrijs->fetch())
+                        {
                             $prijsID = $row["PrijsID"];
                             $potmaat = $row["Potmaat"];
                             $hoogte = $row["Potmaat"];
@@ -146,7 +157,8 @@
                                  WHERE plant.PrijsID = ? AND pf.TypeFoto = 1", array($prijsID)
                             );
 
-                            while ($plant = $sqlPlant->fetch()) {
+                            while ($plant = $sqlPlant->fetch())
+                            {
                                 $plantId = $plant['PlantID'];
                                 $naam = $plant['Naam'];
                                 $Hoogte_min = $plant['Hoogte_min'];
@@ -169,7 +181,8 @@
                             </table>
                             </div>");
 
-                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                                {
                                     print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
                                 }
                                 print"</form></div>";
@@ -180,8 +193,8 @@
                 </section>
             </section>
         </section>
-        <?php
-        include '../Php/footer.php';
-        ?>
+<?php
+include '../Php/footer.php';
+?>
     </body>
 </html>

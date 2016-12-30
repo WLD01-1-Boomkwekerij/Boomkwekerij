@@ -64,12 +64,23 @@ if (isset($_SESSION['logged_in']))
 
         print($bloeitijd1);
 
-        $sql = "INSERT INTO plant (Naam, PrijsID, Hoogte_Min, Hoogte_max, Bloeitijd, Bloeiwijze) VALUES ('$Naam', $PrijsID, $Hoogte_Min, $Hoogte_Max, '$bloeitijd', '$bloeiwijze')";
-        doSQL($sql);
-        $PlantID = getMaxSQL("plant", "PlantID");
+        $sql = "INSERT INTO plant (Naam,"
+                . "PrijsID, "
+                . "Hoogte_Min, "
+                . "Hoogte_max, "
+                . "Bloeitijd, "
+                . "Bloeiwijze) VALUES ("
+                . "'$Naam', "
+                . "$PrijsID, "
+                . "$Hoogte_Min, "
+                . "$Hoogte_Max, "
+                . "'$bloeitijd', "
+                . "'$bloeiwijze')";
+        ProtectedDoSQL($sql, array());
+        $PlantID = ProtectedGetMaxSQL("plant", "PlantID");
 
         $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[0]', $PlantID, 1)";
-        doSQL($sql);
+        ProtectedDoSQL($sql, array());
         if (count($phpImageArray) > 1)
         {
 

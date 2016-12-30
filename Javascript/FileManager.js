@@ -643,7 +643,6 @@ function createCatalogAddition()
             var seven = getElementById("Bloeiwijze");
             var eight = "";
 
-
             if (one.checkValidity() && one.value !== "" &&
                     two.checkValidity() &&
                     three.checkValidity() && three.value !== "" &&
@@ -674,8 +673,14 @@ function createCatalogAddition()
                 {
                     if (this.readyState === 4 && this.status === 200)
                     {
-                        //console.log(xmlhttp.responseText);
-                        location.reload();
+                        if(xmlhttp.responseText !== "")
+                        {
+                            console.log(xmlhttp.responseText);
+                        }
+                        else
+                        {
+                           location.reload(); 
+                        }                        
                     }
                 };
                 xmlhttp.send();
