@@ -1,44 +1,53 @@
 <?php
+
 session_start();
 
-if (isset($_SESSION['logged_in'])) {
+if (isset($_SESSION['logged_in']))
+{
     include 'DatabaseInformation.php';
 
-//Save Plain text to the Text table
-    if (isset($_GET["textID"], $_GET["htmlUpdateText"])) {
+    //Save Plain text to the Text table
+    if (isset($_GET["textID"], $_GET["htmlUpdateText"]))
+    {
         saveTextToDB($_GET["textID"], $_GET["htmlUpdateText"]);
     }
 
-//Saves news Text
-//Inserting
-    if (isset($_GET["newsVisibility"], $_GET["newsHtmlInsertText"], $_GET["newsTitle"])) {
+    //Saves news Text
+    //Inserting
+    if (isset($_GET["newsVisibility"], $_GET["newsHtmlInsertText"], $_GET["newsTitle"]))
+    {
         insertNewsTextToDB($_GET["newsVisibility"], $_GET["newsHtmlInsertText"], $_GET["newsTitle"]);
     }
 
-//Updating
-    if (isset($_GET["newsID"], $_GET["newsVisibility"], $_GET["newsHtmlUpdateText"], $_GET["newsTitle"])) {
+    //Updating
+    if (isset($_GET["newsID"], $_GET["newsVisibility"], $_GET["newsHtmlUpdateText"], $_GET["newsTitle"]))
+    {
         updateNewsTextToDB($_GET["newsID"], $_GET["newsVisibility"], $_GET["newsHtmlUpdateText"], $_GET["newsTitle"]);
     }
 
-//Deleting
-    if (isset($_GET["newsDeleteID"])) {
+    //Deleting
+    if (isset($_GET["newsDeleteID"]))
+    {
         DeleteNewsTextFromDB($_GET["newsDeleteID"]);
     }
 
 
-//Gets all the files
-    if (isset($_GET["fileDirectory"])) {
+    //Gets all the files
+    if (isset($_GET["fileDirectory"]))
+    {
         $dir = $_GET["fileDirectory"];
         $files1 = scandir($dir);
 
-        for ($i = 2; $i < sizeof($files1); $i++) {
+        for ($i = 2; $i < sizeof($files1); $i++)
+        {
 
             print($files1[$i] . "*");
         }
     }
 
-//Adds a plant to the 
-    if (isset($_GET['name'])) {
+    //Adds a plant to the 
+    if (isset($_GET['name']))
+    {
         $Naam = $_GET['name'];
         $PrijsID = $_GET['groep'];
         $Hoogte_Min = $_GET['hoogte_min'];
@@ -61,11 +70,13 @@ if (isset($_SESSION['logged_in'])) {
 
         $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[0]', $PlantID, 1)";
         doSQL($sql);
-        if (count($phpImageArray) > 1) {
+        if (count($phpImageArray) > 1)
+        {
 
             $amount = 0;
 
-            for ($i = 1; $i < (count($phpImageArray) - 1); $i++) {
+            for ($i = 1; $i < (count($phpImageArray) - 1); $i++)
+            {
                 $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[$i]', $PlantID, 2)";
                 doSQL($sql);
                 $amount += 1;
@@ -73,25 +84,30 @@ if (isset($_SESSION['logged_in'])) {
         }
     }
 
-    if (isset($_GET["CatalogSelectOptions"])) {
-        $sqlPrijs = getSQLArray("SELECT Naam, PrijsID FROM prijs");
+    if (isset($_GET["CatalogSelectOptions"]))
+    {
+        $sqlPrijs = ProtectedGetSQLArray("SELECT Naam, PrijsID FROM prijs", array());
         $row = $sqlPrijs->fetchAll(PDO::FETCH_ASSOC);
 
 
-        foreach ($row as $i) {
-            foreach ($i as $j) {
+        foreach ($row as $i)
+        {
+            foreach ($i as $j)
+            {
                 print($j . "*");
             }
-// print($i . "*");
+    // print($i . "*");
         }
 
-        for ($i = 0; $i < sizeof($row); $i++) {
+        for ($i = 0; $i < sizeof($row); $i++)
+        {
 
-//print($row[$i] . "*");
+    //print($row[$i] . "*");
         }
     }
 
-    if (isset($_GET["DeleteArticle"])) {
+    if (isset($_GET["DeleteArticle"]))
+    {
         deleteArticle($_GET["DeleteArticle"]);
     }
 }

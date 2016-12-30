@@ -55,6 +55,10 @@ function doXMLHttpImages(GetArray)
             {
                 console.log(xmlhttp.responseText);
             }
+            else
+            {
+                $('#Files').load(document.URL + ' #Files');
+            }
         }
     };
     xmlhttp.send();
@@ -86,20 +90,20 @@ function drop(ev)
 {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("Icon");
-    if($(ev.target).hasClass("specialHomeFolder"))
+    if ($(ev.target).hasClass("specialHomeFolder"))
     {
         var specialFolderData = ev.dataTransfer.getData("specialHomeFolderUrl");
-        
+
         doXMLHttpImages("updateImageByName=" + data +
-            "&oldImageUrl=" + PathHistory[currentPathIndex] +
-            "&newImageUrl=" + PathHistory[currentPathIndex - 1] + "/" + specialFolderData);
+                "&oldImageUrl=" + PathHistory[currentPathIndex] +
+                "&newImageUrl=" + PathHistory[currentPathIndex - 1] + "/" + specialFolderData);
     }
     else
     {
         doXMLHttpImages("updateImageByName=" + data +
-            "&oldImageUrl=" + PathHistory[currentPathIndex] +
-            "&newImageUrl=" + PathHistory[currentPathIndex] + "/" + ev.target.id);
-    }    
+                "&oldImageUrl=" + PathHistory[currentPathIndex] +
+                "&newImageUrl=" + PathHistory[currentPathIndex] + "/" + ev.target.id);
+    }
 }
 
 /**
