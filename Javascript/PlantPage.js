@@ -1,9 +1,13 @@
 
 function addPlantImage(element)
 {
+    var plantPositioner = createElement("div");
+    plantPositioner.id = "plantPositioner";     
+    document.getElementById("maincontent").appendChild(plantPositioner);
+    
     var plantDiv = createElement("div");
     plantDiv.id = "plantDiv";
-    document.body.appendChild(plantDiv);
+    plantPositioner.appendChild(plantDiv);
     
     var buttonAddImage = createElement("button");
     buttonAddImage.innerHTML = "Voeg toe";
