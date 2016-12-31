@@ -22,9 +22,30 @@
         }
         ?>
         <script type="text/javascript">
+
             function ChangeImage()
             {
+                var imageParent = document.getElementById('ImageFrame').parentNode;
+
+                var smallParent = event.target.parentNode;
+
+                if ($(imageParent).hasClass("1"))
+                {
+                    $(imageParent).removeClass("1");
+                }
+                else if ($(imageParent).hasClass("2"))
+                {
+                    $(imageParent).removeClass("2");
+                }
+
+                var className = $(smallParent).attr("class");
+                $(imageParent).addClass(className);
+
+                document.getElementById('ImageFrame').className = parent.id;
                 document.getElementById('ImageFrame').src = event.target.src;
+
+                deleteEditing();
+                loadEditing();
             }
         </script>
     </head>
@@ -190,13 +211,18 @@
 
                 <section id="maincontent">
                     <br>
-                    <div id="plantnaamfoto"><center><?php echo $naam; ?></center></div>
+                    <div id="plantnaamfoto">
+                        <center>
+                            <?php echo $naam; ?>
+                        </center>
+                    </div>
                     <section id="PhotoFrame">
                         <?php
                         $EersteFoto = ProtectedGetSQLArray("SELECT * FROM plantfoto WHERE PlantID = ? AND TypeFoto = 1", array($plant));
                         $EersteFotoRegel = $EersteFoto->fetch();
                         $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
-                        print("<div>");
+
+                        print("<div class=''>");
                         print("<img id='ImageFrame' src='$EersteFotoUrl'>");
                         print("</div>");
                         ?>
@@ -207,7 +233,9 @@
                             {
                                 $url = $row["FotoUrl"];
                                 $type = $row["TypeFoto"];
-                                print("<img id='fotoos' onclick='ChangeImage()' class='UnderImage' src='$url'> " . " ");
+                                $fotoId = $row["FotoID"];
+                                print("<div id='$fotoId' class='$type' style='display: inline-block'>");
+                                print("<img id='fotoos' onclick='ChangeImage()' class='UnderImage' src='$url'></div>");
                             }
 
                             if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
@@ -221,8 +249,8 @@
                 </section>
             </section>
         </section>
-<?php
-include '../Php/footer.php';
-?>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>

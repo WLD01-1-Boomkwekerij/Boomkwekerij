@@ -54,26 +54,42 @@ function addPlantImage(element)
     plantDiv.appendChild(addButton);
 }
 
-$(document).ready(function ()
+function deleteEditing()
 {
-    //Reload the photoframe
-    //$('#PhotoFrame').load(document.URL + ' #PhotoFrame');
-
-    var element1 = document.getElementsByClassName("1");
-    var element2Array = document.getElementsByClassName("2");
-
-    var changeButton = createElement("div");
-    $(changeButton).addClass("fa");
-    $(changeButton).addClass("fa-pencil-square-o");
-    element1[0].appendChild(changeButton);
-
-    for (var i = 0; i < element2Array.length; i++)
+    var deleteBttn;
+    var changeBttn;
+    
+    if(getElementById("plantDeleteButton"))
     {
-        var changeButton = createElement("div");
-        $(changeButton).addClass("fa");
-        $(changeButton).addClass("changeButton");
-        $(changeButton).addClass("fa-pencil-square-o");
-        element2Array[i].appendChild(changeButton);
+        deleteBttn = getElementById("plantDeleteButton");
+        deleteBttn.parentNode.removeChild(deleteBttn);
+    }
+    
+    if(getElementById("plantChangeButton"))
+    {
+       changeBttn = getElementById("plantChangeButton");
+       changeBttn.parentNode.removeChild(changeBttn);
+    }   
+}
+
+function loadEditing(elementId)
+{
+    var parent = $('#ImageFrame').parent();
+
+    if ($(parent).hasClass("2"))
+    {
+        var deleteButton = createElement("div");
+        deleteButton.id = "plantDeleteButton";
+        $(deleteButton).addClass("fa");
+        $(deleteButton).addClass("deleteButton");
+        $(deleteButton).addClass("fa-trash");
+        $(parent).append(deleteButton);
     }
 
-});
+    var changeButton = createElement("div");
+    changeButton.id = "plantChangeButton";
+    $(changeButton).addClass("fa");
+    $(changeButton).addClass("changeButton");
+    $(changeButton).addClass("fa-pencil-square-o");
+    $(parent).append(changeButton);
+}
