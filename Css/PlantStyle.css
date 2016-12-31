@@ -50,7 +50,8 @@
     text-align: center;
 }
 
-#plantnaamfoto{
+#plantnaamfoto
+{
     height:25px;
     background-color:#87a6bc;
     border-radius:4px;
@@ -59,11 +60,13 @@
     margin-right:5%;
 }
 
-#plantfoto{
+#plantfoto
+{
     border-radius:4px;
 }
 
-#fotoos{
+#fotoos
+{
     height:60px;
     margin-right:7px;
     margin-top:7px;
@@ -91,11 +94,13 @@
 
 }
 
-#opslaan2{
+#opslaan2
+{
     margin-left:34%;
 }
 
-#plantinfotitel, #plantinfotitel2{
+#plantinfotitel, #plantinfotitel2
+{
     font-size: 22px;
     font-weight: bold;
     text-align: center;

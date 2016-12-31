@@ -107,18 +107,31 @@ if (isset($_SESSION['logged_in']))
             {
                 print($j . "*");
             }
-    // print($i . "*");
+            // print($i . "*");
         }
 
         for ($i = 0; $i < sizeof($row); $i++)
         {
 
-    //print($row[$i] . "*");
+            //print($row[$i] . "*");
         }
     }
 
     if (isset($_GET["DeleteArticle"]))
     {
         deleteArticle($_GET["DeleteArticle"]);
+    }
+
+    //Add PlantImage
+    if (isset($_GET["addPlantImages"], $_GET["plantID"]))
+    {
+        $phpImageArray = explode("*", $_GET["addPlantImages"]);
+        $phpImageArray = str_replace("*", "", $phpImageArray);
+
+        for ($i = 0; $i < count($phpImageArray) - 1; $i++)
+        {
+            $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[$i]', " . $_GET['plantID'] . ", 2)";
+            ProtectedDoSQL($sql, array());
+        }
     }
 }

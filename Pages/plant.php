@@ -196,7 +196,9 @@
                         $EersteFoto = ProtectedGetSQLArray("SELECT * FROM plantfoto WHERE PlantID = ? AND TypeFoto = 1", array($plant));
                         $EersteFotoRegel = $EersteFoto->fetch();
                         $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
+                        print("<div>");
                         print("<img id='ImageFrame' src='$EersteFotoUrl'>");
+                        print("</div>");
                         ?>
                         <div id="Positioner">
                             <?php
@@ -204,17 +206,23 @@
                             while ($row = $Fotoos->fetch())
                             {
                                 $url = $row["FotoUrl"];
+                                $type = $row["TypeFoto"];
                                 print("<img id='fotoos' onclick='ChangeImage()' class='UnderImage' src='$url'> " . " ");
                             }
+
+                            if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
+                            {
+                                $plantID = $_GET['plant'];
+                                print("<img id='$plantID' class='icon-image-add' style='width: 50px; cursor: pointer' onclick='addPlantImage(this)'>");
+                            }
                             ?>
-                            <img class='icon-image-add' style='width: 50px; cursor: pointer' onclick="addPlantImage(this)">
                         </div>
                     </section>
                 </section>
             </section>
         </section>
-        <?php
-        include '../Php/footer.php';
-        ?>
+<?php
+include '../Php/footer.php';
+?>
     </body>
 </html>

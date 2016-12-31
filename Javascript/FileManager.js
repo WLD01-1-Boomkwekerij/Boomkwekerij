@@ -3,8 +3,6 @@
 var PathHistory = [];
 //The first history is always the main folder
 PathHistory[0] = "../Images/Afbeeldingen";
-//All the selected items in the right side list
-var managerImageList = [];
 //The currentPathIndex, used to determine where in the PathHistory you are
 var currentPathIndex = 0;
 //The url of the current selected path
