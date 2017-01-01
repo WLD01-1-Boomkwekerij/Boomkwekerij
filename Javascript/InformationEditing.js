@@ -1,5 +1,4 @@
 //Variables
-
 //Saved Selection
 var savedSelectorPoint;
 var isLinkWindowOpen = false;
@@ -7,6 +6,7 @@ var isFileManagerOpen = false;
 var isEditorOpen = false;
 var currentSavedHTML;
 var currentSavedTitle;
+var currentSelectedImage;
 
 function createElement(element)
 {
@@ -164,6 +164,74 @@ function restoreSelectorPoint()
     }
 }
 
+function createImageButton(type)
+{
+    var button = createElement("button");
+    $(button).addClass("fa");
+
+    switch (type)
+    {
+        case "justifyLeft":
+            $(button).addClass("fa-align-left");
+            button.addEventListener("click",function()
+            {
+                currentSelectedImage.style.float = "left";
+            });            
+            break;
+        case "justifyCenter":
+            $(button).addClass("fa-align-center");
+            button.addEventListener("click", function()
+            {
+                currentSelectedImage.style.float = "right";
+                currentSelectedImage.style.marginRight = "25%";
+                currentSelectedImage.style.marginLeft = "5px";
+            });  
+            break;
+        case "justifyRight":
+            $(button).addClass("fa-align-right");
+            button.addEventListener("click",function()
+            {
+                currentSelectedImage.style.float = "right";
+            });  
+            break;
+        case "justifyNone":
+            $(button).addClass("fa-align-justify");
+            button.addEventListener("click",function()
+            {
+                currentSelectedImage.align = "none";
+            });  
+            break;
+
+    }
+    
+    return button;
+}
+
+/**
+ * Edits an Image
+ * @param {element} element
+ */
+function editImage(element)
+{
+    currentSelectedImage = element;
+    $(element).addClass("selectedImage");
+    
+    var imageEditDiv = createElement("div");
+    imageEditDiv.id = "imageEditDiv";
+    imageEditDiv.innerHTML = "Afbeelding:";
+    getElementById("editorPositioner").appendChild(imageEditDiv);
+
+    var buttonArray =
+            [
+                "justifyLeft", "justifyCenter", "justifyRight", "justifyNone"
+            ];
+
+    for (var i = 0; i < buttonArray.length; i++)
+    {
+        imageEditDiv.appendChild(createImageButton(buttonArray[i]));
+    }
+}
+
 /**
  * Insert a link at the saved selector point
  * @param {type} name
@@ -234,7 +302,7 @@ function createButton(type)
             button.className = "fa fa-align-left";
             break;
         case "justifyCenter":
-            button.className = "fa fa-align-justify";
+            button.className = "fa fa-align-center";
             break;
         case "justifyRight":
             button.className = "fa fa-align-right";
@@ -335,9 +403,13 @@ function setContentEditable(element, isNew, isNews)
             });
         }
 
+        var editorPositioner = createElement("section");
+        editorPositioner.id = "editorPositioner";
+        $(editorPositioner).insertBefore(parent);
+
         var editorDiv = createElement("div");
         $(editorDiv).addClass("Editor");
-        $(editorDiv).insertBefore(parent);
+        editorPositioner.appendChild(editorDiv);
 
         //Buttons
         var buttonArray =
@@ -347,7 +419,7 @@ function setContentEditable(element, isNew, isNews)
                     "insertOrderedList", "insertUnorderedList",
                     "link", "image", "upload"
                 ];
-                
+
         for (var i = 0; i < buttonArray.length; i++)
         {
             editorDiv.appendChild(createButton(buttonArray[i]));
@@ -481,6 +553,19 @@ document.onkeydown = document.onkeyup = function (e)
         {
             e.preventDefault();
         }
+    }
+};
+
+document.onclick = function(e)
+{
+    e = e || event;
+    
+    var element = e.target;
+    
+    if(!$(element).hasClass("selectedImage"))
+    {
+        console.log("fjfeio");
+        $(element).removeClass("selectedImage");
     }
 };
 

@@ -1,3 +1,12 @@
+#editorPositioner
+{
+    position: relative;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
 #tekstDIV
 {
     top: 10px;
@@ -37,7 +46,7 @@
     width: 350px;
     padding: 5px;
     background-color: lightcoral;
-    margin-bottom: 10px;    
+    margin-bottom: 5px;    
 
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b2316b+47,a50803+100 */
     background: #b2316b; /* Old browsers */
@@ -155,4 +164,51 @@
 img
 {
     backface-visibility: hidden;
+}
+
+#imageEditDiv
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: solid 2px black;
+    width: 350px;
+    padding: 5px;
+    background-color: lightcoral;
+    color: #E0DEF0;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px black;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a50803+0,b2316b+62 */
+    background: #a50803; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #a50803 0%, #b2316b 62%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  #a50803 0%,#b2316b 62%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  #a50803 0%,#b2316b 62%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a50803', endColorstr='#b2316b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+#imageEditDiv button
+{
+    background-color: lightgray;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    box-shadow: 0px 0px 1px 1px black;
+    margin-left: 5px;
+    border:none;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d0d3cb+18,d0d3cb+51,dfe5d7+81,949b8f+100 */
+    background: #d0d3cb; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #d0d3cb 18%, #d0d3cb 51%, #dfe5d7 81%, #949b8f 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover,  #d0d3cb 18%,#d0d3cb 51%,#dfe5d7 81%,#949b8f 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center,  #d0d3cb 18%,#d0d3cb 51%,#dfe5d7 81%,#949b8f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0d3cb', endColorstr='#949b8f',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+.selectedImage
+{
+    border: dotted 3px gray;
+    border-radius: 10px;
 }
