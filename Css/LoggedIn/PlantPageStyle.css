@@ -48,3 +48,29 @@
     width: 95%;
     direction: rtl;
 }
+
+.plantButtonIcon
+{
+    position: absolute;
+    right: 5px;
+    color: white;
+    border: solid 1px black;
+    cursor: pointer;
+}
+
+#plantDeleteButton
+{
+    background-color: #F44336;
+    padding: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    top: 86px;    
+}
+
+#plantChangeButton
+{
+    background-color: #008CBA;
+    padding: 5px;
+    padding-left: 9px;
+    top: 16px;
+}

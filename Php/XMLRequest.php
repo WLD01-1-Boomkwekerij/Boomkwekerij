@@ -134,4 +134,11 @@ if (isset($_SESSION['logged_in']))
             ProtectedDoSQL($sql, array());
         }
     }
+    
+    //Delete PlantImage
+    if(isset($_GET["deletePlantImages"]))
+    {
+        $sql = "DELETE FROM plantfoto WHERE FotoID=?";
+        ProtectedDoSQL($sql, array($_GET["deletePlantImages"]));
+    }
 }

@@ -41,7 +41,7 @@
                 var className = $(smallParent).attr("class");
                 $(imageParent).addClass(className);
 
-                document.getElementById('ImageFrame').className = parent.id;
+                document.getElementById('ImageFrame').className = smallParent.id;
                 document.getElementById('ImageFrame').src = event.target.src;
 
                 deleteEditing();
@@ -222,7 +222,7 @@
                         $EersteFotoRegel = $EersteFoto->fetch();
                         $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
 
-                        print("<div class=''>");
+                        print("<div id='ImageContainer' class=''>");
                         print("<img id='ImageFrame' src='$EersteFotoUrl'>");
                         print("</div>");
                         ?>

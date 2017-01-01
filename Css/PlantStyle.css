@@ -8,12 +8,24 @@
 
 }
 
+#ImageContainer
+{
+    position: relative;
+    height: 440px;
+}
+
+#ImageContainer img
+{
+    max-width: 100%;
+    height: auto;
+}
+
 #ImageFrame
 {
     display: block;
     margin: auto;
     height:50%;
-    max-height: 400px;
+    max-height: 440px;
     margin-top:10px;
     box-shadow: 0px 0px 2px 2px black;
     border-radius:4px;
