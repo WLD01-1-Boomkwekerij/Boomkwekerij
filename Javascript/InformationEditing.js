@@ -4,6 +4,7 @@ var savedSelectorPoint;
 var isLinkWindowOpen = false;
 var isFileManagerOpen = false;
 var isEditorOpen = false;
+var isImageEditorOpen = false;
 var currentSavedHTML;
 var currentSavedTitle;
 var currentSelectedImage;
@@ -168,42 +169,67 @@ function createImageButton(type)
 {
     var button = createElement("button");
     $(button).addClass("fa");
+    $(button).addClass("ImageEditor");
 
     switch (type)
     {
         case "justifyLeft":
             $(button).addClass("fa-align-left");
-            button.addEventListener("click",function()
+            button.addEventListener("click", function ()
             {
                 currentSelectedImage.style.float = "left";
-            });            
+            });
             break;
         case "justifyCenter":
             $(button).addClass("fa-align-center");
-            button.addEventListener("click", function()
+            button.addEventListener("click", function ()
             {
                 currentSelectedImage.style.float = "right";
                 currentSelectedImage.style.marginRight = "25%";
                 currentSelectedImage.style.marginLeft = "5px";
-            });  
+            });
             break;
         case "justifyRight":
             $(button).addClass("fa-align-right");
-            button.addEventListener("click",function()
+            button.addEventListener("click", function ()
             {
                 currentSelectedImage.style.float = "right";
-            });  
+                currentSelectedImage.style.marginRight = "0";
+                currentSelectedImage.style.marginLeft = "5px";
+            });
             break;
         case "justifyNone":
             $(button).addClass("fa-align-justify");
-            button.addEventListener("click",function()
+            button.addEventListener("click", function ()
             {
-                currentSelectedImage.align = "none";
-            });  
+                currentSelectedImage.style.float = "none";
+            });
             break;
-
+        case "plus":
+            $(button).addClass("fa-plus");
+            button.addEventListener("click", function ()
+            {
+                currentSize = parseInt(currentSelectedImage.style.width, 10);
+                if(currentSize <= 90)
+                {
+                   currentSize += 10;
+                   currentSelectedImage.style.width = currentSize + "%";
+                }
+            });
+            break;
+        case "minus":
+            $(button).addClass("fa-minus");
+            button.addEventListener("click", function ()
+            {
+                currentSize = parseInt(currentSelectedImage.style.width, 10);
+                if(currentSize >= 20)
+                {
+                   currentSize -= 10;
+                   currentSelectedImage.style.width = currentSize + "%";
+                }
+            });
+            break;
     }
-    
     return button;
 }
 
@@ -213,23 +239,39 @@ function createImageButton(type)
  */
 function editImage(element)
 {
-    currentSelectedImage = element;
-    $(element).addClass("selectedImage");
-    
-    var imageEditDiv = createElement("div");
-    imageEditDiv.id = "imageEditDiv";
-    imageEditDiv.innerHTML = "Afbeelding:";
-    getElementById("editorPositioner").appendChild(imageEditDiv);
-
-    var buttonArray =
-            [
-                "justifyLeft", "justifyCenter", "justifyRight", "justifyNone"
-            ];
-
-    for (var i = 0; i < buttonArray.length; i++)
+    if (!isImageEditorOpen)
     {
-        imageEditDiv.appendChild(createImageButton(buttonArray[i]));
+        isImageEditorOpen = true;
+        currentSelectedImage = element;
+        $(element).addClass("selectedImage");
+
+        var imageEditDiv = createElement("div");
+        imageEditDiv.id = "imageEditDiv";
+        $(imageEditDiv).addClass("ImageEditor");
+        imageEditDiv.innerHTML = "Afbeelding:";
+        getElementById("editorPositioner").appendChild(imageEditDiv);
+
+        var buttonArray =
+                [
+                    "justifyLeft",
+                    "justifyCenter",
+                    "justifyRight",
+                    "justifyNone",
+                    "minus", "plus"
+                ];
+
+        for (var i = 0; i < buttonArray.length; i++)
+        {
+            imageEditDiv.appendChild(createImageButton(buttonArray[i]));
+        }
     }
+}
+
+function destroyImageEditing()
+{
+    var editDiv = getElementById("imageEditDiv");
+    editDiv.parentNode.removeChild(editDiv);
+    isImageEditorOpen = false;
 }
 
 /**
@@ -425,6 +467,10 @@ function setContentEditable(element, isNew, isNews)
             editorDiv.appendChild(createButton(buttonArray[i]));
         }
 
+        var underDiv = createElement("div");
+        underDiv.id = "underDiv";
+        $(underDiv).insertAfter(parent);
+
         var saveButton = createElement("button");
         $(saveButton).addClass("EditorBottomButton");
         saveButton.innerHTML = "Save";
@@ -451,7 +497,7 @@ function setContentEditable(element, isNew, isNews)
 
             }
         });
-        $(saveButton).insertAfter(parent);
+        underDiv.appendChild(saveButton);
 
         var deleteButton;
 
@@ -486,7 +532,7 @@ function setContentEditable(element, isNew, isNews)
             isEditorOpen = false;
             element.innerHTML = currentSavedHTML;
         };
-        $(cancelButton).insertAfter(saveButton);
+        underDiv.appendChild(cancelButton);
 
         if (isNews && !isNew)
         {
@@ -497,7 +543,7 @@ function setContentEditable(element, isNew, isNews)
             {
                 deleteNewsText(parseInt($(parent).attr('id').replace("newsID", "")));
             });
-            $(deleteButton).insertAfter(cancelButton);
+            underDiv.appendChild(deleteButton);
         }
         $(parent).append(element);
     }
@@ -556,16 +602,18 @@ document.onkeydown = document.onkeyup = function (e)
     }
 };
 
-document.onclick = function(e)
+document.onclick = function (e)
 {
     e = e || event;
-    
+
     var element = e.target;
-    
-    if(!$(element).hasClass("selectedImage"))
+
+    if (!$(element).hasClass("selectedImage") && !$(element).hasClass("ImageEditor"))
     {
         console.log("fjfeio");
-        $(element).removeClass("selectedImage");
+        $(currentSelectedImage).removeClass("selectedImage");
+        currentSelectedImage = null;
+        destroyImageEditing();
     }
 };
 

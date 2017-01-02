@@ -55,7 +55,7 @@ function doXMLHttpImages(GetArray)
             }
             else
             {
-                $('#Files').load(document.URL + ' #Files');
+                $("#Files").load(document.URL + "#Files");
             }
         }
     };
