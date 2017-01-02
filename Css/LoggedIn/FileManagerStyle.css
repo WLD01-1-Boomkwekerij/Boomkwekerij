@@ -253,7 +253,6 @@
 {
     box-shadow: 0 0 3px 2px lightskyblue;
     border-radius: 3px;
-    opacity: 0.9;
     background-color: lightblue;
 }
 
@@ -285,4 +284,15 @@
     line-height: 34px;
     border-bottom-left-radius: 6px;
     text-shadow: 0 0 5px black;
+}
+
+#contextDiv
+{
+    position: absolute;
+    border: solid 1px black;
+    box-shadow: 7px 7px 5px 0 gray;
+    width: 150px;
+    height: 100px;
+    background-color: whitesmoke;
+    z-index: 4000;
 }

@@ -141,7 +141,10 @@ function loadImagesFromDatabase()
  */
 function setItemSelected(element, url, name)
 {
-    $(currentSelectedElement).removeClass("selectedItem");
+    if ($(currentSelectedElement).hasClass("selectedItem"))
+    {
+        $(currentSelectedElement).removeClass("selectedItem");
+    }
     currentSelectedElement = element;
     $(currentSelectedElement).addClass("selectedItem");
     currentSelectedPath = url + "/" + name;
@@ -613,8 +616,6 @@ function createManager(type, element)
         var selectButton = createElement("button");
         selectButton.id = "fileManagerSelectButton";
         selectButton.innerHTML = "Select";
-        //General Text image adding
-
         selectButton.addEventListener("click", function ()
         {
             if (type === "Insert")
@@ -662,9 +663,24 @@ function createManager(type, element)
     }
 }
 
-function CreateImageContextMenu()
+function CreateImageContextMenu(ev)
 {
-    
+    var contextDiv = createElement("div");
+    contextDiv.id = "contextDiv";
+    $(contextDiv).addClass("contextMenu");
+    contextDiv.style.position = "absolute";
+    contextDiv.style.left = ev.clientX + "px";
+    contextDiv.style.top = ev.clientY + "px";
+    document.body.appendChild(contextDiv);
+}
+
+function DeleteImageContextMenu()
+{
+    if (getElementById("contextDiv"))
+    {
+        var contextMenu = getElementById("contextDiv");
+        contextMenu.parentNode.removeChild(contextMenu);
+    }
 }
 
 //NEWS PAGE
@@ -688,7 +704,8 @@ if (document.addEventListener)
         if ($(e.target).hasClass("fileManagerFile"))
         {
             //here you draw your own menu
-            CreateImageContextMenu(); 
+            DeleteImageContextMenu();
+            CreateImageContextMenu(e);
             e.preventDefault();
         }
     }, false);
@@ -701,3 +718,11 @@ else
         window.event.returnValue = false;
     });
 }
+
+window.onmousedown = function (e)
+{
+    if (!$(e.target).hasClass("contextMenu"))
+    {
+        DeleteImageContextMenu();
+    }
+};
