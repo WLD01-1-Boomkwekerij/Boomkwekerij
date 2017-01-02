@@ -1,4 +1,5 @@
-<?php include'/../Php/Database.php';
+<?php
+include'/../Php/Database.php';
 ?>
 <html>
     <head>
@@ -13,6 +14,7 @@
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
         {
             include '../Php/loggedInEditor.php';
+            print("<script src='../Javascript/Catalog.js'></script>");
         }
         ?>
     </head>
@@ -193,8 +195,8 @@
                 </section>
             </section>
         </section>
-<?php
-include '../Php/footer.php';
-?>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>
