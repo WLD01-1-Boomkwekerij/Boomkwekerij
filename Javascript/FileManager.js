@@ -88,7 +88,12 @@ function drop(ev)
 {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("Icon");
-    if ($(ev.target).hasClass("specialHomeFolder"))
+    
+    if(ev.target.id === "sideMenu")
+    {
+        addImageToList(PathHistory[currentPathIndex] + "/" + ev.dataTransfer.getData("Icon"));
+    }
+    else if ($(ev.target).hasClass("specialHomeFolder"))
     {
         var specialFolderData = ev.dataTransfer.getData("specialHomeFolderUrl");
 
@@ -342,7 +347,6 @@ function destroyManager()
     getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
     getElementById("PushButton").parentNode.removeChild(getElementById("PushButton"));
-    getElementById("PullButton").parentNode.removeChild(getElementById("PullButton"));
     getElementById("sideMenu").parentNode.removeChild(getElementById("sideMenu"));
 }
 
@@ -387,11 +391,12 @@ function updateImageList()
 
             var imageDeleteButton = createElement("div");
             $(imageDeleteButton).addClass("imageDeleteButton");
+            $(imageDeleteButton).addClass("fa fa-trash fa-2x");
             imageDeleteButton.onclick = function ()
             {
                 removeImageFromList(managerImageList[j]);
             };
-            sidebar.appendChild(imageDeleteButton);
+            imageDiv.appendChild(imageDeleteButton);
         }(j));
     }
 }
@@ -547,6 +552,37 @@ function createUploadingBottom()
     getElementById("BottomInfo").appendChild(uploadForm);
 }
 
+function createManagerSideMenu()
+{
+
+    createFileIcons(PathHistory[0]);
+    var sideMenu = createElement("div");
+    sideMenu.id = "sideMenu";
+    sideMenu.ondrop = function ()
+    {
+        drop(event);
+    };
+    sideMenu.ondragover = function ()
+    {
+        allowDrop(event);
+    };
+    
+    
+    document.body.appendChild(sideMenu);
+
+    var PushButton = createElement("div");
+    PushButton.id = "PushButton";
+    PushButton.innerHTML = ">";
+    PushButton.addEventListener("click", function ()
+    {
+        if (currentSelectedPath !== "")
+        {
+            addImageToList(currentSelectedPath);
+        }
+    });
+    document.body.appendChild(PushButton);
+}
+
 /**
  * Creates the file manager
  * @param {string} type
@@ -583,7 +619,7 @@ function createManager(type, element)
                 }
             }
             else
-            { 
+            {
                 //If the managerlist is not empty
                 //Loop through every managerImageList array item and create a new input item
                 for (var i = 0; i < managerImageList.length; i++)
@@ -601,33 +637,10 @@ function createManager(type, element)
         getElementById("BottomInfo").appendChild(selectButton);
     }
 
-
-
-    createFileIcons(PathHistory[0]);
-    var sideMenu = createElement("div");
-    sideMenu.id = "sideMenu";
-    document.body.appendChild(sideMenu);
-
-    var PushButton = createElement("div");
-    PushButton.id = "PushButton";
-    PushButton.innerHTML = ">";
-    PushButton.addEventListener("click", function ()
+    if (type === "Insert" || type === "MultipleInput")
     {
-        if (currentSelectedPath !== "")
-        {
-            addImageToList(currentSelectedPath);
-        }
-    });
-    document.body.appendChild(PushButton);
-
-    var PullButton = createElement("div");
-    PullButton.id = "PullButton";
-    PullButton.innerHTML = "<";
-    PullButton.addEventListener("click", function ()
-    {
-        removeImageFromList(currentSelectedPath);
-    });
-    document.body.appendChild(PullButton);
+        createManagerSideMenu();
+    }
 }
 
 //CATALOG

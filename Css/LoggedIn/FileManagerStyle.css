@@ -251,14 +251,19 @@
 
 .selectedItem
 {
-    box-shadow: 0 0 3px 1px red;
-    background-color: gray;
+    box-shadow: 0 0 3px 2px lightskyblue;
+    border-radius: 3px;
+    opacity: 0.9;
+    background-color: lightblue;
 }
 
 .imageDiv
 {
     position: relative;
-    width: 100%;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3px;
 }
 
 .imageImg
@@ -268,8 +273,15 @@
 
 .imageDeleteButton
 {
-    background-color: coral;
-    z-index: 2002;
-    width: 30px;
-    height: 30px;
+    position: absolute;
+    background-color: #F44336;
+    top: 0;
+    right: 0;
+    z-index: 2001;
+    width: 34px;
+    height: 34px;
+    color: white;
+    text-align: center;
+    line-height: 34px;
+    border-bottom-left-radius: 6px;
 }
