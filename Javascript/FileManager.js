@@ -1,4 +1,6 @@
 
+/* global managerImageList */
+
 //The history of all items clicked, left arrow will use it to go back
 var PathHistory = [];
 //The first history is always the main folder
@@ -88,8 +90,8 @@ function drop(ev)
 {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("Icon");
-    
-    if(ev.target.id === "sideMenu")
+
+    if (ev.target.id === "sideMenu")
     {
         addImageToList(PathHistory[currentPathIndex] + "/" + ev.dataTransfer.getData("Icon"));
     }
@@ -348,6 +350,11 @@ function destroyManager()
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
     getElementById("PushButton").parentNode.removeChild(getElementById("PushButton"));
     getElementById("sideMenu").parentNode.removeChild(getElementById("sideMenu"));
+
+    managerImageList = [];
+    PathHistory = [];
+    currentPathIndex = 0;
+    PathHistory[0] = "../Images/Afbeeldingen";
 }
 
 /**
@@ -566,8 +573,8 @@ function createManagerSideMenu()
     {
         allowDrop(event);
     };
-    
-    
+
+
     document.body.appendChild(sideMenu);
 
     var PushButton = createElement("div");
@@ -596,7 +603,7 @@ function createManager(type, element)
     currentSelectedPath = "";
 
     //Create the bottom select button
-    if (type === "Upploading")
+    if (type === "Uploading")
     {
         createUploadingBottom();
     }
@@ -613,9 +620,20 @@ function createManager(type, element)
             if (type === "Insert")
             {
                 restoreSelectorPoint();
-                for (var i = 0; i < managerImageList.length; i++)
+                console.log(managerImageList.length);
+                if (managerImageList.length === 0)
                 {
-                    createImageByName(managerImageList[i]);
+                    if (!currentSelectedPath !== null)
+                    {
+                        createImageByName(currentSelectedPath);
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < managerImageList.length; i++)
+                    {
+                        createImageByName(managerImageList[i]);
+                    }
                 }
             }
             else
@@ -637,10 +655,16 @@ function createManager(type, element)
         getElementById("BottomInfo").appendChild(selectButton);
     }
 
+    //Create the sideMenu
     if (type === "Insert" || type === "MultipleInput")
     {
         createManagerSideMenu();
     }
+}
+
+function CreateImageContextMenu()
+{
+    
 }
 
 //CATALOG
@@ -873,7 +897,7 @@ function createCatalogAddition()
     sectionDiv.appendChild(imageButton);
     imageButton.addEventListener("click", function ()
     {
-        createManager(false, sectionDiv);
+        createManager("MultipleInput", sectionDiv);
     });
 }
 
@@ -885,10 +909,29 @@ function deleteArticle(newsID)
     xmlhttp.send();
 }
 
-
-
 //JQuery
 $(document).ready(function ()
 {
     loadImagesFromDatabase();
 });
+
+if (document.addEventListener)
+{
+    document.addEventListener('contextmenu', function (e)
+    {
+        if ($(e.target).hasClass("fileManagerFile"))
+        {
+            //here you draw your own menu
+            CreateImageContextMenu(); 
+            e.preventDefault();
+        }
+    }, false);
+}
+else
+{
+    document.attachEvent('oncontextmenu', function ()
+    {
+        alert("You've tried to open context menu");
+        window.event.returnValue = false;
+    });
+}
