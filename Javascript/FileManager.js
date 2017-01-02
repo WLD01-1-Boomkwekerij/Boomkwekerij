@@ -447,30 +447,26 @@ function createImageByName(name)
     xmlhttp.send();
 }
 
-/**
- * Creates the file manager
- * @param {bool} uploading
- * @param {element} element
- */
-function createManager(uploading, element)
+function createManagerBase()
 {
-    isUploading = uploading;
-    currentSelectedPath = "";
-
     document.body.style.overflow = "hidden";
 
+    //Background color
     var backgroundColor = createElement("div");
     backgroundColor.id = "BackgroundColor";
     document.body.appendChild(backgroundColor);
 
+    //Main manager div
     var managerDiv = createElement("div");
     managerDiv.id = "FileManager";
     document.body.appendChild(managerDiv);
 
+    //Top part
     var topInfo = createElement("div");
     topInfo.id = "topInfo";
     managerDiv.appendChild(topInfo);
 
+    //Back in history arrow
     var leftArrow = createElement("div");
     leftArrow.className = "ArrowHistory";
     leftArrow.innerHTML = "&#8592;";
@@ -481,6 +477,7 @@ function createManager(uploading, element)
     };
     topInfo.appendChild(leftArrow);
 
+    //Forward in history arrow
     var rightArrow = createElement("div");
     rightArrow.className = "ArrowHistory";
     rightArrow.id = "RightArrow";
@@ -491,22 +488,27 @@ function createManager(uploading, element)
     };
     topInfo.appendChild(rightArrow);
 
+    //Positionsetter for the pathSelectedBar
     var positionSetter = createElement("div");
     positionSetter.id = "positionSetter";
     topInfo.appendChild(positionSetter);
 
+    //Displays the current selected Path
     var pathSelectedBar = createElement("div");
     pathSelectedBar.id = "pathSelectedBar";
     positionSetter.appendChild(pathSelectedBar);
 
+    //The div where all the folders and files are displayed
     var filesDiv = createElement("div");
     filesDiv.id = "Files";
     managerDiv.appendChild(filesDiv);
 
+    //Bottom bar with buttons
     var bottomInfo = createElement("div");
     bottomInfo.id = "BottomInfo";
     managerDiv.appendChild(bottomInfo);
 
+    //Cancel button to close the fileManager without any action done
     var cancelButton = createElement("button");
     cancelButton.id = "cancelButton";
     cancelButton.innerHTML = "Cancel";
@@ -515,34 +517,52 @@ function createManager(uploading, element)
         destroyManager();
     };
     bottomInfo.appendChild(cancelButton);
+}
 
-    //Create the Upload Images HTML
-    if (isUploading)
+function createUploadingBottom()
+{
+    var uploadForm = createElement("form");
+    uploadForm.method = "post";
+    uploadForm.enctype = "multipart/form-data";
+
+    var fileUrl = createElement("input");
+    fileUrl.type = "text";
+    fileUrl.name = "UploadUrl";
+    fileUrl.id = "uploadFilePathURL";
+    fileUrl.value = PathHistory[PathHistory.length - 1];
+    uploadForm.appendChild(fileUrl);
+
+    //The file upload input
+    var fileInput = createElement("input");
+    fileInput.type = "file";
+    fileInput.multiple = true;
+    fileInput.name = "UploadFile[]";
+    uploadForm.appendChild(fileInput);
+
+    fileSend = createElement("input");
+    fileSend.type = "submit";
+    fileSend.name = "submitUploadFile";
+    uploadForm.appendChild(fileSend);
+
+    getElementById("BottomInfo").appendChild(uploadForm);
+}
+
+/**
+ * Creates the file manager
+ * @param {string} type
+ * @param {element} element (optional) The element for creating the Input fields
+ */
+function createManager(type, element)
+{
+    //Creates the base Manager
+    createManagerBase();
+
+    currentSelectedPath = "";
+
+    //Create the bottom select button
+    if (type === "Upploading")
     {
-        var uploadForm = createElement("form");
-        uploadForm.method = "post";
-        uploadForm.enctype = "multipart/form-data";
-
-        var fileUrl = createElement("input");
-        fileUrl.type = "text";
-        fileUrl.name = "UploadUrl";
-        fileUrl.id = "uploadFilePathURL";
-        fileUrl.value = PathHistory[PathHistory.length - 1];
-        uploadForm.appendChild(fileUrl);
-
-        //The file upload input
-        var fileInput = createElement("input");
-        fileInput.type = "file";
-        fileInput.multiple = true;
-        fileInput.name = "UploadFile[]";
-        uploadForm.appendChild(fileInput);
-
-        fileSend = createElement("input");
-        fileSend.type = "submit";
-        fileSend.name = "submitUploadFile";
-        uploadForm.appendChild(fileSend);
-
-        bottomInfo.appendChild(uploadForm);
+        createUploadingBottom();
     }
     else
     {
@@ -550,25 +570,21 @@ function createManager(uploading, element)
         var selectButton = createElement("button");
         selectButton.id = "fileManagerSelectButton";
         selectButton.innerHTML = "Select";
-
         //General Text image adding
-        if (arguments.length === 1)
+
+        selectButton.addEventListener("click", function ()
         {
-            selectButton.addEventListener("click", function ()
+            if (type === "Insert")
             {
                 restoreSelectorPoint();
                 for (var i = 0; i < managerImageList.length; i++)
                 {
                     createImageByName(managerImageList[i]);
                 }
-            });
-        }
-        //Input image adding
-        else
-        {
-            //If the managerlist is not empty
-            selectButton.addEventListener("click", function ()
-            {
+            }
+            else
+            { 
+                //If the managerlist is not empty
                 //Loop through every managerImageList array item and create a new input item
                 for (var i = 0; i < managerImageList.length; i++)
                 {
@@ -580,13 +596,14 @@ function createManager(uploading, element)
                     images[images.length] = managerImageList[i];
                 }
                 destroyManager();
-            });
-        }
-        bottomInfo.appendChild(selectButton);
+            }
+        });
+        getElementById("BottomInfo").appendChild(selectButton);
     }
 
-    createFileIcons(PathHistory[0]);
 
+
+    createFileIcons(PathHistory[0]);
     var sideMenu = createElement("div");
     sideMenu.id = "sideMenu";
     document.body.appendChild(sideMenu);
@@ -671,14 +688,14 @@ function createCatalogAddition()
                 {
                     if (this.readyState === 4 && this.status === 200)
                     {
-                        if(xmlhttp.responseText !== "")
+                        if (xmlhttp.responseText !== "")
                         {
                             console.log(xmlhttp.responseText);
                         }
                         else
                         {
-                           location.reload(); 
-                        }                        
+                            location.reload();
+                        }
                     }
                 };
                 xmlhttp.send();

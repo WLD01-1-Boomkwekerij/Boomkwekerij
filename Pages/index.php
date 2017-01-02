@@ -42,8 +42,9 @@
                     loadTextFromDB(1);
                     print("</div></div");
                     ?>
-                    <br>
+                    <br> 
                     <div class="downPositioner"></div>
+                   
                 </section>
             </section>
         </section>

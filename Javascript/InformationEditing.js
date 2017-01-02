@@ -64,8 +64,8 @@ function insertImage()
 {
     if (!isFileManagerOpen)
     {
-        createManager(false);
         isFileManagerOpen = true;
+        createManager("Insert");        
     }
 }
 
@@ -76,8 +76,8 @@ function uploadImage()
 {
     if (!isFileManagerOpen)
     {
-        createManager(true);
         isFileManagerOpen = true;
+        createManager("Uploading");        
     }
 }
 
