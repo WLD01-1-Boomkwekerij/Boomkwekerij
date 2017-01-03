@@ -20,8 +20,10 @@ include'/../Php/Database.php';
     </head>
     <body>
         <?php 
+        if(isset($_GET["category"])){
         $cat = $_GET["category"];
         echo "<div style='display:none;' id='category'>$cat</div>";
+        }
         ?>
         
         <section id="wrapper">
@@ -117,15 +119,15 @@ include'/../Php/Database.php';
                                 $position = "absolute";
 
                                 print("<div class='item2' id='plantID$plantId'>
-                            <div>
-                            <form method='get'>
-                            <table>
-                                <tr >
-                                    <div id='catatitel'> <center><p id='planttitel'>$naam</p></center></div>
+                                    <form method='get'>
+                                    <div>
+                                
+                                        <div id='catatitel'> 
+                                            <center><p id='planttitel'>$naam</p></center>
+                                        </div>
                                     <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
-                                    <span></span><a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
-                            </table>
-                            </div>");
+                                    <a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
+                                    </div>");
 
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
                                 {
