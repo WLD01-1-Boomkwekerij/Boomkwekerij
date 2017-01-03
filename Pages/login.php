@@ -53,7 +53,7 @@
                             <br>
                             <input class="btn btn-success" type="submit" id="btn2" name="btn2" value="Inloggen">
                         </form>
-                    </div>
+                    </div>                  
                 </section>
             </section>
         </section>
