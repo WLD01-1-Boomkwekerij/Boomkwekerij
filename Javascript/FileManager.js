@@ -14,7 +14,7 @@ var currentSelectedElement;
 //The current selected Image, in the sidebar
 var currentSelectedSidebarImage;
 //Is uploading, should de manager upload or not
-var isUploading;
+var isUploading = false;
 //The fileSend element where the name of the image goes as value
 var fileSend;
 
@@ -112,7 +112,7 @@ function drop(ev)
 }
 
 /**
- * Loads all the images from the databse and sets their .src
+ * Loads all the images from the database and sets their .src
  */
 function loadImagesFromDatabase()
 {
@@ -362,6 +362,7 @@ function destroyManager()
     PathHistory = [];
     currentPathIndex = 0;
     PathHistory[0] = "../Images/Afbeeldingen";
+    isUploading = false;
 }
 
 /**
@@ -614,6 +615,7 @@ function createManager(type, element)
     //Create the bottom select button
     if (type === "Uploading")
     {
+        isUploading = true;
         createUploadingBottom();
     }
     else
@@ -688,7 +690,18 @@ function CreateImageContextMenu(ev)
         deleteButton.innerHTML = "Verwijder";
         deleteButton.addEventListener("click", function ()
         {
-            doXMLHttpImages("deleteImageByName=" + ev.target.id);
+            if ($(ev.target).hasClass("fileManagerFile"))
+            {
+                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] + 
+                        "&deleteImageByName=" + ev.target.id +
+                        "&type=file");
+            }
+            else
+            {
+                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] + "/" + ev.target.id +
+                        "&deleteImageByName=" + ev.target.id +
+                        "&type=folder");
+            }
         });
         contextDiv.appendChild(deleteButton);
     }

@@ -6,7 +6,7 @@ include'/../Php/Database.php';
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Catalogus</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
-        <link href="../Css/CatalogStyleBig.css" rel="stylesheet" type="text/css">
+        <link href="../Css/CatalogStyle.css" rel="stylesheet" type="text/css">
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
@@ -46,13 +46,17 @@ include'/../Php/Database.php';
                 }
                 ?>
                 <section id="rightmenu">
-                    <div id="google_translate_element"></div><script type="text/javascript">
+                    <div id="google_translate_element">
+                    <script type="text/javascript">
                         function googleTranslateElementInit()
                         {
                             new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
                         }
-                    </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-                    <h3>Soorten</h3>
+                    </script>
+                    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+                    </script>
+                    </div>
+                    <h3 id="a">Soorten</h3>
 
                     <ul id="catalogus">
                         <?php

@@ -59,8 +59,7 @@ function createCatalogAddition()
                         if (xmlhttp.responseText !== "")
                         {
                             console.log(xmlhttp.responseText);
-                        }
-                        else
+                        } else
                         {
                             location.reload();
                         }
@@ -72,9 +71,8 @@ function createCatalogAddition()
     });
     topDiv.appendChild(buttonAddPlant);
 
-    var textAddPlant = createElement("p");
+    var textAddPlant = createElement("h3");
     textAddPlant.innerHTML = "Plant Toevoegen";
-    textAddPlant.id = "textAddPlant";
     topDiv.appendChild(textAddPlant);
 
     var sectionDiv = createElement("div");
@@ -93,7 +91,7 @@ function createCatalogAddition()
     //Naam | Inputs
     //Naam
     var textNaam = createElement("p");
-    textNaam.class += "catalogAddingName";
+    $(textNaam).addClass("catalogAddingName");
     textNaam.innerHTML = "Naam:";
     leftDiv.appendChild(textNaam);
 
