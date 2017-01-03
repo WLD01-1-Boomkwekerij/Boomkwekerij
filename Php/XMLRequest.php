@@ -93,6 +93,29 @@ if (isset($_SESSION['logged_in']))
         }
     }
 
+    if (isset($_GET["CatalogSelectOptionsCategory"]))
+    {
+        $cat = $_GET["CatalogSelectOptionsCategory"];
+        $sqlPrijs = ProtectedGetSQLArray("SELECT Naam, PrijsID FROM prijs WHERE CategoryID=$cat", array());
+        $row = $sqlPrijs->fetchAll(PDO::FETCH_ASSOC);
+
+
+        foreach ($row as $i)
+        {
+            foreach ($i as $j)
+            {
+                print($j . "*");
+            }
+            // print($i . "*");
+        }
+
+        for ($i = 0; $i < sizeof($row); $i++)
+        {
+
+            //print($row[$i] . "*");
+        }
+    }
+    
     if (isset($_GET["CatalogSelectOptions"]))
     {
         $sqlPrijs = ProtectedGetSQLArray("SELECT Naam, PrijsID FROM prijs", array());
@@ -114,6 +137,8 @@ if (isset($_SESSION['logged_in']))
             //print($row[$i] . "*");
         }
     }
+    
+    
 
     if (isset($_GET["DeleteArticle"]))
     {

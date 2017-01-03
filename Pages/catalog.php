@@ -19,6 +19,11 @@ include'/../Php/Database.php';
         ?>
     </head>
     <body>
+        <?php 
+        $cat = $_GET["category"];
+        echo "<div style='display:none;' id='category'>$cat</div>";
+        ?>
+        
         <section id="wrapper">
             <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
             <section id="top">

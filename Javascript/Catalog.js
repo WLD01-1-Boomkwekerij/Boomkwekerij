@@ -105,7 +105,7 @@ function createCatalogAddition()
     //Select Groep
     var textGroep = createElement("p");
     textGroep.class += "catalogAddingName";
-    textGroep.innerHTML = "Groep:";
+    textGroep.innerHTML = "Prijsregel:";
     leftDiv.appendChild(textGroep);
 
 
@@ -113,8 +113,17 @@ function createCatalogAddition()
     selectElement.id = "groep";
     rightDiv.appendChild(selectElement);
 
+    console.log(document.getElementById("category").innerHTML);
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptions=yes", true);
+   
+    if(document.getElementById("category").innerHTML === ""){
+        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptions=yes", true);
+        console.log("leeg")
+    }else{
+
+        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptionsCategory="+document.getElementById("category").innerHTML, true);
+        console.log("../PHP/XMLRequest.php?CatalogSelectOptionsCategory="+document.getElementById("category").innerHTML)
+    }
 
     xmlhttp.onreadystatechange = function ()
     {
@@ -136,7 +145,7 @@ function createCatalogAddition()
     //Min hoogte
     var textMinHoogte = createElement("p");
     textMinHoogte.class += "catalogAddingName";
-    textMinHoogte.innerHTML = "Min.Hoogte";
+    textMinHoogte.innerHTML = "Min Hoogte";
     leftDiv.appendChild(textMinHoogte);
 
     var inputMinHoogte = createElement("input");
@@ -149,7 +158,7 @@ function createCatalogAddition()
     //Max Hoogte
     var textMaxHoogte = createElement("p");
     textMaxHoogte.class += "catalogAddingName";
-    textMaxHoogte.innerHTML = "Max.Hoogte";
+    textMaxHoogte.innerHTML = "Max  Hoogte";
     leftDiv.appendChild(textMaxHoogte);
 
     var inputMaxHoogte = createElement("input");
