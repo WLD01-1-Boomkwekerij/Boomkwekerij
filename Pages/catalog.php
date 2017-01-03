@@ -19,15 +19,16 @@ include'/../Php/Database.php';
         ?>
     </head>
     <body>
-        <?php 
-        if(isset($_GET["category"])){
-        $cat = $_GET["category"];
-        echo "<div style='display:none;' id='category'>$cat</div>";
+        <?php
+        if (isset($_GET["category"]))
+        {
+            $cat = $_GET["category"];
+            echo "<div style='display:none;' id='category'>$cat</div>";
         }
         ?>
-        
+
         <section id="wrapper">
-            <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
+            <section id='titlediv'><p id="imgtitle">FA.P. BOER BOOMKWEKERIJ</p></section>
             <section id="top">
                 <section id="header"></section>
                 <?php
@@ -47,14 +48,14 @@ include'/../Php/Database.php';
                 ?>
                 <section id="rightmenu">
                     <div id="google_translate_element">
-                    <script type="text/javascript">
-                        function googleTranslateElementInit()
-                        {
-                            new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-                        }
-                    </script>
-                    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-                    </script>
+                        <script type="text/javascript">
+                            function googleTranslateElementInit()
+                            {
+                                new google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'en,it,nl,sv', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                            }
+                        </script>
+                        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+                        </script>
                     </div>
                     <h3 id="a">Soorten</h3>
 
