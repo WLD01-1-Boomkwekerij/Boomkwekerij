@@ -26,10 +26,10 @@
                 <section id="maincontent">
                     <h4>Bewerken</h4>
                     <?php
-                    $gebruiker = $_POST["gebruiker"];
                     if (isset($_POST["submit"])) {
                         include '../Php/POST.php';
-                        if (($submit == 'Bewerken' && count($errors) > 0 ) || $submit == 'Bewerk') {
+                        print ($submit);
+                        if (($submit == 'Opslaan' && count($errors) > 0 ) || $submit == 'Bewerk') {
                             print_r(implode($errors, '<br>'));
                             ?>
                             <form method="post" action="../Pages/user_edit.php">
@@ -40,13 +40,15 @@
                                     print('<h5>' . $data['Naam'] . '</h5>');
                                     ?>
                                     <br>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: <i># @ % & - _ ! ?</i><br>
-                                    <table>
+                                    <table id="gebruikertoevoegen" align="center">
                                         <tr>
                                             <td>Naam</td>
                                             <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($data['Naam']); ?>"></td>
+                                        </tr>
                                         <tr>
                                             <td>Email</td>
                                             <td><input name="gebr_mail" id="gebr_mail" type="email" tabindex="2" required value="<?php print($data['Email']); ?>"></td>
+                                        </tr>
                                         <tr>
                                             <td>Krijgt notifactie</td>
                                             <td>
@@ -66,12 +68,15 @@
                                                     </select> 
                                                 <?php } ?>
                                             </td>
+                                        </tr>
                                         <tr>
                                             <td>Wachtwoord</td>
                                             <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" ></td>
+                                        </tr>
                                         <tr>
                                             <td>Wachtwoord opnieuw</td>
                                             <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" ></td>
+                                        </tr>
                                         <tr>
                                             <td>Rechten</td>
                                             <td> 
@@ -103,20 +108,18 @@
                                                 }
                                                 ?>                                    
                                             </td>
-
-
+                                        </tr>
                                     </table>
-
                                     <input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" />
                                     <input type="submit" class="button-red" name="submit" value="Verwijderen"/>
-                                    
-                                        <input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" />
+
+                                    <input type='hidden' name='gebruiker' value="<?php print($gebruiker); ?>" />
                                     <input type="submit" class="button-green" name="submit" value="Opslaan"/>
 
                                 </form>
                                 <?php
                             }
-                        } elseif ($submit == 'Bewerken' && count($errors) == 0) {
+                        } elseif ($submit == 'Opslaan' && count($errors) == 0) {
                             print('Wilt u de volgende gebruiker bewerken?<br>'
                                     . 'Naam: ' . $gebr_naam . '<br>'
                                     . 'Email: ' . $gebr_mail . '<br>'
@@ -141,7 +144,7 @@
                             ?>
                             <form action="../Php/user_update_delete.php" method="post">
                                 <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
-                                <input type="submit" name="submit" value="Verwijderen"/>
+                                <input type="submit" name="submit" value="Opslaan"/>
                             </form>
                             <form action="../Pages/logged_in.php" method="post">
                                 <input type="submit" name="cancel" value="Annuleren"/>

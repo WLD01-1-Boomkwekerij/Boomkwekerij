@@ -1,15 +1,15 @@
 <?php session_start() ?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Boomkwekerij - Catalogus</title>
         <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
-
     </head>
     <body>    
-            <section id="wrapper">
-                <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
+        <section id="wrapper">
+            <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
             <section id="top">
                 <section id="header"></section>
                 <?php
@@ -39,8 +39,8 @@
                             print('U kunt over ' . $wachttijd . ' seconden inloggen');
                         }
                         ?>
-                        <form id="loggiforum" method="post" action="../Php/verify.php">
-                            <table border="1">
+                        <form id="loginform" method="post" action="../Php/verify.php">
+                            <table align="center">
                                 <tr>
                                     <td>Gebruikersnaam:</td>
                                     <td><input type="text" id="user" name="user"></td>
@@ -53,13 +53,13 @@
                             <br>
                             <input class="btn btn-success" type="submit" id="btn2" name="btn2" value="Inloggen">
                         </form>
-                    </div>
+                    </div>                  
                 </section>
             </section>
         </section>
         <?php
         include '../Php/footer.php';
         ?>
-       
+
     </body>
 </html>

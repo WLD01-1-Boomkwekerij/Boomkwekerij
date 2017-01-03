@@ -17,6 +17,7 @@ input {
     max-width: 200px;
     min-width: 100px;
 }
+
 #loginkader{
     margin: auto;
 }
@@ -29,11 +30,15 @@ input {
     width:200px;
     position:absolute;
     margin-left:800px;
-    
+
 }
 
 #gebruikertoevoegen{
-    float:center;
+    align-content: center;
+}
+
+#gebruikertoevoegen:first-child {     
+    font-weight: bold; 
 }
 
 #submit{
@@ -60,6 +65,21 @@ input {
     background-color:lightgrey;
 }
 
-#verwijdertd{
-    width:100px;
+#loginkader{
+    width:400px;
+    border-width:3px;
+    border-color:#C0C0C0;
+    border-style:solid;
+}
+
+#logintitel
+{
+    background-color:#C0C0C0;
+    height:50px;
+    margin-top:0px;
+}
+
+#loginform
+{
+    padding-top:5px;
 }
