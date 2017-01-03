@@ -260,7 +260,10 @@ h6
 #google_translate_element
 {
     background-color:	#87a6bc; /* IE6-9 */
-    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 260px;
+    margin: -10px;
+    
 }
 div.goog-te-gadget-simple
 {
