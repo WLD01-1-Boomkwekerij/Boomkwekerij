@@ -72,6 +72,7 @@ function createCatalogAddition()
     topDiv.appendChild(buttonAddPlant);
 
     var textAddPlant = createElement("h3");
+    textAddPlant.id = "b";
     textAddPlant.innerHTML = "Plant Toevoegen";
     topDiv.appendChild(textAddPlant);
 
