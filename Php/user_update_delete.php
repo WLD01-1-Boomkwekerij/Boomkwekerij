@@ -32,7 +32,7 @@
                         . ' `Wachtwoord` =?,'
                         . ' `Rol` = ?'
                         . ' WHERE `GebruikerID` =?');
-                    BeveiligDoSQL($query, array($data["gebr_naam"],$data["gebr_mail"],$data["krijgt_mail"],$Wachtwoord,$rol,$data["gebruiker"]));
+                    ProtectedDoSQL($query, array($data["gebr_naam"],$data["gebr_mail"],$data["krijgt_mail"],$Wachtwoord,$rol,$data["gebruiker"]));
             } else {
                 $query = ('UPDATE `boomkwekerij`.`gebruiker`'
                         . ' SET `Naam` =?,'
@@ -41,12 +41,12 @@
                         . ' `Rol` = ?'
                         . ' WHERE `GebruikerID` =?');
                 
-                    BeveiligDoSQL($query, array($data["gebr_naam"],$data["gebr_mail"],$data["krijgt_mail"],$rol,$data["gebruiker"]));
+                    ProtectedDoSQL($query, array($data["gebr_naam"],$data["gebr_mail"],$data["krijgt_mail"],$rol,$data["gebruiker"]));
             }
 //            header('Refresh: 0; url=../Pages/logged_in.php'); //terug naar beheerderspagina
         } elseif ($submit == 'Verwijderen') { //verwijder SQL code genereren
             $query = ('DELETE FROM boomkwekerij.gebruiker WHERE GebruikerID =?');
-            BeveiligDoSQL($query,array($data["gebruiker"]));
+            ProtectedDoSQL($query,array($data["gebruiker"]));
 //            header('Refresh: 0; url=../Pages/logged_in.php'); // terug naar beheerderspagina
         }
         ?>

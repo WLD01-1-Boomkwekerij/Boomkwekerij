@@ -23,7 +23,7 @@
             $data['rol'] = 3;
         }
         $query = ('INSERT INTO boomkwekerij.gebruiker (Naam, Email, KrijgtEmail, Rol, Wachtwoord) VALUES (?,?,?,?,?)');
-        BeveiligDoSQL($query, array($data['gebr_naam'],$data['gebr_mail'],$data['krijgt_mail'],$data['rol'],$Wachtwoord ))
+        ProtectedDoSQL($query, array($data['gebr_naam'],$data['gebr_mail'],$data['krijgt_mail'],$data['rol'],$Wachtwoord ))
         ?>
     </body>
 </html>

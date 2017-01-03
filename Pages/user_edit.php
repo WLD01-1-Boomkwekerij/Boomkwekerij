@@ -35,7 +35,7 @@
                             <form method="post" action="../Pages/user_edit.php">
                                 <?php
                                 include_once '../Php/Database.php';
-                                $array = BeveiligGetSQLArray('SELECT * FROM boomkwekerij.gebruiker WHERE GebruikerID =?', array($gebruiker));
+                                $array = ProtectedGetSQLArray('SELECT * FROM boomkwekerij.gebruiker WHERE GebruikerID =?', array($gebruiker));
                                 while ($data = $array->fetch()) {
                                     print('<h5>' . $data['Naam'] . '</h5>');
                                     ?>
