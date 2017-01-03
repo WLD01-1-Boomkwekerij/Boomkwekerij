@@ -82,6 +82,17 @@ input
 
 
 @media print {
+    .noprint{
+        display:none;
+    }
+    
+    .btnpricelist-green{
+        display:none;
+    }
+    .btnpricelist-blue{
+        display:none;
+    }
+    
     #printbutton{
        display:none;   
     }
@@ -109,6 +120,8 @@ input
     body{
         background-image: none;
     }
+    
+    
     
     h1{
         margin-bottom: 1px;

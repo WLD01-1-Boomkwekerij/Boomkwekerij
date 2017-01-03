@@ -117,8 +117,8 @@
                             $id = $_POST['id'];
 
                             ProtectedDoSQL("DELETE FROM plantfoto WHERE PlantID IN(SELECT PlantID FROM plant WHERE PrijsID=?)",array($id));
-                            ProtectedDoSQL("DELETE FROM plant WHERE PrijsID=?)",array($id));
-                            ProtectedDoSQL("DELETE FROM prijs WHERE PrijsID=?)",array($id));
+                            ProtectedDoSQL("DELETE FROM plant WHERE PrijsID=?",array($id));
+                            ProtectedDoSQL("DELETE FROM prijs WHERE PrijsID=?",array($id));
                         }
 
 
@@ -168,7 +168,7 @@
                             <tr>
                                 <?php
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
-                                    print("<th rowspan='2'></th>");
+                                    print("<th rowspan='2' class='noprint'></th>");
                                 }
                                 ?>
                                 <th rowspan="2" colspan="2"><h2>Plantnaam</h2></th>
@@ -193,20 +193,20 @@
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     if (!(isset($_POST['bewerkCat']) && $catID == $_POST['id'])) {
                                         print ("<tr  class='notranslate' >");
-                                        echo"<td><form onsubmit='return confirm(`Wilt u dit echt verwijderen?`);' action='pricelist.php' method='post'>"
+                                        echo"<td class='noprint'><form onsubmit='return confirm(`Wilt u dit echt verwijderen?`);' action='pricelist.php' method='post'>"
                                         . "<input type='hidden' name='id'  value='$catID'>"
-                                        . "<input style='width:30%; background-color:#f44336; border:none; font-size:14px; color:white;' type='submit' name='verwijderCat'  value='X'>"
+                                        . "<input style='width:30%; background-color:#f44336; border:none; font-size:14px; color:white;' class='noprint' type='submit' name='verwijderCat'  value='X'>"
                                         . "</form>"
                                         . "<form  action='pricelist.php' method='post'>"
                                         . "<input type='hidden' name='id'  value='$catID'>"
-                                        . "<input style='width:69%' class='btnpricelist-blue' type='submit' name='bewerkCat'  value='Bewerken'>"
+                                        . "<input style='width:69%'  class='btnpricelist-blue' type='submit' name='bewerkCat'  value='Bewerken'>"
                                         . "</form>"
                                         . "</td>";
                                     } else {
                                         echo "<form action='pricelist.php' method='post'>";
                                         echo "<tr class='notranslate'>";
                                         echo "<td>"
-                                        . "<input type='submit' name='OpslaanCat'  value='Opslaan'>"
+                                        . "<input type='submit' class='noprint' name='OpslaanCat'  value='Opslaan'>"
                                         . "<input type='hidden' name='id'  value='$catID'>"
                                         . "</td>";
                                     }
@@ -230,7 +230,7 @@
 
                                         if (!(isset($_POST['bewerkRegel']) && $regelID == $_POST['id'])) {
                                             echo '<tr class="notranslate">';
-                                            echo"<td><form action='pricelist.php' method='post'>"
+                                            echo"<td class='noprint'><form action='pricelist.php' method='post'>"
                                             . "<input type='hidden' name='id'  value='$regelID'>"
                                             . "<input style='width:30%; background-color:#f44336; border:none;font-size:14px; color:white;' type='submit' name='verwijderRegel'  value='X'>"
                                             . "</form>"
@@ -242,7 +242,7 @@
                                         } else {
                                             echo "<form action='pricelist.php' method='post'>";
                                             echo "<tr class='notranslate'>";
-                                            echo "<td>"
+                                            echo "<td class='noprint'>"
                                             . "<input type='submit' name='OpslaanRegel' class='btnpricelist-green' value='Opslaan'>"
                                             . "<input type='hidden' name='id'  value='$regelID'>"
                                             ;
@@ -335,34 +335,34 @@
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     echo "<form action='pricelist.php' method='post'>"
                                     . "<tr class='notranslate'> "
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "<input type='hidden' name='id'  value='$catID'>"
                                     . "<input type='submit' class='btnpricelist-green' name='regel'  value='Regel toevoegen'>"
                                     . "</td>"
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "<input required type='text' name='naam'>"
                                     . "</td>"
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "<input type='text' name='beschrijving'>"
                                     . "</td> "
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "<input type='text' name='potmaat'>"
                                     . "</td> "
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "</td> "
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "<input type='number' name='prijskwekerij' step='0.01'>"
                                     . "</td> "
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "<input type='number' name='prijsvba' step='0.01'>"
                                     . "</td> "
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "<input type='number' name='percc'>"
                                     . "</td> "
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "<input type='number' name='perlaag'>"
                                     . "</td> "
-                                    . "<td>"
+                                    . "<td class='noprint'>"
                                     . "<input type='number' name='pertray' >"
                                     . "</td> "
                                     . "</tr>"
@@ -372,9 +372,9 @@
                             if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                 echo "<form action='pricelist.php' method='post'>"
                                 . "<tr class='notranslate'> "
-                                . "<td> "
+                                . "<td class='noprint'> "
                                 . "<input type='submit' name='category' class='btnpricelist-green' value='Category toevoegen'>"
-                                . "</td><td colspan='2'>"
+                                . "</td><td colspan='2' class='noprint'>"
                                 . "<input required type='text' name='naam'>"
                                 . "</td> "
                                 . "</form>";
