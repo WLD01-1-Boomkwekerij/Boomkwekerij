@@ -7,7 +7,7 @@ var isEditorOpen = false;
 var isImageEditorOpen = false;
 var currentSavedHTML;
 var currentSavedTitle;
-var currentSelectedImage;
+var currentSelectedImage = null;
 
 function createElement(element)
 {
@@ -64,8 +64,8 @@ function insertImage()
 {
     if (!isFileManagerOpen)
     {
-        createManager(false);
         isFileManagerOpen = true;
+        createManager("Insert");
     }
 }
 
@@ -76,8 +76,8 @@ function uploadImage()
 {
     if (!isFileManagerOpen)
     {
-        createManager(true);
         isFileManagerOpen = true;
+        createManager("Uploading");
     }
 }
 
@@ -210,10 +210,10 @@ function createImageButton(type)
             button.addEventListener("click", function ()
             {
                 currentSize = parseInt(currentSelectedImage.style.width, 10);
-                if(currentSize <= 90)
+                if (currentSize <= 90)
                 {
-                   currentSize += 10;
-                   currentSelectedImage.style.width = currentSize + "%";
+                    currentSize += 10;
+                    currentSelectedImage.style.width = currentSize + "%";
                 }
             });
             break;
@@ -222,10 +222,10 @@ function createImageButton(type)
             button.addEventListener("click", function ()
             {
                 currentSize = parseInt(currentSelectedImage.style.width, 10);
-                if(currentSize >= 20)
+                if (currentSize >= 20)
                 {
-                   currentSize -= 10;
-                   currentSelectedImage.style.width = currentSize + "%";
+                    currentSize -= 10;
+                    currentSelectedImage.style.width = currentSize + "%";
                 }
             });
             break;
@@ -608,12 +608,14 @@ document.onclick = function (e)
 
     var element = e.target;
 
-    if (!$(element).hasClass("selectedImage") && !$(element).hasClass("ImageEditor"))
+    if (currentSelectedImage !== null)
     {
-        console.log("fjfeio");
-        $(currentSelectedImage).removeClass("selectedImage");
-        currentSelectedImage = null;
-        destroyImageEditing();
+        if (!$(element).hasClass("selectedImage") && !$(element).hasClass("ImageEditor"))
+        {
+            $(currentSelectedImage).removeClass("selectedImage");
+            currentSelectedImage = null;
+            destroyImageEditing();
+        }
     }
 };
 

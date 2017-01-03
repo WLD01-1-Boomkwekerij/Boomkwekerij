@@ -57,7 +57,7 @@ function addPlantImage(element)
     addButton.innerHTML = "Voeg foto toe";
     addButton.addEventListener("click", function ()
     {
-        createManager(false, plantDiv);
+        createManager("MultipleInput", plantDiv);
     });
     plantDiv.appendChild(addButton);
 }

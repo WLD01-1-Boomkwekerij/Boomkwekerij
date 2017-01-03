@@ -62,8 +62,6 @@ if (isset($_SESSION['logged_in']))
 
         $bloeitijd = $bloeitijd1 . "-" . $bloeitijd2;
 
-        print($bloeitijd1);
-
         $sql = "INSERT INTO plant (Naam,"
                 . "PrijsID, "
                 . "Hoogte_Min, "
@@ -76,6 +74,7 @@ if (isset($_SESSION['logged_in']))
                 . "$Hoogte_Max, "
                 . "'$bloeitijd', "
                 . "'$bloeiwijze')";
+
         ProtectedDoSQL($sql, array());
         $PlantID = ProtectedGetMaxSQL("plant", "PlantID");
 
@@ -83,13 +82,12 @@ if (isset($_SESSION['logged_in']))
         ProtectedDoSQL($sql, array());
         if (count($phpImageArray) > 1)
         {
-
             $amount = 0;
 
             for ($i = 1; $i < (count($phpImageArray) - 1); $i++)
             {
-                $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[$i]', $PlantID, 2)";
-                doSQL($sql);
+                $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES (?, ? , 2)";
+                ProtectedDoSQL($sql, array($phpImageArray[$i], $PlantID));
                 $amount += 1;
             }
         }
@@ -134,9 +132,9 @@ if (isset($_SESSION['logged_in']))
             ProtectedDoSQL($sql, array());
         }
     }
-    
+
     //Delete PlantImage
-    if(isset($_GET["deletePlantImages"]))
+    if (isset($_GET["deletePlantImages"]))
     {
         $sql = "DELETE FROM plantfoto WHERE FotoID=?";
         ProtectedDoSQL($sql, array($_GET["deletePlantImages"]));
