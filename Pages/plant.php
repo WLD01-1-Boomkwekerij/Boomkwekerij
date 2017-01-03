@@ -77,7 +77,7 @@
                             $Hoogtemin = $_GET["Hoogtemin"];
                             $Bloeitijd = $_GET["Bloeitijd"];
                             $Bloeiwijze = $_GET["Bloeiwijze"];
-                            ProtectedDoSQL("UPDATE plant SET hoogte_min = ?, hoogte_max = ?, bloeitijd = ?, bloeiwijze = ? WHERE PlantID = ? ", array($Hoogtemin, $Hoogtemax, $Bloeitijd, $Bloeiwijze, $plant));
+                            ProtectedDoSQL("UPDATE plant SET hoogte_min = ?ProtectedDoSQL, hoogte_max = ?, bloeitijd = ?, bloeiwijze = ? WHERE PlantID = ? ", array($Hoogtemin, $Hoogtemax, $Bloeitijd, $Bloeiwijze, $plant));
                         }
                     }
                     $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)", array($plant));
@@ -93,7 +93,8 @@
                     $plantRegel = $sqlPlant->fetch();
                     $naam = $plantRegel['Naam'];
                     $hoogte = $plantRegel['Hoogte_min'] . "/" . $plantRegel['Hoogte_max'];
-                    ;
+                    
+                    
                     if ($plantRegel['Hoogte_min'] == $plantRegel['Hoogte_max'])
                     {
                         $hoogte = $plantRegel['Hoogte_min'];
@@ -242,7 +243,7 @@
                             {
                                 $plantID = $_GET['plant'];
                                 print("<img id='$plantID' class='icon-image-add' style='width: 50px; cursor: pointer' onclick='addPlantImage(this)'>");
-                            }
+                            } 
                             ?>
                         </div>
                     </section>
