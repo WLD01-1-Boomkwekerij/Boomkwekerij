@@ -528,6 +528,89 @@ function createManagerBase()
     bottomInfo.appendChild(cancelButton);
 }
 
+function fileUploadFormData(formData)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "../Php/FileUpload.php");
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            if (xmlhttp.responseText !== "")
+            {
+                console.log(xmlhttp.responseText);
+            }
+        }
+    };
+    xmlhttp.send(formData);
+}
+
+function formDataAppendIndex(element)
+{
+    var fileLength = element.files.length;
+    var fileModulo = fileLength % 20;
+    var uploadAmount = (fileLength - fileModulo) / 20;
+    var formData = new FormData();
+
+    for (var i = 0; i < uploadAmount; i++)
+    {
+        i *= 10;
+
+        for (var x = 0; x < 20; x++)
+        {
+            formData.append("fileToUpload[]", element.files[i + x]);
+        }
+
+        fileUploadFormData(formData);
+    }
+}
+
+function formDataAppendModulo(element)
+{
+    var fileLength = element.files.length;
+    var fileModulo = fileLength % 20;
+    var uploadAmount = (fileLength - fileModulo) / 20;
+    var formData = new FormData();
+
+    for (var j = (uploadAmount * 20); j < (uploadAmount * 20) + fileModulo; j++)
+    {
+        formData.append("fileToUpload[]", element.files[j]);
+    }
+
+    fileUploadFormData(formData);
+}
+
+function formAppend(element)
+{
+    var fileLength = element.files.length;
+    var formData = new FormData();
+
+    for (var j = 0; j < fileLength; j++)
+    {
+        formData.append("fileToUpload[]", element.files[j]);
+    }
+
+    fileUploadFormData(formData);
+}
+
+/**
+ * Validates the files and sends them
+ * @param {element} element
+ */
+function validateFiles(element)
+{
+    if (element.files.length > 20)
+    {
+        formDataAppendIndex(element);
+        formDataAppendModulo(element);
+    }
+
+    else
+    {
+        formAppend(element);
+    }
+}
+
 function createUploadingBottom()
 {
     var uploadForm = createElement("form");
@@ -551,11 +634,24 @@ function createUploadingBottom()
     var fileSend = createElement("input");
     fileSend.type = "submit";
     fileSend.name = "submitUploadFile";
+
+    uploadForm.addEventListener("submit", function (evt)
+    {
+        evt.preventDefault();
+        validateFiles(fileInput);
+    }, true);
     uploadForm.appendChild(fileSend);
 
     getElementById("BottomInfo").appendChild(uploadForm);
 
     openFolder(PathHistory[0]);
+}
+
+function createSingleInputBottom()
+{
+    var imageInput = createElement("input");
+    imageInput.name = "UploadFile[]";
+    getElementById("BottomInfo").appendChild(imageInput);
 }
 
 function createManagerSideMenu()
@@ -603,6 +699,10 @@ function createManager(type, element)
     {
         isUploading = true;
         createUploadingBottom();
+    }
+    else if (type === "SingleInput")
+    {
+        createSingleInputBottom();
     }
     else
     {
@@ -677,7 +777,7 @@ function CreateImageContextMenu(ev)
         {
             if ($(ev.target).hasClass("fileManagerFile"))
             {
-                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] + 
+                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] +
                         "&deleteImageByName=" + ev.target.id +
                         "&type=file");
             }
@@ -697,14 +797,13 @@ function CreateImageContextMenu(ev)
     createFolder.innerHTML = "Nieuwe folder";
     createFolder.addEventListener("click", function ()
     {
-        var positionerFolderDiv = createElement("div");
-        positionerFolderDiv.id = "positionerFolderDiv";
-        document.body.appendChild(positionerFolderDiv);
-
         var createFolderDiv = createElement("div");
         createFolderDiv.id = "createFolderDiv";
+        createFolderDiv.style.position = "absolute";
+        createFolderDiv.style.left = ev.clientX + "px";
+        createFolderDiv.style.top = ev.clientY + "px";
         createFolderDiv.innerHTML = "Folder Naam:";
-        positionerFolderDiv.appendChild(createFolderDiv);
+        document.body.appendChild(createFolderDiv);
 
         var folderInput = createElement("input");
         folderInput.id = "contextFolderInput";
@@ -715,7 +814,7 @@ function CreateImageContextMenu(ev)
         folderCancelButton.innerHTML = "Cancel";
         folderCancelButton.addEventListener("click", function ()
         {
-            positionerFolderDiv.parentNode.removeChild(positionerFolderDiv);
+            createFolderDiv.parentNode.removeChild(createFolderDiv);
         });
         createFolderDiv.appendChild(folderCancelButton);
 
@@ -724,7 +823,25 @@ function CreateImageContextMenu(ev)
         folderSelectButton.innerHTML = "Nieuwe Folder";
         folderSelectButton.addEventListener("click", function ()
         {
-            doXMLHttp("createNewDirectory=" + PathHistory[currentPathIndex] + "/" + folderInput.value);
+            var GetArray = "createNewDirectory=" + PathHistory[currentPathIndex] + "/" + folderInput.value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "../PHP/XMLRequest.php?" + GetArray, true);
+            xmlhttp.onreadystatechange = function ()
+            {
+                if (this.readyState === 4 && this.status === 200)
+                {
+                    if (xmlhttp.responseText !== "")
+                    {
+                        console.log(xmlhttp.responseText);
+                    }
+                    else
+                    {
+                        createFolderDiv.parentNode.removeChild(createFolderDiv);
+                        openFolder(PathHistory[currentPathIndex]);
+                    }
+                }
+            };
+            xmlhttp.send();
         });
         createFolderDiv.appendChild(folderSelectButton);
     });

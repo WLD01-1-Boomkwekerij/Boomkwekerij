@@ -63,8 +63,8 @@ function addPlantImage(element)
 }
 
 function editPlantImage()
-{
-    
+{    
+    createManager("SingleInput");
 }
 
 /**
@@ -120,7 +120,7 @@ function loadEditing()
     $(changeButton).addClass("fa-pencil-square-o");
     changeButton.addEventListener("click", function ()
     {
-        
+        editPlantImage();
     });
     $(parent).append(changeButton);
 }

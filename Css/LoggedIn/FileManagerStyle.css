@@ -316,20 +316,11 @@
     cursor: pointer;
 }
 
-#positionerFolderDiv
-{
-    position: absolute;
-    left: 50%;
-    top: 10%;
-}
-
 #createFolderDiv
 {
-    position: relative;
     width: 175px;
     height: 75px;
     z-index: 4000;
-    left: -50%;
     background-color: whitesmoke;
     border: solid 1px black;
     border-radius: 1px;

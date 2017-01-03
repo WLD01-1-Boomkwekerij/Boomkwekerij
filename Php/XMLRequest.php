@@ -139,7 +139,6 @@ if (isset($_SESSION['logged_in']))
     }
     
     
-
     if (isset($_GET["DeleteArticle"]))
     {
         deleteArticle($_GET["DeleteArticle"]);
