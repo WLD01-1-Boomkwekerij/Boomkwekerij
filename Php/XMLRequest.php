@@ -95,7 +95,8 @@ if (isset($_SESSION['logged_in']))
 
     if (isset($_GET["CatalogSelectOptionsCategory"]))
     {
-        $sqlPrijs = ProtectedGetSQLArray("SELECT Naam, PrijsID FROM prijs ", array());
+        $cat = $_GET["CatalogSelectOptionsCategory"];
+        $sqlPrijs = ProtectedGetSQLArray("SELECT Naam, PrijsID FROM prijs WHERE CategoryID=$cat", array());
         $row = $sqlPrijs->fetchAll(PDO::FETCH_ASSOC);
 
 

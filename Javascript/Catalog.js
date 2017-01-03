@@ -120,6 +120,7 @@ function createCatalogAddition()
    
     if(document.getElementById("category").innerHTML === ""){
         xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptions=yes", true);
+        console.log("leeg")
     }else{
 
         xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptionsCategory="+document.getElementById("category").innerHTML, true);
