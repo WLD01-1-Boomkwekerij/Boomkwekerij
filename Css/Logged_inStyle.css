@@ -37,6 +37,10 @@ input {
     align-content: center;
 }
 
+#gebruikertoevoegen:first-child {     
+    font-weight: bold; 
+}
+
 #submit{
     margin-left:12%;
 }
@@ -61,7 +65,6 @@ input {
     background-color:lightgrey;
 }
 
+.kop{
 
-.fat{
-    font-weight: bold;
 }

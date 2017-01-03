@@ -28,12 +28,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
             </section>
             <section id="mid">
                 <section id="maincontent">
-                    <center><h1>Beheerderspagina</h1></center>
+                    <h1>Beheerderspagina</h1>
 
                     <div class="WidthFix"> 
                         <br>                   
-                        <center><h4>Gebruikers beheren</h4> </center><br>
-                        <center><h5>Nieuw gebruiker toevoegen</h5></center>
+                        <h4>Gebruikers beheren</h4>
+                        <br>
+                        <h5>Nieuw gebruiker toevoegen</h5>
                         <?php
                         include '../Php/POST.php';
                         // Eerst wordt er gekeken of er al een aanpassing geverivïeerd moet worden, als dat niet zo is zie de 'else'                        
@@ -70,10 +71,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                 <!--formulier voor het aanmaken van nieuwe gebruikers
                                 Deze is al ingevuld mocht het wachtwoord niet aan de eisen voldoen of niet hezelfde is-->
                                 <table id="gebruikertoevoegen" align="center">
-                                    <colgroup>
-                                        <col class="fat"/>
-                                        <col class="none"/>
-                                    </colgroup>
                                     <tr>
                                         <td>Naam</td>
                                         <td><input name="gebr_naam" id="gebr_naam" type="text" tabindex="1" required value="<?php print($gebr_naam); ?>"></td><!--Naam van de gebruiker-->
@@ -147,10 +144,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                             <!--Vereisten van het wachtwoord weergeven-->
                             <form  action="../Pages/logged_in.php" method="post">
                                 <table id="gebruikertoevoegen" align="center">
-                                    <colgroup>
-                                        <col class="fat"/>
-                                        <col class="none"/>
-                                    </colgroup>
                                     <tr>
                                         <td>
                                             Naam
@@ -190,12 +183,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                             </select> 
                                         </td>
                                     </tr>
-                                </table>
-                                <br>
-                                <table>
-                                    <td>
-                                        <input type="submit" class="button-green" id='submit' name="submit" value="Toevoegen" tabindex="7"/>
-                                    </td>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="submit" class="button-green" id='submit' name="submit" value="Toevoegen" tabindex="7"/>
+                                        </td>
+                                    </tr>
                                 </table>
                             </form>
                             <?php
@@ -238,11 +230,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                             <input type="submit" class="button-blue" name="submit" value="Bewerk"/>
                                         </form>
                                     </td>
-                                    <?php
-                                }
-                                ?>
-                            </tr>
+
+                                </tr>
+                                <?php
+                            }
+                            ?>
                         </table>
+                        <br>
                     </div>
                 </section>
             </section>
