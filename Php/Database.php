@@ -49,8 +49,7 @@ function ProtectedGetSQLArray($sqlCode, $variables)
     }
     catch (PDOException $e)
     {
-        echo $sqlCode . "<br>" . $e->getMessage();
-        echo '<br><br>';
+        print($e->getMessage());
     }
     return $statement;
 }
@@ -66,8 +65,7 @@ function ProtectedDoSQL($sqlCode, $variables)
     }
     catch (PDOException $e)
     {
-        echo $sqlCode . "<br>" . $e->getMessage();
-        echo '<br><br>';
+        print($e->getMessage());
     }
 }
 

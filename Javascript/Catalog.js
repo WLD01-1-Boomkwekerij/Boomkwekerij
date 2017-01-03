@@ -92,7 +92,7 @@ function createCatalogAddition()
     //Naam | Inputs
     //Naam
     var textNaam = createElement("p");
-    textNaam.class += "catalogAddingName";
+    $(textNaam).addClass("catalogAddingName");
     textNaam.innerHTML = "Naam:";
     leftDiv.appendChild(textNaam);
 
