@@ -57,7 +57,7 @@ function doXMLHttpImages(GetArray)
             }
             else
             {
-                $("#Files").load(document.URL + "#Files");
+                openFolder(PathHistory[currentPathIndex]);
             }
         }
     };
@@ -351,8 +351,12 @@ function destroyManager()
     document.body.style.overflow = "scroll";
     getElementById("BackgroundColor").parentNode.removeChild(getElementById("BackgroundColor"));
     getElementById("FileManager").parentNode.removeChild(getElementById("FileManager"));
-    getElementById("PushButton").parentNode.removeChild(getElementById("PushButton"));
-    getElementById("sideMenu").parentNode.removeChild(getElementById("sideMenu"));
+
+    if (getElementById("PushButton"))
+    {
+        getElementById("PushButton").parentNode.removeChild(getElementById("PushButton"));
+        getElementById("sideMenu").parentNode.removeChild(getElementById("sideMenu"));
+    }
 
     managerImageList = [];
     PathHistory = [];
@@ -554,12 +558,14 @@ function createUploadingBottom()
     fileInput.name = "UploadFile[]";
     uploadForm.appendChild(fileInput);
 
-    fileSend = createElement("input");
+    var fileSend = createElement("input");
     fileSend.type = "submit";
     fileSend.name = "submitUploadFile";
     uploadForm.appendChild(fileSend);
 
     getElementById("BottomInfo").appendChild(uploadForm);
+
+    openFolder(PathHistory[0]);
 }
 
 function createManagerSideMenu()
@@ -674,7 +680,7 @@ function CreateImageContextMenu(ev)
     document.body.appendChild(contextDiv);
 
     if ($(ev.target).hasClass("fileManagerFile") ||
-                $(ev.target).hasClass("fileManagerFolder"))
+            $(ev.target).hasClass("fileManagerFolder"))
     {
         var deleteButton = createElement("div");
         deleteButton.id = "ContextDeleteButton";
@@ -682,7 +688,7 @@ function CreateImageContextMenu(ev)
         deleteButton.innerHTML = "Verwijder";
         deleteButton.addEventListener("click", function ()
         {
-
+            doXMLHttpImages("deleteImageByName=" + ev.target.id);
         });
         contextDiv.appendChild(deleteButton);
     }
@@ -696,33 +702,33 @@ function CreateImageContextMenu(ev)
         var positionerFolderDiv = createElement("div");
         positionerFolderDiv.id = "positionerFolderDiv";
         document.body.appendChild(positionerFolderDiv);
-        
+
         var createFolderDiv = createElement("div");
         createFolderDiv.id = "createFolderDiv";
         createFolderDiv.innerHTML = "Folder Naam:";
         positionerFolderDiv.appendChild(createFolderDiv);
-        
+
         var folderInput = createElement("input");
         folderInput.id = "contextFolderInput";
         createFolderDiv.appendChild(folderInput);
-        
+
         var folderCancelButton = createElement("button");
         folderCancelButton.id = "contextFolderCancel";
         folderCancelButton.innerHTML = "Cancel";
-        folderCancelButton.addEventListener("click", function()
+        folderCancelButton.addEventListener("click", function ()
         {
             positionerFolderDiv.parentNode.removeChild(positionerFolderDiv);
-        });            
+        });
         createFolderDiv.appendChild(folderCancelButton);
-        
+
         var folderSelectButton = createElement("button");
         folderSelectButton.id = "folderSelectButton";
         folderSelectButton.innerHTML = "Nieuwe Folder";
-        folderSelectButton.addEventListener("click", function()
+        folderSelectButton.addEventListener("click", function ()
         {
             doXMLHttp("createNewDirectory=" + PathHistory[currentPathIndex] + "/" + folderInput.value);
         });
-        createFolderDiv.appendChild(folderSelectButton);        
+        createFolderDiv.appendChild(folderSelectButton);
     });
     contextDiv.appendChild(createFolder);
 }
