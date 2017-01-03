@@ -294,17 +294,6 @@ function createFileIcon(url, name)
 }
 
 /**
- * Creates an empty icon for aligning purposes
- */
-function createEmtpyIcon()
-{
-    var fileManager = getElementById("Files");
-    var empty = createElement("div");
-    empty.className = "fileManagerEmpty";
-    fileManager.appendChild(empty);
-}
-
-/**
  * Creates all the icons
  * @param {string} directory
  */
@@ -571,7 +560,6 @@ function createUploadingBottom()
 
 function createManagerSideMenu()
 {
-
     createFileIcons(PathHistory[0]);
     var sideMenu = createElement("div");
     sideMenu.id = "sideMenu";
@@ -583,8 +571,6 @@ function createManagerSideMenu()
     {
         allowDrop(event);
     };
-
-
     document.body.appendChild(sideMenu);
 
     var PushButton = createElement("div");
@@ -629,10 +615,9 @@ function createManager(type, element)
             if (type === "Insert")
             {
                 restoreSelectorPoint();
-                console.log(managerImageList.length);
                 if (managerImageList.length === 0)
                 {
-                    if (!currentSelectedPath !== null)
+                    if (currentSelectedPath !== null)
                     {
                         createImageByName(currentSelectedPath);
                     }
