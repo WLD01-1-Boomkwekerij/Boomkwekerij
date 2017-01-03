@@ -63,11 +63,27 @@ h5
     text-align: center;
 }
 
+h6
+{
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    height: 27px;
+    width: 108.3%;
+    margin-left:-4%;
+    margin-top:-4.5%;
+
+    background-color:	#87a6bc; /* IE6-9 */
+    color: #404040;
+    border-bottom:solid black;
+
+}
+
 #wrapper
 {
     margin: 0 auto;
     max-width: 1231px;
-    min-height: 94vh;
+    min-height: 91vh;
 }
 
 #titlediv

@@ -16,7 +16,7 @@
         $Wachtwoord = $data['Wachtwoord1'];
         $submit = $data['submit']; 
         $rol = $data['rol'];
-        if ($submit == 'Bewerken') { // Kijken of het een bewerk verwijder is
+        if ($submit == 'Opslaan') { // Kijken of het een bewerk verwijder is
             if ($rol == 'beheerder') { // rol variabele weer omzetten in getal
                 $rol = 1;
             } elseif ($rol == 'medewerker') {
@@ -43,11 +43,11 @@
                 
                     ProtectedDoSQL($query, array($data["gebr_naam"],$data["gebr_mail"],$data["krijgt_mail"],$rol,$data["gebruiker"]));
             }
-//            header('Refresh: 0; url=../Pages/logged_in.php'); //terug naar beheerderspagina
+            header('Refresh: 0; url=../Pages/logged_in.php'); //terug naar beheerderspagina
         } elseif ($submit == 'Verwijderen') { //verwijder SQL code genereren
             $query = ('DELETE FROM boomkwekerij.gebruiker WHERE GebruikerID =?');
             ProtectedDoSQL($query,array($data["gebruiker"]));
-//            header('Refresh: 0; url=../Pages/logged_in.php'); // terug naar beheerderspagina
+            header('Refresh: 0; url=../Pages/logged_in.php'); // terug naar beheerderspagina
         }
         ?>
     </body>
