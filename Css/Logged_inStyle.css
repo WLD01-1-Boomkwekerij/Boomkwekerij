@@ -37,6 +37,10 @@ input {
     align-content: center;
 }
 
+#gebruikertoevoegen:first-child {     
+    font-weight: bold; 
+}
+
 #submit{
     margin-left:12%;
 }
@@ -61,7 +65,21 @@ input {
     background-color:lightgrey;
 }
 
+#loginkader{
+    width:400px;
+    border-width:3px;
+    border-color:#C0C0C0;
+    border-style:solid;
+}
 
-.fat{
-    font-weight: bold;
+#logintitel
+{
+    background-color:#C0C0C0;
+    height:50px;
+    margin-top:0px;
+}
+
+#loginform
+{
+    padding-top:5px;
 }
