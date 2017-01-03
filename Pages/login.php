@@ -1,4 +1,5 @@
 <?php session_start() ?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -38,8 +39,8 @@
                             print('U kunt over ' . $wachttijd . ' seconden inloggen');
                         }
                         ?>
-                        <form method="post" action="../Php/verify.php">
-                            <table>
+                        <form id="loginform" method="post" action="../Php/verify.php">
+                            <table align="center">
                                 <tr>
                                     <td>Gebruikersnaam:</td>
                                     <td><input type="text" id="user" name="user"></td>

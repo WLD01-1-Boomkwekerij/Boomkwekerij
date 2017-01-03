@@ -273,27 +273,6 @@ body {
 
 }
 
-#loginkader{
-    width:400px;
-    border-width:3px;
-    border-color:#C0C0C0;
-    border-style:solid;
-    padding-top:30px;
-
-}
-
-#logintitel
-{
-    background-color:#C0C0C0;
-    height:30px;
-    margin-top:0px;
-}
-
-#loggiforum
-{
-    padding-top:5px;
-}
-
 .icon-image-add
 {
     content: url(../Images/Icons/Image-Add.svg);
