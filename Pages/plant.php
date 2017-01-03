@@ -77,7 +77,7 @@
                             $Hoogtemin = $_GET["Hoogtemin"];
                             $Bloeitijd = $_GET["Bloeitijd"];
                             $Bloeiwijze = $_GET["Bloeiwijze"];
-                            ProtectedDoSQL("UPDATE plant SET hoogte_min = ?ProtectedDoSQL, hoogte_max = ?, bloeitijd = ?, bloeiwijze = ? WHERE PlantID = ? ", array($Hoogtemin, $Hoogtemax, $Bloeitijd, $Bloeiwijze, $plant));
+                            ProtectedDoSQL("UPDATE plant SET hoogte_min = ?, hoogte_max = ?, bloeitijd = ?, bloeiwijze = ? WHERE PlantID = ? ", array($Hoogtemin, $Hoogtemax, $Bloeitijd, $Bloeiwijze, $plant));
                         }
                     }
                     $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)", array($plant));
