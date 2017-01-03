@@ -672,6 +672,59 @@ function CreateImageContextMenu(ev)
     contextDiv.style.left = ev.clientX + "px";
     contextDiv.style.top = ev.clientY + "px";
     document.body.appendChild(contextDiv);
+
+    if ($(ev.target).hasClass("fileManagerFile") ||
+                $(ev.target).hasClass("fileManagerFolder"))
+    {
+        var deleteButton = createElement("div");
+        deleteButton.id = "ContextDeleteButton";
+        $(deleteButton).addClass("contextMenu");
+        deleteButton.innerHTML = "Verwijder";
+        deleteButton.addEventListener("click", function ()
+        {
+
+        });
+        contextDiv.appendChild(deleteButton);
+    }
+
+    var createFolder = createElement("div");
+    createFolder.id = "ContextCreateButton";
+    $(createFolder).addClass("contextMenu");
+    createFolder.innerHTML = "Nieuwe folder";
+    createFolder.addEventListener("click", function ()
+    {
+        var positionerFolderDiv = createElement("div");
+        positionerFolderDiv.id = "positionerFolderDiv";
+        document.body.appendChild(positionerFolderDiv);
+        
+        var createFolderDiv = createElement("div");
+        createFolderDiv.id = "createFolderDiv";
+        createFolderDiv.innerHTML = "Folder Naam:";
+        positionerFolderDiv.appendChild(createFolderDiv);
+        
+        var folderInput = createElement("input");
+        folderInput.id = "contextFolderInput";
+        createFolderDiv.appendChild(folderInput);
+        
+        var folderCancelButton = createElement("button");
+        folderCancelButton.id = "contextFolderCancel";
+        folderCancelButton.innerHTML = "Cancel";
+        folderCancelButton.addEventListener("click", function()
+        {
+            positionerFolderDiv.parentNode.removeChild(positionerFolderDiv);
+        });            
+        createFolderDiv.appendChild(folderCancelButton);
+        
+        var folderSelectButton = createElement("button");
+        folderSelectButton.id = "folderSelectButton";
+        folderSelectButton.innerHTML = "Nieuwe Folder";
+        folderSelectButton.addEventListener("click", function()
+        {
+            doXMLHttp("createNewDirectory=" + PathHistory[currentPathIndex] + "/" + folderInput.value);
+        });
+        createFolderDiv.appendChild(folderSelectButton);        
+    });
+    contextDiv.appendChild(createFolder);
 }
 
 function DeleteImageContextMenu()
@@ -701,7 +754,9 @@ if (document.addEventListener)
 {
     document.addEventListener('contextmenu', function (e)
     {
-        if ($(e.target).hasClass("fileManagerFile"))
+        if ($(e.target).hasClass("fileManagerFile") ||
+                $(e.target).hasClass("fileManagerFolder") ||
+                e.target.id === "Files")
         {
             //here you draw your own menu
             DeleteImageContextMenu();

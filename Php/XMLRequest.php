@@ -139,4 +139,12 @@ if (isset($_SESSION['logged_in']))
         $sql = "DELETE FROM plantfoto WHERE FotoID=?";
         ProtectedDoSQL($sql, array($_GET["deletePlantImages"]));
     }
+    
+    if(isset($_GET["createNewDirectory"]))
+    {
+        if(!mkdir($_GET["createNewDirectory"]))
+        {
+            print("Could not create Directoy");
+        }
+    }
 }
