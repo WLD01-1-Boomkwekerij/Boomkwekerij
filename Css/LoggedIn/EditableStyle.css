@@ -7,19 +7,6 @@
     margin-top: 5px;
 }
 
-#underDiv
-{
-    position: relative;
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-}
-
-#tekstDIV
-{
-}
-
 .ContentEditableOpen
 {
     background-color: #EEECFF;
@@ -95,12 +82,60 @@
     background-color: #787878;
 }
 
-.EditorBottomButton
+#underDiv
 {
-    margin-top: 4px;
-    margin-bottom: 8px;
+    position: relative;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: inline-block;
+    line-height: 28px;
+}
+
+.EditorBottomSaveButton
+{
+    position: absolute;
+    left: 25px;
+    height: 28px; 
+}
+
+.EditorBottomCancelButton
+{
+    position: absolute;
+    left: 72px;
     height: 28px;
 }
+
+.EditorBottomDeleteButton
+{
+    position: absolute;
+    left: 130px;
+    height: 28px; 
+}
+
+#underDiv input
+{
+    position: absolute;
+    margin: 0;
+    left: 170px;
+    top: 0px;
+    width: 20px;
+    vertical-align: middle;
+    height: 28px;
+}
+
+#underDiv p
+{
+    position: absolute;
+    margin: 0;
+    left: 193px;
+    width: 100px;
+    display: inline-block;
+    font-weight: bold;
+}
+
 
 /*LINK DIV*/
 #linkDiv

@@ -472,7 +472,7 @@ function setContentEditable(element, isNew, isNews)
         $(underDiv).insertAfter(parent);
 
         var saveButton = createElement("button");
-        $(saveButton).addClass("EditorBottomButton");
+        $(saveButton).addClass("EditorBottomSaveButton");
         saveButton.innerHTML = "Save";
         saveButton.addEventListener("click", function ()
         {
@@ -480,15 +480,27 @@ function setContentEditable(element, isNew, isNews)
             {
                 if (isNews)
                 {
-                    insertNewsTextToDatabase(1, element.innerHTML, elementTitle.innerHTML);
+                    var visibilityButton = getElementById("visibilityButton");
+                    var visibility = 1;
+                    if (!visibilityButton.checked)
+                    {
+                        visibility = 0;
+                    }
+                    insertNewsTextToDatabase(visibility, element.innerHTML, elementTitle.innerHTML);
                 }
             }
             else
             {
                 if (isNews)
                 {
+                    var visibilityButton = getElementById("visibilityButton");
+                    var visibility = 1;
+                    if (!visibilityButton.checked)
+                    {
+                        visibility = 0;
+                    }
                     //newsID, visibility, text, title
-                    updateNewsTextToDatabase(parseInt($(parent).attr('id').replace("newsID", "")), 1, element.innerHTML, elementTitle.innerHTML);
+                    updateNewsTextToDatabase(parseInt($(parent).attr('id').replace("newsID", "")), visibility, element.innerHTML, elementTitle.innerHTML);
                 }
                 else
                 {
@@ -503,18 +515,13 @@ function setContentEditable(element, isNew, isNews)
 
         var cancelButton = createElement("button");
         cancelButton.innerHTML = "Cancel";
-        $(cancelButton).addClass("EditorBottomButton");
+        $(cancelButton).addClass("EditorBottomCancelButton");
         cancelButton.onclick = function ()
         {
             //Delete editor and buttons
             editorDiv.parentNode.removeChild(editorDiv);
-            saveButton.parentNode.removeChild(saveButton);
-            cancelButton.parentNode.removeChild(cancelButton);
 
-            if (isNews && !isNew)
-            {
-                deleteButton.parentNode.removeChild(deleteButton);
-            }
+            underDiv.parentNode.removeChild(underDiv);
 
             //Change the element
             element.contentEditable = false;
@@ -534,16 +541,37 @@ function setContentEditable(element, isNew, isNews)
         };
         underDiv.appendChild(cancelButton);
 
-        if (isNews && !isNew)
+        if (isNews)
         {
-            var deleteButton = createElement("button");
-            $(deleteButton).addClass("fa fa-trash-o");
-            $(deleteButton).addClass("EditorBottomButton");
-            deleteButton.addEventListener("click", function ()
+            if (!isNew)
             {
-                deleteNewsText(parseInt($(parent).attr('id').replace("newsID", "")));
-            });
-            underDiv.appendChild(deleteButton);
+                var deleteButton = createElement("button");
+                $(deleteButton).addClass("fa fa-trash-o");
+                $(deleteButton).addClass("EditorBottomDeleteButton");
+                deleteButton.addEventListener("click", function ()
+                {
+                    deleteNewsText(parseInt($(parent).attr('id').replace("newsID", "")));
+                });
+                underDiv.appendChild(deleteButton);
+            }
+
+            var visibilityText = createElement("p");
+            visibilityText.defaultChecked = true;
+            visibilityText.innerHTML = "Zichtbaar";
+            underDiv.appendChild(visibilityText);
+
+            var visibilityButton = createElement("input");
+            visibilityButton.type = "checkbox";
+            var visibility = true;
+            if(elementTitle.id === "0")
+            {
+                visibility = false;
+            }
+            visibilityButton.defaultChecked = visibility;
+            visibilityButton.id = "visibilityButton";
+            underDiv.appendChild(visibilityButton);
+
+
         }
         $(parent).append(element);
     }
