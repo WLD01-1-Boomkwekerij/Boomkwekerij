@@ -1,4 +1,5 @@
 
+/*MAIN FileManager*/
 #BackgroundColor
 {
     background-color : Gray;
@@ -31,6 +32,26 @@
     background: linear-gradient(135deg,  #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
+}
+
+.fileManagerButtons
+{
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    font-family: Arial;
+    color: #000000;
+    font-size: 20px;
+    background: #929394;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.fileManagerButtons:hover
+{
+    background: #afb6ba;
+    text-decoration: none;
 }
 
 #Files
@@ -160,6 +181,20 @@
     color: #333377;
 }
 
+.ArrowHasHistory
+{
+    font-size: 50px;
+    width: 50px;
+    float: left;
+    cursor: pointer;
+    color: #555555;
+}
+
+.ArrowHasHistory:hover
+{
+    color: #333377;
+}
+
 #positionSetter
 {
     position : absolute;
@@ -185,12 +220,6 @@
     margin-left : 5px;
     border : none;
     bottom : 5px;
-    width: 100px;
-    height: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    background-color: #777777;
-    cursor: pointer;
 }
 
 #fileManagerSelectButton
@@ -200,14 +229,9 @@
     border : none;
     bottom : 5px;
     right : 5px;
-    width: 100px;
-    height: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    background-color: #777777;
-    cursor: pointer;
 }
 
+/*SIDE Menu*/
 #sideMenu
 {
     position: fixed;
@@ -351,10 +375,42 @@
 
 #singleInputImageFile
 {
-    
+
 }
 
 #singleInputSelect
 {
-    
+
+}
+
+#uploadForm
+{
+    text-align:center;
+}
+
+#uploadFilePathURL
+{
+    position: absolute;
+    visibility: hidden;
+    margin: 0 auto;
+}
+
+#uploadFileInput
+{
+    position: absolute;
+    left: 27%;    
+    width: 46%;
+    font-size: 15px;
+    padding-right: 0;
+    bottom: 5px;
+    background-color: transparent;
+}
+
+#uploadFileSend
+{
+    position: absolute;
+    border : none;
+    bottom : 5px;
+    right : 10px;
+    cursor: pointer;
 }

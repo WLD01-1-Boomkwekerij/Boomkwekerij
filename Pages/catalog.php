@@ -39,11 +39,10 @@ include'/../Php/Database.php';
                 <?php
                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
                 {
-                    ?>
-                    <script>
-                        createCatalogAddition();
-                    </script>
-                    <?php
+                    if (isset($_GET["category"]))
+                    {
+                        print("<script>createCatalogAddition();</script>");
+                    }
                 }
                 ?>
                 <section id="rightmenu">
@@ -179,7 +178,7 @@ include'/../Php/Database.php';
                                 $Hoogte_max = html_entity_decode($plant['Hoogte_max'], ENT_QUOTES);
                                 $bloeiwijze = html_entity_decode($plant['Bloeiwijze'], ENT_QUOTES);
                                 $bloeitijd = html_entity_decode($plant['Bloeitijd'], ENT_QUOTES);
-                                $plantFotoUrl = html_entity_decode($plant['FotoUrl'], ENT_QUOTES);
+                                $plantFotoUrl = html_entity_decode($plant['FotoUrl']);
                                 $hidden = "hidden";
                                 $position = "absolute";
 

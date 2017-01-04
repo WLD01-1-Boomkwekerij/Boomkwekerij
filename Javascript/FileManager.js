@@ -25,7 +25,7 @@ var images = [];
 
 /**
  * Create an element
- * @param {type} element
+ * @param {element} element
  * @returns {Element}
  */
 function createElement(element)
@@ -35,7 +35,7 @@ function createElement(element)
 
 /**
  * Gets an element in the document by id
- * @param {type} id
+ * @param {string} id
  * @returns {Element}
  */
 function getElementById(id)
@@ -43,6 +43,10 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
+/**
+ * Sends an XML http request for image php commands
+ * @param {string} GetArray
+ */
 function doXMLHttpImages(GetArray)
 {
     var xmlhttp = new XMLHttpRequest();
@@ -66,7 +70,7 @@ function doXMLHttpImages(GetArray)
 
 /**
  * Cancel default event on items that are allowed to be dropped on
- * @param {type} ev
+ * @param {event} ev
  */
 function allowDrop(ev)
 {
@@ -75,7 +79,7 @@ function allowDrop(ev)
 
 /**
  * Sets the Icon data of the current dragged item
- * @param {type} ev
+ * @param {event} ev
  */
 function drag(ev)
 {
@@ -84,7 +88,7 @@ function drag(ev)
 
 /**
  * Updates the image url in the database
- * @param {type} ev
+ * @param {event} ev
  */
 function drop(ev)
 {
@@ -155,12 +159,37 @@ function setItemSelected(element, url, name)
  */
 function checkArrowColor()
 {
-    //TODO
+    var rightArrow = getElementById("RightArrow");
+    var leftArrow = getElementById("LeftArrow");
+
+    if (currentPathIndex + 1 < PathHistory.length)
+    {
+        $(rightArrow).removeClass("ArrowHistory");
+        $(rightArrow).addClass("ArrowHasHistory");
+    }
+    else
+    {
+        $(rightArrow).removeClass("ArrowHasHistory");
+        $(rightArrow).addClass("ArrowHistory");
+    }
+
+    if (currentPathIndex > 0)
+    {
+        $(leftArrow).removeClass("ArrowHistory");
+        $(leftArrow).addClass("ArrowHasHistory");
+    }
+    else
+    {
+        $(leftArrow).removeClass("ArrowHasHistory");
+        $(leftArrow).addClass("ArrowHistory");
+    }
 }
 
+/**
+ * Go back in history
+ */
 function goBackInPath()
 {
-    //Go back in history
     if (currentPathIndex > 0)
     {
         currentPathIndex--;
@@ -169,10 +198,12 @@ function goBackInPath()
     }
 }
 
+/**
+ * Go to the future
+ */
 function goForwardInPath()
 {
-    //Go to the future
-    if (currentPathIndex > 0)
+    if (currentPathIndex < PathHistory.length - 1)
     {
         currentPathIndex++;
         openFolder(PathHistory[currentPathIndex]);
@@ -520,6 +551,7 @@ function createManagerBase()
     //Cancel button to close the fileManager without any action done
     var cancelButton = createElement("button");
     cancelButton.id = "cancelButton";
+    $(cancelButton).addClass("fileManagerButtons");
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function ()
     {
@@ -618,6 +650,7 @@ function createUploadingBottom()
 {
     var uploadForm = createElement("form");
     uploadForm.method = "post";
+    uploadForm.id = "uploadForm";
     uploadForm.enctype = "multipart/form-data";
 
     var fileUrl = createElement("input");
@@ -629,12 +662,16 @@ function createUploadingBottom()
 
     //The file upload input
     var fileInput = createElement("input");
+    fileInput.id = "uploadFileInput";
+    $(fileInput).addClass("fileManagerButtons");
     fileInput.type = "file";
     fileInput.multiple = true;
     fileInput.name = "UploadFile[]";
     uploadForm.appendChild(fileInput);
 
     var fileSend = createElement("input");
+    fileSend.id = "uploadFileSend";
+    $(fileSend).addClass("fileManagerButtons");
     fileSend.type = "submit";
 
     uploadForm.addEventListener("submit", function (evt)
@@ -657,6 +694,7 @@ function createSingleInputBottom(imageID)
 
     var selectButton = createElement("button");
     selectButton.id = "singleInputSelect";
+    $(selectButton).addClass("fileManagerButtons");
     selectButton.innerHTML = "Selecteer";
     selectButton.addEventListener("click", function ()
     {
@@ -665,7 +703,7 @@ function createSingleInputBottom(imageID)
             doXMLHttp("updatePlantImages=" + currentSelectedPath + "&imageID=" + imageID);
         }
     });
-    bottom.appendChild(selectButton); 
+    bottom.appendChild(selectButton);
 }
 
 function createManagerSideMenu()
@@ -722,6 +760,7 @@ function createManager(type, element)
         //Create the select button
         var selectButton = createElement("button");
         selectButton.id = "fileManagerSelectButton";
+        $(selectButton).addClass("fileManagerButtons");
         selectButton.innerHTML = "Select";
         selectButton.addEventListener("click", function ()
         {
@@ -760,7 +799,7 @@ function createManager(type, element)
                         doXMLHttp("addPlantImages=" + currentSelectedPath + "&plantID=" + element.id + "&singleImage=yes");
                     }
                 }
-                
+
             }
             else if (type === "PlantPageSingleInput")
             {
