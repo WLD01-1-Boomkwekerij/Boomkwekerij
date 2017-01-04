@@ -115,6 +115,7 @@ input
     
     .pricelist{
         width:1080px;
+        margin-left: 100px;
     }
     
     body{
@@ -125,6 +126,8 @@ input
     
     h1{
         margin-bottom: 1px;
+        width: 1080px;
+        margin-left: 100px;
     }
 }
 
