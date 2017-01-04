@@ -59,7 +59,8 @@ function createCatalogAddition()
                         if (xmlhttp.responseText !== "")
                         {
                             console.log(xmlhttp.responseText);
-                        } else
+                        }
+                        else
                         {
                             location.reload();
                         }
@@ -114,16 +115,16 @@ function createCatalogAddition()
     selectElement.id = "groep";
     rightDiv.appendChild(selectElement);
 
-    console.log(document.getElementById("category").innerHTML);
     var xmlhttp = new XMLHttpRequest();
-   
-    if(document.getElementById("category").innerHTML === ""){
-        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptions=yes", true);
-        console.log("leeg")
-    }else{
 
-        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptionsCategory="+document.getElementById("category").innerHTML, true);
-        console.log("../PHP/XMLRequest.php?CatalogSelectOptionsCategory="+document.getElementById("category").innerHTML)
+    //NIET VAN MIJ
+    if (document.getElementById("category").innerHTML === "")
+    {
+        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptions=yes", true);
+    }
+    else
+    {
+        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptionsCategory=" + document.getElementById("category").innerHTML, true);
     }
 
     xmlhttp.onreadystatechange = function ()

@@ -1,6 +1,7 @@
 <?php
 
-function connectToDatabase() {
+function connectToDatabase()
+{
     $username = "root";
     $password = "usbw";
     $servername = "mysql:host=localhost;dbname=boomkwekerij;port=3307";
@@ -34,7 +35,7 @@ function ProtectedGetSQL($sqlCode, $rowName, $variables)
     while ($row = $statement->fetch())
     {
         $text = $row[$rowName];
-        return $text;
+        return html_entity_decode($text, ENT_QUOTES);
     }
 }
 
@@ -54,14 +55,21 @@ function ProtectedGetSQLArray($sqlCode, $variables)
     return $statement;
 }
 
-function ProtectedDoSQL($sqlCode, $variables)
+function ProtectedDoSQL($sqlCode, $parameter)
 {
     try
     {
+        $newArray = [];
+
+        foreach ($parameter as $variables)
+        {
+            $newArray[count($newArray)] = htmlentities($variables, ENT_QUOTES);
+        }
+
         $connection = connectToDatabase();
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement = $connection->prepare($sqlCode);
-        $statement->execute($variables);
+        $statement->execute($newArray);
     }
     catch (PDOException $e)
     {

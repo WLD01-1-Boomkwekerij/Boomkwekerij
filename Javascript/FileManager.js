@@ -526,6 +526,92 @@ function createManagerBase()
         destroyManager();
     };
     bottomInfo.appendChild(cancelButton);
+    openFolder(PathHistory[0]);
+}
+
+function fileUploadFormData(formData, uploadUrl)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "../Php/FileUpload.php");
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            if (xmlhttp.responseText !== "")
+            {
+                console.log(xmlhttp.responseText);
+            }
+        }
+    };
+    formData.append("UploadUrl", uploadUrl.value);
+
+    xmlhttp.send(formData);
+}
+
+function formDataAppendIndex(fileInput, fileUrl)
+{
+    var fileLength = fileInput.files.length;
+    var fileModulo = fileLength % 20;
+    var uploadAmount = (fileLength - fileModulo) / 20;
+    var formData = new FormData();
+
+    for (var i = 0; i < uploadAmount; i++)
+    {
+        i *= 10;
+
+        for (var x = 0; x < 20; x++)
+        {
+            formData.append("fileToUpload[]", fileInput.files[i + x]);
+        }
+
+        fileUploadFormData(formData, fileUrl);
+    }
+}
+
+function formDataAppendModulo(fileInput, fileUrl)
+{
+    var fileLength = fileInput.files.length;
+    var fileModulo = fileLength % 20;
+    var uploadAmount = (fileLength - fileModulo) / 20;
+    var formData = new FormData();
+
+    for (var j = (uploadAmount * 20); j < (uploadAmount * 20) + fileModulo; j++)
+    {
+        formData.append("fileToUpload[]", fileInput.files[j]);
+    }
+
+    fileUploadFormData(formData, fileUrl);
+}
+
+function formAppend(fileInput, fileUrl)
+{
+    var fileLength = fileInput.files.length;
+    var formData = new FormData();
+
+    for (var j = 0; j < fileLength; j++)
+    {
+        formData.append("fileToUpload[]", fileInput.files[j]);
+    }
+
+    fileUploadFormData(formData, fileUrl);
+}
+
+/**
+ * Validates the files and sends them
+ * @param {element} fileInput
+ * @param {element} fileUrl
+ */
+function validateFiles(fileInput, fileUrl)
+{
+    if (fileInput.files.length > 20)
+    {
+        formDataAppendIndex(fileInput, fileUrl);
+        formDataAppendModulo(fileInput, fileUrl);
+    }
+    else
+    {
+        formAppend(fileInput, fileUrl);
+    }
 }
 
 function createUploadingBottom()
@@ -550,17 +636,40 @@ function createUploadingBottom()
 
     var fileSend = createElement("input");
     fileSend.type = "submit";
-    fileSend.name = "submitUploadFile";
+
+    uploadForm.addEventListener("submit", function (evt)
+    {
+        evt.preventDefault();
+        validateFiles(fileInput, fileUrl);
+    }, true);
     uploadForm.appendChild(fileSend);
 
     getElementById("BottomInfo").appendChild(uploadForm);
+}
 
-    openFolder(PathHistory[0]);
+function createSingleInputBottom(imageID)
+{
+    var bottom = getElementById("BottomInfo");
+
+    var imageInput = createElement("input");
+    imageInput.id = "singleInputImageFile";
+    bottom.appendChild(imageInput);
+
+    var selectButton = createElement("button");
+    selectButton.id = "singleInputSelect";
+    selectButton.innerHTML = "Selecteer";
+    selectButton.addEventListener("click", function ()
+    {
+        if (currentSelectedPath !== null)
+        {
+            doXMLHttp("updatePlantImages=" + currentSelectedPath + "&imageID=" + imageID);
+        }
+    });
+    bottom.appendChild(selectButton); 
 }
 
 function createManagerSideMenu()
 {
-    createFileIcons(PathHistory[0]);
     var sideMenu = createElement("div");
     sideMenu.id = "sideMenu";
     sideMenu.ondrop = function ()
@@ -604,6 +713,10 @@ function createManager(type, element)
         isUploading = true;
         createUploadingBottom();
     }
+    else if (type === "PlantPageSingleInput")
+    {
+        createSingleInputBottom(element.className);
+    }
     else
     {
         //Create the select button
@@ -617,7 +730,7 @@ function createManager(type, element)
                 restoreSelectorPoint();
                 if (managerImageList.length === 0)
                 {
-                    if (currentSelectedPath !== null)
+                    if (currentSelectedPath !== "")
                     {
                         createImageByName(currentSelectedPath);
                     }
@@ -630,19 +743,58 @@ function createManager(type, element)
                     }
                 }
             }
+            else if (type === "PlantPageMultipleInput")
+            {
+                var imageList = "";
+                if (managerImageList.length > 0)
+                {
+                    for (var i = 0; i < managerImageList.length; i++)
+                    {
+                        imageList += managerImageList[i] + "*";
+                    }
+                }
+                else
+                {
+                    if (currentSelectedPath !== "")
+                    {
+                        doXMLHttp("addPlantImages=" + currentSelectedPath + "&plantID=" + element.id + "&singleImage=yes");
+                    }
+                }
+                
+            }
+            else if (type === "PlantPageSingleInput")
+            {
+                if (currentSelectedPath !== "")
+                {
+                    doXMLHttp("addPlantImages=" + currentSelectedPath + "&plantID=" + element.id);
+                }
+            }
             else
             {
-                //If the managerlist is not empty
-                //Loop through every managerImageList array item and create a new input item
-                for (var i = 0; i < managerImageList.length; i++)
+                if (managerImageList.length > 0)
+                {
+                    //If the managerlist is not empty
+                    //Loop through every managerImageList array item and create a new input item
+                    for (var i = 0; i < managerImageList.length; i++)
+                    {
+                        var imgInput = createElement("input");
+                        $(imgInput).addClass("imgInput");
+                        imgInput.readOnly = true;
+                        imgInput.value = managerImageList[i];
+                        element.insertBefore(imgInput, element.lastChild);
+                        images[images.length] = managerImageList[i];
+                    }
+                }
+                else
                 {
                     var imgInput = createElement("input");
                     $(imgInput).addClass("imgInput");
                     imgInput.readOnly = true;
-                    imgInput.value = managerImageList[i];
+                    imgInput.value = currentSelectedPath;
                     element.insertBefore(imgInput, element.lastChild);
-                    images[images.length] = managerImageList[i];
+                    images[images.length] = currentSelectedPath;
                 }
+
                 destroyManager();
             }
         });
@@ -650,7 +802,7 @@ function createManager(type, element)
     }
 
     //Create the sideMenu
-    if (type === "Insert" || type === "MultipleInput")
+    if (type === "Insert" || type === "PlantPageMultipleInput")
     {
         createManagerSideMenu();
     }
@@ -677,7 +829,7 @@ function CreateImageContextMenu(ev)
         {
             if ($(ev.target).hasClass("fileManagerFile"))
             {
-                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] + 
+                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] +
                         "&deleteImageByName=" + ev.target.id +
                         "&type=file");
             }
@@ -697,14 +849,13 @@ function CreateImageContextMenu(ev)
     createFolder.innerHTML = "Nieuwe folder";
     createFolder.addEventListener("click", function ()
     {
-        var positionerFolderDiv = createElement("div");
-        positionerFolderDiv.id = "positionerFolderDiv";
-        document.body.appendChild(positionerFolderDiv);
-
         var createFolderDiv = createElement("div");
         createFolderDiv.id = "createFolderDiv";
+        createFolderDiv.style.position = "absolute";
+        createFolderDiv.style.left = ev.clientX + "px";
+        createFolderDiv.style.top = ev.clientY + "px";
         createFolderDiv.innerHTML = "Folder Naam:";
-        positionerFolderDiv.appendChild(createFolderDiv);
+        document.body.appendChild(createFolderDiv);
 
         var folderInput = createElement("input");
         folderInput.id = "contextFolderInput";
@@ -715,7 +866,7 @@ function CreateImageContextMenu(ev)
         folderCancelButton.innerHTML = "Cancel";
         folderCancelButton.addEventListener("click", function ()
         {
-            positionerFolderDiv.parentNode.removeChild(positionerFolderDiv);
+            createFolderDiv.parentNode.removeChild(createFolderDiv);
         });
         createFolderDiv.appendChild(folderCancelButton);
 
@@ -724,7 +875,25 @@ function CreateImageContextMenu(ev)
         folderSelectButton.innerHTML = "Nieuwe Folder";
         folderSelectButton.addEventListener("click", function ()
         {
-            doXMLHttp("createNewDirectory=" + PathHistory[currentPathIndex] + "/" + folderInput.value);
+            var GetArray = "createNewDirectory=" + PathHistory[currentPathIndex] + "/" + folderInput.value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "../PHP/XMLRequest.php?" + GetArray, true);
+            xmlhttp.onreadystatechange = function ()
+            {
+                if (this.readyState === 4 && this.status === 200)
+                {
+                    if (xmlhttp.responseText !== "")
+                    {
+                        console.log(xmlhttp.responseText);
+                    }
+                    else
+                    {
+                        createFolderDiv.parentNode.removeChild(createFolderDiv);
+                        openFolder(PathHistory[currentPathIndex]);
+                    }
+                }
+            };
+            xmlhttp.send();
         });
         createFolderDiv.appendChild(folderSelectButton);
     });
