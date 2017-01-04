@@ -229,6 +229,45 @@ function createImageButton(type)
                 }
             });
             break;
+        case "arrowLeft":
+            $(button).addClass("fa-arrow-left");
+            button.addEventListener("click", function ()
+            {
+            });
+            break;
+        case "arrowUp":
+            $(button).addClass("fa-arrow-up");
+            button.addEventListener("click", function ()
+            {
+                var styling = $(currentSelectedImage).parent().children()[0];
+                var stylingHtml = styling.innerHTML;
+
+                var height = stylingHtml.substring(stylingHtml.lastIndexOf("height:") + 7, stylingHtml.lastIndexOf(";"));
+                var newHeight = parseInt(height, 10) - 10 + "px";
+                stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
+                styling.innerHTML = stylingHtml;
+            });
+            break;
+        case "arrowDown":
+            $(button).addClass("fa-arrow-down");
+            button.addEventListener("click", function ()
+            {
+                var styling = $(currentSelectedImage).parent().children()[0];
+                var stylingHtml = styling.innerHTML;
+
+                var height = stylingHtml.substring(stylingHtml.lastIndexOf("height:") + 7, stylingHtml.lastIndexOf(";"));
+                var newHeight = parseInt(height, 10) + 10 + "px";
+                stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
+                styling.innerHTML = stylingHtml;
+            });
+            break;
+        case "arrowRight":
+            $(button).addClass("fa-arrow-right");
+            button.addEventListener("click", function ()
+            {
+
+            });
+            break;
     }
     return button;
 }
@@ -257,7 +296,8 @@ function editImage(element)
                     "justifyCenter",
                     "justifyRight",
                     "justifyNone",
-                    "minus", "plus"
+                    "minus", "plus",
+                    "arrowLeft", "arrowUp", "arrowDown", "arrowRight"
                 ];
 
         for (var i = 0; i < buttonArray.length; i++)
@@ -563,7 +603,7 @@ function setContentEditable(element, isNew, isNews)
             var visibilityButton = createElement("input");
             visibilityButton.type = "checkbox";
             var visibility = true;
-            if(elementTitle.id === "0")
+            if (elementTitle.id === "0")
             {
                 visibility = false;
             }

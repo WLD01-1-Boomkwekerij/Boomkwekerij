@@ -326,6 +326,8 @@ function createFileIcon(url, name)
 
     var fileName = createElement("p");
 
+    var giveName = name;
+
     var maxLength = 16;
     if (name.length > maxLength)
     {
@@ -342,7 +344,7 @@ function createFileIcon(url, name)
     {
         file.addEventListener("click", function ()
         {
-            setItemSelected(this, url, name);
+            setItemSelected(this, url, giveName);
         });
     }
 }
@@ -496,15 +498,36 @@ function createImageByName(name)
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            var img = "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable' src='' onclick='editImage(this)' style='" +
+            var maxNumber = 1;
+            
+            //Get all Images
+            if($(".ContentEditableOpen img").length)
+            {
+                var imagesArray = $(".ContentEditableOpen img").parent();
+                
+                maxNumber = parseInt($(imagesArray)[imagesArray.length -1].id) + 1;  
+                
+            }
+            
+            var img = "<div class='editableImage" + maxNumber +"' id='" + maxNumber + "'> " +
+                    "<style>" +
+                    ".editableImage"+ maxNumber + ":before { " +
+                    "content: '';" +
+                    "display:block; "+
+                    "float: right; "+
+                    "height: 0;} "+
+                    "</style>"
+                    +                    
+                    "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable editableImage' src='' onclick='editImage(this)' style='" +
                     "width: 50%;" +
                     "float: right;" +
                     "clear: right;" +
                     "top: 0;" +
-                    "'>";
+                    "'></div>";
             document.execCommand("insertHTML", false, img);
             destroyManager();
             loadImagesFromDatabase();
+        
         }
     };
     xmlhttp.send();
