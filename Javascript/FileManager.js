@@ -145,12 +145,19 @@ function loadImagesFromDatabase()
  */
 function setItemSelected(element, url, name)
 {
-    if ($(currentSelectedElement).hasClass("selectedItem"))
+    if (currentSelectedElement)
     {
-        $(currentSelectedElement).removeClass("selectedItem");
+        var selectedItem = $(currentSelectedElement).children()[0];
+
+        if ($(selectedItem).hasClass("selectedItem"))
+        {
+            $(selectedItem).removeClass("selectedItem");
+        }
     }
+
     currentSelectedElement = element;
-    $(currentSelectedElement).addClass("selectedItem");
+    var selectedItem = $(currentSelectedElement).children()[0];
+    $(selectedItem).addClass("selectedItem");
     currentSelectedPath = url + "/" + name;
 }
 
@@ -299,7 +306,7 @@ function createFileIcon(url, name)
     var fileManager = getElementById("Files");
     var file = createElement("div");
     file.id = name;
-    file.className = "fileManagerFile";
+    $(file).addClass("fileManagerFile");
     file.draggable = true;
     file.ondragstart = function (event)
     {
@@ -307,12 +314,27 @@ function createFileIcon(url, name)
     };
     fileManager.appendChild(file);
 
+    var filebackground = createElement("div");
+    $(filebackground).addClass("fileBackground");
+    file.appendChild(filebackground);
+
     var fileIcon = createElement("img");
     fileIcon.src = url + "/" + name;
     file.appendChild(fileIcon);
 
+
     var fileName = createElement("p");
-    fileName.innerHTML = name;
+    
+    var maxLength = 16;
+    if (name.length > maxLength)
+    {
+        name = name.substr(0, maxLength) + '...';
+        fileName.innerHTML = name;
+    }
+    else
+    {
+        fileName.innerHTML = name;
+    }    
     file.appendChild(fileName);
 
     if (!isUploading)
