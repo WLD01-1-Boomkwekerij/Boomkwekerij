@@ -1,13 +1,11 @@
 <?php
 
 include 'DatabaseImages.php';
-/*
-function return_bytes($val)
-{
+
+function return_bytes($val) {
     $val = trim($val);
-    $last = strtolower($val[strlen($val) - 1]);
-    switch ($last)
-    {
+    $last = strtolower($val[strlen($val)-1]);
+    switch($last) {
         // The 'G' modifier is available since PHP 5.1.0
         case 'g':
             $val *= 1024;
@@ -19,8 +17,15 @@ function return_bytes($val)
 
     return $val;
 }
-print(return_bytes(ini_get('upload_max_filesize')));
-*/
+
+if (isset($_GET["getMaxFileAllowed"]))
+{
+    $maxFileSize = return_bytes(ini_get('upload_max_filesize'));
+    $maxFileAmount = return_bytes(ini_get('max_file_uploads'));
+    
+    $maxArray = $maxFileSize . "*" . $maxFileAmount;
+    print($maxArray);
+}
 
 //Uploading File
 if (isset($_POST["UploadUrl"]))

@@ -313,6 +313,7 @@ function createFileIcon(url, name)
         drag(event);
     };
     fileManager.appendChild(file);
+    $(file).attr('title', name);
 
     var filebackground = createElement("div");
     $(filebackground).addClass("fileBackground");
@@ -324,7 +325,7 @@ function createFileIcon(url, name)
 
 
     var fileName = createElement("p");
-    
+
     var maxLength = 16;
     if (name.length > maxLength)
     {
@@ -334,7 +335,7 @@ function createFileIcon(url, name)
     else
     {
         fileName.innerHTML = name;
-    }    
+    }
     file.appendChild(fileName);
 
     if (!isUploading)
@@ -595,6 +596,10 @@ function fileUploadFormData(formData, uploadUrl)
             {
                 console.log(xmlhttp.responseText);
             }
+            else
+            {
+
+            }
         }
     };
     formData.append("UploadUrl", uploadUrl.value);
@@ -604,7 +609,7 @@ function fileUploadFormData(formData, uploadUrl)
 
 function formDataAppendIndex(fileInput, fileUrl)
 {
-    var fileLength = fileInput.files.length;
+    var fileLength = fileInput.length;
     var fileModulo = fileLength % 20;
     var uploadAmount = (fileLength - fileModulo) / 20;
     var formData = new FormData();
@@ -624,14 +629,14 @@ function formDataAppendIndex(fileInput, fileUrl)
 
 function formDataAppendModulo(fileInput, fileUrl)
 {
-    var fileLength = fileInput.files.length;
+    var fileLength = fileInput.length;
     var fileModulo = fileLength % 20;
     var uploadAmount = (fileLength - fileModulo) / 20;
     var formData = new FormData();
 
     for (var j = (uploadAmount * 20); j < (uploadAmount * 20) + fileModulo; j++)
     {
-        formData.append("fileToUpload[]", fileInput.files[j]);
+        formData.append("fileToUpload[]", fileInput[j]);
     }
 
     fileUploadFormData(formData, fileUrl);
@@ -639,15 +644,29 @@ function formDataAppendModulo(fileInput, fileUrl)
 
 function formAppend(fileInput, fileUrl)
 {
-    var fileLength = fileInput.files.length;
+    var fileLength = fileInput.length;
     var formData = new FormData();
 
     for (var j = 0; j < fileLength; j++)
     {
-        formData.append("fileToUpload[]", fileInput.files[j]);
+        formData.append("fileToUpload[]", fileInput[j]);
     }
 
     fileUploadFormData(formData, fileUrl);
+}
+
+function sendFileBatch(fileArray, fileUrl)
+{
+
+    if (fileArray.length > 20)
+    {
+        formDataAppendIndex(fileArray, fileUrl);
+        formDataAppendModulo(fileArray, fileUrl);
+    }
+    else
+    {
+        formAppend(fileArray, fileUrl);
+    }
 }
 
 /**
@@ -657,15 +676,66 @@ function formAppend(fileInput, fileUrl)
  */
 function validateFiles(fileInput, fileUrl)
 {
-    if (fileInput.files.length > 20)
+    var fileArray = fileInput.files;
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../Php/FileUpload.php?getMaxFileAllowed=yes");
+    xmlhttp.onreadystatechange = function ()
     {
-        formDataAppendIndex(fileInput, fileUrl);
-        formDataAppendModulo(fileInput, fileUrl);
-    }
-    else
-    {
-        formAppend(fileInput, fileUrl);
-    }
+        if (this.readyState === 4 && this.status === 200)
+        {
+            var maxSize = xmlhttp.responseText.split("*");
+
+            var maxFileSize = parseInt(maxSize[0]);
+            var maxFileAmount = parseInt(maxSize[1]);
+
+            var currentBatchSize = 0;
+            var currentBatchFiles = [];
+
+            for (var i = 0; i < fileArray.length; i++)
+            {
+                if (fileArray[i].size > maxFileSize)
+                {
+                    console.log("File " + (i + 1) + " is to big");
+                }
+                else
+                {
+                    if (currentBatchFiles.length < maxFileAmount)
+                    {
+                        if (currentBatchSize + fileArray[i].size < maxFileSize)
+                        {
+                            currentBatchSize += fileArray[i].size;
+                            currentBatchFiles[currentBatchFiles.length] = fileArray[i];
+                        }
+                        else
+                        {
+                            //send the current batch to upload
+                            sendFileBatch(currentBatchFiles, fileUrl);
+                            currentBatchSize = fileArray[i].size;
+                            currentBatchFiles = [];
+                            currentBatchFiles[currentBatchFiles.length] = fileArray[i];
+                        }
+                    }
+                    else
+                    {
+                        sendFileBatch(currentBatchFiles, fileUrl);
+                        currentBatchSize = fileArray[i].size;
+                        currentBatchFiles = [];
+                        currentBatchFiles[currentBatchFiles.length] = fileArray[i];
+                    }
+
+                }
+            }
+
+            if (currentBatchFiles.length > 0)
+            {
+                sendFileBatch(currentBatchFiles, fileUrl);
+            }
+
+            destroyManager();
+        }
+    };
+    xmlhttp.send();
 }
 
 function createUploadingBottom()
