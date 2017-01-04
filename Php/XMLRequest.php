@@ -68,18 +68,18 @@ if (isset($_SESSION['logged_in']))
                 . "Hoogte_max, "
                 . "Bloeitijd, "
                 . "Bloeiwijze) VALUES ("
-                . "'$Naam', "
-                . "$PrijsID, "
-                . "$Hoogte_Min, "
-                . "$Hoogte_Max, "
-                . "'$bloeitijd', "
-                . "'$bloeiwijze')";
+                . "?, "
+                . "?, "
+                . "?, "
+                . "?, "
+                . "?, "
+                . "?)";
 
-        ProtectedDoSQL($sql, array());
+        ProtectedDoSQL($sql, array(htmlentities($Naam, ENT_QUOTES), $PrijsID, $Hoogte_Min, $Hoogte_Max, $bloeitijd, $bloeiwijze));
         $PlantID = ProtectedGetMaxSQL("plant", "PlantID");
 
-        $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ('$phpImageArray[0]', $PlantID, 1)";
-        ProtectedDoSQL($sql, array());
+        $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES (?, ?, 1)";
+        ProtectedDoSQL($sql, array(htmlentities($phpImageArray[0], ENT_QUOTES), $PlantID));
         if (count($phpImageArray) > 1)
         {
             $amount = 0;

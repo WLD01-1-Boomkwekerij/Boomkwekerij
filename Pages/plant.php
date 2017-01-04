@@ -77,7 +77,8 @@
                             $Hoogtemin = $_GET["Hoogtemin"];
                             $Bloeitijd = $_GET["Bloeitijd"];
                             $Bloeiwijze = $_GET["Bloeiwijze"];
-                            ProtectedDoSQL("UPDATE plant SET hoogte_min = ?, hoogte_max = ?, bloeitijd = ?, bloeiwijze = ? WHERE PlantID = ? ", array($Hoogtemin, $Hoogtemax, $Bloeitijd, $Bloeiwijze, $plant));
+                            ProtectedDoSQL("UPDATE plant SET hoogte_min = ?, hoogte_max = ?, bloeitijd = ?, bloeiwijze = ? WHERE PlantID = ? ",
+                                    array($Hoogtemin, $Hoogtemax, $Bloeitijd, $Bloeiwijze, $plant));
                         }
                     }
                     $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)", array($plant));
@@ -232,7 +233,7 @@
                             $Fotoos = ProtectedGetSQLArray("SELECT * FROM plantfoto  WHERE PlantID = ?", array($plant));
                             while ($row = $Fotoos->fetch())
                             {
-                                $url = $row["FotoUrl"];
+                                $url = html_entity_decode($row["FotoUrl"]);
                                 $type = $row["TypeFoto"];
                                 $fotoId = $row["FotoID"];
                                 print("<div id='$fotoId' class='$type' style='display: inline-block'>");
