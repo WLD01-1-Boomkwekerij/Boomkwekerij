@@ -59,7 +59,8 @@ function createCatalogAddition()
                         if (xmlhttp.responseText !== "")
                         {
                             console.log(xmlhttp.responseText);
-                        } else
+                        }
+                        else
                         {
                             location.reload();
                         }
@@ -115,12 +116,15 @@ function createCatalogAddition()
     rightDiv.appendChild(selectElement);
 
     var xmlhttp = new XMLHttpRequest();
-   
-    if(document.getElementById("category").innerHTML === ""){
-        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptions=yes", true);
-    }else{
 
-        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptionsCategory="+document.getElementById("category").innerHTML, true);
+    //NIET VAN MIJ
+    if (document.getElementById("category").innerHTML === "")
+    {
+        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptions=yes", true);
+    }
+    else
+    {
+        xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptionsCategory=" + document.getElementById("category").innerHTML, true);
     }
 
     xmlhttp.onreadystatechange = function ()

@@ -528,7 +528,7 @@ function createManagerBase()
     bottomInfo.appendChild(cancelButton);
 }
 
-function fileUploadFormData(formData)
+function fileUploadFormData(formData, uploadUrl)
 {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", "../Php/FileUpload.php");
@@ -542,12 +542,14 @@ function fileUploadFormData(formData)
             }
         }
     };
+    formData.append("UploadUrl", uploadUrl.value);
+    
     xmlhttp.send(formData);
 }
 
-function formDataAppendIndex(element)
+function formDataAppendIndex(fileInput, fileUrl)
 {
-    var fileLength = element.files.length;
+    var fileLength = fileInput.files.length;
     var fileModulo = fileLength % 20;
     var uploadAmount = (fileLength - fileModulo) / 20;
     var formData = new FormData();
@@ -558,56 +560,56 @@ function formDataAppendIndex(element)
 
         for (var x = 0; x < 20; x++)
         {
-            formData.append("fileToUpload[]", element.files[i + x]);
+            formData.append("fileToUpload[]", fileInput.files[i + x]);
         }
 
-        fileUploadFormData(formData);
+        fileUploadFormData(formData, fileUrl);
     }
 }
 
-function formDataAppendModulo(element)
+function formDataAppendModulo(fileInput, fileUrl)
 {
-    var fileLength = element.files.length;
+    var fileLength = fileInput.files.length;
     var fileModulo = fileLength % 20;
     var uploadAmount = (fileLength - fileModulo) / 20;
     var formData = new FormData();
 
     for (var j = (uploadAmount * 20); j < (uploadAmount * 20) + fileModulo; j++)
     {
-        formData.append("fileToUpload[]", element.files[j]);
+        formData.append("fileToUpload[]", fileInput.files[j]);
     }
 
-    fileUploadFormData(formData);
+    fileUploadFormData(formData, fileUrl);
 }
 
-function formAppend(element)
+function formAppend(fileInput, fileUrl)
 {
-    var fileLength = element.files.length;
+    var fileLength = fileInput.files.length;
     var formData = new FormData();
 
     for (var j = 0; j < fileLength; j++)
     {
-        formData.append("fileToUpload[]", element.files[j]);
+        formData.append("fileToUpload[]", fileInput.files[j]);
     }
 
-    fileUploadFormData(formData);
+    fileUploadFormData(formData, fileUrl);
 }
 
 /**
  * Validates the files and sends them
  * @param {element} element
  */
-function validateFiles(element)
+function validateFiles(fileInput, fileUrl)
 {
-    if (element.files.length > 20)
+    if (fileInput.files.length > 20)
     {
-        formDataAppendIndex(element);
-        formDataAppendModulo(element);
+        formDataAppendIndex(fileInput, fileUrl);
+        formDataAppendModulo(fileInput, fileUrl);
     }
 
     else
     {
-        formAppend(element);
+        formAppend(fileInput, fileUrl);
     }
 }
 
@@ -633,12 +635,11 @@ function createUploadingBottom()
 
     var fileSend = createElement("input");
     fileSend.type = "submit";
-    fileSend.name = "submitUploadFile";
 
     uploadForm.addEventListener("submit", function (evt)
     {
         evt.preventDefault();
-        validateFiles(fileInput);
+        validateFiles(fileInput, fileUrl);
     }, true);
     uploadForm.appendChild(fileSend);
 

@@ -148,21 +148,21 @@ include'/../Php/Database.php';
 
                         $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category WHERE CategoryID = ?", array($category));
                         $categoryRegel = $sqlCategory->fetch();
-                        $categoryNaam = $categoryRegel["CategoryNaam"];
+                        $categoryNaam = html_entity_decode($categoryRegel["CategoryNaam"], ENT_QUOTES);
                         echo "<h1>$categoryNaam</h1>";
 
                         $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE CategoryID = ?", array($category));
 
                         while ($row = $sqlPrijs->fetch())
                         {
-                            $prijsID = $row["PrijsID"];
-                            $potmaat = $row["Potmaat"];
-                            $hoogte = $row["Potmaat"];
-                            $prijsKwekerij = $row["PrijsKwekerij"];
-                            $prijsVBA = $row["PrijsVBA"];
-                            $perCC = $row["ProductenCC"];
-                            $perLaag = $row["ProductenLaag"];
-                            $perTray = $row["ProductenTray"];
+                            $prijsID = html_entity_decode($row["PrijsID"], ENT_QUOTES);
+                            $potmaat = html_entity_decode($row["Potmaat"], ENT_QUOTES);
+                            $hoogte = html_entity_decode($row["Potmaat"], ENT_QUOTES);
+                            $prijsKwekerij = html_entity_decode($row["PrijsKwekerij"], ENT_QUOTES);
+                            $prijsVBA = html_entity_decode($row["PrijsVBA"], ENT_QUOTES);
+                            $perCC = html_entity_decode($row["ProductenCC"], ENT_QUOTES);
+                            $perLaag = html_entity_decode($row["ProductenLaag"], ENT_QUOTES);
+                            $perTray = html_entity_decode($row["ProductenTray"], ENT_QUOTES);
                             $sqlPlant = ProtectedGetSQLArray(
                                     "SELECT * 
                                  FROM plant 
@@ -173,14 +173,13 @@ include'/../Php/Database.php';
 
                             while ($plant = $sqlPlant->fetch())
                             {
-                                $plantId = $plant['PlantID'];
-                                $naam = $plant['Naam'];
-                                $Hoogte_min = $plant['Hoogte_min'];
-                                $Hoogte_max = $plant['Hoogte_max'];
-                                $bloeiwijze = $plant['Bloeiwijze'];
-                                $bloeitijd = $plant['Bloeitijd'];
-                                $plantFotoUrl = $plant['FotoUrl'];
-
+                                $plantId = html_entity_decode($plant['PlantID'], ENT_QUOTES);
+                                $naam = html_entity_decode($plant['Naam'], ENT_QUOTES);
+                                $Hoogte_min = html_entity_decode($plant['Hoogte_min'], ENT_QUOTES);
+                                $Hoogte_max = html_entity_decode($plant['Hoogte_max'], ENT_QUOTES);
+                                $bloeiwijze = html_entity_decode($plant['Bloeiwijze'], ENT_QUOTES);
+                                $bloeitijd = html_entity_decode($plant['Bloeitijd'], ENT_QUOTES);
+                                $plantFotoUrl = html_entity_decode($plant['FotoUrl'], ENT_QUOTES);
                                 $hidden = "hidden";
                                 $position = "absolute";
 
