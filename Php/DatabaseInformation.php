@@ -32,7 +32,7 @@ function getTextIDFromNewsID($newsID)
 function insertNewsTextToDB($visibility, $text, $title)
 {
     $sql1 = "INSERT INTO tekst (tekst) VALUES(?);";
-    $statement = ProtectedDoSQL($sql1, array($text));
+    ProtectedDoSQL($sql1, array($text));
     $lastTextID = ProtectedGetMaxSQL("tekst", "TekstID");
     $sql2 = "INSERT INTO aanbieding (AanbiedingID, Zichtbaar, DatumGeplaatst, TekstID, Titel) VALUES(NULL, ?, CURRENT_TIMESTAMP, ?, ?)";
     ProtectedDoSQL($sql2, array($visibility, $lastTextID, $title));
@@ -50,7 +50,7 @@ function updateNewsTextToDB($newsID, $visibility, $text, $title)
 
 function DeleteNewsTextFromDB($newsID)
 {
-    $textID = getTextIDFromNewsID($connection, $newsID);
+    $textID = getTextIDFromNewsID($newsID);
     ProtectedDoSQL("DELETE FROM aanbieding WHERE AanbiedingID=?", array($newsID));
     ProtectedDoSQL("DELETE FROM tekst WHERE TekstID=?", array($textID));
 }
@@ -63,6 +63,7 @@ function deletePlant($plantID)
 
 function deleteArticle($newsID)
 {
+    $connection = connectToDatabase();
     $firstStatement = $connection->prepare("DELETE FROM aanbieding WHERE AanbiedingID=?");
     ProtectedDoSQL($firstStatement, array($newsID));
 }
