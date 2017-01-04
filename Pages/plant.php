@@ -22,6 +22,10 @@
         }
         ?>
         <script type="text/javascript">
+            window.onload = function()
+            {
+                firstLoad();
+            };
 
             function ChangeImage()
             {
@@ -77,8 +81,7 @@
                             $Hoogtemin = $_GET["Hoogtemin"];
                             $Bloeitijd = $_GET["Bloeitijd"];
                             $Bloeiwijze = $_GET["Bloeiwijze"];
-                            ProtectedDoSQL("UPDATE plant SET hoogte_min = ?, hoogte_max = ?, bloeitijd = ?, bloeiwijze = ? WHERE PlantID = ? ",
-                                    array($Hoogtemin, $Hoogtemax, $Bloeitijd, $Bloeiwijze, $plant));
+                            ProtectedDoSQL("UPDATE plant SET hoogte_min = ?, hoogte_max = ?, bloeitijd = ?, bloeiwijze = ? WHERE PlantID = ? ", array($Hoogtemin, $Hoogtemax, $Bloeitijd, $Bloeiwijze, $plant));
                         }
                     }
                     $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)", array($plant));
@@ -94,8 +97,8 @@
                     $plantRegel = $sqlPlant->fetch();
                     $naam = html_entity_decode($plantRegel['Naam'], ENT_QUOTES);
                     $hoogte = html_entity_decode($plantRegel['Hoogte_min'], ENT_QUOTES) . "/" . html_entity_decode($plantRegel['Hoogte_max'], ENT_QUOTES);
-                    
-                    
+
+
                     if ($plantRegel['Hoogte_min'] == $plantRegel['Hoogte_max'])
                     {
                         $hoogte = html_entity_decode($plantRegel['Hoogte_min'], ENT_QUOTES);
@@ -244,7 +247,7 @@
                             {
                                 $plantID = $_GET['plant'];
                                 print("<img id='$plantID' class='icon-image-add' style='width: 50px; cursor: pointer' onclick='addPlantImage(this)'>");
-                            } 
+                            }
                             ?>
                         </div>
                     </section>

@@ -124,3 +124,21 @@ function loadEditing()
     });
     $(parent).append(changeButton);
 }
+
+function firstLoad()
+{
+    var parent = $('#ImageFrame').parent();
+
+    var changeButton = createElement("div");
+    changeButton.id = "plantChangeButton";
+    $(changeButton).addClass("fa");
+    $(changeButton).addClass("fa-3x");
+    $(changeButton).addClass("changeButton");
+    $(changeButton).addClass("plantButtonIcon");
+    $(changeButton).addClass("fa-pencil-square-o");
+    changeButton.addEventListener("click", function ()
+    {
+        editPlantImage();
+    });
+    $(parent).append(changeButton);
+}
