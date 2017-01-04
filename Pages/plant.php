@@ -223,12 +223,13 @@
                     </div>
                     <section id="PhotoFrame">
                         <?php
-                        $EersteFoto = ProtectedGetSQLArray("SELECT * FROM plantfoto WHERE PlantID = ? AND TypeFoto = 1", array($plant));
-                        $EersteFotoRegel = $EersteFoto->fetch();
-                        $EersteFotoUrl = html_entity_decode($EersteFotoRegel["FotoUrl"], ENT_QUOTES);
-
+                        $ImageFrameImage = ProtectedGetSQLArray("SELECT * FROM plantfoto WHERE PlantID = ? AND TypeFoto = 1", 
+                                array($plant));
+                        $ImageFrameFetch = $ImageFrameImage->fetch();
+                        $ImageFrameId =  html_entity_decode($ImageFrameFetch["FotoID"], ENT_QUOTES);
+                        $ImageFrameUrl = html_entity_decode($ImageFrameFetch["FotoUrl"]);
                         print("<div id='ImageContainer' class=''>");
-                        print("<img id='ImageFrame' src='$EersteFotoUrl'>");
+                        print("<img id='ImageFrame' class='$ImageFrameId' src='$ImageFrameUrl'>");
                         print("</div>");
                         ?>
                         <div id="Positioner">

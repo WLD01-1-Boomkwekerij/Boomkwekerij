@@ -526,6 +526,7 @@ function createManagerBase()
         destroyManager();
     };
     bottomInfo.appendChild(cancelButton);
+    openFolder(PathHistory[0]);
 }
 
 function fileUploadFormData(formData, uploadUrl)
@@ -543,7 +544,7 @@ function fileUploadFormData(formData, uploadUrl)
         }
     };
     formData.append("UploadUrl", uploadUrl.value);
-    
+
     xmlhttp.send(formData);
 }
 
@@ -597,7 +598,8 @@ function formAppend(fileInput, fileUrl)
 
 /**
  * Validates the files and sends them
- * @param {element} element
+ * @param {element} fileInput
+ * @param {element} fileUrl
  */
 function validateFiles(fileInput, fileUrl)
 {
@@ -606,7 +608,6 @@ function validateFiles(fileInput, fileUrl)
         formDataAppendIndex(fileInput, fileUrl);
         formDataAppendModulo(fileInput, fileUrl);
     }
-
     else
     {
         formAppend(fileInput, fileUrl);
@@ -644,20 +645,31 @@ function createUploadingBottom()
     uploadForm.appendChild(fileSend);
 
     getElementById("BottomInfo").appendChild(uploadForm);
-
-    openFolder(PathHistory[0]);
 }
 
-function createSingleInputBottom()
+function createSingleInputBottom(imageID)
 {
+    var bottom = getElementById("BottomInfo");
+
     var imageInput = createElement("input");
-    imageInput.name = "UploadFile[]";
-    getElementById("BottomInfo").appendChild(imageInput);
+    imageInput.id = "singleInputImageFile";
+    bottom.appendChild(imageInput);
+
+    var selectButton = createElement("button");
+    selectButton.id = "singleInputSelect";
+    selectButton.innerHTML = "Selecteer";
+    selectButton.addEventListener("click", function ()
+    {
+        if (currentSelectedPath !== null)
+        {
+            doXMLHttp("updatePlantImages=" + currentSelectedPath + "&imageID=" + imageID);
+        }
+    });
+    bottom.appendChild(selectButton); 
 }
 
 function createManagerSideMenu()
 {
-    createFileIcons(PathHistory[0]);
     var sideMenu = createElement("div");
     sideMenu.id = "sideMenu";
     sideMenu.ondrop = function ()
@@ -701,9 +713,9 @@ function createManager(type, element)
         isUploading = true;
         createUploadingBottom();
     }
-    else if (type === "SingleInput")
+    else if (type === "PlantPageSingleInput")
     {
-        createSingleInputBottom();
+        createSingleInputBottom(element.className);
     }
     else
     {
@@ -718,7 +730,7 @@ function createManager(type, element)
                 restoreSelectorPoint();
                 if (managerImageList.length === 0)
                 {
-                    if (currentSelectedPath !== null)
+                    if (currentSelectedPath !== "")
                     {
                         createImageByName(currentSelectedPath);
                     }
@@ -731,19 +743,58 @@ function createManager(type, element)
                     }
                 }
             }
+            else if (type === "PlantPageMultipleInput")
+            {
+                var imageList = "";
+                if (managerImageList.length > 0)
+                {
+                    for (var i = 0; i < managerImageList.length; i++)
+                    {
+                        imageList += managerImageList[i] + "*";
+                    }
+                }
+                else
+                {
+                    if (currentSelectedPath !== "")
+                    {
+                        doXMLHttp("addPlantImages=" + currentSelectedPath + "&plantID=" + element.id + "&singleImage=yes");
+                    }
+                }
+                
+            }
+            else if (type === "PlantPageSingleInput")
+            {
+                if (currentSelectedPath !== "")
+                {
+                    doXMLHttp("addPlantImages=" + currentSelectedPath + "&plantID=" + element.id);
+                }
+            }
             else
             {
-                //If the managerlist is not empty
-                //Loop through every managerImageList array item and create a new input item
-                for (var i = 0; i < managerImageList.length; i++)
+                if (managerImageList.length > 0)
+                {
+                    //If the managerlist is not empty
+                    //Loop through every managerImageList array item and create a new input item
+                    for (var i = 0; i < managerImageList.length; i++)
+                    {
+                        var imgInput = createElement("input");
+                        $(imgInput).addClass("imgInput");
+                        imgInput.readOnly = true;
+                        imgInput.value = managerImageList[i];
+                        element.insertBefore(imgInput, element.lastChild);
+                        images[images.length] = managerImageList[i];
+                    }
+                }
+                else
                 {
                     var imgInput = createElement("input");
                     $(imgInput).addClass("imgInput");
                     imgInput.readOnly = true;
-                    imgInput.value = managerImageList[i];
+                    imgInput.value = currentSelectedPath;
                     element.insertBefore(imgInput, element.lastChild);
-                    images[images.length] = managerImageList[i];
+                    images[images.length] = currentSelectedPath;
                 }
+
                 destroyManager();
             }
         });
@@ -751,7 +802,7 @@ function createManager(type, element)
     }
 
     //Create the sideMenu
-    if (type === "Insert" || type === "MultipleInput")
+    if (type === "Insert" || type === "PlantPageMultipleInput")
     {
         createManagerSideMenu();
     }

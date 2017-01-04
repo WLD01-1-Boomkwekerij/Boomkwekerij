@@ -115,7 +115,7 @@ if (isset($_SESSION['logged_in']))
             //print($row[$i] . "*");
         }
     }
-    
+
     if (isset($_GET["CatalogSelectOptions"]))
     {
         $sqlPrijs = ProtectedGetSQLArray("SELECT Naam, PrijsID FROM prijs", array());
@@ -137,24 +137,40 @@ if (isset($_SESSION['logged_in']))
             //print($row[$i] . "*");
         }
     }
-    
-    
+
+
     if (isset($_GET["DeleteArticle"]))
     {
         deleteArticle($_GET["DeleteArticle"]);
     }
 
+    //PLANT IMAGES//
     //Add PlantImage
     if (isset($_GET["addPlantImages"], $_GET["plantID"]))
     {
-        $phpImageArray = explode("*", $_GET["addPlantImages"]);
-        $phpImageArray = str_replace("*", "", $phpImageArray);
-
-        for ($i = 0; $i < count($phpImageArray) - 1; $i++)
+        if (isset($_GET["singleImage"]))
         {
-            $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ( ?, " . $_GET['plantID'] . ", 2)";
-            ProtectedDoSQL($sql, array($phpImageArray[$i]));
+            $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ( ?, ?, 2)";
+            ProtectedDoSQL($sql, array($_GET["addPlantImages"], $_GET['plantID']));
         }
+        else
+        {
+            $phpImageArray = explode("*", $_GET["addPlantImages"]);
+            $phpImageArray = str_replace("*", "", $phpImageArray);
+
+            for ($i = 0; $i < count($phpImageArray) - 1; $i++)
+            {
+                $sql = "INSERT INTO plantfoto (FotoUrl, PlantID, TypeFoto) VALUES ( ?, " . $_GET['plantID'] . ", 2)";
+                ProtectedDoSQL($sql, array($phpImageArray[$i]));
+            }
+        }
+    }
+
+    //Update PlantImage
+    if (isset($_GET["updatePlantImages"], $_GET["imageID"]))
+    {
+        $sql = "UPDATE plantfoto SET FotoUrl = ? WHERE FotoID = ?";
+        ProtectedDoSQL($sql, array($_GET["updatePlantImages"], $_GET["imageID"]));
     }
 
     //Delete PlantImage
@@ -163,10 +179,10 @@ if (isset($_SESSION['logged_in']))
         $sql = "DELETE FROM plantfoto WHERE FotoID=?";
         ProtectedDoSQL($sql, array($_GET["deletePlantImages"]));
     }
-    
-    if(isset($_GET["createNewDirectory"]))
+
+    if (isset($_GET["createNewDirectory"]))
     {
-        if(!mkdir($_GET["createNewDirectory"]))
+        if (!mkdir($_GET["createNewDirectory"]))
         {
             print("Could not create Directoy");
         }

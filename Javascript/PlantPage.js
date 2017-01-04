@@ -25,46 +25,17 @@ function doXMLHttp(GetArray)
 }
 
 /**
- * Creates the div for adding an image
- * @param {element} element
+ * 
+ * @param {type} element
  */
 function addPlantImage(element)
 {
-    var plantPositioner = createElement("div");
-    plantPositioner.id = "plantPositioner";
-    document.getElementById("maincontent").appendChild(plantPositioner);
-
-    var plantDiv = createElement("div");
-    plantDiv.id = "plantDiv";
-    plantPositioner.appendChild(plantDiv);
-
-    var buttonAddImage = createElement("button");
-    buttonAddImage.innerHTML = "Voeg toe";
-    buttonAddImage.id = "buttonAddPlant";
-    buttonAddImage.addEventListener("click", function ()
-    {
-        var imageList = "";
-        for (var i = 0; i < managerImageList.length; i++)
-        {
-            imageList += managerImageList[i] + "*";
-        }
-
-        doXMLHttp("addPlantImages=" + imageList + "&plantID=" + element.id);
-    });
-    plantDiv.appendChild(buttonAddImage);
-
-    var addButton = createElement("button");
-    addButton.innerHTML = "Voeg foto toe";
-    addButton.addEventListener("click", function ()
-    {
-        createManager("MultipleInput", plantDiv);
-    });
-    plantDiv.appendChild(addButton);
+    createManager("PlantPageMultipleInput", element);
 }
 
-function editPlantImage()
-{    
-    createManager("SingleInput");
+function editPlantImage(element)
+{
+    createManager("PlantPageSingleInput", element);
 }
 
 /**
@@ -94,6 +65,7 @@ function deleteEditing()
 function loadEditing()
 {
     var parent = $('#ImageFrame').parent();
+    var imageFrameElement = getElementById("ImageFrame");
 
     if ($(parent).hasClass("2"))
     {
@@ -120,7 +92,7 @@ function loadEditing()
     $(changeButton).addClass("fa-pencil-square-o");
     changeButton.addEventListener("click", function ()
     {
-        editPlantImage();
+        editPlantImage(imageFrameElement);
     });
     $(parent).append(changeButton);
 }
@@ -128,6 +100,7 @@ function loadEditing()
 function firstLoad()
 {
     var parent = $('#ImageFrame').parent();
+    var imageFrameElement = getElementById("ImageFrame");
 
     var changeButton = createElement("div");
     changeButton.id = "plantChangeButton";
@@ -138,7 +111,7 @@ function firstLoad()
     $(changeButton).addClass("fa-pencil-square-o");
     changeButton.addEventListener("click", function ()
     {
-        editPlantImage();
+        editPlantImage(imageFrameElement);
     });
     $(parent).append(changeButton);
 }
