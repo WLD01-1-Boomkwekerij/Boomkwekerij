@@ -581,9 +581,9 @@ function createManagerBase()
     topInfo.appendChild(positionSetter);
 
     //Displays the current selected Path
-    var pathSelectedBar = createElement("div");
-    pathSelectedBar.id = "pathSelectedBar";
-    positionSetter.appendChild(pathSelectedBar);
+    //var pathSelectedBar = createElement("div");
+    //pathSelectedBar.id = "pathSelectedBar";
+    //positionSetter.appendChild(pathSelectedBar);
 
     //The div where all the folders and files are displayed
     var filesDiv = createElement("div");

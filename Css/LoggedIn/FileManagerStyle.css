@@ -377,12 +377,16 @@
 
 #singleInputImageFile
 {
-
+    visibility: hidden;
 }
 
 #singleInputSelect
 {
-
+    position: absolute;
+    border : none;
+    bottom : 5px;
+    right : 10px;
+    cursor: pointer;
 }
 
 #uploadForm
