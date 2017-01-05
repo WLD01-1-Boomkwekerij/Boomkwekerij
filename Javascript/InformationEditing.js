@@ -165,6 +165,64 @@ function restoreSelectorPoint()
     }
 }
 
+function moveImageHorizontal(amount)
+{
+    if (currentSelectedImage.style.cssFloat === "right")
+    {
+        amount *= -1;
+    }
+
+
+
+    var marginRight = parseInt(currentSelectedImage.style.marginRight, 10) + amount;
+    var marginLeft = parseInt(currentSelectedImage.style.marginLeft, 10) + amount;
+
+
+    var parentNodeThing = currentSelectedImage.parentNode.parentNode.parentNode;
+    var topEditor = window.getComputedStyle(parentNodeThing);
+
+
+    //Flipping image side
+    if (marginLeft > (parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2)
+    {
+        currentSelectedImage.style.marginLeft = "0px";
+        currentSelectedImage.style.cssFloat = "right";
+        currentSelectedImage.style.marginRight = ((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2 - (amount * 2)).toString() + "px";
+    }
+    
+    console.log(parseInt(topEditor.width));
+    console.log(parseInt(currentSelectedImage.style.width));
+    console.log((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2);
+
+    if (marginRight > (parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2)
+    {
+        currentSelectedImage.style.marginRight = "0px";
+        currentSelectedImage.style.cssFloat = "left";
+        currentSelectedImage.style.marginLeft = ((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2 - (amount * 2)).toString() + "px";
+    }
+
+
+
+    //Moving Image
+    if (currentSelectedImage.style.cssFloat === "left")
+    {
+
+        if (marginLeft >= 0 && marginLeft <= parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width) / 2)
+        {
+            currentSelectedImage.style.marginLeft = (parseInt(currentSelectedImage.style.marginLeft) + amount).toString() + "px";
+
+        }
+    }
+    else
+    {
+        if (marginRight >= 0 && marginRight <= parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width))
+        {
+            var newAmount = (parseInt(currentSelectedImage.style.marginRight) + amount) + "px";
+            currentSelectedImage.style.marginRight = newAmount;
+        }
+    }
+}
+
 function createImageButton(type)
 {
     var button = createElement("button");
@@ -233,6 +291,8 @@ function createImageButton(type)
             $(button).addClass("fa-arrow-left");
             button.addEventListener("click", function ()
             {
+                //WIP
+                //moveImageHorizontal(-10);
             });
             break;
         case "arrowUp":
@@ -265,7 +325,8 @@ function createImageButton(type)
             $(button).addClass("fa-arrow-right");
             button.addEventListener("click", function ()
             {
-
+                //WIP
+               // moveImageHorizontal(10);
             });
             break;
     }
@@ -297,7 +358,7 @@ function editImage(element)
                     "justifyRight",
                     "justifyNone",
                     "minus", "plus",
-                    "arrowLeft", "arrowUp", "arrowDown", "arrowRight"
+                    "arrowUp", "arrowDown",
                 ];
 
         for (var i = 0; i < buttonArray.length; i++)

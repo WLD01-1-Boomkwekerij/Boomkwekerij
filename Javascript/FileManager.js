@@ -522,7 +522,8 @@ function createImageByName(name)
                     "width: 50%;" +
                     "float: right;" +
                     "clear: right;" +
-                    "top: 0;" +
+                    "margin-right: 0;" +
+                    "margin-left: 0;" +
                     "'></div>";
             document.execCommand("insertHTML", false, img);
             destroyManager();
