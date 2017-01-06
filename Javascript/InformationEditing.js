@@ -165,62 +165,76 @@ function restoreSelectorPoint()
     }
 }
 
+function moveImageVertical(amount)
+{
+    var styling = $(currentSelectedImage).parent().children()[0];
+    var stylingHtml = styling.innerHTML;
+
+    var height = stylingHtml.substring(stylingHtml.lastIndexOf("height:") + 7, stylingHtml.lastIndexOf(";"));
+    var newHeight = parseInt(height, 10) + amount + "px";
+    stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
+    styling.innerHTML = stylingHtml;
+}
+
 function moveImageHorizontal(amount)
 {
-    if (currentSelectedImage.style.cssFloat === "right")
-    {
-        amount *= -1;
-    }
-
-
-
-    var marginRight = parseInt(currentSelectedImage.style.marginRight, 10) + amount;
-    var marginLeft = parseInt(currentSelectedImage.style.marginLeft, 10) + amount;
-
-
+    var currentFloat = currentSelectedImage.style.cssFloat;
+    var currentMarginLeft = parseInt(currentSelectedImage.style.marginLeft, 10);
+    var currentMarginRight = parseInt(currentSelectedImage.style.marginRight, 10);
     var parentNodeThing = currentSelectedImage.parentNode.parentNode.parentNode;
-    var topEditor = window.getComputedStyle(parentNodeThing);
+
+    var EditorDivStyle = window.getComputedStyle(parentNodeThing);
+    var editorWidth = EditorDivStyle.width;
 
 
-    //Flipping image side
-    if (marginLeft > (parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2)
+    if (currentMarginRight + amount > editorWidth / 2)
     {
-        currentSelectedImage.style.marginLeft = "0px";
-        currentSelectedImage.style.cssFloat = "right";
-        currentSelectedImage.style.marginRight = ((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2 - (amount * 2)).toString() + "px";
-    }
-    
-    console.log(parseInt(topEditor.width));
-    console.log(parseInt(currentSelectedImage.style.width));
-    console.log((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2);
-
-    if (marginRight > (parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2)
-    {
-        currentSelectedImage.style.marginRight = "0px";
-        currentSelectedImage.style.cssFloat = "left";
-        currentSelectedImage.style.marginLeft = ((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2 - (amount * 2)).toString() + "px";
+        currentSelectedImage.style.marginLeft = (editorWidth - (currentMarginRight + amount)) + "px";
+        currentSelectedImage.style.marginRight = "0";
     }
 
-
-
-    //Moving Image
-    if (currentSelectedImage.style.cssFloat === "left")
-    {
-
-        if (marginLeft >= 0 && marginLeft <= parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width) / 2)
-        {
-            currentSelectedImage.style.marginLeft = (parseInt(currentSelectedImage.style.marginLeft) + amount).toString() + "px";
-
-        }
-    }
-    else
-    {
-        if (marginRight >= 0 && marginRight <= parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width))
-        {
-            var newAmount = (parseInt(currentSelectedImage.style.marginRight) + amount) + "px";
-            currentSelectedImage.style.marginRight = newAmount;
-        }
-    }
+    /*
+     
+     //Flipping image side
+     if (marginLeft > (parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2)
+     {
+     currentSelectedImage.style.marginLeft = "0px";
+     currentSelectedImage.style.cssFloat = "right";
+     currentSelectedImage.style.marginRight = ((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2 - (amount * 2)).toString() + "px";
+     }
+     
+     console.log(parseInt(topEditor.width));
+     console.log(parseInt(currentSelectedImage.style.width));
+     console.log((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2);
+     
+     if (marginRight > (parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2)
+     {
+     currentSelectedImage.style.marginRight = "0px";
+     currentSelectedImage.style.cssFloat = "left";
+     currentSelectedImage.style.marginLeft = ((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2 - (amount * 2)).toString() + "px";
+     }
+     
+     
+     
+     //Moving Image
+     if (currentSelectedImage.style.cssFloat === "left")
+     {
+     
+     if (marginLeft >= 0 && marginLeft <= parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width) / 2)
+     {
+     currentSelectedImage.style.marginLeft = (parseInt(currentSelectedImage.style.marginLeft) + amount).toString() + "px";
+     
+     }
+     }
+     else
+     {
+     if (marginRight >= 0 && marginRight <= parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width))
+     {
+     var newAmount = (parseInt(currentSelectedImage.style.marginRight) + amount) + "px";
+     currentSelectedImage.style.marginRight = newAmount;
+     }
+     }
+     */
 }
 
 function createImageButton(type)
@@ -291,46 +305,41 @@ function createImageButton(type)
             $(button).addClass("fa-arrow-left");
             button.addEventListener("click", function ()
             {
-                //WIP
-                //moveImageHorizontal(-10);
+                moveImageHorizontal(-10);
             });
             break;
         case "arrowUp":
             $(button).addClass("fa-arrow-up");
             button.addEventListener("click", function ()
             {
-                var styling = $(currentSelectedImage).parent().children()[0];
-                var stylingHtml = styling.innerHTML;
-
-                var height = stylingHtml.substring(stylingHtml.lastIndexOf("height:") + 7, stylingHtml.lastIndexOf(";"));
-                var newHeight = parseInt(height, 10) - 10 + "px";
-                stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
-                styling.innerHTML = stylingHtml;
+                moveImageVertical(-10);
             });
             break;
         case "arrowDown":
             $(button).addClass("fa-arrow-down");
             button.addEventListener("click", function ()
             {
-                var styling = $(currentSelectedImage).parent().children()[0];
-                var stylingHtml = styling.innerHTML;
-
-                var height = stylingHtml.substring(stylingHtml.lastIndexOf("height:") + 7, stylingHtml.lastIndexOf(";"));
-                var newHeight = parseInt(height, 10) + 10 + "px";
-                stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
-                styling.innerHTML = stylingHtml;
+                moveImageVertical(10);
             });
             break;
         case "arrowRight":
             $(button).addClass("fa-arrow-right");
             button.addEventListener("click", function ()
             {
-                //WIP
-               // moveImageHorizontal(10);
+                moveImageHorizontal(10);
             });
             break;
     }
     return button;
+}
+
+function removeImageBorder()
+{
+    if ($(currentSelectedImage).hasClass("selectedImage"))
+    {
+        $(currentSelectedImage).removeClass("selectedImage");
+    }
+    currentSelectedImage = null;
 }
 
 /**
@@ -358,7 +367,7 @@ function editImage(element)
                     "justifyRight",
                     "justifyNone",
                     "minus", "plus",
-                    "arrowUp", "arrowDown",
+                    "arrowLeft", "arrowUp", "arrowDown", "arrowRight"
                 ];
 
         for (var i = 0; i < buttonArray.length; i++)
@@ -370,8 +379,11 @@ function editImage(element)
 
 function destroyImageEditing()
 {
-    var editDiv = getElementById("imageEditDiv");
-    editDiv.parentNode.removeChild(editDiv);
+    if (getElementById("imageEditDiv"))
+    {
+        var editDiv = getElementById("imageEditDiv");
+        editDiv.parentNode.removeChild(editDiv);
+    }
     isImageEditorOpen = false;
 }
 
@@ -577,6 +589,7 @@ function setContentEditable(element, isNew, isNews)
         saveButton.innerHTML = "Save";
         saveButton.addEventListener("click", function ()
         {
+            removeImageBorder();
             if (isNew)
             {
                 if (isNews)
@@ -703,7 +716,7 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Space
-    if (map[32] && element.className === "ContentEditableOpen")
+    if (map[32] && $(element).hasClass("ContentEditableOpen"))
     {
         e.preventDefault();
         markupText("insertHTML", "&#8197;");
@@ -711,10 +724,11 @@ document.onkeydown = document.onkeyup = function (e)
     }
 
     //Enter
-    if (map[13] && element.className === "")
+    if (map[13] && $(element).hasClass("ContentEditableOpen"))
     {
         e.preventDefault();
-
+       document.execCommand('insertHTML', false, '<br><br>');
+       return false;
     }
 
     if ($(element).hasClass("newsTop"))
@@ -741,8 +755,7 @@ document.onclick = function (e)
     {
         if (!$(element).hasClass("selectedImage") && !$(element).hasClass("ImageEditor"))
         {
-            $(currentSelectedImage).removeClass("selectedImage");
-            currentSelectedImage = null;
+            removeImageBorder();
             destroyImageEditing();
         }
     }

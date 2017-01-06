@@ -45,7 +45,7 @@ if (isset($_SESSION['logged_in']))
         }
     }
 
-    //Adds a plant to the 
+    //Adds a plant to the database
     if (isset($_GET['name']))
     {
         $Naam = $_GET['name'];
