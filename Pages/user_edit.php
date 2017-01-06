@@ -16,6 +16,7 @@
     </head>
     <body>
         <section id="wrapper">
+            <section id='titlediv' class="notranslate"><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
             <section id="top">
                 <section id="header"></section>
                 <?php

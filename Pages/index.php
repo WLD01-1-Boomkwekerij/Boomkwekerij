@@ -16,7 +16,7 @@
     </head>
     <body>
         <section id="wrapper">
-            <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
+            <section id='titlediv' class="notranslate"><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
             <section id="top">
                 <section id="header"></section>
                 <?php
@@ -30,7 +30,7 @@
                     ?>
                 </section>
                 <section id="maincontent">
-                    <h1>Boomkwekerij - Familie P. Boer</h1>
+                    <h1 class="notranslate">Boomkwekerij - Familie P. Boer</h1>
                     <?php
                     //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
                     print("<div class='clearFix WidthFix' id='tekstDIV' style='position: relative'>");
