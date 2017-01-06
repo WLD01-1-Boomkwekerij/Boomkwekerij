@@ -89,7 +89,7 @@ include'/../Php/Database.php';
 
                     if (!isset($_GET['category']))
                     {
-                        //Make a pages with all the plants
+                        //Make a pages with all of the plants
                         $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category", array());
                         $categoryRegel = $sqlCategory->fetch();
                         $categoryNaam = $categoryRegel["CategoryNaam"];
