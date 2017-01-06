@@ -30,7 +30,7 @@
                     if (isset($_POST["submit"])) {
                         include '../Php/POST.php';
                         print ($submit);
-                        // wordt gekeken of er al een poging is gedaan om een account te bewerken, als dat zo is worden deze ook weergegeven
+                        // Wordt gekeken of er al een poging is gedaan om een account te bewerken, als dat zo is worden deze ook weergegeven
                         if (($submit == 'Opslaan' && count($errors) > 0 ) || $submit == 'Bewerk') {
                             print_r(implode($errors, '<br>'));
                             ?>
@@ -83,6 +83,7 @@
                                             <td>Rechten</td>
                                             <td> 
                                                 <?php
+                                                // De onderstaande code zorgt ervoor dat de rol van de gebruiker gewijzigd kan worden
                                                 if ($data['Rol'] == '1') {
                                                     ?>          
                                                     <select name="rol" tabindex="6">
@@ -121,11 +122,13 @@
                                 </form>
                                 <?php
                             }
+                            // Print een bevestiging voor de opgedane wijzigingen
                         } elseif ($submit == 'Opslaan' && count($errors) == 0) {
                             print('Wilt u de volgende gebruiker bewerken?<br>'
                                     . 'Naam: ' . $gebr_naam . '<br>'
                                     . 'Email: ' . $gebr_mail . '<br>'
                                     . 'Krijgt mail: ');
+                            // De onderstaande code zorgt ervoor dat de optie voor email gewijzigd kan worden
                             if ($krijgt_mail == 0) {
                                 print('nee <br>');
                             } else {
@@ -133,6 +136,7 @@
                             }
                             print('Type gebruiker: ' . $rol . '<br>');
                             ?>
+                            <!-- Genereert een forum voor het bewerken van de gebruiker -->
                             <form action="../Php/user_update_delete.php" method="post">
                                 <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
                                 <input type="submit" name="submit" value="Bewerken"/>
@@ -140,7 +144,8 @@
                             <form action="../Pages/logged_in.php" method="post">
                                 <input type="submit" name="cancel" value="Annuleren"/>
                             </form>
-                            <?php
+                            <?php.
+                            // Bevestigen voor het verwijderen avn een gebruiker
                         } elseif ($submit == 'Verwijderen') {
                             print('Weet u zeker dat u ' . $gebr_naam . ' wilt verwijderen? <br>');
                             ?>
