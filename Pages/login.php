@@ -23,6 +23,7 @@
                         <?php
                         include_once '../Php/Database.php';
                         date_default_timezone_set('Europe/Amsterdam');
+                        // Controleren of er ingelogd is met IP adres
 
                         $query = 'SELECT `Attempts` FROM `LoginAttempts` WHERE IP = ?';
                         $variable = array($_SERVER['REMOTE_ADDR']);
@@ -33,6 +34,8 @@
 
                         $tijd = time();
                         $tijdverschil = $tijd - $timestamp;
+                        
+                        // als er een tijdelijke blokkade is wordt er weergegeven hoeveel seconden er gewacht moet worden tot er weer ingelogd kan worden
 
                         if ($tijdverschil >= 2 && isset($timestamp) && $pogingen >= 7) {
                             $wachttijd = 300 - $tijdverschil;

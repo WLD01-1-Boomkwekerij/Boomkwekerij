@@ -15,7 +15,7 @@
         include_once '../Php/Database.php';
         $data = unserialize($_POST['input_name']);
         $Wachtwoord = hash('sha256', $data['Wachtwoord1']);
-        if ($data['rol'] == 'beheerder') {
+        if ($data['rol'] == 'beheerder') {  // rol variabele weer omzetten in getal
             $data['rol'] = 1;
         } elseif ($data['rol'] == 'medewerker') {
             $data['rol'] = 2;

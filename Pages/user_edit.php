@@ -29,6 +29,7 @@
                     if (isset($_POST["submit"])) {
                         include '../Php/POST.php';
                         print ($submit);
+                        // wordt gekeken of er al een poging is gedaan om een account te bewerken, als dat zo is worden deze ook weergegeven
                         if (($submit == 'Opslaan' && count($errors) > 0 ) || $submit == 'Bewerk') {
                             print_r(implode($errors, '<br>'));
                             ?>
