@@ -508,7 +508,7 @@ function createImageByName(name)
                 maxNumber = parseInt($(imagesArray)[imagesArray.length - 1].id) + 1;
 
             }
-            
+
             var img = "<div class='editableImage" + maxNumber + "' id='" + maxNumber + "'> " +
                     "<style>" +
                     ".editableImage" + maxNumber + ":before { " +
@@ -557,7 +557,7 @@ function createImageByName(name)
              imageImage.style.marginLeft = "0";
              imageDiv.appendChild(imageImage);
              */
-            
+
             document.execCommand("insertHTML", false, img);
             destroyManager();
             loadImagesFromDatabase();
@@ -1003,33 +1003,8 @@ function CreateImageContextMenu(ev)
     $(contextDiv).addClass("contextMenu");
     contextDiv.style.position = "absolute";
     contextDiv.style.left = ev.clientX + "px";
-    contextDiv.style.top = ev.clientY + "px";
+    contextDiv.style.top = ev.clientY + 50 + "px";
     document.body.appendChild(contextDiv);
-
-    if ($(ev.target).hasClass("fileManagerFile") ||
-            $(ev.target).hasClass("fileManagerFolder"))
-    {
-        var deleteButton = createElement("div");
-        deleteButton.id = "ContextDeleteButton";
-        $(deleteButton).addClass("contextMenu");
-        deleteButton.innerHTML = "Verwijder";
-        deleteButton.addEventListener("click", function ()
-        {
-            if ($(ev.target).hasClass("fileManagerFile"))
-            {
-                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] +
-                        "&deleteImageByName=" + ev.target.id +
-                        "&type=file");
-            }
-            else
-            {
-                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] + "/" + ev.target.id +
-                        "&deleteImageByName=" + ev.target.id +
-                        "&type=folder");
-            }
-        });
-        contextDiv.appendChild(deleteButton);
-    }
 
     var createFolder = createElement("div");
     createFolder.id = "ContextCreateButton";
@@ -1086,6 +1061,31 @@ function CreateImageContextMenu(ev)
         createFolderDiv.appendChild(folderSelectButton);
     });
     contextDiv.appendChild(createFolder);
+    
+    if ($(ev.target).hasClass("fileManagerFile") ||
+            $(ev.target).hasClass("fileManagerFolder"))
+    {
+        var deleteButton = createElement("div");
+        deleteButton.id = "ContextDeleteButton";
+        $(deleteButton).addClass("contextMenu");
+        deleteButton.innerHTML = "Verwijder";
+        deleteButton.addEventListener("click", function ()
+        {
+            if ($(ev.target).hasClass("fileManagerFile"))
+            {
+                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] +
+                        "&deleteImageByName=" + ev.target.id +
+                        "&type=file");
+            }
+            else
+            {
+                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] + "/" + ev.target.id +
+                        "&deleteImageByName=" + ev.target.id +
+                        "&type=folder");
+            }
+        });
+        contextDiv.appendChild(deleteButton);
+    }
 }
 
 function DeleteImageContextMenu()
