@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 $query = 'DELETE FROM `loginattempts` WHERE IP=?';
                 $variable = array($_SERVER['REMOTE_ADDR']);
                 ProtectedDoSQL($query, $variable);
-                // Doorsturen en melding geven 
+                // Doorsturen en melding weergeven 
                 if ($_SESSION['toegang'] == 1)
                 {
                     header('Refresh: 0; url=../Pages/logged_in.php');

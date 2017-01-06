@@ -32,7 +32,7 @@
                 <section id="maincontent">
                     <h1 class="notranslate">Boomkwekerij - Familie P. Boer</h1>
                     <?php
-                    //Gebruik dit commando met de TextID van de tekst om hem altijd te laten werken
+                    // Controleert of de gebruiker is ingelogd. Mocht dit het geval zijn, dan is het edditingsysteem toegankgelijk
                     print("<div class='clearFix WidthFix' id='tekstDIV' style='position: relative'>");
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
                     {
