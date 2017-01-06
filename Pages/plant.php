@@ -65,6 +65,7 @@
             <section id="mid">
                 <section id="rightmenu">
                     <?php
+                    //set the variable plant
                     if (isset($_GET["plant"]))
                     {
                         $plant = $_GET["plant"];
@@ -73,6 +74,7 @@
                     {
                         $plant = 3;
                     }
+                    //this updates the plant if the form has been filed in.
                     if (isset($_GET["PlantBewerken"]))
                     {
                         if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
@@ -84,6 +86,7 @@
                             ProtectedDoSQL("UPDATE plant SET hoogte_min = ?, hoogte_max = ?, bloeitijd = ?, bloeiwijze = ? WHERE PlantID = ? ", array($Hoogtemin, $Hoogtemax, $Bloeitijd, $Bloeiwijze, $plant));
                         }
                     }
+                    //select the info off the plant
                     $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)", array($plant));
                     $row = $sqlPrijs->fetch();
                     $prijsID = html_entity_decode($row["PrijsID"], ENT_QUOTES);
@@ -105,7 +108,7 @@
                     }
                     $bloeitijd = html_entity_decode($plantRegel['Bloeitijd'], ENT_QUOTES);
                     $bloeiwijze = html_entity_decode($plantRegel['Bloeiwijze'], ENT_QUOTES);
-
+                    //prints the right menu
                     echo "<div class='item'>
                         <h6>Informatie</h6>
                             <table>
@@ -163,6 +166,7 @@
                     {
                         $plant = 3;
                     }
+                    //creates a second menu were you can change atributes of a plant
                     $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)", array($plant));
                     $row = $sqlPrijs->fetch();
                     $prijsID = html_entity_decode($row["PrijsID"], ENT_QUOTES);
@@ -223,6 +227,7 @@
                     </div>
                     <section id="PhotoFrame">
                         <?php
+                        //selects the first picture. It will be placed in the middle
                         $ImageFrameImage = ProtectedGetSQLArray("SELECT * FROM plantfoto WHERE PlantID = ? AND TypeFoto = 1", 
                                 array($plant));
                         $ImageFrameFetch = $ImageFrameImage->fetch();
@@ -234,6 +239,7 @@
                         ?>
                         <div id="Positioner">
                             <?php
+                            //This creates a bar off pictures in the bottom.
                             $Fotoos = ProtectedGetSQLArray("SELECT * FROM plantfoto  WHERE PlantID = ?", array($plant));
                             while ($row = $Fotoos->fetch())
                             {
