@@ -20,11 +20,11 @@ include'/../Php/Database.php';
     </head>
     <body>
         <?php
-        //category is set
+        //Zet een categorie
         if (isset($_GET["category"]))
         {
             $cat = $_GET["category"];
-            //Set category in a div for javascript.
+            //Zet een categorie in een DIV-tag (Javascript)
             echo "<div style='display:none;' id='category'>$cat</div>";
         }
         ?>
@@ -39,7 +39,7 @@ include'/../Php/Database.php';
             </section>
             <section id="mid">
                 <?php
-                //adds a javascript function. It adds an plant adding screen.
+                //Het toevoegen van een javascript functie. Het toevoegmenu word weergeven, mits de rol overeenkomst met de rechten
                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
                 {
                     if (isset($_GET["category"]))
@@ -51,7 +51,7 @@ include'/../Php/Database.php';
                 
                 <section id="rightmenu">
                     <div id="google_translate_element">
-                        <!--Adds google translate unit -->
+                        <!-- Google vertaler -->
                         <script type="text/javascript">
                             function googleTranslateElementInit()
                             {
@@ -65,7 +65,7 @@ include'/../Php/Database.php';
 
                     <ul id="catalogus">
                         <?php
-                        //Creates the sidevar category options
+                        //Creëert categorie optie
                         $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category", array());
 
                         while ($row = $sqlCategory->fetch())
@@ -82,6 +82,7 @@ include'/../Php/Database.php';
                 <section id="maincontent">
 
                     <?php
+                    // Plant verwijderen, plantID ophalen en controleren voordat het word verwijderd
                     if (isset($_GET["plantID"]))
                     {
                         deletePlant($_GET["plantID"]);
@@ -89,14 +90,14 @@ include'/../Php/Database.php';
 
                     if (!isset($_GET['category']))
                     {
-                        //Make a pages with all of the plants
+                        //Pagina met alle planten
                         $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category", array());
                         $categoryRegel = $sqlCategory->fetch();
                         $categoryNaam = $categoryRegel["CategoryNaam"];
                         echo "<h1 id='catalogustitle2'>$categoryNaam</h1>";
 
                         $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs", array());
-                        //Do this for each prijsregel
+                        //Dit word voor elke prijsregel uitgevoerd
                         while ($row = $sqlPrijs->fetch())
                         {
                             $prijsID = $row["PrijsID"];
@@ -107,7 +108,7 @@ include'/../Php/Database.php';
                                  ON plant.PlantID=pf.PlantID
                                  WHERE plant.PrijsID = ? AND pf.TypeFoto = 1", array($prijsID)
                             );
-                            //Get from the prijsregel all of the plants
+                            //Alle planten van een prijsregel opvragen van de database
                             while ($plant = $sqlPlant->fetch())
                             {
                                 $plantId = $plant['PlantID'];
@@ -117,7 +118,7 @@ include'/../Php/Database.php';
                                 $hidden = "hidden";
                                 $position = "absolute";
 
-                                //print a plant with the atributes
+                                //Plant weergeven met de daarbijhorende attributen
                                 print("<div class='item2' id='plantID$plantId'>
                                     <form method='get'>
                                     <div>
@@ -128,7 +129,7 @@ include'/../Php/Database.php';
                                     <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
                                     <a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
                                     </div>");
-                                //If the user has permission then a delete button is added.
+                                //Als de gebruiker de rechten heeft om te verwijderen, word er een 'delete knop' weergeven
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
                                 {
                                     print("<input type='submit' name='btnvinkje' id='btnvinkje' class= 'btnpricelist-red' style='font-size:12px' value='&#x2612;'>");
