@@ -43,8 +43,9 @@
                         <br> 
 
                         <br>
+                       <!-- Displays a captcha in an image -->
                         <img id='captcha' src="../Php/captha.php" />
-
+                        <!-- Inputfield for filling in the correct captcha -->
                         <input name="captcha" required id='captchatekst' placeholder="Voer de 4 getallen in" type="text">
                         <br><br>
                         <input type="submit" I name="submit" style="border-radius:8px;margin-bottom:5px;" class="button-green" value="Aanvraag indienen" /> 
