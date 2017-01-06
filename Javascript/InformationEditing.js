@@ -165,6 +165,64 @@ function restoreSelectorPoint()
     }
 }
 
+function moveImageHorizontal(amount)
+{
+    if (currentSelectedImage.style.cssFloat === "right")
+    {
+        amount *= -1;
+    }
+
+
+
+    var marginRight = parseInt(currentSelectedImage.style.marginRight, 10) + amount;
+    var marginLeft = parseInt(currentSelectedImage.style.marginLeft, 10) + amount;
+
+
+    var parentNodeThing = currentSelectedImage.parentNode.parentNode.parentNode;
+    var topEditor = window.getComputedStyle(parentNodeThing);
+
+
+    //Flipping image side
+    if (marginLeft > (parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2)
+    {
+        currentSelectedImage.style.marginLeft = "0px";
+        currentSelectedImage.style.cssFloat = "right";
+        currentSelectedImage.style.marginRight = ((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2 - (amount * 2)).toString() + "px";
+    }
+    
+    console.log(parseInt(topEditor.width));
+    console.log(parseInt(currentSelectedImage.style.width));
+    console.log((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2);
+
+    if (marginRight > (parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2)
+    {
+        currentSelectedImage.style.marginRight = "0px";
+        currentSelectedImage.style.cssFloat = "left";
+        currentSelectedImage.style.marginLeft = ((parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width)) / 2 - (amount * 2)).toString() + "px";
+    }
+
+
+
+    //Moving Image
+    if (currentSelectedImage.style.cssFloat === "left")
+    {
+
+        if (marginLeft >= 0 && marginLeft <= parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width) / 2)
+        {
+            currentSelectedImage.style.marginLeft = (parseInt(currentSelectedImage.style.marginLeft) + amount).toString() + "px";
+
+        }
+    }
+    else
+    {
+        if (marginRight >= 0 && marginRight <= parseInt(topEditor.width) - parseInt(currentSelectedImage.style.width))
+        {
+            var newAmount = (parseInt(currentSelectedImage.style.marginRight) + amount) + "px";
+            currentSelectedImage.style.marginRight = newAmount;
+        }
+    }
+}
+
 function createImageButton(type)
 {
     var button = createElement("button");
@@ -229,6 +287,48 @@ function createImageButton(type)
                 }
             });
             break;
+        case "arrowLeft":
+            $(button).addClass("fa-arrow-left");
+            button.addEventListener("click", function ()
+            {
+                //WIP
+                //moveImageHorizontal(-10);
+            });
+            break;
+        case "arrowUp":
+            $(button).addClass("fa-arrow-up");
+            button.addEventListener("click", function ()
+            {
+                var styling = $(currentSelectedImage).parent().children()[0];
+                var stylingHtml = styling.innerHTML;
+
+                var height = stylingHtml.substring(stylingHtml.lastIndexOf("height:") + 7, stylingHtml.lastIndexOf(";"));
+                var newHeight = parseInt(height, 10) - 10 + "px";
+                stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
+                styling.innerHTML = stylingHtml;
+            });
+            break;
+        case "arrowDown":
+            $(button).addClass("fa-arrow-down");
+            button.addEventListener("click", function ()
+            {
+                var styling = $(currentSelectedImage).parent().children()[0];
+                var stylingHtml = styling.innerHTML;
+
+                var height = stylingHtml.substring(stylingHtml.lastIndexOf("height:") + 7, stylingHtml.lastIndexOf(";"));
+                var newHeight = parseInt(height, 10) + 10 + "px";
+                stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
+                styling.innerHTML = stylingHtml;
+            });
+            break;
+        case "arrowRight":
+            $(button).addClass("fa-arrow-right");
+            button.addEventListener("click", function ()
+            {
+                //WIP
+               // moveImageHorizontal(10);
+            });
+            break;
     }
     return button;
 }
@@ -257,7 +357,8 @@ function editImage(element)
                     "justifyCenter",
                     "justifyRight",
                     "justifyNone",
-                    "minus", "plus"
+                    "minus", "plus",
+                    "arrowUp", "arrowDown",
                 ];
 
         for (var i = 0; i < buttonArray.length; i++)
@@ -472,7 +573,7 @@ function setContentEditable(element, isNew, isNews)
         $(underDiv).insertAfter(parent);
 
         var saveButton = createElement("button");
-        $(saveButton).addClass("EditorBottomButton");
+        $(saveButton).addClass("EditorBottomSaveButton");
         saveButton.innerHTML = "Save";
         saveButton.addEventListener("click", function ()
         {
@@ -480,15 +581,27 @@ function setContentEditable(element, isNew, isNews)
             {
                 if (isNews)
                 {
-                    insertNewsTextToDatabase(1, element.innerHTML, elementTitle.innerHTML);
+                    var visibilityButton = getElementById("visibilityButton");
+                    var visibility = 1;
+                    if (!visibilityButton.checked)
+                    {
+                        visibility = 0;
+                    }
+                    insertNewsTextToDatabase(visibility, element.innerHTML, elementTitle.innerHTML);
                 }
             }
             else
             {
                 if (isNews)
                 {
+                    var visibilityButton = getElementById("visibilityButton");
+                    var visibility = 1;
+                    if (!visibilityButton.checked)
+                    {
+                        visibility = 0;
+                    }
                     //newsID, visibility, text, title
-                    updateNewsTextToDatabase(parseInt($(parent).attr('id').replace("newsID", "")), 1, element.innerHTML, elementTitle.innerHTML);
+                    updateNewsTextToDatabase(parseInt($(parent).attr('id').replace("newsID", "")), visibility, element.innerHTML, elementTitle.innerHTML);
                 }
                 else
                 {
@@ -503,18 +616,13 @@ function setContentEditable(element, isNew, isNews)
 
         var cancelButton = createElement("button");
         cancelButton.innerHTML = "Cancel";
-        $(cancelButton).addClass("EditorBottomButton");
+        $(cancelButton).addClass("EditorBottomCancelButton");
         cancelButton.onclick = function ()
         {
             //Delete editor and buttons
             editorDiv.parentNode.removeChild(editorDiv);
-            saveButton.parentNode.removeChild(saveButton);
-            cancelButton.parentNode.removeChild(cancelButton);
 
-            if (isNews && !isNew)
-            {
-                deleteButton.parentNode.removeChild(deleteButton);
-            }
+            underDiv.parentNode.removeChild(underDiv);
 
             //Change the element
             element.contentEditable = false;
@@ -534,16 +642,37 @@ function setContentEditable(element, isNew, isNews)
         };
         underDiv.appendChild(cancelButton);
 
-        if (isNews && !isNew)
+        if (isNews)
         {
-            var deleteButton = createElement("button");
-            $(deleteButton).addClass("fa fa-trash-o");
-            $(deleteButton).addClass("EditorBottomButton");
-            deleteButton.addEventListener("click", function ()
+            if (!isNew)
             {
-                deleteNewsText(parseInt($(parent).attr('id').replace("newsID", "")));
-            });
-            underDiv.appendChild(deleteButton);
+                var deleteButton = createElement("button");
+                $(deleteButton).addClass("fa fa-trash-o");
+                $(deleteButton).addClass("EditorBottomDeleteButton");
+                deleteButton.addEventListener("click", function ()
+                {
+                    deleteNewsText(parseInt($(parent).attr('id').replace("newsID", "")));
+                });
+                underDiv.appendChild(deleteButton);
+            }
+
+            var visibilityText = createElement("p");
+            visibilityText.defaultChecked = true;
+            visibilityText.innerHTML = "Zichtbaar";
+            underDiv.appendChild(visibilityText);
+
+            var visibilityButton = createElement("input");
+            visibilityButton.type = "checkbox";
+            var visibility = true;
+            if (elementTitle.id === "0")
+            {
+                visibility = false;
+            }
+            visibilityButton.defaultChecked = visibility;
+            visibilityButton.id = "visibilityButton";
+            underDiv.appendChild(visibilityButton);
+
+
         }
         $(parent).append(element);
     }

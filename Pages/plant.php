@@ -22,6 +22,10 @@
         }
         ?>
         <script type="text/javascript">
+            window.onload = function()
+            {
+                firstLoad();
+            };
 
             function ChangeImage()
             {
@@ -82,25 +86,25 @@
                     }
                     $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)", array($plant));
                     $row = $sqlPrijs->fetch();
-                    $prijsID = $row["PrijsID"];
-                    $potmaat = $row["Potmaat"];
-                    $prijsKwekerij = $row["PrijsKwekerij"];
-                    $prijsVBA = $row["PrijsVBA"];
-                    $perCC = $row["ProductenCC"];
-                    $perLaag = $row["ProductenLaag"];
-                    $perTray = $row["ProductenTray"];
+                    $prijsID = html_entity_decode($row["PrijsID"], ENT_QUOTES);
+                    $potmaat = html_entity_decode($row["Potmaat"], ENT_QUOTES);
+                    $prijsKwekerij = html_entity_decode($row["PrijsKwekerij"], ENT_QUOTES);
+                    $prijsVBA = html_entity_decode($row["PrijsVBA"], ENT_QUOTES);
+                    $perCC = html_entity_decode($row["ProductenCC"], ENT_QUOTES);
+                    $perLaag = html_entity_decode($row["ProductenLaag"], ENT_QUOTES);
+                    $perTray = html_entity_decode($row["ProductenTray"], ENT_QUOTES);
                     $sqlPlant = ProtectedGetSQLArray("SELECT * FROM plant WHERE PlantID = ?", array($plant));
                     $plantRegel = $sqlPlant->fetch();
-                    $naam = $plantRegel['Naam'];
-                    $hoogte = $plantRegel['Hoogte_min'] . "/" . $plantRegel['Hoogte_max'];
-                    
-                    
+                    $naam = html_entity_decode($plantRegel['Naam'], ENT_QUOTES);
+                    $hoogte = html_entity_decode($plantRegel['Hoogte_min'], ENT_QUOTES) . "/" . html_entity_decode($plantRegel['Hoogte_max'], ENT_QUOTES);
+
+
                     if ($plantRegel['Hoogte_min'] == $plantRegel['Hoogte_max'])
                     {
-                        $hoogte = $plantRegel['Hoogte_min'];
+                        $hoogte = html_entity_decode($plantRegel['Hoogte_min'], ENT_QUOTES);
                     }
-                    $bloeitijd = $plantRegel['Bloeitijd'];
-                    $bloeiwijze = $plantRegel['Bloeiwijze'];
+                    $bloeitijd = html_entity_decode($plantRegel['Bloeitijd'], ENT_QUOTES);
+                    $bloeiwijze = html_entity_decode($plantRegel['Bloeiwijze'], ENT_QUOTES);
 
                     echo "<div class='item'>
                         <h6>Informatie</h6>
@@ -161,25 +165,25 @@
                     }
                     $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE PrijsID = (SELECT PrijsID FROM plant WHERE PlantID = ?)", array($plant));
                     $row = $sqlPrijs->fetch();
-                    $prijsID = $row["PrijsID"];
-                    $potmaat = $row["Potmaat"];
-                    $prijsKwekerij = $row["PrijsKwekerij"];
-                    $prijsVBA = $row["PrijsVBA"];
-                    $perCC = $row["ProductenCC"];
-                    $perLaag = $row["ProductenLaag"];
-                    $perTray = $row["ProductenTray"];
+                    $prijsID = html_entity_decode($row["PrijsID"], ENT_QUOTES);
+                    $potmaat = html_entity_decode($row["Potmaat"], ENT_QUOTES);
+                    $prijsKwekerij = html_entity_decode($row["PrijsKwekerij"], ENT_QUOTES);
+                    $prijsVBA = html_entity_decode($row["PrijsVBA"], ENT_QUOTES);
+                    $perCC = html_entity_decode($row["ProductenCC"], ENT_QUOTES);
+                    $perLaag = html_entity_decode($row["ProductenLaag"], ENT_QUOTES);
+                    $perTray = html_entity_decode($row["ProductenTray"], ENT_QUOTES);
                     $sqlPlant = ProtectedGetSQLArray("SELECT * FROM plant WHERE PlantID = ?", array($plant));
                     $plantRegel = $sqlPlant->fetch();
-                    $naam = $plantRegel['Naam'];
-                    $hoogte = $plantRegel['Hoogte_min'] . "/" . $plantRegel['Hoogte_max'];
-                    $hoogtemin = $plantRegel['Hoogte_min'];
-                    $hoogtemax = $plantRegel['Hoogte_max'];
-                    if ($plantRegel['Hoogte_min'] == $plantRegel['Hoogte_max'])
+                    $naam = html_entity_decode($plantRegel['Naam'], ENT_QUOTES);
+                    $hoogte = html_entity_decode($plantRegel['Hoogte_min'], ENT_QUOTES) . "/" . $plantRegel['Hoogte_max'];
+                    $hoogtemin = html_entity_decode($plantRegel['Hoogte_min'], ENT_QUOTES);
+                    $hoogtemax = html_entity_decode($plantRegel['Hoogte_max'], ENT_QUOTES);
+                    if ($hoogtemin == $hoogtemax)
                     {
-                        $hoogte = $plantRegel['Hoogte_min'];
+                        $hoogte = html_entity_decode($plantRegel['Hoogte_min'], ENT_QUOTES);
                     }
-                    $bloeitijd = $plantRegel['Bloeitijd'];
-                    $bloeiwijze = $plantRegel['Bloeiwijze'];
+                    $bloeitijd = html_entity_decode($plantRegel['Bloeitijd'], ENT_QUOTES);
+                    $bloeiwijze = html_entity_decode($plantRegel['Bloeiwijze'], ENT_QUOTES);
 
                     echo "<div class='item'>
                             <form action='Plant.php' method='get'>
@@ -219,12 +223,13 @@
                     </div>
                     <section id="PhotoFrame">
                         <?php
-                        $EersteFoto = ProtectedGetSQLArray("SELECT * FROM plantfoto WHERE PlantID = ? AND TypeFoto = 1", array($plant));
-                        $EersteFotoRegel = $EersteFoto->fetch();
-                        $EersteFotoUrl = $EersteFotoRegel["FotoUrl"];
-
+                        $ImageFrameImage = ProtectedGetSQLArray("SELECT * FROM plantfoto WHERE PlantID = ? AND TypeFoto = 1", 
+                                array($plant));
+                        $ImageFrameFetch = $ImageFrameImage->fetch();
+                        $ImageFrameId =  html_entity_decode($ImageFrameFetch["FotoID"], ENT_QUOTES);
+                        $ImageFrameUrl = html_entity_decode($ImageFrameFetch["FotoUrl"]);
                         print("<div id='ImageContainer' class=''>");
-                        print("<img id='ImageFrame' src='$EersteFotoUrl'>");
+                        print("<img id='ImageFrame' class='$ImageFrameId' src='$ImageFrameUrl'>");
                         print("</div>");
                         ?>
                         <div id="Positioner">
@@ -232,9 +237,9 @@
                             $Fotoos = ProtectedGetSQLArray("SELECT * FROM plantfoto  WHERE PlantID = ?", array($plant));
                             while ($row = $Fotoos->fetch())
                             {
-                                $url = $row["FotoUrl"];
-                                $type = $row["TypeFoto"];
-                                $fotoId = $row["FotoID"];
+                                $url = html_entity_decode($row["FotoUrl"]);
+                                $type = html_entity_decode($row["TypeFoto"], ENT_QUOTES);
+                                $fotoId = html_entity_decode($row["FotoID"], ENT_QUOTES);
                                 print("<div id='$fotoId' class='$type' style='display: inline-block'>");
                                 print("<img id='fotoos' onclick='ChangeImage()' class='UnderImage' src='$url'></div>");
                             }
@@ -243,7 +248,7 @@
                             {
                                 $plantID = $_GET['plant'];
                                 print("<img id='$plantID' class='icon-image-add' style='width: 50px; cursor: pointer' onclick='addPlantImage(this)'>");
-                            } 
+                            }
                             ?>
                         </div>
                     </section>

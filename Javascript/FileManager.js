@@ -25,7 +25,7 @@ var images = [];
 
 /**
  * Create an element
- * @param {type} element
+ * @param {element} element
  * @returns {Element}
  */
 function createElement(element)
@@ -35,7 +35,7 @@ function createElement(element)
 
 /**
  * Gets an element in the document by id
- * @param {type} id
+ * @param {string} id
  * @returns {Element}
  */
 function getElementById(id)
@@ -43,6 +43,10 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
+/**
+ * Sends an XML http request for image php commands
+ * @param {string} GetArray
+ */
 function doXMLHttpImages(GetArray)
 {
     var xmlhttp = new XMLHttpRequest();
@@ -66,7 +70,7 @@ function doXMLHttpImages(GetArray)
 
 /**
  * Cancel default event on items that are allowed to be dropped on
- * @param {type} ev
+ * @param {event} ev
  */
 function allowDrop(ev)
 {
@@ -75,7 +79,7 @@ function allowDrop(ev)
 
 /**
  * Sets the Icon data of the current dragged item
- * @param {type} ev
+ * @param {event} ev
  */
 function drag(ev)
 {
@@ -84,7 +88,7 @@ function drag(ev)
 
 /**
  * Updates the image url in the database
- * @param {type} ev
+ * @param {event} ev
  */
 function drop(ev)
 {
@@ -141,12 +145,19 @@ function loadImagesFromDatabase()
  */
 function setItemSelected(element, url, name)
 {
-    if ($(currentSelectedElement).hasClass("selectedItem"))
+    if (currentSelectedElement)
     {
-        $(currentSelectedElement).removeClass("selectedItem");
+        var selectedItem = $(currentSelectedElement).children()[0];
+
+        if ($(selectedItem).hasClass("selectedItem"))
+        {
+            $(selectedItem).removeClass("selectedItem");
+        }
     }
+
     currentSelectedElement = element;
-    $(currentSelectedElement).addClass("selectedItem");
+    var selectedItem = $(currentSelectedElement).children()[0];
+    $(selectedItem).addClass("selectedItem");
     currentSelectedPath = url + "/" + name;
 }
 
@@ -155,12 +166,37 @@ function setItemSelected(element, url, name)
  */
 function checkArrowColor()
 {
-    //TODO
+    var rightArrow = getElementById("RightArrow");
+    var leftArrow = getElementById("LeftArrow");
+
+    if (currentPathIndex + 1 < PathHistory.length)
+    {
+        $(rightArrow).removeClass("ArrowHistory");
+        $(rightArrow).addClass("ArrowHasHistory");
+    }
+    else
+    {
+        $(rightArrow).removeClass("ArrowHasHistory");
+        $(rightArrow).addClass("ArrowHistory");
+    }
+
+    if (currentPathIndex > 0)
+    {
+        $(leftArrow).removeClass("ArrowHistory");
+        $(leftArrow).addClass("ArrowHasHistory");
+    }
+    else
+    {
+        $(leftArrow).removeClass("ArrowHasHistory");
+        $(leftArrow).addClass("ArrowHistory");
+    }
 }
 
+/**
+ * Go back in history
+ */
 function goBackInPath()
 {
-    //Go back in history
     if (currentPathIndex > 0)
     {
         currentPathIndex--;
@@ -169,10 +205,12 @@ function goBackInPath()
     }
 }
 
+/**
+ * Go to the future
+ */
 function goForwardInPath()
 {
-    //Go to the future
-    if (currentPathIndex > 0)
+    if (currentPathIndex < PathHistory.length - 1)
     {
         currentPathIndex++;
         openFolder(PathHistory[currentPathIndex]);
@@ -268,40 +306,47 @@ function createFileIcon(url, name)
     var fileManager = getElementById("Files");
     var file = createElement("div");
     file.id = name;
-    file.className = "fileManagerFile";
+    $(file).addClass("fileManagerFile");
     file.draggable = true;
     file.ondragstart = function (event)
     {
         drag(event);
     };
     fileManager.appendChild(file);
+    $(file).attr('title', name);
+
+    var filebackground = createElement("div");
+    $(filebackground).addClass("fileBackground");
+    file.appendChild(filebackground);
 
     var fileIcon = createElement("img");
     fileIcon.src = url + "/" + name;
     file.appendChild(fileIcon);
 
+
     var fileName = createElement("p");
-    fileName.innerHTML = name;
+
+    var giveName = name;
+
+    var maxLength = 16;
+    if (name.length > maxLength)
+    {
+        name = name.substr(0, maxLength) + '...';
+        fileName.innerHTML = name;
+    }
+    else
+    {
+        fileName.innerHTML = name;
+    }
     file.appendChild(fileName);
 
     if (!isUploading)
     {
         file.addEventListener("click", function ()
         {
-            setItemSelected(this, url, name);
+            setItemSelected(this, url, giveName);
         });
     }
-}
-
-/**
- * Creates an empty icon for aligning purposes
- */
-function createEmtpyIcon()
-{
-    var fileManager = getElementById("Files");
-    var empty = createElement("div");
-    empty.className = "fileManagerEmpty";
-    fileManager.appendChild(empty);
 }
 
 /**
@@ -453,15 +498,37 @@ function createImageByName(name)
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            var img = "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable' src='' onclick='editImage(this)' style='" +
+            var maxNumber = 1;
+            
+            //Get all Images
+            if($(".ContentEditableOpen img").length)
+            {
+                var imagesArray = $(".ContentEditableOpen img").parent();
+                
+                maxNumber = parseInt($(imagesArray)[imagesArray.length -1].id) + 1;  
+                
+            }
+            
+            var img = "<div class='editableImage" + maxNumber +"' id='" + maxNumber + "'> " +
+                    "<style>" +
+                    ".editableImage"+ maxNumber + ":before { " +
+                    "content: '';" +
+                    "display:block; "+
+                    "float: right; "+
+                    "height: 0;} "+
+                    "</style>"
+                    +                    
+                    "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable editableImage' src='' onclick='editImage(this)' style='" +
                     "width: 50%;" +
                     "float: right;" +
                     "clear: right;" +
-                    "top: 0;" +
-                    "'>";
+                    "margin-right: 0;" +
+                    "margin-left: 0;" +
+                    "'></div>";
             document.execCommand("insertHTML", false, img);
             destroyManager();
             loadImagesFromDatabase();
+        
         }
     };
     xmlhttp.send();
@@ -514,9 +581,9 @@ function createManagerBase()
     topInfo.appendChild(positionSetter);
 
     //Displays the current selected Path
-    var pathSelectedBar = createElement("div");
-    pathSelectedBar.id = "pathSelectedBar";
-    positionSetter.appendChild(pathSelectedBar);
+    //var pathSelectedBar = createElement("div");
+    //pathSelectedBar.id = "pathSelectedBar";
+    //positionSetter.appendChild(pathSelectedBar);
 
     //The div where all the folders and files are displayed
     var filesDiv = createElement("div");
@@ -531,18 +598,175 @@ function createManagerBase()
     //Cancel button to close the fileManager without any action done
     var cancelButton = createElement("button");
     cancelButton.id = "cancelButton";
+    $(cancelButton).addClass("fileManagerButtons");
     cancelButton.innerHTML = "Cancel";
     cancelButton.onclick = function ()
     {
         destroyManager();
     };
     bottomInfo.appendChild(cancelButton);
+    openFolder(PathHistory[0]);
+}
+
+function fileUploadFormData(formData, uploadUrl)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "../Php/FileUpload.php");
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            if (xmlhttp.responseText !== "")
+            {
+                console.log(xmlhttp.responseText);
+            }
+            else
+            {
+
+            }
+        }
+    };
+    formData.append("UploadUrl", uploadUrl.value);
+
+    xmlhttp.send(formData);
+}
+
+function formDataAppendIndex(fileInput, fileUrl)
+{
+    var fileLength = fileInput.length;
+    var fileModulo = fileLength % 20;
+    var uploadAmount = (fileLength - fileModulo) / 20;
+    var formData = new FormData();
+
+    for (var i = 0; i < uploadAmount; i++)
+    {
+        i *= 10;
+
+        for (var x = 0; x < 20; x++)
+        {
+            formData.append("fileToUpload[]", fileInput.files[i + x]);
+        }
+
+        fileUploadFormData(formData, fileUrl);
+    }
+}
+
+function formDataAppendModulo(fileInput, fileUrl)
+{
+    var fileLength = fileInput.length;
+    var fileModulo = fileLength % 20;
+    var uploadAmount = (fileLength - fileModulo) / 20;
+    var formData = new FormData();
+
+    for (var j = (uploadAmount * 20); j < (uploadAmount * 20) + fileModulo; j++)
+    {
+        formData.append("fileToUpload[]", fileInput[j]);
+    }
+
+    fileUploadFormData(formData, fileUrl);
+}
+
+function formAppend(fileInput, fileUrl)
+{
+    var fileLength = fileInput.length;
+    var formData = new FormData();
+
+    for (var j = 0; j < fileLength; j++)
+    {
+        formData.append("fileToUpload[]", fileInput[j]);
+    }
+
+    fileUploadFormData(formData, fileUrl);
+}
+
+function sendFileBatch(fileArray, fileUrl)
+{
+
+    if (fileArray.length > 20)
+    {
+        formDataAppendIndex(fileArray, fileUrl);
+        formDataAppendModulo(fileArray, fileUrl);
+    }
+    else
+    {
+        formAppend(fileArray, fileUrl);
+    }
+}
+
+/**
+ * Validates the files and sends them
+ * @param {element} fileInput
+ * @param {element} fileUrl
+ */
+function validateFiles(fileInput, fileUrl)
+{
+    var fileArray = fileInput.files;
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../Php/FileUpload.php?getMaxFileAllowed=yes");
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {
+            var maxSize = xmlhttp.responseText.split("*");
+
+            var maxFileSize = parseInt(maxSize[0]);
+            var maxFileAmount = parseInt(maxSize[1]);
+
+            var currentBatchSize = 0;
+            var currentBatchFiles = [];
+
+            for (var i = 0; i < fileArray.length; i++)
+            {
+                if (fileArray[i].size > maxFileSize)
+                {
+                    console.log("File " + (i + 1) + " is to big");
+                }
+                else
+                {
+                    if (currentBatchFiles.length < maxFileAmount)
+                    {
+                        if (currentBatchSize + fileArray[i].size < maxFileSize)
+                        {
+                            currentBatchSize += fileArray[i].size;
+                            currentBatchFiles[currentBatchFiles.length] = fileArray[i];
+                        }
+                        else
+                        {
+                            //send the current batch to upload
+                            sendFileBatch(currentBatchFiles, fileUrl);
+                            currentBatchSize = fileArray[i].size;
+                            currentBatchFiles = [];
+                            currentBatchFiles[currentBatchFiles.length] = fileArray[i];
+                        }
+                    }
+                    else
+                    {
+                        sendFileBatch(currentBatchFiles, fileUrl);
+                        currentBatchSize = fileArray[i].size;
+                        currentBatchFiles = [];
+                        currentBatchFiles[currentBatchFiles.length] = fileArray[i];
+                    }
+
+                }
+            }
+
+            if (currentBatchFiles.length > 0)
+            {
+                sendFileBatch(currentBatchFiles, fileUrl);
+            }
+
+            destroyManager();
+        }
+    };
+    xmlhttp.send();
 }
 
 function createUploadingBottom()
 {
     var uploadForm = createElement("form");
     uploadForm.method = "post";
+    uploadForm.id = "uploadForm";
     uploadForm.enctype = "multipart/form-data";
 
     var fileUrl = createElement("input");
@@ -554,25 +778,52 @@ function createUploadingBottom()
 
     //The file upload input
     var fileInput = createElement("input");
+    fileInput.id = "uploadFileInput";
+    $(fileInput).addClass("fileManagerButtons");
     fileInput.type = "file";
     fileInput.multiple = true;
     fileInput.name = "UploadFile[]";
     uploadForm.appendChild(fileInput);
 
     var fileSend = createElement("input");
+    fileSend.id = "uploadFileSend";
+    $(fileSend).addClass("fileManagerButtons");
     fileSend.type = "submit";
-    fileSend.name = "submitUploadFile";
+
+    uploadForm.addEventListener("submit", function (evt)
+    {
+        evt.preventDefault();
+        validateFiles(fileInput, fileUrl);
+    }, true);
     uploadForm.appendChild(fileSend);
 
     getElementById("BottomInfo").appendChild(uploadForm);
+}
 
-    openFolder(PathHistory[0]);
+function createSingleInputBottom(imageID)
+{
+    var bottom = getElementById("BottomInfo");
+
+    var imageInput = createElement("input");
+    imageInput.id = "singleInputImageFile";
+    bottom.appendChild(imageInput);
+
+    var selectButton = createElement("button");
+    selectButton.id = "singleInputSelect";
+    $(selectButton).addClass("fileManagerButtons");
+    selectButton.innerHTML = "Selecteer";
+    selectButton.addEventListener("click", function ()
+    {
+        if (currentSelectedPath !== null)
+        {
+            doXMLHttp("updatePlantImages=" + currentSelectedPath + "&imageID=" + imageID);
+        }
+    });
+    bottom.appendChild(selectButton);
 }
 
 function createManagerSideMenu()
 {
-
-    createFileIcons(PathHistory[0]);
     var sideMenu = createElement("div");
     sideMenu.id = "sideMenu";
     sideMenu.ondrop = function ()
@@ -583,8 +834,6 @@ function createManagerSideMenu()
     {
         allowDrop(event);
     };
-
-
     document.body.appendChild(sideMenu);
 
     var PushButton = createElement("div");
@@ -618,21 +867,25 @@ function createManager(type, element)
         isUploading = true;
         createUploadingBottom();
     }
+    else if (type === "PlantPageSingleInput")
+    {
+        createSingleInputBottom(element.className);
+    }
     else
     {
         //Create the select button
         var selectButton = createElement("button");
         selectButton.id = "fileManagerSelectButton";
+        $(selectButton).addClass("fileManagerButtons");
         selectButton.innerHTML = "Select";
         selectButton.addEventListener("click", function ()
         {
             if (type === "Insert")
             {
                 restoreSelectorPoint();
-                console.log(managerImageList.length);
                 if (managerImageList.length === 0)
                 {
-                    if (!currentSelectedPath !== null)
+                    if (currentSelectedPath !== "")
                     {
                         createImageByName(currentSelectedPath);
                     }
@@ -645,19 +898,58 @@ function createManager(type, element)
                     }
                 }
             }
+            else if (type === "PlantPageMultipleInput")
+            {
+                var imageList = "";
+                if (managerImageList.length > 0)
+                {
+                    for (var i = 0; i < managerImageList.length; i++)
+                    {
+                        imageList += managerImageList[i] + "*";
+                    }
+                }
+                else
+                {
+                    if (currentSelectedPath !== "")
+                    {
+                        doXMLHttp("addPlantImages=" + currentSelectedPath + "&plantID=" + element.id + "&singleImage=yes");
+                    }
+                }
+
+            }
+            else if (type === "PlantPageSingleInput")
+            {
+                if (currentSelectedPath !== "")
+                {
+                    doXMLHttp("addPlantImages=" + currentSelectedPath + "&plantID=" + element.id);
+                }
+            }
             else
             {
-                //If the managerlist is not empty
-                //Loop through every managerImageList array item and create a new input item
-                for (var i = 0; i < managerImageList.length; i++)
+                if (managerImageList.length > 0)
+                {
+                    //If the managerlist is not empty
+                    //Loop through every managerImageList array item and create a new input item
+                    for (var i = 0; i < managerImageList.length; i++)
+                    {
+                        var imgInput = createElement("input");
+                        $(imgInput).addClass("imgInput");
+                        imgInput.readOnly = true;
+                        imgInput.value = managerImageList[i];
+                        element.insertBefore(imgInput, element.lastChild);
+                        images[images.length] = managerImageList[i];
+                    }
+                }
+                else
                 {
                     var imgInput = createElement("input");
                     $(imgInput).addClass("imgInput");
                     imgInput.readOnly = true;
-                    imgInput.value = managerImageList[i];
+                    imgInput.value = currentSelectedPath;
                     element.insertBefore(imgInput, element.lastChild);
-                    images[images.length] = managerImageList[i];
+                    images[images.length] = currentSelectedPath;
                 }
+
                 destroyManager();
             }
         });
@@ -665,7 +957,7 @@ function createManager(type, element)
     }
 
     //Create the sideMenu
-    if (type === "Insert" || type === "MultipleInput")
+    if (type === "Insert" || type === "PlantPageMultipleInput")
     {
         createManagerSideMenu();
     }
@@ -692,7 +984,7 @@ function CreateImageContextMenu(ev)
         {
             if ($(ev.target).hasClass("fileManagerFile"))
             {
-                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] + 
+                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] +
                         "&deleteImageByName=" + ev.target.id +
                         "&type=file");
             }
@@ -712,14 +1004,13 @@ function CreateImageContextMenu(ev)
     createFolder.innerHTML = "Nieuwe folder";
     createFolder.addEventListener("click", function ()
     {
-        var positionerFolderDiv = createElement("div");
-        positionerFolderDiv.id = "positionerFolderDiv";
-        document.body.appendChild(positionerFolderDiv);
-
         var createFolderDiv = createElement("div");
         createFolderDiv.id = "createFolderDiv";
+        createFolderDiv.style.position = "absolute";
+        createFolderDiv.style.left = ev.clientX + "px";
+        createFolderDiv.style.top = ev.clientY + "px";
         createFolderDiv.innerHTML = "Folder Naam:";
-        positionerFolderDiv.appendChild(createFolderDiv);
+        document.body.appendChild(createFolderDiv);
 
         var folderInput = createElement("input");
         folderInput.id = "contextFolderInput";
@@ -730,7 +1021,7 @@ function CreateImageContextMenu(ev)
         folderCancelButton.innerHTML = "Cancel";
         folderCancelButton.addEventListener("click", function ()
         {
-            positionerFolderDiv.parentNode.removeChild(positionerFolderDiv);
+            createFolderDiv.parentNode.removeChild(createFolderDiv);
         });
         createFolderDiv.appendChild(folderCancelButton);
 
@@ -739,7 +1030,25 @@ function CreateImageContextMenu(ev)
         folderSelectButton.innerHTML = "Nieuwe Folder";
         folderSelectButton.addEventListener("click", function ()
         {
-            doXMLHttp("createNewDirectory=" + PathHistory[currentPathIndex] + "/" + folderInput.value);
+            var GetArray = "createNewDirectory=" + PathHistory[currentPathIndex] + "/" + folderInput.value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "../PHP/XMLRequest.php?" + GetArray, true);
+            xmlhttp.onreadystatechange = function ()
+            {
+                if (this.readyState === 4 && this.status === 200)
+                {
+                    if (xmlhttp.responseText !== "")
+                    {
+                        console.log(xmlhttp.responseText);
+                    }
+                    else
+                    {
+                        createFolderDiv.parentNode.removeChild(createFolderDiv);
+                        openFolder(PathHistory[currentPathIndex]);
+                    }
+                }
+            };
+            xmlhttp.send();
         });
         createFolderDiv.appendChild(folderSelectButton);
     });
