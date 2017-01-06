@@ -179,7 +179,7 @@
                             </colgroup>
                             <tr>
                                 <?php
-                                //this adds a colum for buttons
+                                //Maakt knoppen aan
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     print("<th rowspan='2' class='noprint'></th>");
                                 }
@@ -228,7 +228,7 @@
                                 }
                                 
                                 // Plaatst de naam van een categorie. Wanneer het edittingsysteem is geactiveerd, word er een inputveld weergegeven
-                                //places the category name or a if editing is enabled then it displays a input box
+                             
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3 && isset($_POST['bewerkCat']) && $catID == $_POST['id']) {
                                     echo "<td class = 'name' colspan = '9'>"
                                     . "<input required type='text' name='naam' value='$catNaam' ></td>"
@@ -338,7 +338,7 @@
                                         . "</form>";
                                     }
                                 }
-                                //Creërt een forum voor het aanmaken van nieuwe prijsregels
+                                //Creëert een forum voor het aanmaken van nieuwe prijsregels
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     echo "<form action='pricelist.php' method='post'>"
                                     . "<tr class='notranslate'> "
@@ -378,7 +378,7 @@
                                     . "</form>";
                                 }
                             }
-                            //Creërt een veld om een nieuwe categorie toe te voegen
+                            //Creëert een veld om een nieuwe categorie toe te voegen
                             if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                 echo "<form action='pricelist.php' method='post'>"
                                 . "<tr class='notranslate'> "
