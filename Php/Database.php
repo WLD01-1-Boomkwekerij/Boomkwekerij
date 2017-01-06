@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Makes a connection to the database
+ * @return \PDO
+ */
 function connectToDatabase()
 {
     $username = "root";
@@ -9,6 +13,12 @@ function connectToDatabase()
     return $connection;
 }
 
+/**
+ * Gets the maximum value of inserted row
+ * @param string $table
+ * @param string $maxRow
+ * @return int Max
+ */
 function ProtectedGetMaxSQL($table, $maxRow)
 {
     try

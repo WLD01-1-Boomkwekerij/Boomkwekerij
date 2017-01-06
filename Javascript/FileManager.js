@@ -511,11 +511,6 @@ function createImageByName(name)
             
             var img = "<div class='editableImage" + maxNumber +"' id='" + maxNumber + "'> " +
                     "<style>" +
-                    ".editableImage"+ maxNumber + ":before { " +
-                    "content: '';" +
-                    "display:block; "+
-                    "float: right; "+
-                    "height: 0;} "+
                     "</style>"
                     +                    
                     "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable editableImage' src='' onclick='editImage(this)' style='" +
@@ -525,6 +520,26 @@ function createImageByName(name)
                     "margin-right: 0;" +
                     "margin-left: 0;" +
                     "'></div>";
+            
+            var imageDiv = createElement("div");
+            $(imageDiv).addClass("editableImage" + maxNumber);
+            imageDiv.id = maxNumber;
+            
+            var imageStyle = createElement("style");
+            imageStyle.innerHTML =
+                    ".editableImage"+ maxNumber + ":before { " +
+                    "content: '';" +
+                    "display:block; "+
+                    "float: right; "+
+                    "height: 0;}";
+                    
+            var imageImage = createELement("img");     
+            imageImage.id = realName;
+            $(imageImage).addClass("imageDatabaseLoading");
+            $(imageImage).addClass("imageDraggable");
+            $(imageImage).addClass("editableImage");
+            
+            
             document.execCommand("insertHTML", false, img);
             destroyManager();
             loadImagesFromDatabase();
