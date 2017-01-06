@@ -44,7 +44,7 @@
                 <section id="maincontent">
                     <?php
                     if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
-                        //updates a prijsregel if it has been changed
+                        //Het eventueel updaten van de prijsregel, mocht deze zijn bijgewerkt
                         if (isset($_POST['regel']) || isset($_POST['OpslaanRegel'])) {
                             $id = $_POST['id'];
                             $potmaat = $_POST['potmaat'];
@@ -121,7 +121,7 @@
                             }
                         }
                         
-                        //deletes a prijsregel
+                        //Verwijderen van een prijsregel
                         if (isset($_POST['verwijderRegel'])) {
                             $id = $_POST['id'];
 
@@ -130,21 +130,21 @@
                             ProtectedDoSQL("DELETE FROM prijs WHERE PrijsID=?",array($id));
                         }
 
-                        //adds a category
+                        //Het toevoegen van een categorie aan de prijslijst
                         if (isset($_POST['category'])) {
                             $naam = $_POST['naam'];
 
                             ProtectedDoSQL("INSERT INTO category (`CategoryNaam`) VALUES (?)",array($naam));
                         }
 
-                        //updates a category
+                        //Een categorie updaten, mocht deze zijn bewerkt
                         if (isset($_POST['OpslaanCat'])) {
                             $id = $_POST['id'];
                             $naam = $_POST['naam'];
                             ProtectedDoSQL("UPDATE category SET CategoryNaam=? WHERE CategoryID=?",array($naam,$id));
                         }
 
-                        //removes a category
+                        //Verwijderd een categorie
                         if (isset($_POST['verwijderCat'])) {
                             $id = $_POST['id'];
 
@@ -168,6 +168,7 @@
                                     echo "<col class='name'/>";
                                 }
                                 ?>
+                                <!-- Kleur van de tabelvakjes-->
                                 <col class="blue"/>
                                 <col class="white"/>
                                 <col class="blue"/>
@@ -199,11 +200,11 @@
                             </tr>
                             <?php
                             $result = ProtectedGetSQLArray("SELECT * FROM Category",array());
-                            //Create a row for each category
+                            //Nieuwe regel creëren voor elke categorie
                             while ($row = $result->fetch()) {
                                 $catID = $row['CategoryID'];
                                 $catNaam = $row["CategoryNaam"];
-                                //creates buttons
+                                //Maakt knoppen aan
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     if (!(isset($_POST['bewerkCat']) && $catID == $_POST['id'])) {
                                         print ("<tr  class='notranslate' >");
@@ -226,6 +227,7 @@
                                     }
                                 }
                                 
+                                // Plaatst de naam van een categorie. Wanneer het edittingsysteem is geactiveerd, word er een inputveld weergegeven
                                 //places the category name or a if editing is enabled then it displays a input box
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3 && isset($_POST['bewerkCat']) && $catID == $_POST['id']) {
                                     echo "<td class = 'name' colspan = '9'>"
@@ -240,7 +242,7 @@
                                 $result2 = ProtectedGetSQLArray("SELECT * FROM prijs WHERE CategoryID=?",array($catID));
 
                                 while ($row2 = $result2->fetch()) {
-                                    //makes a row for each prijsregel of the category
+                                    //Maakt een rij van elke prijsregel
                                     $regelID = $row2["PrijsID"];
                                     if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                         //creates buttons 'bewerken' and 'delete'
@@ -286,7 +288,7 @@
                                     }
 
                                     if (!(isset($_POST['bewerkRegel']) && $regelID == $_POST['id'])) {
-                                        //prints the data of a row
+                                        // Print de data van een regel
                                         if ($plantExtraBeschrijving != "") {
                                             print("<td>$plantNaam</td>");
                                             print("<td>$plantExtraBeschrijving</td>");
@@ -302,7 +304,7 @@
                                                 . "<td>$productenTray</td>"
                                                 . "</tr>");
                                     } else {
-                                        //creates input boxes for the editing of a row
+                                        //Inpuvelden aanmaken om de rijen aan te passen
                                         echo ""
                                         . "<td>"
                                         . "<input required type='text' name='naam' value='$plantNaam'>"
@@ -336,7 +338,7 @@
                                         . "</form>";
                                     }
                                 }
-                                //creates a form for adding new prijsregels.
+                                //Creërt een forum voor het aanmaken van nieuwe prijsregels
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     echo "<form action='pricelist.php' method='post'>"
                                     . "<tr class='notranslate'> "
@@ -376,7 +378,7 @@
                                     . "</form>";
                                 }
                             }
-                            //creates a form for a new category
+                            //Creërt een veld om een nieuwe categorie toe te voegen
                             if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                 echo "<form action='pricelist.php' method='post'>"
                                 . "<tr class='notranslate'> "
