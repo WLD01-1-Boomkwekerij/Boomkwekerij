@@ -226,12 +226,14 @@
                                     }
                                 }
                                 
-                                //places the category name or a if editing is enabled then it displays a input box
+                                
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3 && isset($_POST['bewerkCat']) && $catID == $_POST['id']) {
+                                    // displays a input box
                                     echo "<td class = 'name' colspan = '9'>"
                                     . "<input required type='text' name='naam' value='$catNaam' ></td>"
                                     . "</tr></form>";
                                 } else {
+                                    //places the category name
                                     echo "<td class = 'name' colspan = '9'>"
                                     . "<h2><a href = '../Pages/catalog.php?category=$catID'>$catNaam</a></h2></td>"
                                     . "</tr>";

@@ -107,7 +107,8 @@ include'/../Php/Database.php';
                                  ON plant.PlantID=pf.PlantID
                                  WHERE plant.PrijsID = ? AND pf.TypeFoto = 1", array($prijsID)
                             );
-                            //Get from the prijsregel all of the plants
+                            
+                            //Get all of the plants from prijsregel
                             while ($plant = $sqlPlant->fetch())
                             {
                                 $plantId = $plant['PlantID'];
@@ -117,7 +118,7 @@ include'/../Php/Database.php';
                                 $hidden = "hidden";
                                 $position = "absolute";
 
-                                //print a plant with the atributes
+                                //print a plant with atributes
                                 print("<div class='item2' id='plantID$plantId'>
                                     <form method='get'>
                                     <div>
@@ -128,7 +129,7 @@ include'/../Php/Database.php';
                                     <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
                                     <a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
                                     </div>");
-                                //If the user has permission then a delete button is added.
+                                //If the user has the right permissions, a delete button is created.
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
                                 {
                                     print("<input type='submit' name='btnvinkje' id='btnvinkje' class= 'btnpricelist-red' style='font-size:12px' value='&#x2612;'>");
@@ -139,7 +140,7 @@ include'/../Php/Database.php';
                     }
                     else
                     {
-                        //Make a page with plants from one category
+                        //Make a page with the plants from one category
                         $category = $_GET['category'];
 
                         $sqlCategory = ProtectedGetSQLArray("SELECT * FROM category WHERE CategoryID = ?", array($category));
@@ -148,7 +149,7 @@ include'/../Php/Database.php';
                         echo "<h1>$categoryNaam</h1>";
 
                         $sqlPrijs = ProtectedGetSQLArray("SELECT * FROM prijs WHERE CategoryID = ?", array($category));
-                        //Do this for each prijsregel from the category
+                        //Do this for each prijsregel in the category 
                         while ($row = $sqlPrijs->fetch())
                         {
                             $prijsID = html_entity_decode($row["PrijsID"], ENT_QUOTES);
@@ -160,7 +161,7 @@ include'/../Php/Database.php';
                                  WHERE plant.PrijsID = ? AND pf.TypeFoto = 1", array($prijsID)
                             );
 
-                            //Get from the prijsregel all of the plants
+                            //Get all of the plants from prijsregel
                             while ($plant = $sqlPlant->fetch())
                             {
                                 $plantId = html_entity_decode($plant['PlantID'], ENT_QUOTES);
@@ -181,7 +182,7 @@ include'/../Php/Database.php';
                             </table>
                             </div>");
                                 
-                                //If the user has permission then a delete button is added.
+                                //If the user has the right permissions, a delete button is created.
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
                                 {
                                     print("<input type='submit' name='btnvinkje' id='btnvinkje' value='&#x2612;'>");
