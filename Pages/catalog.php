@@ -108,12 +108,8 @@ include'/../Php/Database.php';
                                  ON plant.PlantID=pf.PlantID
                                  WHERE plant.PrijsID = ? AND pf.TypeFoto = 1", array($prijsID)
                             );
-<<<<<<< HEAD
-                            
-                            //Get all of the plants from prijsregel
-=======
                             //Alle planten van een prijsregel opvragen van de database
->>>>>>> 11896e1105045c1cfa2709dadb9e9ede178d0cee
+
                             while ($plant = $sqlPlant->fetch())
                             {
                                 $plantId = $plant['PlantID'];
@@ -122,12 +118,8 @@ include'/../Php/Database.php';
 
                                 $hidden = "hidden";
                                 $position = "absolute";
-
-<<<<<<< HEAD
-                                //print a plant with atributes
-=======
                                 //Plant weergeven met de daarbijhorende attributen
->>>>>>> 11896e1105045c1cfa2709dadb9e9ede178d0cee
+
                                 print("<div class='item2' id='plantID$plantId'>
                                     <form method='get'>
                                     <div>
@@ -138,11 +130,8 @@ include'/../Php/Database.php';
                                     <input type='text' name='plantID' value='$plantId' style='visibility:$hidden; position:$position'>
                                     <a href='plant.php?plant=$plantId'><img id='imgtest' src='$plantFotoUrl'> </a>
                                     </div>");
-<<<<<<< HEAD
-                                //If the user has the right permissions, a delete button is created.
-=======
+
                                 //Als de gebruiker de rechten heeft om te verwijderen, word er een 'delete knop' weergeven
->>>>>>> 11896e1105045c1cfa2709dadb9e9ede178d0cee
                                 if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
                                 {
                                     print("<input type='submit' name='btnvinkje' id='btnvinkje' class= 'btnpricelist-red' style='font-size:12px' value='&#x2612;'>");
