@@ -1,6 +1,6 @@
 <?php
 session_start();
-//this checks if captcha is correct
+// Controleert of de captcha correct is ingevuld
 if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == $_POST["captcha"]) {
     include '../Php/Database.php';
 
@@ -13,6 +13,9 @@ if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == 
      * @param string $Naam
      * @param string $Website
      */
+    
+    // Functie voor het verzenden van de email
+    // Bepalen welke gegevens moeten worden verzonden
     function SendMail($sender, $subject, $message, $Naam, $Website) {
         $sendEmailTo = ProtectedGetSQLArray("SELECT Email FROM gebruiker WHERE KrijgtEmail = 1",array());
         while ($row = $sendEmailTo->fetch()) {
@@ -48,9 +51,11 @@ if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == 
                         ?>
                     </section>
                     <section id="maincontent">
+                        <!-- Bevestigingsbericht -->
                         <h2>Dank u wel voor uw verzoek.</h2>
                         <h2>Uw mail is verzonden.</h2>
                         <?php
+                        // Verzend email
                         SendMail($_POST['contact_email'], $_POST['contact_subject'], $_POST['contact_content'], $_POST['contact_name'], $_POST['contact_website']);
                         ?>
                     </section>
