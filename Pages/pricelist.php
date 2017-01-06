@@ -54,7 +54,9 @@
                             $prijsKwekerij = $_POST['prijskwekerij'];
                             $prijsVBA = $_POST['prijsvba'];
                             $naam = $_POST['naam'];
-
+                            $hoogteMin = $_POST['HoogteMin'];
+                            $hoogteMax = $_POST['HoogteMax'];
+                            
                             if (isset($_POST['OpslaanRegel'])) {
                                 ProtectedDoSQL("UPDATE prijs SET "
                                         . "PrijsKwekerij=?,"
@@ -64,11 +66,11 @@
                                         . " ProductenTray=?, "
                                         . "Naam=?,"
                                         . " ExtraBeschrijving=?,"
-                                        . " Potmaat=?"
+                                        . " Potmaat=?,"
+                                        . " VerkoopHoogteMax = ?,"
+                                        . " VerkoopHoogteMin = ?"
                                         . " WHERE PrijsID=?",
-                                        array($prijsKwekerij,$prijsVBA,$percc,$perlaag,$pertray,$naam,$beschrijving,$potmaat,$id)
-                                        );                                
-                                
+                                        array($prijsKwekerij,$prijsVBA,$percc,$perlaag,$pertray,$naam,$beschrijving,$potmaat,$hoogteMax,$hoogteMin,$id));  
                                 if ($pertray == 0) {
                                     ProtectedDoSQL("UPDATE prijs SET ProductenTray = NULL WHERE PrijsID=?",array($id));
                                 }
@@ -83,7 +85,9 @@
                                      `Naam`,
                                      `ExtraBeschrijving`,
                                      `Potmaat`,
-                                     `CategoryID`) 
+                                     `CategoryID`,
+                                     `VerkoopHoogteMax`,
+                                     `VerkoopHoogteMin`) 
                                      VALUES (
                                          ?,"
                                             . " ?,"
@@ -93,8 +97,10 @@
                                             . " ?,"
                                             . " ?,"
                                             . " ?,"
+                                            . " ?,"
+                                            . " ?,"
                                             . " ?)",
-                                            array($prijsKwekerij,$prijsVBA,$percc,$perlaag,$pertray,$naam,$beschrijving,$potmaat,$id)
+                                            array($prijsKwekerij,$prijsVBA,$percc,$perlaag,$pertray,$naam,$beschrijving,$potmaat,$id,$hoogteMax,$hoogteMin)
                                             );
                                     
                                 } else {
@@ -260,28 +266,24 @@
                                     $productenLaag = $row2['ProductenLaag'];
                                     $productenTray = $row2['ProductenTray'];
 
-                                    $result3 = ProtectedGetSQLArray("SELECT Hoogte_min, Hoogte_max FROM plant WHERE PrijsID=?",array($row2['PrijsID']));
-                                    $plantHoogte = $result3->fetch();
-                                    $Hoogte_Min = $plantHoogte['Hoogte_min'];
-                                    $Hoogte_Max = $plantHoogte['Hoogte_max'];
+                                    $Hoogte_Min = $row2['VerkoopHoogteMin'];
+                                    $Hoogte_Max = $row2['VerkoopHoogteMax'];
+                                    $Hoogte = "";
+                                    if($Hoogte_Min == $Hoogte_Max){
+                                        $Hoogte = $Hoogte_Max;
+                                    }else{
+                                        $Hoogte = $Hoogte_Min . "/" . $Hoogte_Max;
+                                    }
 
                                     if (!(isset($_POST['bewerkRegel']) && $regelID == $_POST['id'])) {
-
                                         if ($plantExtraBeschrijving != "") {
                                             print("<td>$plantNaam</td>");
                                             print("<td>$plantExtraBeschrijving</td>");
                                         } else {
                                             print("<td colspan = '2' >$plantNaam</td>");
                                         }
-
-                                        print("<td>$potmaat </td>");
-                                        if ($Hoogte_Min == 0 && $Hoogte_Min == 0) {
-                                            print("<td></td>");
-                                        } elseif ($Hoogte_Min == $Hoogte_Max) {
-                                            print("<td>$Hoogte_Min</td>");
-                                        } else {
-                                            print("<td>$Hoogte_Min/$Hoogte_Max</td>");
-                                        }
+                                        print("<td>$potmaat</td>");
+                                        print("<td>$Hoogte</td>");
                                         print("<td>$prijsKwekerij</td>"
                                                 . "<td>$prijsVBA</td>"
                                                 . "<td>$productenCC</td>"
@@ -289,18 +291,6 @@
                                                 . "<td>$productenTray</td>"
                                                 . "</tr>");
                                     } else {
-
-                                        $plantNaam = $row2['Naam'];
-                                        $plantExtraBeschrijving = $row2['ExtraBeschrijving'];
-
-
-                                        $potmaat = $row2['Potmaat'];
-                                        $prijsKwekerij = $row2['PrijsKwekerij'];
-                                        $prijsVBA = $row2['PrijsVBA'];
-                                        $productenCC = $row2['ProductenCC'];
-                                        $productenLaag = $row2['ProductenLaag'];
-                                        $productenTray = $row2['ProductenTray'];
-
                                         echo ""
                                         . "<td>"
                                         . "<input required type='text' name='naam' value='$plantNaam'>"
@@ -312,6 +302,8 @@
                                         . "<input type='text' name='potmaat' value='$potmaat'>"
                                         . "</td> "
                                         . "<td>"
+                                        . "<input style='width: 50%' type='text' name='HoogteMin' value='$Hoogte_Min'>"
+                                        . "<input style='width: 50%' type='text' name='HoogteMax' value='$Hoogte_Max'>"
                                         . "</td> "
                                         . "<td>"
                                         . "<input type='number' name='prijskwekerij' value='$prijsKwekerij' step='0.01'>"
@@ -349,6 +341,8 @@
                                     . "<input type='text' name='potmaat'>"
                                     . "</td> "
                                     . "<td class='noprint'>"
+                                    . "<input style='width: 50%' type='text' name='HoogteMin'>"
+                                    . "<input style='width: 50%' type='text' name='HoogteMax'>"
                                     . "</td> "
                                     . "<td class='noprint'>"
                                     . "<input type='number' name='prijskwekerij' step='0.01'>"
