@@ -1,8 +1,18 @@
 <?php
 session_start();
+//this checks if captcha is correct
 if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == $_POST["captcha"]) {
     include '../Php/Database.php';
 
+    /**
+     * This sends an email
+     * 
+     * @param string $sender
+     * @param string $subject
+     * @param string $message
+     * @param string $Naam
+     * @param string $Website
+     */
     function SendMail($sender, $subject, $message, $Naam, $Website) {
         $sendEmailTo = ProtectedGetSQLArray("SELECT Email FROM gebruiker WHERE KrijgtEmail = 1",array());
         while ($row = $sendEmailTo->fetch()) {
