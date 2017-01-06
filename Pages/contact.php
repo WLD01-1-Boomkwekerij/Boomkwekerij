@@ -33,6 +33,7 @@
                     <div class="WidthFix">                    
                     <br>
                     <div id="divlogo"> <img id="logo" src="../Images/SiteImages/image001.png"></div>
+                    <!-- Sets a form with a POST method -->
                     <form action="contactSend.php" method="post">
                         Naam: <br>      <input required class="contact" placeholder="Uw naam" type="text" name="contact_name" ><br>
                         Onderwerp: <br> <input required class="contact" placeholder="Onderwerp" type="text" name="contact_subject" ><br>
