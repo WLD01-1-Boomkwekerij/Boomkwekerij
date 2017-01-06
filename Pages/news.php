@@ -34,7 +34,7 @@
                     <?php
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
                     {
-                        //Add a new News Article
+                        // Nieuwsartikel toevoegen
                         print("<div class='newsDiv WidthFix' id='newNews' style='position: relative'>"
                                 . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'></div>"
                                 . "<div class='newsTop'>Nieuw Bericht toevoegen</div>"
@@ -51,13 +51,15 @@
 
                     while ($row = $statement->fetch())
                     {
-                        //Add all the existing articles
+                        //Laad alle bestaande nieuwsartikelen
                         $text = $row["Tekst"];
                         $aanBiedingID = $row["AanbiedingID"];
                         $textID = $row["TekstID"];
                         $Title = $row["Titel"];
                         $Datum = $row["DatumGeplaatst"];
                         $visibility = $row["Zichtbaar"];
+                        
+                        //Controleert of de sessie van de gebruiker actief is
                         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
                         {
                             print ("<div class='newsDiv clearFix WidthFix' id='newsID$aanBiedingID' style='position: relative'>"
@@ -70,6 +72,7 @@
                         }
                         else
                         {
+                            //Controleert of de zichbaarheid van het betreffende nieuwsbericht is aangevinkt, zo ja -> voert de onderstaande code uit
                             if($visibility == 1)
                             {
                                 print ("<div class='newsDiv clearFix WidthFix' id='newsID$aanBiedingID' style='position: relative'>"
