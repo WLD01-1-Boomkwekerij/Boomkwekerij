@@ -38,9 +38,9 @@
                     {
                         print("<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'></div>");
                     }
-                    print("<div id='textID1' class='editContent'>");
+                    print("<div id='textID1' class='editContent'><p>");
                     loadTextFromDB(1);
-                    print("</div></div");
+                    print("<p></div></div");
                     ?>
                     <br> 
                     <div class="downPositioner"></div>

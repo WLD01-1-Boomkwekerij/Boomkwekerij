@@ -508,39 +508,37 @@ function createImageByName(name)
                 maxNumber = parseInt($(imagesArray)[imagesArray.length -1].id) + 1;  
                 
             }
-            
-            var img = "<div class='editableImage" + maxNumber +"' id='" + maxNumber + "'> " +
-                    "<style>" +
-                    "</style>"
-                    +                    
-                    "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable editableImage' src='' onclick='editImage(this)' style='" +
-                    "width: 50%;" +
-                    "float: right;" +
-                    "clear: right;" +
-                    "margin-right: 0;" +
-                    "margin-left: 0;" +
-                    "'></div>";
-            
+            /*
             var imageDiv = createElement("div");
             $(imageDiv).addClass("editableImage" + maxNumber);
             imageDiv.id = maxNumber;
+            $(imageDiv).insertBefore($(".ContentEditableOpen p"));
             
             var imageStyle = createElement("style");
             imageStyle.innerHTML =
                     ".editableImage"+ maxNumber + ":before { " +
                     "content: '';" +
                     "display:block; "+
-                    "float: right; "+
+                  //  "float: right; "+
                     "height: 0;}";
-                    
-            var imageImage = createELement("img");     
+            imageDiv.appendChild(imageStyle);
+            
+            var imageImage = createElement("img");     
             imageImage.id = realName;
             $(imageImage).addClass("imageDatabaseLoading");
             $(imageImage).addClass("imageDraggable");
             $(imageImage).addClass("editableImage");
-            
-            
-            document.execCommand("insertHTML", false, img);
+            imageImage.addEventListener("click", function()
+            {
+                editImage(this);
+            });
+            imageImage.style.width = "50%";
+            imageImage.style.float = "right";
+            imageImage.style.clear = "right";
+            imageImage.style.marginRight = "0";
+            imageImage.style.marginLeft = "0";
+            imageDiv.appendChild(imageImage);
+            */
             destroyManager();
             loadImagesFromDatabase();
         
