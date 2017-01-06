@@ -10,6 +10,7 @@ function connectToDatabase()
     $password = "usbw";
     $servername = "mysql:host=localhost;dbname=boomkwekerij;port=3307";
     $connection = new PDO($servername, $username, $password);
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $connection;
 }
 
@@ -24,7 +25,6 @@ function ProtectedGetMaxSQL($table, $maxRow)
     try
     {
         $connection = connectToDatabase();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement = $connection->prepare("SELECT MAX($maxRow) FROM $table");
         $statement->execute(); //array($maxRow, $table)
         return $statement->fetchColumn();
@@ -38,7 +38,6 @@ function ProtectedGetMaxSQL($table, $maxRow)
 function ProtectedGetSQL($sqlCode, $rowName, $variables)
 {
     $connection = connectToDatabase();
-    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $statement = $connection->prepare($sqlCode);
     $statement->execute($variables);
 
@@ -54,7 +53,6 @@ function ProtectedGetSQLArray($sqlCode, $variables)
     try
     {
         $connection = connectToDatabase();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement = $connection->prepare($sqlCode);
         $statement->execute($variables);
     }
@@ -77,7 +75,6 @@ function ProtectedDoSQL($sqlCode, $parameter)
         }
 
         $connection = connectToDatabase();
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement = $connection->prepare($sqlCode);
         $statement->execute($newArray);
     }

@@ -16,7 +16,7 @@
     </head>
     <body>
         <section id="wrapper">
-            <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
+            <section id='titlediv' class="notranslate"><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
             <section id="top">
                 <section id="header"></section>
                 <?php
@@ -33,6 +33,7 @@
                     <div class="WidthFix">                    
                     <br>
                     <div id="divlogo"> <img id="logo" src="../Images/SiteImages/image001.png"></div>
+                    <!-- Sets a form with a POST method -->
                     <form action="contactSend.php" method="post">
                         Naam: <br>      <input required class="contact" placeholder="Uw naam" type="text" name="contact_name" ><br>
                         Onderwerp: <br> <input required class="contact" placeholder="Onderwerp" type="text" name="contact_subject" ><br>
@@ -42,8 +43,9 @@
                         <br> 
 
                         <br>
+                       <!-- Displays a captcha in an image -->
                         <img id='captcha' src="../Php/captha.php" />
-
+                        <!-- Inputfield for filling in the correct captcha -->
                         <input name="captcha" required id='captchatekst' placeholder="Voer de 4 getallen in" type="text">
                         <br><br>
                         <input type="submit" I name="submit" style="border-radius:8px;margin-bottom:5px;" class="button-green" value="Aanvraag indienen" /> 

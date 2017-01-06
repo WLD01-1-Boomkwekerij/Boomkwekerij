@@ -499,20 +499,25 @@ function createImageByName(name)
         if (this.readyState === 4 && this.status === 200)
         {
             var maxNumber = 1;
-            
+
             //Get all Images
-            if($(".ContentEditableOpen img").length)
+            if ($(".ContentEditableOpen img").length)
             {
                 var imagesArray = $(".ContentEditableOpen img").parent();
-                
-                maxNumber = parseInt($(imagesArray)[imagesArray.length -1].id) + 1;  
-                
+
+                maxNumber = parseInt($(imagesArray)[imagesArray.length - 1].id) + 1;
+
             }
-            
-            var img = "<div class='editableImage" + maxNumber +"' id='" + maxNumber + "'> " +
+
+            var img = "<div class='editableImage" + maxNumber + "' id='" + maxNumber + "'> " +
                     "<style>" +
+                    ".editableImage" + maxNumber + ":before { " +
+                    "content: '';" +
+                    "display:block; " +
+                    "float: right; " +
+                    "height: 0;} " +
                     "</style>"
-                    +                    
+                    +
                     "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable editableImage' src='' onclick='editImage(this)' style='" +
                     "width: 50%;" +
                     "float: right;" +
@@ -520,30 +525,43 @@ function createImageByName(name)
                     "margin-right: 0;" +
                     "margin-left: 0;" +
                     "'></div>";
-            
-            var imageDiv = createElement("div");
-            $(imageDiv).addClass("editableImage" + maxNumber);
-            imageDiv.id = maxNumber;
-            
-            var imageStyle = createElement("style");
-            imageStyle.innerHTML =
-                    ".editableImage"+ maxNumber + ":before { " +
-                    "content: '';" +
-                    "display:block; "+
-                    "float: right; "+
-                    "height: 0;}";
-                    
-            var imageImage = createELement("img");     
-            imageImage.id = realName;
-            $(imageImage).addClass("imageDatabaseLoading");
-            $(imageImage).addClass("imageDraggable");
-            $(imageImage).addClass("editableImage");
-            
-            
+
+            /*
+             var imageDiv = createElement("div");
+             $(imageDiv).addClass("editableImage" + maxNumber);
+             imageDiv.id = maxNumber;
+             $(imageDiv).insertBefore($(".ContentEditableOpen p"));
+             
+             var imageStyle = createElement("style");
+             imageStyle.innerHTML =
+             ".editableImage"+ maxNumber + ":before { " +
+             "content: '';" +
+             "display:block; "+
+             //  "float: right; "+
+             "height: 0;}";
+             imageDiv.appendChild(imageStyle);
+             
+             var imageImage = createElement("img");     
+             imageImage.id = realName;
+             $(imageImage).addClass("imageDatabaseLoading");
+             $(imageImage).addClass("imageDraggable");
+             $(imageImage).addClass("editableImage");
+             imageImage.addEventListener("click", function()
+             {
+             editImage(this);
+             });
+             imageImage.style.width = "50%";
+             imageImage.style.float = "right";
+             imageImage.style.clear = "right";
+             imageImage.style.marginRight = "0";
+             imageImage.style.marginLeft = "0";
+             imageDiv.appendChild(imageImage);
+             */
+
             document.execCommand("insertHTML", false, img);
             destroyManager();
             loadImagesFromDatabase();
-        
+
         }
     };
     xmlhttp.send();
@@ -985,33 +1003,8 @@ function CreateImageContextMenu(ev)
     $(contextDiv).addClass("contextMenu");
     contextDiv.style.position = "absolute";
     contextDiv.style.left = ev.clientX + "px";
-    contextDiv.style.top = ev.clientY + "px";
+    contextDiv.style.top = ev.clientY + 50 + "px";
     document.body.appendChild(contextDiv);
-
-    if ($(ev.target).hasClass("fileManagerFile") ||
-            $(ev.target).hasClass("fileManagerFolder"))
-    {
-        var deleteButton = createElement("div");
-        deleteButton.id = "ContextDeleteButton";
-        $(deleteButton).addClass("contextMenu");
-        deleteButton.innerHTML = "Verwijder";
-        deleteButton.addEventListener("click", function ()
-        {
-            if ($(ev.target).hasClass("fileManagerFile"))
-            {
-                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] +
-                        "&deleteImageByName=" + ev.target.id +
-                        "&type=file");
-            }
-            else
-            {
-                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] + "/" + ev.target.id +
-                        "&deleteImageByName=" + ev.target.id +
-                        "&type=folder");
-            }
-        });
-        contextDiv.appendChild(deleteButton);
-    }
 
     var createFolder = createElement("div");
     createFolder.id = "ContextCreateButton";
@@ -1068,6 +1061,31 @@ function CreateImageContextMenu(ev)
         createFolderDiv.appendChild(folderSelectButton);
     });
     contextDiv.appendChild(createFolder);
+    
+    if ($(ev.target).hasClass("fileManagerFile") ||
+            $(ev.target).hasClass("fileManagerFolder"))
+    {
+        var deleteButton = createElement("div");
+        deleteButton.id = "ContextDeleteButton";
+        $(deleteButton).addClass("contextMenu");
+        deleteButton.innerHTML = "Verwijder";
+        deleteButton.addEventListener("click", function ()
+        {
+            if ($(ev.target).hasClass("fileManagerFile"))
+            {
+                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] +
+                        "&deleteImageByName=" + ev.target.id +
+                        "&type=file");
+            }
+            else
+            {
+                doXMLHttpImages("directory=" + PathHistory[currentPathIndex] + "/" + ev.target.id +
+                        "&deleteImageByName=" + ev.target.id +
+                        "&type=folder");
+            }
+        });
+        contextDiv.appendChild(deleteButton);
+    }
 }
 
 function DeleteImageContextMenu()

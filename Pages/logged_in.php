@@ -19,7 +19,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
     </head>
     <body>
         <section id="wrapper">
-            <section id='titlediv'><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
+            <section id='titlediv' class="notranslate"><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
             <section id="top">
                 <section id="header"></section>
                 <?php

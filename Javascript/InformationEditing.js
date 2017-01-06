@@ -19,6 +19,11 @@ function getElementById(id)
     return document.getElementById(id);
 }
 
+function getELementByClass(className)
+{
+    return document.getElementsByClassName(className);
+}
+
 function doXMLHttp(GetArray)
 {
     var xmlhttp = new XMLHttpRequest();
@@ -522,6 +527,16 @@ function setContentEditable(element, isNew, isNews)
         var parent = $(element).parent();
         var elementTitle;
 
+        var childZero = $(element).parent().children()[0];
+        $(childZero).hide();
+        $(childZero).removeClass("ContentEditable");
+        $(element).addClass("ContentEditableOpen");
+        $(element).addClass("clearFix");
+        element.addEventListener("focusout", function ()
+        {
+            saveSelectorPoint();
+        });
+
         if (!isNews)
         {
             element.contentEditable = true;
@@ -540,15 +555,6 @@ function setContentEditable(element, isNew, isNews)
             currentSavedTitle = elementTitle.innerHTML;
         }
 
-        var childZero = $(element).parent().children()[0];
-        $(childZero).hide();
-        $(childZero).removeClass("ContentEditable");
-        $(element).addClass("ContentEditableOpen");
-        $(element).addClass("clearFix");
-        element.addEventListener("focusout", function ()
-        {
-            saveSelectorPoint();
-        });
         if (isNews)
         {
             $(elementTitle).addClass("ContentTitle");
@@ -727,8 +733,8 @@ document.onkeydown = document.onkeyup = function (e)
     if (map[13] && $(element).hasClass("ContentEditableOpen"))
     {
         e.preventDefault();
-       document.execCommand('insertHTML', false, '<br><br>');
-       return false;
+        document.execCommand('insertHTML', false, '<br><br>');
+        return false;
     }
 
     if ($(element).hasClass("newsTop"))

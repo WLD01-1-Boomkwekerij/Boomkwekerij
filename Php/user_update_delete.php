@@ -16,7 +16,7 @@
         $Wachtwoord = $data['Wachtwoord1'];
         $submit = $data['submit']; 
         $rol = $data['rol'];
-        if ($submit == 'Opslaan') { // Kijken of het een bewerk verwijder is
+        if ($submit == 'Opslaan') { // Kijken of het een bewerk of verwijder is
             if ($rol == 'beheerder') { // rol variabele weer omzetten in getal
                 $rol = 1;
             } elseif ($rol == 'medewerker') {
