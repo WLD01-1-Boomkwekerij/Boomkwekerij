@@ -539,15 +539,7 @@ function setContentEditable(element, isNew, isNews)
 
         if (!isNews)
         {
-            $(element).children().each(function(index)
-            {
-                if($(index).is("p"))
-                {
-                    index.contentEditable = true;
-                }
-                    
-            });
-            
+            element.contentEditable = true;
         }
         else
         {

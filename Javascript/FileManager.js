@@ -499,49 +499,69 @@ function createImageByName(name)
         if (this.readyState === 4 && this.status === 200)
         {
             var maxNumber = 1;
-            
+
             //Get all Images
-            if($(".ContentEditableOpen img").length)
+            if ($(".ContentEditableOpen img").length)
             {
                 var imagesArray = $(".ContentEditableOpen img").parent();
-                
-                maxNumber = parseInt($(imagesArray)[imagesArray.length -1].id) + 1;  
-                
+
+                maxNumber = parseInt($(imagesArray)[imagesArray.length - 1].id) + 1;
+
             }
-            /*
-            var imageDiv = createElement("div");
-            $(imageDiv).addClass("editableImage" + maxNumber);
-            imageDiv.id = maxNumber;
-            $(imageDiv).insertBefore($(".ContentEditableOpen p"));
             
-            var imageStyle = createElement("style");
-            imageStyle.innerHTML =
-                    ".editableImage"+ maxNumber + ":before { " +
+            var img = "<div class='editableImage" + maxNumber + "' id='" + maxNumber + "'> " +
+                    "<style>" +
+                    ".editableImage" + maxNumber + ":before { " +
                     "content: '';" +
-                    "display:block; "+
-                  //  "float: right; "+
-                    "height: 0;}";
-            imageDiv.appendChild(imageStyle);
+                    "display:block; " +
+                    "float: right; " +
+                    "height: 0;} " +
+                    "</style>"
+                    +
+                    "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable editableImage' src='' onclick='editImage(this)' style='" +
+                    "width: 50%;" +
+                    "float: right;" +
+                    "clear: right;" +
+                    "margin-right: 0;" +
+                    "margin-left: 0;" +
+                    "'></div>";
+
+            /*
+             var imageDiv = createElement("div");
+             $(imageDiv).addClass("editableImage" + maxNumber);
+             imageDiv.id = maxNumber;
+             $(imageDiv).insertBefore($(".ContentEditableOpen p"));
+             
+             var imageStyle = createElement("style");
+             imageStyle.innerHTML =
+             ".editableImage"+ maxNumber + ":before { " +
+             "content: '';" +
+             "display:block; "+
+             //  "float: right; "+
+             "height: 0;}";
+             imageDiv.appendChild(imageStyle);
+             
+             var imageImage = createElement("img");     
+             imageImage.id = realName;
+             $(imageImage).addClass("imageDatabaseLoading");
+             $(imageImage).addClass("imageDraggable");
+             $(imageImage).addClass("editableImage");
+             imageImage.addEventListener("click", function()
+             {
+             editImage(this);
+             });
+             imageImage.style.width = "50%";
+             imageImage.style.float = "right";
+             imageImage.style.clear = "right";
+             imageImage.style.marginRight = "0";
+             imageImage.style.marginLeft = "0";
+             imageDiv.appendChild(imageImage);
+             */
             
-            var imageImage = createElement("img");     
-            imageImage.id = realName;
-            $(imageImage).addClass("imageDatabaseLoading");
-            $(imageImage).addClass("imageDraggable");
-            $(imageImage).addClass("editableImage");
-            imageImage.addEventListener("click", function()
-            {
-                editImage(this);
-            });
-            imageImage.style.width = "50%";
-            imageImage.style.float = "right";
-            imageImage.style.clear = "right";
-            imageImage.style.marginRight = "0";
-            imageImage.style.marginLeft = "0";
-            imageDiv.appendChild(imageImage);
-            */
+            document.execCommand("insertHTML", false, img);
             destroyManager();
             loadImagesFromDatabase();
-        
+
         }
     };
     xmlhttp.send();
