@@ -328,9 +328,13 @@
     text-align: center;
     width: 100%;
     height: 25px;
-    border-bottom: solid 1px black;
     line-height: 25px;
     cursor: pointer;
+}
+
+#ContextDeleteButton:hover
+{
+    background-color: #CBC7CB;
 }
 
 #ContextCreateButton
@@ -340,6 +344,12 @@
     height: 25px;
     line-height: 25px;
     cursor: pointer;
+    border-bottom: solid 1px black;
+}
+
+#ContextCreateButton:hover
+{
+    background-color: #CBC7CB;
 }
 
 #createFolderDiv

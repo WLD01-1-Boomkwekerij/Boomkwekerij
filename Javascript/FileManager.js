@@ -1003,7 +1003,7 @@ function CreateImageContextMenu(ev)
     $(contextDiv).addClass("contextMenu");
     contextDiv.style.position = "absolute";
     contextDiv.style.left = ev.clientX + "px";
-    contextDiv.style.top = ev.clientY + 50 + "px";
+    contextDiv.style.top = ev.clientY + "px";
     document.body.appendChild(contextDiv);
 
     var createFolder = createElement("div");
