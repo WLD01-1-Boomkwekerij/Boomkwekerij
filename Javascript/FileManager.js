@@ -990,7 +990,7 @@ function createManager(type, element)
     }
 
     //Create the sideMenu
-    if (type === "Insert" || type === "PlantPageMultipleInput")
+    if (type === "Insert" || type === "PlantPageMultipleInput" || type === "MultipleInput")
     {
         createManagerSideMenu();
     }
