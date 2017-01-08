@@ -372,7 +372,7 @@ function editImage(element)
                     "justifyRight",
                     "justifyNone",
                     "minus", "plus",
-                    "arrowLeft", "arrowUp", "arrowDown", "arrowRight"
+                    "arrowUp", "arrowDown"
                 ];
 
         for (var i = 0; i < buttonArray.length; i++)
@@ -527,16 +527,6 @@ function setContentEditable(element, isNew, isNews)
         var parent = $(element).parent();
         var elementTitle;
 
-        var childZero = $(element).parent().children()[0];
-        $(childZero).hide();
-        $(childZero).removeClass("ContentEditable");
-        $(element).addClass("ContentEditableOpen");
-        $(element).addClass("clearFix");
-        element.addEventListener("focusout", function ()
-        {
-            saveSelectorPoint();
-        });
-
         if (!isNews)
         {
             element.contentEditable = true;
@@ -548,6 +538,16 @@ function setContentEditable(element, isNew, isNews)
             elementTitle = $(parent).children()[1];
             elementTitle.contentEditable = true;
         }
+        
+        var childZero = $(element).parent().children()[0];
+        $(childZero).hide();
+        $(childZero).removeClass("ContentEditable");
+        $(element).addClass("ContentEditableOpen");
+        $(element).addClass("clearFix");
+        element.addEventListener("focusout", function ()
+        {
+            saveSelectorPoint();
+        });
 
         currentSavedHTML = element.innerHTML;
         if (isNews)
