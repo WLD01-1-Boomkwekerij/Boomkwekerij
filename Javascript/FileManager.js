@@ -95,7 +95,7 @@ function drop(ev)
     ev.preventDefault();
     var data = ev.dataTransfer.getData("Icon");
 
-    if (ev.target.id === "sideMenu")
+    if (ev.target.id === "sideMenu" || $(ev.target).hasClass("imageImg"))
     {
         addImageToList(PathHistory[currentPathIndex] + "/" + ev.dataTransfer.getData("Icon"));
     }
