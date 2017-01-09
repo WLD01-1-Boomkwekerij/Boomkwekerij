@@ -996,23 +996,9 @@ function createManager(type, element)
     }
 }
 
-function CreateImageContextMenu(ev)
+function CreateImageContextSubMenu(ev)
 {
-    var contextDiv = createElement("div");
-    contextDiv.id = "contextDiv";
-    $(contextDiv).addClass("contextMenu");
-    contextDiv.style.position = "absolute";
-    contextDiv.style.left = ev.clientX + "px";
-    contextDiv.style.top = ev.clientY + "px";
-    document.body.appendChild(contextDiv);
-
-    var createFolder = createElement("div");
-    createFolder.id = "ContextCreateButton";
-    $(createFolder).addClass("contextMenu");
-    createFolder.innerHTML = "Nieuwe folder";
-    createFolder.addEventListener("click", function ()
-    {
-        var createFolderDiv = createElement("div");
+    var createFolderDiv = createElement("div");
         createFolderDiv.id = "createFolderDiv";
         createFolderDiv.style.position = "absolute";
         createFolderDiv.style.left = ev.clientX + "px";
@@ -1059,12 +1045,41 @@ function CreateImageContextMenu(ev)
             xmlhttp.send();
         });
         createFolderDiv.appendChild(folderSelectButton);
+}
+
+function CreateImageContextMenu(ev)
+{
+    var contextDiv = createElement("div");
+    contextDiv.id = "contextDiv";
+    $(contextDiv).addClass("contextMenu");
+    contextDiv.style.position = "absolute";
+    contextDiv.style.left = ev.clientX + "px";
+    contextDiv.style.top = ev.clientY + "px";
+    document.body.appendChild(contextDiv);
+
+    var createFolder = createElement("div");
+    createFolder.id = "ContextCreateButton";
+    $(createFolder).addClass("contextMenu");
+    createFolder.innerHTML = "Nieuwe folder";
+    createFolder.addEventListener("click", function ()
+    {
+        CreateImageContextSubMenu(ev);
     });
     contextDiv.appendChild(createFolder);
     
     if ($(ev.target).hasClass("fileManagerFile") ||
             $(ev.target).hasClass("fileManagerFolder"))
     {
+        var renameButton = createElement("div");
+        renameButton.id = "ContextRenameButton";
+        $(renameButton).addClass("ContextMenu");
+        renameButton.innerHTML = "Hernaam";
+        renameButton.addEventListener("click", function ()
+        {
+            CreateImageContextSubMenu(ev);
+        });
+        contextDiv.appendChild(renameButton);
+        
         var deleteButton = createElement("div");
         deleteButton.id = "ContextDeleteButton";
         $(deleteButton).addClass("contextMenu");
@@ -1125,14 +1140,6 @@ if (document.addEventListener)
             e.preventDefault();
         }
     }, false);
-}
-else
-{
-    document.attachEvent('oncontextmenu', function ()
-    {
-        alert("You've tried to open context menu");
-        window.event.returnValue = false;
-    });
 }
 
 window.onmousedown = function (e)

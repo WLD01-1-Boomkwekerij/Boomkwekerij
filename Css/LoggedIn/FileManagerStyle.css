@@ -323,6 +323,21 @@
     z-index: 4000;
 }
 
+#ContextRenameButton
+{
+    text-align: center;
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+    border-top: solid 1px black;
+}
+
+#ContextRenameButton:hover
+{
+    background-color: #CBC7CB;
+}
+
 #ContextDeleteButton
 {
     text-align: center;
