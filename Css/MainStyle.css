@@ -1,12 +1,7 @@
-html, body{
+html, body
+{
     height: 100%;
     box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
 }
 
 body
@@ -56,7 +51,6 @@ h3
     background-color: #87a6bc;
     color: #404040;
     border-bottom:solid black;
-
 }
 
 h4
@@ -81,8 +75,7 @@ h6
     width: 108.3%;
     margin-left:-4%;
     margin-top:-4.5%;
-
-    background-color:	#87a6bc; /* IE6-9 */
+    background-color:	#87a6bc;
     color: #404040;
     border-bottom:solid black;
 
@@ -118,7 +111,7 @@ h6
 #top
 {
     box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.75);
-    background-image: url('../Images/SiteImages/banner3.jpg');
+    background-image: url('../Images/SiteImages/banner2.jpg');
     background-size: 1231px 220px;
     background-repeat: no-repeat;
     padding:0px;
