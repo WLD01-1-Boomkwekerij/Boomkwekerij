@@ -55,6 +55,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                 }
                                 print('<td>Type gebruiker: </td><td><input disabled id=rol1 type=tekst value=' . $rol . ' </td><tr></table> ');
                                 ?>
+                        
+                                <div id='formaddid'>
                                 <form action="../Php/user_add.php" method="post">
                                     <!--Toevoeg knop met informatie wordt geserialiseerd-->
                                     <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
@@ -62,8 +64,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                 </form>
                                 <form action="../Pages/logged_in.php" method="post">
                                     <!--Annuleer knop-->
-                                    <input class="button-redr" id="usercancel" type="submit" name="cancel" value="Annuleren"/>
+                                    <input class="button-red" id="usercancel" type="submit" name="cancel" value="Annuleren"/>
                                 </form>
+                                </div>
                                 <?php
                             }
                             ?>
@@ -135,7 +138,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                     </tr>
                                 </table>
                                 <br>
-                                <input type="submit" name="submit" class="button-green" value="Toevoegen" tabindex="7"/> <!--toevoegknop--> 
+                                <input type="submit" id='useraddbutton' name="submit" class="button-green" value="Toevoegen" tabindex="7"/> <!--toevoegknop--> 
                             </form>
                             <?php
                         } else {

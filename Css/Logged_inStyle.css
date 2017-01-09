@@ -59,6 +59,7 @@ input {
 
 #usertableconfirm{
     margin-left:37.5%;
+    
 }
 
 #krijgt_mail1, #gebr_naam1,  #gebr_mail1, #rol1{
@@ -68,13 +69,13 @@ input {
 #loginkader{
     width:400px;
     border-width:3px;
-    border-color:#C0C0C0;
+    border-color:#87a6bc;
     border-style:solid;
 }
 
 #logintitel
 {
-    background-color:#C0C0C0;
+    background-color:#87a6bc;
     height:50px;
     margin-top:0px;
 }
@@ -82,4 +83,22 @@ input {
 #loginform
 {
     padding-top:5px;
+}
+
+#formaddid{
+    margin-top:80px;
+    
+  
+}
+
+#usercancel{
+    margin-top:-40px;
+}
+
+#userconfirm{
+    margin-top:-40px;
+}
+
+#useraddbutton{
+    margin-left:45%;
 }
