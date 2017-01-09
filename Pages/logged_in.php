@@ -12,9 +12,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
     <head>
         <meta charset="UTF-8">
         <title>Boomkwekerij - Beheerderspagina</title>
-        <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
-
+        <?php
+            include '../Html/includeHead.html';
+        ?>
 
     </head>
     <body>

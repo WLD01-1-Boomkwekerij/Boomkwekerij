@@ -3,11 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Beheerderspagina</title>
-        <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
 
         <?php
         session_start();
+        include '../Html/includeHead.html';
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSION['toegang'] != 1) {
             header('Location:login.php');
             exit();

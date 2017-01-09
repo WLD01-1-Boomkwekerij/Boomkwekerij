@@ -4,7 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Boomkwekerij - Catalogus</title>
-        <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+        <?php
+            include '../Html/includeHead.html';
+        ?>
         <link href="../Css/Logged_inStyle.css" rel="stylesheet" type="text/css">
     </head>
     <body>    

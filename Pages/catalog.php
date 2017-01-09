@@ -5,11 +5,13 @@ include'/../Php/Database.php';
     <head>
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Catalogus</title>
-        <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
         <link href="../Css/CatalogStyle.css" rel="stylesheet" type="text/css">
         <link rel="plant icon" href="../Images/plant_icon.png">
         <?php
         session_start();
+        
+        include '../Html/includeHead.html';
+        
         //If logged in then enable the editor
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
         {

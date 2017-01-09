@@ -13,11 +13,10 @@ if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == 
      * @param string $Naam
      * @param string $Website
      */
-    
     // Functie voor het verzenden van de email
     // Bepalen welke gegevens moeten worden verzonden
     function SendMail($sender, $subject, $message, $Naam, $Website) {
-        $sendEmailTo = ProtectedGetSQLArray("SELECT Email FROM gebruiker WHERE KrijgtEmail = 1",array());
+        $sendEmailTo = ProtectedGetSQLArray("SELECT Email FROM gebruiker WHERE KrijgtEmail = 1", array());
         while ($row = $sendEmailTo->fetch()) {
             print('send');
             $receiver = $row['Email'];
@@ -33,7 +32,9 @@ if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == 
         <head>
             <meta charset="UTF-8">
             <title>Boomkwekerij - Contact</title>
-            <link href="../Css/MainStyle.css" rel="stylesheet" type="text/css">
+            <?php
+            include '../Html/includeHead.html';
+            ?>
             <link href="../Css/ContactStyle.css" rel="stylesheet" type="text/css">
         </head>
         <body>
@@ -67,9 +68,10 @@ if (isset($_POST["captcha"]) && $_POST["captcha"] != "" && $_SESSION["code"] == 
         </body>
     </html>
     <?php
-} else {
+}
+else {
     header('Refresh: 5; url=../Pages/Contact.php');
-echo "
+    echo "
    <html>
         <head>
             <meta charset='UTF-8'>
@@ -82,16 +84,17 @@ echo "
                 <section id='top'>
                     <section id='header'></section>
                     ";
-                    include '../Php/menu.php';
-                 echo "
+    include '../Php/menu.php';
+    echo "
                 </section>
                 <section id='mid'>
                     <section id='rightmenu'>;
                         
                         
                        
-             ";     include '../Php/rightmenu.php';
-     echo"
+             ";
+    include '../Php/rightmenu.php';
+    echo"
    
                     </section>
                     <section id='maincontent'><br>
@@ -103,5 +106,6 @@ echo "
                 </section>
             </section>
 
-</html>";}
+</html>";
+}
 ?>
