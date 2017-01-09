@@ -177,8 +177,17 @@ function moveImageVertical(amount)
 
     var height = stylingHtml.substring(stylingHtml.lastIndexOf("height:") + 7, stylingHtml.lastIndexOf(";"));
     var newHeight = parseInt(height, 10) + amount + "px";
-    stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
-    styling.innerHTML = stylingHtml;
+    if (parseInt(height, 10) > 0 && amount < 0)
+    {
+        stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
+        styling.innerHTML = stylingHtml;
+    }
+    else if(amount > 0)
+    {
+        stylingHtml = stylingHtml.replace("height:" + height, "height: " + newHeight);
+        styling.innerHTML = stylingHtml;
+    }
+
 }
 
 function moveImageHorizontal(amount)
@@ -245,6 +254,7 @@ function moveImageHorizontal(amount)
 function createImageButton(type)
 {
     var button = createElement("button");
+    $(button).attr('title', type);
     $(button).addClass("fa");
     $(button).addClass("ImageEditor");
 
@@ -456,6 +466,7 @@ function createLink()
 function createButton(type)
 {
     var button = createElement("button");
+    $(button).attr('title', type);
     switch (type)
     {
         case "justifyLeft":
@@ -538,7 +549,7 @@ function setContentEditable(element, isNew, isNews)
             elementTitle = $(parent).children()[1];
             elementTitle.contentEditable = true;
         }
-        
+
         var childZero = $(element).parent().children()[0];
         $(childZero).hide();
         $(childZero).removeClass("ContentEditable");
@@ -732,9 +743,9 @@ document.onkeydown = document.onkeyup = function (e)
     //Enter
     if (map[13] && $(element).hasClass("ContentEditableOpen"))
     {
-        e.preventDefault();
-        document.execCommand('insertHTML', false, '<br><br>');
-        return false;
+        //e.preventDefault();
+        // document.execCommand('insertHTML', false, '<br><br>');
+        //return false;
     }
 
     if ($(element).hasClass("newsTop"))
