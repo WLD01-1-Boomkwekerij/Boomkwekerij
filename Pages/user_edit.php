@@ -136,7 +136,7 @@
                             }
                             print('Type gebruiker: ' . $rol . '<br>');
                             ?>
-                            <!-- Genereert een forum voor het bewerken van de gebruiker -->
+                            <!-- Genereert een formulier voor het bewerken van de gebruiker -->
                             <form action="../Php/user_update_delete.php" method="post">
                                 <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
                                 <input type="submit" name="submit" value="Bewerken"/>
@@ -144,8 +144,8 @@
                             <form action="../Pages/logged_in.php" method="post">
                                 <input type="submit" name="cancel" value="Annuleren"/>
                             </form>
-                            <?php.
-                            // Bevestigen voor het verwijderen avn een gebruiker
+                            <?php
+                            // Bevestigen voor het verwijderen van een gebruiker
                         } elseif ($submit == 'Verwijderen') {
                             print('Weet u zeker dat u ' . $gebr_naam . ' wilt verwijderen? <br>');
                             ?>
