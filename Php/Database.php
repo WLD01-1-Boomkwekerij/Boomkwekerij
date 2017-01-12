@@ -6,9 +6,19 @@
  */
 function connectToDatabase()
 {
-    $username = "root";
-    $password = "usbw";
-    $servername = "mysql:host=localhost;dbname=boomkwekerij;port=3307";
+    if ($_SERVER["SERVER_ADDR"] == "::1")
+    {
+        $username = "root";
+        $password = "usbw";
+        $servername = "mysql:host=localhost;dbname=boomkwekerij;port=3307";
+    }
+    else
+    {
+        $username = "Boomkweek";
+        $password = "wlgF0?52";
+        $servername = "mysql:host=localhost;dbname=boomkwe1_;port=3306";
+    }
+
     $connection = new PDO($servername, $username, $password);
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $connection;
