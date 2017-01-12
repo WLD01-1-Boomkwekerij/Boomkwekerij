@@ -2,14 +2,15 @@
 
 // We gaan sessies gebruiken 
 session_start();
+
 // Controle of het formulier verzonden is 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     // Controle of benodigde velden wel ingevuld zijn 
-    include_once '../Php/Inlogverify.php';
+    include_once 'Inlogverify.php';
     if (confirmIP($_SERVER['REMOTE_ADDR']) < 7)
     {
-        include_once '../Php/Database.php';
+        include_once 'Database.php';
         $sGebruikerControle = trim($_POST['user']);
         $sWachtwoordControle = ProtectedGetSQL('SELECT Wachtwoord FROM gebruiker WHERE Naam=?', 'Wachtwoord', array($sGebruikerControle));
         // Gebruikersnaam en wachtwoord instellen
