@@ -196,7 +196,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                 <td>tray</td>
                             </tr>
 <?php
-$result = ProtectedGetSQLArray("SELECT * FROM Category", array());
+$result = ProtectedGetSQLArray("SELECT * FROM category", array());
 //Nieuwe regel creëren voor elke categorie
 while ($row = $result->fetch()) {
     $catID = $row['CategoryID'];

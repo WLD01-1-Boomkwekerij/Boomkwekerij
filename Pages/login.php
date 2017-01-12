@@ -27,11 +27,11 @@
                         date_default_timezone_set('Europe/Amsterdam');
                         // Controleren of er ingelogd is met IP adres
 
-                        $query = 'SELECT `Attempts` FROM `LoginAttempts` WHERE IP = ?';
+                        $query = 'SELECT `Attempts` FROM `loginattempts` WHERE IP = ?';
                         $variable = array($_SERVER['REMOTE_ADDR']);
                         $pogingen = ProtectedGetSQL($query, 'Attempts', $variable);
 
-                        $query = 'SELECT `LastLogin` FROM `LoginAttempts` WHERE ip = ?';
+                        $query = 'SELECT `LastLogin` FROM `loginattempts` WHERE ip = ?';
                         $timestamp = ProtectedGetSQL($query, 'LastLogin', $variable);
 
                         $tijd = time();

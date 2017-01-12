@@ -11,10 +11,11 @@
         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
         <?php
         session_start();
+        
+        include '../Html/includeHead.html';
 
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && $_SESSION['toegang'] != 3)
-        {
-            include '../Html/includeHead.html';
+        {            
             include '../Php/loggedInEditor.php';
             print("<script type='text/javascript' src='../Javascript/PlantPage.js'></script>");
             print("<link href='../Css/LoggedIn/PlantPageStyle.css' rel='stylesheet' type='text/css'>");

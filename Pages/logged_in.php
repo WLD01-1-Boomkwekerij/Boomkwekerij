@@ -63,7 +63,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                     <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
                                     <input type="submit" class ="button-green" id="userconfirm" name="submit" value="Bevestigen"/>
                                 </form>
-                                <form action="../Pages/logged_in.php" method="post">
+                                <form action="../pages/logged_in.php" method="post">
                                     <!--Annuleer knop-->
                                     <input class="button-red" id="usercancel" type="submit" name="cancel" value="Annuleren"/>
                                 </form>
@@ -71,7 +71,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                 <?php
                             }
                             ?>
-                            <form  action="../Pages/logged_in.php" method="post">
+                            <form  action="../pages/logged_in.php" method="post">
                                 <!--formulier voor het aanmaken van nieuwe gebruikers
                                 Deze is al ingevuld mocht het wachtwoord niet aan de eisen voldoen of niet hezelfde is-->
                                 <table id="gebruikertoevoegen" align="center">
@@ -146,7 +146,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                             ?>
                             <div id='voorwaarden'><i>Een wachtwoord moet uit minstens 8 tekens bestaan. Bevat minimaal 1 getal, 1 hoofdletter, 1 kleine letter en 1 van de volgende tekens: # @ % & - _ ! ?</i></div>
                             <!--Vereisten van het wachtwoord weergeven-->
-                            <form  action="../Pages/logged_in.php" method="post">
+                            <form  action="../pages/logged_in.php" method="post">
                                 <table id="gebruikertoevoegen" align="center">
                                     <tr>
                                         <td>
@@ -198,7 +198,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                         }
                         include_once '../Php/Database.php';
                         // het laden van alle gebruikers
-                        $gebruikers = ProtectedGetSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM boomkwekerij.gebruiker', array());
+                        $gebruikers = ProtectedGetSQLArray('SELECT GebruikerID, Naam, Rol, Email FROM gebruiker', array());
                         ?>
                         <br>
                         <h5>Gebruikers wijzigen</h5>                        
@@ -229,7 +229,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false || $_SESSI
                                         ?>
                                     </td>
                                     <td>
-                                        <form action="../Pages/user_edit.php" method="POST"> <!--doorsturen naar aanpaspagina-->
+                                        <form action="../pages/user_edit.php" method="POST"> <!--doorsturen naar aanpaspagina-->
                                             <input type='hidden' name='gebruiker' value="<?php print($rij['GebruikerID']) ?>" />
                                             <input type="submit" class="button-blue" name="submit" value="Bewerk"/>
                                         </form>

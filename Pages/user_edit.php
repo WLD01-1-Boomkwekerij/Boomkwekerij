@@ -29,15 +29,14 @@
                     <?php
                     if (isset($_POST["submit"])) {
                         include '../Php/POST.php';
-                        print ($submit);
                         // Wordt gekeken of er al een poging is gedaan om een account te bewerken, als dat zo is worden deze ook weergegeven
                         if (($submit == 'Opslaan' && count($errors) > 0 ) || $submit == 'Bewerk') {
                             print_r(implode($errors, '<br>'));
                             ?>
-                            <form method="post" action="../Pages/user_edit.php">
+                            <form method="post" action="../pages/user_edit.php">
                                 <?php
                                 include_once '../Php/Database.php';
-                                $array = ProtectedGetSQLArray('SELECT * FROM boomkwekerij.gebruiker WHERE GebruikerID =?', array($gebruiker));
+                                $array = ProtectedGetSQLArray('SELECT * FROM gebruiker WHERE GebruikerID =?', array($gebruiker));
                                 while ($data = $array->fetch()) {
                                     print('<h5>' . $data['Naam'] . '</h5>');
                                     ?>
@@ -73,11 +72,11 @@
                                         </tr>
                                         <tr>
                                             <td>Wachtwoord</td>
-                                            <td><input name="Wachtwoord1" id="Wachtwoord1" type="password" tabindex="4" ></td>
+                                            <td><input name="Wachtwoord1" id="Wachtwoord1" required type="password" tabindex="4" ></td>
                                         </tr>
                                         <tr>
                                             <td>Wachtwoord opnieuw</td>
-                                            <td><input name="Wachtwoord2" id="Wachtwoord2" type="password" tabindex="5" ></td>
+                                            <td><input name="Wachtwoord2" id="Wachtwoord2" required type="password" tabindex="5" ></td>
                                         </tr>
                                         <tr>
                                             <td>Rechten</td>
@@ -141,7 +140,7 @@
                                 <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
                                 <input type="submit" name="submit" value="Bewerken"/>
                             </form>
-                            <form action="../Pages/logged_in.php" method="post">
+                            <form action="../pages/logged_in.php" method="post">
                                 <input type="submit" name="cancel" value="Annuleren"/>
                             </form>
                             <?php
@@ -153,7 +152,7 @@
                                 <input type='hidden' name='input_name' value="<?php echo htmlentities(serialize($_POST)); ?>" />
                                 <input type="submit" name="submit" value="Opslaan"/>
                             </form>
-                            <form action="../Pages/logged_in.php" method="post">
+                            <form action="../pages/logged_in.php" method="post">
                                 <input type="submit" name="cancel" value="Annuleren"/>
                             </form>
                             <?php
