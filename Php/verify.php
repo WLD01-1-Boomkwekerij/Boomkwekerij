@@ -1,5 +1,4 @@
 <?php
-
 // We gaan sessies gebruiken 
 session_start();
 
@@ -32,25 +31,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 // Doorsturen en melding weergeven 
                 if ($_SESSION['toegang'] == 1)
                 {
-                    header('Refresh: 0; url=../Pages/logged_in.php');
+                    header('Refresh: 0; url=../pages/logged_in.php');
                     print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/logged_in.php">klik dan hier</a>');
                 }
                 else
                 {
-                    header('Refresh: 0; url=../Pages/index.php');
+                    header('Refresh: 0; url=../pages/index.php');
                     print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/index.php">klik dan hier</a>');
                 }
             }
             else
             {
                 // Terugsturen en foutmelding geven 
-                header('Refresh: 2; url=../Pages/login.php');
+                header('Refresh: 2; url=../pages/login.php');
                 echo 'Deze combinatie van gebruikersnaam en wachtwoord is niet juist!';
             }
         }
         else
         {
-            header('Refresh: 2; url=login.php');
+            header('Refresh: 2;  url=../pages/login.php');
             echo 'Een vereist veld is niet ingevuld!';
         }
     }
@@ -58,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         // Terug naar het formulier 
         Print('7 pogingen gehad, probeer het over 5 minuten weer.');
-        header('Refresh: 5; url=../Pages/login.php');
+        header('Refresh: 5; url=../pages/login.php');
         exit();
     }
 }
