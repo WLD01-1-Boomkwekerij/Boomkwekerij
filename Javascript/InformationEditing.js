@@ -27,7 +27,7 @@ function getELementByClass(className)
 function doXMLHttp(GetArray)
 {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?" + GetArray, true);
+    xmlhttp.open("GET", "../Php/XMLRequest.php?" + GetArray, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)

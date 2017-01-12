@@ -50,7 +50,7 @@ function getElementById(id)
 function doXMLHttpImages(GetArray)
 {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/DatabaseImages.php?" + GetArray, true);
+    xmlhttp.open("GET", "../Php/DatabaseImages.php?" + GetArray, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
@@ -125,7 +125,7 @@ function loadImagesFromDatabase()
         var imageId = $(this).attr("id");
 
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName=" + imageId, true);
+        xmlhttp.open("GET", "../Php/DatabaseImages.php?getImageByName=" + imageId, true);
         xmlhttp.onreadystatechange = function ()
         {
             if (this.readyState === 4 && this.status === 200)
@@ -356,7 +356,7 @@ function createFileIcon(url, name)
 function createFileIcons(directory)
 {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?fileDirectory=" + directory, true);
+    xmlhttp.open("GET", "../Php/XMLRequest.php?fileDirectory=" + directory, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
@@ -493,7 +493,7 @@ function createImageByName(name)
     var realName = urlArray[urlArray.length - 1];
 
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/DatabaseImages.php?getImageByName=" + realName, true);
+    xmlhttp.open("GET", "../Php/DatabaseImages.php?getImageByName=" + realName, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
@@ -1026,7 +1026,7 @@ function CreateImageContextSubMenu(ev)
         {
             var GetArray = "createNewDirectory=" + PathHistory[currentPathIndex] + "/" + folderInput.value;
             var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", "../PHP/XMLRequest.php?" + GetArray, true);
+            xmlhttp.open("GET", "../Php/XMLRequest.php?" + GetArray, true);
             xmlhttp.onreadystatechange = function ()
             {
                 if (this.readyState === 4 && this.status === 200)
@@ -1116,7 +1116,7 @@ function DeleteImageContextMenu()
 function deleteArticle(newsID)
 {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../PHP/XMLRequest.php?DeleteArticle=" + newsID, true);
+    xmlhttp.open("GET", "../Php/XMLRequest.php?DeleteArticle=" + newsID, true);
     xmlhttp.send();
 }
 
