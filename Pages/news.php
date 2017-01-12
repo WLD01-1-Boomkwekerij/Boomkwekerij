@@ -5,9 +5,10 @@
         <title class="notranslate">Boomkwekerij - Aanbiedingen</title>
         <?php
         session_start();
+
+        include '../Html/includeHead.html';
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
         {
-            include '../Html/includeHead.html';
             include '../Php/loggedInEditor.php';
         }
         ?>
@@ -58,7 +59,7 @@
                         $Title = $row["Titel"];
                         $Datum = $row["DatumGeplaatst"];
                         $visibility = $row["Zichtbaar"];
-                        
+
                         //Controleert of de sessie van de gebruiker actief is
                         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
                         {
@@ -73,15 +74,15 @@
                         else
                         {
                             //Controleert of de zichbaarheid van het betreffende nieuwsbericht is aangevinkt, zo ja -> voert de onderstaande code uit
-                            if($visibility == 1)
+                            if ($visibility == 1)
                             {
                                 print ("<div class='newsDiv clearFix WidthFix' id='newsID$aanBiedingID' style='position: relative'>"
-                                    . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'><div style='float: right'><p id='timestamp'>$Datum</p></div></div>"
-                                    . "<div class='newsTop'> $Title </div>"
-                                    . ""
-                                    . "<div id='textID$textID' style=' padding: 5px;'>"
-                                    . htmlspecialchars_decode($text) . "</div>");
-                            print("</div>");
+                                        . "<div class='ContentEditable' style='width: 100%; height: 100%; position: absolute; z-index: 1000'><div style='float: right'><p id='timestamp'>$Datum</p></div></div>"
+                                        . "<div class='newsTop'> $Title </div>"
+                                        . ""
+                                        . "<div id='textID$textID' style=' padding: 5px;'>"
+                                        . htmlspecialchars_decode($text) . "</div>");
+                                print("</div>");
                             }
                         }
                     }
@@ -91,8 +92,8 @@
                 </section>
             </section>
         </section>
-<?php
-include '../Php/footer.php';
-?>
+        <?php
+        include '../Php/footer.php';
+        ?>
     </body>
 </html>
