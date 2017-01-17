@@ -3,19 +3,19 @@
 function confirmIP($ip)
 {
     include_once '../Php/Database.php';
-    // Tijdzone instellen
+    // configure timezones
     date_default_timezone_set('Europe/Amsterdam');
     $tijd = time();
     $query = 'SELECT `Attempts` FROM `loginattempts` WHERE IP = ?';
     $variable = array($ip);
     $data = ProtectedGetSQL($query, 'Attempts', $variable);
 
-    //Kijkt wanneer de gebruiker voor het laatst is ingelogd
+    //inspects the last time the user has logged in
     $query = 'SELECT `LastLogin` FROM `loginattempts` WHERE IP = ?';
     $timestamp = ProtectedGetSQL($query, 'LastLogin', $variable);
 
     $tijdverschil = ($tijd - $timestamp);
-    // Voert de inlogpogingen in, in de database
+    // registers the login attempts into the database
     if ($data == 0)
     {
         $query = 'INSERT INTO `loginattempts`(`IP`, `Attempts`, `LastLogin`) VALUES (?, 1, ?)';
@@ -23,7 +23,7 @@ function confirmIP($ip)
         ProtectedDoSQL($query, $variable);
         $data = 1;
     }
-    // Kijkt of er 300 seconden (5 minuten) zijn verstreken
+    // checks if the 5 minute wait time is over
     elseif ($tijdverschil >= 300)
     {
         $data = 1;
@@ -31,7 +31,7 @@ function confirmIP($ip)
         $variable = array($data, $tijd, $ip);
         ProtectedDoSQL($query, $variable);
     }
-    // Als de 5 minuten niet verstreken zijn -> voer een nieuw poging to in de database
+    // if the 5 minutes are not over the attempts will be reset
     else
     {
         $data = $data + 1;
@@ -39,5 +39,5 @@ function confirmIP($ip)
         $variable = array($data, $tijd, $ip);
         ProtectedDoSQL($query, $variable);
     }
-    return $data;  //geeft het aantal pogingen.
+    return $data;  //shows the ammount of tries
 }

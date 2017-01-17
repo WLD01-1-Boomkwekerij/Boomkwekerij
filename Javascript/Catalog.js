@@ -117,7 +117,7 @@ function createCatalogAddition()
 
     var xmlhttp = new XMLHttpRequest();
 
-    //NIET VAN MIJ
+ 
     if (document.getElementById("category").innerHTML === "")
     {
         xmlhttp.open("GET", "../PHP/XMLRequest.php?CatalogSelectOptions=yes", true);
