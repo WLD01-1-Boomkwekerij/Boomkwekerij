@@ -1,22 +1,22 @@
 <?php
 
-// Het aanmaken en starten van de sessie
+// Makes and starts sessions
 session_start();
 
-// Het deactiveren van alle variabelen van de sessie
+// Deactivates all veriabels in a session
 $_SESSION = array();
 
-// Als het niet nodig is de sessie te vernietigen, vernietig de cookies
+// If the session does not have to be destroyed it only destroys the cookies
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]
     );
 }
 
-// Vernietig de sessie
+// Destroys the session
 session_destroy();
 
-// Nadat de sessie vernietigd is, word je doorverwezen naar de Homepagina.
+// After the session is destroyed you will be redirected to the homepage.
 header('refresh:0; url=../pages/index.php');
 print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/index.php">klik dan hier</a>');
 ?>

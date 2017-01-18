@@ -16,15 +16,15 @@
         $Wachtwoord = $data['Wachtwoord1'];
         $submit = $data['submit']; 
         $rol = $data['rol'];
-        if ($submit == 'Opslaan') { // Kijken of het een bewerk of verwijder is
-            if ($rol == 'beheerder') { // rol variabele weer omzetten in getal
+        if ($submit == 'Opslaan') { // Checks if it is a Deletion or Update of a user
+            if ($rol == 'beheerder') { // Change Rol variable to a number
                 $rol = 1;
             } elseif ($rol == 'medewerker') {
                 $rol = 2;
             } elseif ($rol == 'vertaler') {
                 $rol = 3;
             }
-            if (isset($Wachtwoord)) { // als er geen wachtwoord is veranderd wordt een SQL query gegenereerd zonder wachtwoord
+            if (isset($Wachtwoord)) { // If the password is changed a SQL query starts whitout a password
                 $query = ('UPDATE `boomkwekerij`.`gebruiker`'
                         . ' SET `Naam` =?,'
                         . ' `Email` = ?,'
@@ -43,11 +43,11 @@
                 
                     ProtectedDoSQL($query, array($data["gebr_naam"],$data["gebr_mail"],$data["krijgt_mail"],$rol,$data["gebruiker"]));
             }
-            header('Refresh: 0; url=../Pages/logged_in.php'); //terug naar beheerderspagina
-        } elseif ($submit == 'Verwijderen') { //verwijder SQL code genereren
+            header('Refresh: 0; url=../Pages/logged_in.php'); //Back to the "beheerderspagina"
+        } elseif ($submit == 'Verwijderen') { //Generate Delete SQL query
             $query = ('DELETE FROM boomkwekerij.gebruiker WHERE GebruikerID =?');
             ProtectedDoSQL($query,array($data["gebruiker"]));
-            header('Refresh: 0; url=../Pages/logged_in.php'); // terug naar beheerderspagina
+            header('Refresh: 0; url=../Pages/logged_in.php'); // Back to the "beheerderspagina"
         }
         ?>
     </body>
