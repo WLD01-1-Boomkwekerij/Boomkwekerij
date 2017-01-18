@@ -187,4 +187,18 @@ if (isset($_SESSION['logged_in']))
             print("Could not create Directoy");
         }
     }
+
+    if (isset($_GET["renameNewName"]))
+    {
+        if (isset($_GET["renameFile"]))
+        {
+            $sql = "UPDATE foto SET FotoNaam=? WHERE FotoNaam=";
+            ProtectedDoSQL($sql, array($_GET["deletePlantImages"]));
+        }
+        else
+        {
+            $sql = "UPDATE FROM plantfoto WHERE FotoID=?";
+            ProtectedDoSQL($sql, array($_GET["deletePlantImages"]));
+        }
+    }
 }

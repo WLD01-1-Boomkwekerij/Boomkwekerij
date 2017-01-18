@@ -996,29 +996,31 @@ function createManager(type, element)
     }
 }
 
-function CreateImageContextSubMenu(ev)
+function CreateImageContextSubMenu(ev, isNew)
 {
     var createFolderDiv = createElement("div");
-        createFolderDiv.id = "createFolderDiv";
-        createFolderDiv.style.position = "absolute";
-        createFolderDiv.style.left = ev.clientX + "px";
-        createFolderDiv.style.top = ev.clientY + "px";
-        createFolderDiv.innerHTML = "Folder Naam:";
-        document.body.appendChild(createFolderDiv);
+    createFolderDiv.id = "createFolderDiv";
+    createFolderDiv.style.position = "absolute";
+    createFolderDiv.style.left = ev.clientX + "px";
+    createFolderDiv.style.top = ev.clientY + "px";
+    createFolderDiv.innerHTML = "Folder Naam:";
+    document.body.appendChild(createFolderDiv);
 
-        var folderInput = createElement("input");
-        folderInput.id = "contextFolderInput";
-        createFolderDiv.appendChild(folderInput);
+    var folderInput = createElement("input");
+    folderInput.id = "contextFolderInput";
+    createFolderDiv.appendChild(folderInput);
 
-        var folderCancelButton = createElement("button");
-        folderCancelButton.id = "contextFolderCancel";
-        folderCancelButton.innerHTML = "Cancel";
-        folderCancelButton.addEventListener("click", function ()
-        {
-            createFolderDiv.parentNode.removeChild(createFolderDiv);
-        });
-        createFolderDiv.appendChild(folderCancelButton);
+    var folderCancelButton = createElement("button");
+    folderCancelButton.id = "contextFolderCancel";
+    folderCancelButton.innerHTML = "Cancel";
+    folderCancelButton.addEventListener("click", function ()
+    {
+        createFolderDiv.parentNode.removeChild(createFolderDiv);
+    });
+    createFolderDiv.appendChild(folderCancelButton);
 
+    if (isNew)
+    {
         var folderSelectButton = createElement("button");
         folderSelectButton.id = "folderSelectButton";
         folderSelectButton.innerHTML = "Nieuwe Folder";
@@ -1045,6 +1047,46 @@ function CreateImageContextSubMenu(ev)
             xmlhttp.send();
         });
         createFolderDiv.appendChild(folderSelectButton);
+    }
+    else
+    {
+        var folderSelectButton = createElement("button");
+        folderSelectButton.id = "folderSelectButton";
+        folderSelectButton.innerHTML = "Hernaam";
+        folderSelectButton.addEventListener("click", function ()
+        {
+            var GetArray;
+            if ($(ev.target).hasClass("fileManagerFile"))
+            {
+                GetArray = "renameFile=" + PathHistory[currentPathIndex] + "/" + ev.target.id + "&renameNewName=" + folderInput.value;
+            }
+            else
+            {
+                GetArray = "renameFolder=" + PathHistory[currentPathIndex] + "/" + ev.target.id + "&renameNewName=" + folderInput.value;
+            }
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "../Php/XMLRequest.php?" + GetArray, true);
+            xmlhttp.onreadystatechange = function ()
+            {
+                if (this.readyState === 4 && this.status === 200)
+                {
+                    if (xmlhttp.responseText !== "")
+                    {
+                        console.log(xmlhttp.responseText);
+                    }
+                    else
+                    {
+                        createFolderDiv.parentNode.removeChild(createFolderDiv);
+                        openFolder(PathHistory[currentPathIndex]);
+                    }
+                }
+            };
+            xmlhttp.send();
+
+        });
+        createFolderDiv.appendChild(folderSelectButton);
+    }
+
 }
 
 function CreateImageContextMenu(ev)
@@ -1063,10 +1105,10 @@ function CreateImageContextMenu(ev)
     createFolder.innerHTML = "Nieuwe folder";
     createFolder.addEventListener("click", function ()
     {
-        CreateImageContextSubMenu(ev);
+        CreateImageContextSubMenu(ev, true);
     });
     contextDiv.appendChild(createFolder);
-    
+
     if ($(ev.target).hasClass("fileManagerFile") ||
             $(ev.target).hasClass("fileManagerFolder"))
     {
@@ -1076,10 +1118,10 @@ function CreateImageContextMenu(ev)
         renameButton.innerHTML = "Hernaam";
         renameButton.addEventListener("click", function ()
         {
-            CreateImageContextSubMenu(ev);
+            CreateImageContextSubMenu(ev, false);
         });
         contextDiv.appendChild(renameButton);
-        
+
         var deleteButton = createElement("div");
         deleteButton.id = "ContextDeleteButton";
         $(deleteButton).addClass("contextMenu");
