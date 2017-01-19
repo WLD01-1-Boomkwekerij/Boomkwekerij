@@ -192,13 +192,13 @@ if (isset($_SESSION['logged_in']))
     {
         if (isset($_GET["renameFile"]))
         {
-            $sql = "UPDATE foto SET FotoNaam=? WHERE FotoNaam=";
-            ProtectedDoSQL($sql, array($_GET["deletePlantImages"]));
+            $sql = "UPDATE foto SET FotoNaam=? WHERE FotoNaam=?";
+            ProtectedDoSQL($sql, array($_GET["renameNewName"], $_GET["renameFile"]));
+            rename($_GET["renamePath"] . $_GET["renameFile"], $_GET["renamePath"] .  $_GET["renameNewName"]);
         }
         else
         {
-            $sql = "UPDATE FROM plantfoto WHERE FotoID=?";
-            ProtectedDoSQL($sql, array($_GET["deletePlantImages"]));
+            rename($_GET["renamePath"] . $_GET["renameFolder"], $_GET["renameNewName"]);
         }
     }
 }

@@ -1055,15 +1055,20 @@ function CreateImageContextSubMenu(ev, isNew)
         folderSelectButton.innerHTML = "Hernaam";
         folderSelectButton.addEventListener("click", function ()
         {
-            var GetArray;
+            var renameWhat;
+            var path = PathHistory[currentPathIndex] + "/";
+            
             if ($(ev.target).hasClass("fileManagerFile"))
             {
-                GetArray = "renameFile=" + PathHistory[currentPathIndex] + "/" + ev.target.id + "&renameNewName=" + folderInput.value;
+                renameWhat = "renameFile=";
             }
             else
             {
-                GetArray = "renameFolder=" + PathHistory[currentPathIndex] + "/" + ev.target.id + "&renameNewName=" + folderInput.value;
+                renameWhat = "renameFolder=";
             }
+            var extension = ev.target.id.substr(ev.target.id.indexOf("."));
+            var GetArray = renameWhat + ev.target.id + "&renameNewName=" + folderInput.value + extension + "&renamePath=" + path;
+
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.open("GET", "../Php/XMLRequest.php?" + GetArray, true);
             xmlhttp.onreadystatechange = function ()
@@ -1114,7 +1119,7 @@ function CreateImageContextMenu(ev)
     {
         var renameButton = createElement("div");
         renameButton.id = "ContextRenameButton";
-        $(renameButton).addClass("ContextMenu");
+        $(renameButton).addClass("contextMenu");
         renameButton.innerHTML = "Hernaam";
         renameButton.addEventListener("click", function ()
         {
