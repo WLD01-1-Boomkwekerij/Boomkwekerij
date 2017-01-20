@@ -584,7 +584,6 @@ function setContentEditable(element, isNew, isNews)
         editorDiv.style.marginLeft = "0px";
         editorPositioner.appendChild(editorDiv);
         
-        console.log(editorDiv.style.marginLeft);
         if(editorDiv.offsetWidth + editorPositioner.offsetLeft > window.screen.width - editorPositioner.offsetLeft)
         {
             editorDiv.style.marginLeft = parseInt(editorDiv.style.marginLeft, 10) - 110 + "px";

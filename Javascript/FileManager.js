@@ -125,12 +125,12 @@ function loadImagesFromDatabase()
         var imageId = $(this).attr("id");
 
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "../Php/DatabaseImages.php?getImageByName=" + imageId, true);
+        xmlhttp.open("GET", "../Php/DatabaseImages.php?getImageByID=" + imageId, true);
         xmlhttp.onreadystatechange = function ()
         {
             if (this.readyState === 4 && this.status === 200)
             {
-                getElementById(imageId).src = xmlhttp.responseText + "/" + imageId;
+                getElementById(imageId).src = xmlhttp.responseText;
             }
         };
         xmlhttp.send();
@@ -487,13 +487,28 @@ function removeImageFromList(selectedImage)
     }
 }
 
-function createImageByName(name)
+function createImage(name)
 {
     var urlArray = name.split("/");
     var realName = urlArray[urlArray.length - 1];
-
+    
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../Php/DatabaseImages.php?getImageByName=" + realName, true);
+    xmlhttp.open("GET", "../Php/DatabaseImages.php?getImageIDByName=" + realName, true);
+    xmlhttp.onreadystatechange = function ()
+    {
+        if (this.readyState === 4 && this.status === 200)
+        {         
+            console.log(xmlhttp.responseText);
+            createImageByID(xmlhttp.responseText);
+        }
+    };
+    xmlhttp.send();
+}
+
+function createImageByID(id)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../Php/DatabaseImages.php?getImageByID=" + id, true);
     xmlhttp.onreadystatechange = function ()
     {
         if (this.readyState === 4 && this.status === 200)
@@ -518,7 +533,7 @@ function createImageByName(name)
                     "height: 0;} " +
                     "</style>"
                     +
-                    "<img id='" + realName + "' class='imageDatabaseLoading imageDraggable editableImage' src='' onclick='editImage(this)' style='" +
+                    "<img id='" + id + "' class='imageDatabaseLoading imageDraggable editableImage' src='' onclick='editImage(this)' style='" +
                     "width: 50%;" +
                     "float: right;" +
                     "clear: right;" +
@@ -920,14 +935,14 @@ function createManager(type, element)
                 {
                     if (currentSelectedPath !== "")
                     {
-                        createImageByName(currentSelectedPath);
+                        createImage(currentSelectedPath);
                     }
                 }
                 else
                 {
                     for (var i = 0; i < managerImageList.length; i++)
                     {
-                        createImageByName(managerImageList[i]);
+                        createImage(managerImageList[i]);
                     }
                 }
             }
@@ -1057,7 +1072,7 @@ function CreateImageContextSubMenu(ev, isNew)
         {
             var renameWhat;
             var path = PathHistory[currentPathIndex] + "/";
-            
+
             if ($(ev.target).hasClass("fileManagerFile"))
             {
                 renameWhat = "renameFile=";
