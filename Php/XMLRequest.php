@@ -198,7 +198,9 @@ if (isset($_SESSION['logged_in']))
         }
         else
         {
-            rename($_GET["renamePath"] . $_GET["renameFolder"], $_GET["renameNewName"]);
+            $sql = "UPDATE foto SET FotoUrl=? WHERE FotoUrl LIKE ?";
+            ProtectedDoSQL($sql, array($_GET["renameNewName"], $_GET["renamePath"] . $_GET["renameFolder"]));
+            rename($_GET["renamePath"] . $_GET["renameFolder"], $_GET["renamePath"] . $_GET["renameNewName"]);
         }
     }
 }

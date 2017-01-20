@@ -121,7 +121,7 @@ function drop(ev)
 function loadImagesFromDatabase()
 {
     $(".imageDatabaseLoading").each(function ()
-    {
+    {                                                                                                                     
         var imageId = $(this).attr("id");
 
         var xmlhttp = new XMLHttpRequest();
@@ -1072,16 +1072,18 @@ function CreateImageContextSubMenu(ev, isNew)
         {
             var renameWhat;
             var path = PathHistory[currentPathIndex] + "/";
-
+            var extension = "";
+            
             if ($(ev.target).hasClass("fileManagerFile"))
             {
                 renameWhat = "renameFile=";
+                extension = ev.target.id.substr(ev.target.id.indexOf("."));
             }
             else
             {
                 renameWhat = "renameFolder=";
             }
-            var extension = ev.target.id.substr(ev.target.id.indexOf("."));
+            
             var GetArray = renameWhat + ev.target.id + "&renameNewName=" + folderInput.value + extension + "&renamePath=" + path;
 
             var xmlhttp = new XMLHttpRequest();
