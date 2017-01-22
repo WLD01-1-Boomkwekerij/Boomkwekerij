@@ -9,21 +9,6 @@ var currentSavedHTML;
 var currentSavedTitle;
 var currentSelectedImage = null;
 
-function createElement(element)
-{
-    return document.createElement(element);
-}
-
-function getElementById(id)
-{
-    return document.getElementById(id);
-}
-
-function getELementByClass(className)
-{
-    return document.getElementsByClassName(className);
-}
-
 function doXMLHttp(GetArray)
 {
     var xmlhttp = new XMLHttpRequest();
@@ -466,26 +451,31 @@ function createLink()
 function createButton(type)
 {
     var button = createElement("button");
-    $(button).attr('title', type);
     switch (type)
     {
         case "justifyLeft":
             button.className = "fa fa-align-left";
+            $(button).attr('title', "Links Uitlijnen");
             break;
         case "justifyCenter":
             button.className = "fa fa-align-center";
+            $(button).attr('title', "Centreren");
             break;
         case "justifyRight":
             button.className = "fa fa-align-right";
+            $(button).attr('title', "Rechts Uitlijnen");
             break;
         case "insertOrderedList":
             button.className = "fa fa-list-ol";
+            $(button).attr('title', "Nummering");
             break;
         case "insertUnorderedList":
             button.className = "fa fa-list-ul";
+            $(button).attr('title', "Opsommingstekens");
             break;
         default:
             button.className = "fa fa-" + type;
+            $(button).attr('title', type);
             break;
     }
 

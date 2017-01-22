@@ -1,5 +1,5 @@
 
-/* global managerImageList */
+/* global managerImageList, getElementById */
 
 //The history of all items clicked, left arrow will use it to go back
 var PathHistory = [];
@@ -24,26 +24,6 @@ var plantAdded = false;
 var images = [];
 
 /**
- * Create an element
- * @param {element} element
- * @returns {Element}
- */
-function createElement(element)
-{
-    return document.createElement(element);
-}
-
-/**
- * Gets an element in the document by id
- * @param {string} id
- * @returns {Element}
- */
-function getElementById(id)
-{
-    return document.getElementById(id);
-}
-
-/**
  * Sends an XML http request for image php commands
  * @param {string} GetArray
  */
@@ -57,7 +37,7 @@ function doXMLHttpImages(GetArray)
         {
             if (xmlhttp.responseText !== "")
             {
-                console.log(xmlhttp.responseText);
+                createPopupError(xmlhttp.responseText);
             }
             else
             {
@@ -498,7 +478,6 @@ function createImage(name)
     {
         if (this.readyState === 4 && this.status === 200)
         {         
-            console.log(xmlhttp.responseText);
             createImageByID(xmlhttp.responseText);
         }
     };
@@ -666,11 +645,7 @@ function fileUploadFormData(formData, uploadUrl)
         {
             if (xmlhttp.responseText !== "")
             {
-                console.log(xmlhttp.responseText);
-            }
-            else
-            {
-
+                createPopupError(xmlhttp.responseText);
             }
         }
     };
@@ -769,6 +744,7 @@ function validateFiles(fileInput, fileUrl)
                 if (fileArray[i].size > maxFileSize)
                 {
                     console.log("File " + (i + 1) + " is to big");
+                    //createPopupError(xmlhttp.responseText);
                 }
                 else
                 {
@@ -1050,7 +1026,7 @@ function CreateImageContextSubMenu(ev, isNew)
                 {
                     if (xmlhttp.responseText !== "")
                     {
-                        console.log(xmlhttp.responseText);
+                        createPopupError(xmlhttp.responseText);
                     }
                     else
                     {
@@ -1094,7 +1070,7 @@ function CreateImageContextSubMenu(ev, isNew)
                 {
                     if (xmlhttp.responseText !== "")
                     {
-                        console.log(xmlhttp.responseText);
+                        createPopupError(xmlhttp.responseText);
                     }
                     else
                     {

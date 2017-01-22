@@ -2,7 +2,7 @@
 
 /**
  * Makes a connection to the database
- * @return \PDO
+ * @return PDO
  */
 function connectToDatabase()
 {
@@ -45,6 +45,13 @@ function ProtectedGetMaxSQL($table, $maxRow)
     }
 }
 
+/**
+ * Gets a certain item from the database
+ * @param string $sqlCode
+ * @param string $rowName
+ * @param array $variables
+ * @return string item
+ */
 function ProtectedGetSQL($sqlCode, $rowName, $variables)
 {
     $connection = connectToDatabase();
@@ -58,6 +65,12 @@ function ProtectedGetSQL($sqlCode, $rowName, $variables)
     }
 }
 
+/**
+ * Gets a certain row from the database
+ * @param string $sqlCode
+ * @param array $variables
+ * @return statement $statement
+ */
 function ProtectedGetSQLArray($sqlCode, $variables)
 {
     try
