@@ -8,6 +8,7 @@
     right: 0;
     top: 0;
     box-shadow: -5px 5px 22px 3px rgba(0,0,0,0.75);
+    z-index: 120000
 }
 
 #popupTitleDiv
@@ -29,9 +30,15 @@
 
 #popupMessage
 {
+    height: 215px;
+    width: 100%;
+    max-width: 100%;
     margin: 0;
     margin-left: 10px;
     line-height: 35px;
     font-size: 16px;
     color: #E1EDD8;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    word-wrap: break-word;
 }
