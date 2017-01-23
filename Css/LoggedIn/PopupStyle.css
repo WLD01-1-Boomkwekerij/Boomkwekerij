@@ -68,3 +68,30 @@
     color: black;
     font-weight: bold;
 }
+
+#progressBarBackground
+{
+    position: relative;
+    width: 90%;
+    border: solid 2px black;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#progressBar
+{
+    width: 0;
+    background-color: #88A550;
+    height: 100%;
+}
+
+#uploadText
+{
+    margin: 0;
+    position: absolute;
+    color: white;
+    top: 0;
+    left: 5px;
+    line-height: 30px;
+}

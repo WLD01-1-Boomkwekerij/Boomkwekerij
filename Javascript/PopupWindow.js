@@ -21,16 +21,22 @@ function createBaseWindow(messageType)
     switch (messageType)
     {
         case "Error":
-            backgroundDiv.style.backgroundColor = "#E94B35";
             titleDiv.style.backgroundColor = "#D64531";
+            backgroundDiv.style.backgroundColor = "#E94B35";            
             titleText.style.color = "#E1EDD8";
             titleText.innerHTML = "Error";
             break;
         case "Info":
-            backgroundDiv.style.backgroundColor = "#90AFC5";
             titleDiv.style.backgroundColor = "#336B87";
+            backgroundDiv.style.backgroundColor = "#90AFC5";            
             titleText.style.color = "#E1EDD8";
             titleText.innerHTML = "Info";
+            break;
+        case "Progress":
+            titleDiv.style.backgroundColor = "#6EB5C0";
+            backgroundDiv.style.backgroundColor = "#E2E8E4";            
+            titleText.style.color = "#E1EDD8";
+            titleText.innerHTML = "Foto Upload";
             break;
     }
 
@@ -120,16 +126,25 @@ function createPopupFilesProgress()
 
 function popupAddProgressBar(xmlHttp)
 {
+    var progressBarBackground = createElement("div");
+    progressBarBackground.id = "progressBarBackground";
+    popupFileProgress.appendChild(progressBarBackground);
+    
     var progressBar = createElement("div");
+    progressBar.id = "progressBar";
     progressBar.style.width = "10%";
-    progressBar.style.backgroundColor = "#00FF00";
-    progressBar.style.height = "20px";
-
-    popupFileProgress.appendChild(progressBar);
+    progressBarBackground.appendChild(progressBar);
+    
+    var uploadText = createElement("p");
+    uploadText.id = "uploadText";
+    progressBarBackground.appendChild(uploadText);
+    
 
     xmlHttp.upload.addEventListener('progress', function (e)
     {
         progressBar.style.width = Math.ceil(e.loaded / e.total) * 100 + '%';
+        uploadText.innerHTML = Math.ceil(e.loaded / e.total) * 100 + '%';
+        
     }, false);
 }
 
