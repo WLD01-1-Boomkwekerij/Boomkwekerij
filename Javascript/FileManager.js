@@ -739,12 +739,13 @@ function validateFiles(fileInput, fileUrl)
             var currentBatchSize = 0;
             var currentBatchFiles = [];
 
+            var fileToBigArray = {};
+
             for (var i = 0; i < fileArray.length; i++)
             {
                 if (fileArray[i].size > maxFileSize)
                 {
-                    console.log("File " + (i + 1) + " is to big");
-                    createPopupInfo(xmlhttp.responseText);
+                    fileToBigArray[fileToBigArray.length] = i + 1;
                 }
                 else
                 {
@@ -773,6 +774,11 @@ function validateFiles(fileInput, fileUrl)
                     }
 
                 }
+            }
+            
+            if(fileToBigArray.length > 0)
+            {
+                createPopupInfo("FilesBig", fileToBigArray);
             }
 
             if (currentBatchFiles.length > 0)

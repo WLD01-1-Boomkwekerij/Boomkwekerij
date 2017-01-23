@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Redirecting...</title>
-        <meta http-equiv="refresh" content="0; url=../Pages/logged_in.php">
+        <meta http-equiv="refresh" content="0; url=../pages/logged_in.php">
     </head>
     <body>
         <?php
@@ -10,7 +10,7 @@
             exit();
         }
         ?>
-        U wordt automatisch omgeleid, als u niet wilt wachten, <a href="../Pages/logged_in.php">klik dan hier</a>.<br>
+        U wordt automatisch omgeleid, als u niet wilt wachten, <a href="../pages/logged_in.php">klik dan hier</a>.<br>
         <?php
         include_once '../Php/Database.php';
         $data = unserialize($_POST['input_name']);

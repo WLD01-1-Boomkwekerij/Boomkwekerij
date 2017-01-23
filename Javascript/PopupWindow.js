@@ -73,6 +73,12 @@ function createPopupError(message)
 
 }
 
+function createPopupInfo(type, array)
+{
+    var innerDiv = createBaseWindow("Info");
+    
+}
+
 $(document).ready(function ()
 {
     $(".PopupWindow").click(function ()

@@ -235,7 +235,7 @@ while ($row = $result->fetch()) {
     else {
         //places the category name
         echo "<td class = 'name' colspan = '9'>"
-        . "<h2><a href = '../Pages/catalog.php?category=$catID'>$catNaam</a></h2></td>"
+        . "<h2><a href = '../pages/catalog.php?category=$catID'>$catNaam</a></h2></td>"
         . "</tr>";
     }
 
