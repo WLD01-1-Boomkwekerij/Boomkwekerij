@@ -16,6 +16,7 @@ print("
 print("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>");
 print("<script src='../Javascript/BaseFunctions.js'></script>");
 print("<script src='../Javascript/PopupWindow.js'></script>");
+print("<script src='../Javascript/FileUpload.js'></script>");
 print("<script src='../Javascript/FileManager.js'></script>");
 print("<script src='../Javascript/InformationEditing.js'></script>");
 ?>

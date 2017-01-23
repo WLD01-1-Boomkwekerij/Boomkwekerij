@@ -1,14 +1,19 @@
 
+var masterNotification;
+var popupFileProgress = null;
+
 function createBaseWindow(messageType)
 {
     var backgroundDiv = createElement("div");
     backgroundDiv.id = "popupBackgroundDiv";
     $(backgroundDiv).addClass("PopupWindow");
-    document.body.appendChild(backgroundDiv);
+    masterNotification.appendChild(backgroundDiv);
+
     var titleDiv = createElement("div");
     titleDiv.id = "popupTitleDiv";
     $(titleDiv).addClass("PopupWindow");
     backgroundDiv.appendChild(titleDiv);
+
     var titleText = createElement("p");
     titleText.id = "popupTitleText";
     $(titleText).addClass("PopupWindow");
@@ -51,10 +56,12 @@ function createPopupError(message)
     var strWhereArray = str1[1].split('\\');
 
     var whereError = createElement("p");
+    $(whereError).addClass("PopupWindow");
     whereError.innerHTML = "<b>Location:</b><br>" + strWhereArray[strWhereArray.length - 2] + "/" + strWhereArray[strWhereArray.length - 1];
     innerDiv.appendChild(whereError);
 
     var lineError = createElement("p");
+    $(lineError).addClass("PopupWindow");
     lineError.id = "lineError";
     lineError.innerHTML = "<b>line: </b>" + str1[2];
     innerDiv.appendChild(lineError);
@@ -68,47 +75,76 @@ function createPopupError(message)
     fullMessage = str2[0].replace(": ", "");
 
     var whatError = createElement("p");
+    $(whatError).addClass("PopupWindow");
     whatError.innerHTML = "<b>Error:</b><br>" + fullMessage;
     innerDiv.appendChild(whatError);
 
 }
 
-function createPopupInfo(type, varArray)
+function createPopupFilesWarning(varArray)
 {
     var innerDiv = createBaseWindow("Info");
-    
+
     var whatInfo = createElement("p");
+    $(whatInfo).addClass("PopupWindow");
+    whatInfo.innerHTML = "Foto's die te groot zijn:";
     innerDiv.appendChild(whatInfo);
-    
-    var whatText = createElement("p"); 
-    
-    if(type === "FilesBig")
+
+    var extraInfo = createElement("p");
+    $(extraInfo).addClass("PopupWindow");
+    extraInfo.id = "popupExtraInfo";
+    extraInfo.innerHTML = "Maximum: " + ((varArray[0] / 1024) / 1024).toFixed(2) + " mb";
+    innerDiv.appendChild(extraInfo);
+
+    var str1 = "<ul>";
+    for (var i = 1; i < varArray.length; i++)
     {
-        whatInfo.innerHTML = "Foto's die te groot zijn:";
-        
-        var extraInfo = createElement("p");
-        extraInfo.id = "popupExtraInfo";
-        extraInfo.innerHTML = "Maximum: " + ((varArray[0] / 1024) / 1024).toFixed(2) + " mb";
-        innerDiv.appendChild(extraInfo);
-        
-        var str1 = "<ul>";
-        for(var i = 1; i < varArray.length; i++)
-        {
-            str1 = str1 + "<li>" + varArray[i] +"</li>";
-        }
-        str1 += "</ul>";
-        
-        whatText.innerHTML = str1;
+        str1 = str1 + "<li>" + varArray[i] + "</li>";
     }
-    
+    str1 += "</ul>";
+
+    var whatText = createElement("p");
+    $(whatText).addClass("PopupWindow");
+    whatText.innerHTML = str1;
     innerDiv.appendChild(whatText);
-    
+}
+
+function createPopupFilesProgress()
+{
+    var innerDiv = createBaseWindow("Progress");
+    var listItem = createElement("div");
+    $(listItem).addClass("PopupWindow");
+    innerDiv.appendChild(listItem);
+    popupFileProgress = listItem;
+}
+
+function popupAddProgressBar(xmlHttp)
+{
+    var progressBar = createElement("div");
+    progressBar.style.width = "10%";
+    progressBar.style.backgroundColor = "#00FF00";
+    progressBar.style.height = "20px";
+
+    popupFileProgress.appendChild(progressBar);
+
+    xmlHttp.upload.addEventListener('progress', function (e)
+    {
+        progressBar.style.width = Math.ceil(e.loaded / e.total) * 100 + '%';
+    }, false);
 }
 
 $(document).ready(function ()
 {
-    $(".PopupWindow").click(function ()
+    masterNotification = createElement("div");
+    masterNotification.id = "masterNotification";
+    document.body.appendChild(masterNotification);
+
+    $(document).on('click', '.PopupWindow', function (event)
     {
-        $(getElementById("popupBackgroundDiv")).animate({top: "-320px"});
+        $("#popupBackgroundDiv").last().animate({marginTop: "-260px"}, function ()
+        {
+            $("#popupBackgroundDiv").last().remove(); 
+        });
+        event.stopPropagation();
     });
 });
