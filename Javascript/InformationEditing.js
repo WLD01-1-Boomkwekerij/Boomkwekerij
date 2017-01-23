@@ -17,13 +17,13 @@ function doXMLHttp(GetArray)
     {
         if (this.readyState === 4 && this.status === 200)
         {
-            if (xmlhttp.responseText === "")
+            if (xmlhttp.responseText !== "")
             {
-                location.reload();
+                createPopupError(xmlhttp.responseText);
             }
             else
             {
-                console.log(xmlhttp.responseText);
+                location.reload();
             }
         }
     };

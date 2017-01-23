@@ -50,3 +50,16 @@
     top: 0;
     right: 10px;
 }
+
+#popupExtraInfo
+{
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+#popupInnerDiv span
+{
+    color: black;
+    font-weight: bold;
+}

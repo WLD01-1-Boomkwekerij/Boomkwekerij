@@ -739,13 +739,15 @@ function validateFiles(fileInput, fileUrl)
             var currentBatchSize = 0;
             var currentBatchFiles = [];
 
-            var fileToBigArray = {};
+            var fileToBigArray = [];
+
+            fileToBigArray[0] = maxFileSize;
 
             for (var i = 0; i < fileArray.length; i++)
             {
                 if (fileArray[i].size > maxFileSize)
                 {
-                    fileToBigArray[fileToBigArray.length] = i + 1;
+                    fileToBigArray[fileToBigArray.length] = fileArray[i].name + " <span>|</span> ~" + ((fileArray[i].size / 1024) / 1024).toFixed(2) + " mb";
                 }
                 else
                 {
@@ -776,7 +778,7 @@ function validateFiles(fileInput, fileUrl)
                 }
             }
             
-            if(fileToBigArray.length > 0)
+            if(fileToBigArray.length > 1)
             {
                 createPopupInfo("FilesBig", fileToBigArray);
             }

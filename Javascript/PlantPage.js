@@ -13,7 +13,7 @@ function doXMLHttp(GetArray)
         {
             if (xmlhttp.responseText !== "")
             {
-                console.log(xmlhttp.responseText);
+                createPopupError(xmlhttp.responseText);
             }
             else
             {

@@ -16,16 +16,16 @@ function createBaseWindow(messageType)
     switch (messageType)
     {
         case "Error":
-            backgroundDiv.style.backgroundColor = "#90AFC5";
-            titleDiv.style.backgroundColor = "#336B87";
-            titleText.style.color = "#2A3132";
-            titleText.innerHTML = "Error";
-            break;
-        case "Info":
             backgroundDiv.style.backgroundColor = "#E94B35";
             titleDiv.style.backgroundColor = "#D64531";
             titleText.style.color = "#E1EDD8";
             titleText.innerHTML = "Error";
+            break;
+        case "Info":
+            backgroundDiv.style.backgroundColor = "#90AFC5";
+            titleDiv.style.backgroundColor = "#336B87";
+            titleText.style.color = "#E1EDD8";
+            titleText.innerHTML = "Info";
             break;
     }
 
@@ -77,13 +77,31 @@ function createPopupInfo(type, varArray)
 {
     var innerDiv = createBaseWindow("Info");
     
+    var whatInfo = createElement("p");
+    innerDiv.appendChild(whatInfo);
+    
+    var whatText = createElement("p"); 
+    
     if(type === "FilesBig")
     {
-        for(var i = 0; i < varArray.length; i++)
+        whatInfo.innerHTML = "Foto's die te groot zijn:";
+        
+        var extraInfo = createElement("p");
+        extraInfo.id = "popupExtraInfo";
+        extraInfo.innerHTML = "Maximum: " + ((varArray[0] / 1024) / 1024).toFixed(2) + " mb";
+        innerDiv.appendChild(extraInfo);
+        
+        var str1 = "<ul>";
+        for(var i = 1; i < varArray.length; i++)
         {
-            
+            str1 = str1 + "<li>" + varArray[i] +"</li>";
         }
+        str1 += "</ul>";
+        
+        whatText.innerHTML = str1;
     }
+    
+    innerDiv.appendChild(whatText);
     
 }
 
@@ -91,6 +109,6 @@ $(document).ready(function ()
 {
     $(".PopupWindow").click(function ()
     {
-        $(".PopupWindow").animate({top: "-320px"});
+        $(getElementById("popupBackgroundDiv")).animate({top: "-320px"});
     });
 });
