@@ -9,7 +9,7 @@
             exit();
         }
         ?>
-        U wordt automatisch omgeleid, als u niet wilt wachten, <a href="../Pages/logged_in.php">klik dan hier</a>.<br>
+        U wordt automatisch omgeleid, als u niet wilt wachten, <a href="../pages/logged_in.php">klik dan hier</a>.<br>
         <?php
         include '../Php/Database.php';
         $data = unserialize($_POST['input_name']); //Het uitelkaar halen van gegevens
@@ -43,11 +43,11 @@
                 
                     ProtectedDoSQL($query, array($data["gebr_naam"],$data["gebr_mail"],$data["krijgt_mail"],$rol,$data["gebruiker"]));
             }
-            header('Refresh: 0; url=../Pages/logged_in.php'); //Back to the "beheerderspagina"
+            header('Refresh: 0; url=../pages/logged_in.php'); //Back to the "beheerderspagina"
         } elseif ($submit == 'Verwijderen') { //Generate Delete SQL query
             $query = ('DELETE FROM boomkwekerij.gebruiker WHERE GebruikerID =?');
             ProtectedDoSQL($query,array($data["gebruiker"]));
-            header('Refresh: 0; url=../Pages/logged_in.php'); // Back to the "beheerderspagina"
+            header('Refresh: 0; url=../pages/logged_in.php'); // Back to the "beheerderspagina"
         }
         ?>
     </body>

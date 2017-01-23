@@ -73,9 +73,17 @@ function createPopupError(message)
 
 }
 
-function createPopupInfo(type, array)
+function createPopupInfo(type, varArray)
 {
     var innerDiv = createBaseWindow("Info");
+    
+    if(type === "FilesBig")
+    {
+        for(var i = 0; i < varArray.length; i++)
+        {
+            
+        }
+    }
     
 }
 

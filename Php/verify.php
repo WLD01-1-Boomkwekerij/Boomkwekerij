@@ -32,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 if ($_SESSION['toegang'] == 1)
                 {
                     header('Refresh: 0; url=../pages/logged_in.php');
-                    print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/logged_in.php">klik dan hier</a>');
+                    print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../pages/logged_in.php">klik dan hier</a>');
                 }
                 else
                 {
                     header('Refresh: 0; url=../pages/index.php');
-                    print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/index.php">klik dan hier</a>');
+                    print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Ppges/index.php">klik dan hier</a>');
                 }
             }
             else

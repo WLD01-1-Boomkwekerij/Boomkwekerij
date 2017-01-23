@@ -18,5 +18,5 @@ session_destroy();
 
 // After the session is destroyed you will be redirected to the homepage.
 header('refresh:0; url=../pages/index.php');
-print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Pages/index.php">klik dan hier</a>');
+print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../pages/index.php">klik dan hier</a>');
 ?>
