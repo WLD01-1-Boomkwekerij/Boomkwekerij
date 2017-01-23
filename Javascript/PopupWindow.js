@@ -22,19 +22,19 @@ function createBaseWindow(messageType)
     {
         case "Error":
             titleDiv.style.backgroundColor = "#D64531";
-            backgroundDiv.style.backgroundColor = "#E94B35";            
+            backgroundDiv.style.backgroundColor = "#E94B35";
             titleText.style.color = "#E1EDD8";
             titleText.innerHTML = "Error";
             break;
         case "Info":
             titleDiv.style.backgroundColor = "#336B87";
-            backgroundDiv.style.backgroundColor = "#90AFC5";            
+            backgroundDiv.style.backgroundColor = "#90AFC5";
             titleText.style.color = "#E1EDD8";
             titleText.innerHTML = "Info";
             break;
         case "Progress":
             titleDiv.style.backgroundColor = "#6EB5C0";
-            backgroundDiv.style.backgroundColor = "#E2E8E4";            
+            backgroundDiv.style.backgroundColor = "#E2E8E4";
             titleText.style.color = "#E1EDD8";
             titleText.innerHTML = "Foto Upload";
             break;
@@ -128,23 +128,26 @@ function popupAddProgressBar(xmlHttp)
 {
     var progressBarBackground = createElement("div");
     progressBarBackground.id = "progressBarBackground";
+    $(progressBarBackground).addClass("PopupWindow");
     popupFileProgress.appendChild(progressBarBackground);
-    
+
     var progressBar = createElement("div");
     progressBar.id = "progressBar";
+    $(progressBar).addClass("PopupWindow");
     progressBar.style.width = "10%";
     progressBarBackground.appendChild(progressBar);
-    
+
     var uploadText = createElement("p");
     uploadText.id = "uploadText";
+    $(uploadText).addClass("PopupWindow");
     progressBarBackground.appendChild(uploadText);
-    
+
 
     xmlHttp.upload.addEventListener('progress', function (e)
     {
         progressBar.style.width = Math.ceil(e.loaded / e.total) * 100 + '%';
         uploadText.innerHTML = Math.ceil(e.loaded / e.total) * 100 + '%';
-        
+
     }, false);
 }
 
@@ -154,12 +157,15 @@ $(document).ready(function ()
     masterNotification.id = "masterNotification";
     document.body.appendChild(masterNotification);
 
-    $(document).on('click', '.PopupWindow', function (event)
+    document.addEventListener('contextmenu', function (e)
     {
-        $("#popupBackgroundDiv").last().animate({marginTop: "-260px"}, function ()
+        if ($(e.target).hasClass("PopupWindow"))
         {
-            $("#popupBackgroundDiv").last().remove(); 
-        });
-        event.stopPropagation();
-    });
+            $("#popupBackgroundDiv").last().animate({marginTop: "-260px"}, function ()
+            {
+                $("#popupBackgroundDiv").last().remove();
+            });
+            e.preventDefault();
+        }
+    }, false);
 });
