@@ -28,8 +28,9 @@
     font-weight: bold;
 }
 
-#popupMessage
+#popupInnerDiv
 {
+    position: relative;
     height: 215px;
     width: 100%;
     max-width: 100%;
@@ -41,4 +42,11 @@
     overflow-y: scroll;
     overflow-x: hidden;
     word-wrap: break-word;
+}
+
+#lineError
+{
+    position: absolute;
+    top: 0;
+    right: 10px;
 }

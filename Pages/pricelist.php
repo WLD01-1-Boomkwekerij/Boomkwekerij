@@ -52,8 +52,8 @@
                             $percc = $_POST['percc'];
                             $perlaag = $_POST['perlaag'];
                             $pertray = $_POST['pertray'];
-                            $prijsKwekerij = $_POST['prijskwekerij'];
-                            $prijsVBA = $_POST['prijsvba'];
+                            $prijsKwekerij = money_format('%.2n', $_POST['prijskwekerij']);
+                            $prijsVBA = money_format('%.2n', $_POST['prijsvba']);
                             $naam = $_POST['naam'];
                             $hoogteMin = $_POST['HoogteMin'];
                             $hoogteMax = $_POST['HoogteMax'];
@@ -273,8 +273,8 @@ while ($row = $result->fetch()) {
 
 
         $potmaat = $row2['Potmaat'];
-        $prijsKwekerij = $row2['PrijsKwekerij'];
-        $prijsVBA = $row2['PrijsVBA'];
+        $prijsKwekerij = money_format('%.2n', $row2['PrijsKwekerij']);
+        $prijsVBA = money_format('%.2n', $row2['PrijsVBA']);
         $productenCC = $row2['ProductenCC'];
         $productenLaag = $row2['ProductenLaag'];
         $productenTray = $row2['ProductenTray'];

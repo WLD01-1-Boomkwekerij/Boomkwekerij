@@ -744,7 +744,7 @@ function validateFiles(fileInput, fileUrl)
                 if (fileArray[i].size > maxFileSize)
                 {
                     console.log("File " + (i + 1) + " is to big");
-                    //createPopupError(xmlhttp.responseText);
+                    createPopupInfo(xmlhttp.responseText);
                 }
                 else
                 {
