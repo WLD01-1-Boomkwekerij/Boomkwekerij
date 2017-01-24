@@ -13,8 +13,8 @@ function firstHalf()
             $percc = $_POST['percc'];
             $perlaag = $_POST['perlaag'];
             $pertray = $_POST['pertray'];
-            $prijsKwekerij = money_format('%.2n', $_POST['prijskwekerij']);
-            $prijsVBA = money_format('%.2n', $_POST['prijsvba']);
+            $prijsKwekerij = sprintf('%01.2f', $_POST['prijskwekerij']);
+            $prijsVBA = sprintf('%01.2f', $_POST['prijsvba']);            
             $naam = $_POST['naam'];
             $hoogteMin = $_POST['HoogteMin'];
             $hoogteMax = $_POST['HoogteMax'];
@@ -210,11 +210,9 @@ function secondHalf()
 
             $plantNaam = $row2['Naam'];
             $plantExtraBeschrijving = $row2['ExtraBeschrijving'];
-
-
             $potmaat = $row2['Potmaat'];
-            $prijsKwekerij = money_format('%.2n', $row2['PrijsKwekerij']);
-            $prijsVBA = money_format('%.2n', $row2['PrijsVBA']);
+            $prijsKwekerij = sprintf('%01.2f', $row2['PrijsKwekerij']);
+            $prijsVBA = sprintf('%01.2f', $row2['PrijsVBA']);            
             $productenCC = $row2['ProductenCC'];
             $productenLaag = $row2['ProductenLaag'];
             $productenTray = $row2['ProductenTray'];
