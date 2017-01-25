@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 else
                 {
                     header('Refresh: 0; url=../pages/index.php');
-                    print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../Ppges/index.php">klik dan hier</a>');
+                    print('U wordt automtisch doorgestuurd, mocht dit niet gebeuren, <a href="../pages/index.php">klik dan hier</a>');
                 }
             }
             else

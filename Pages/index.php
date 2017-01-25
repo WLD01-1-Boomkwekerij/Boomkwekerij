@@ -3,10 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title class="notranslate">Boomkwekerij - Aanbiedingen</title>
-        
         <?php
-        session_start();
-        
         include '../Html/includeHead.html';
         
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
