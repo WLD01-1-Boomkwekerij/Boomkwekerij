@@ -20,8 +20,7 @@
         <?php
         session_start();
         include '../Html/includeHead.html';
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && $_SESSION['toegang'] != 3)
-        {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && $_SESSION['toegang'] != 3) {
             $loggedIn = true;
             include '../Php/loggedInEditor.php';
         }
@@ -45,22 +44,40 @@
                 </section>
                 <section id="maincontent">
 
-                    <?php 
+                    <?php
                     include '../Php/Pricelist.php';
-                    
+
                     firstHalf();
                     ?>
-                    
-                    <div id='printable'> 
 
+                    <div id='printable'> 
                         <h1>Prijslijst</h1>
+                        <section id='printbanner'>
+                            <section id='titlediv' class="notranslate"><p id="imgtitle">FA.P.BOER BOOMKWEKERIJ</p></section>
+                            <section id="top">
+                                <section id="header">                                
+
+                                </section>
+                                <section id="topmenu">
+                                    <ul>        
+                                        <li>Rijneveld 125</li>
+                                        <li>2771 XV Boskoop</li>
+                                        <li>Email: info@boomkwekerijpboer.nl</li>
+                                        <li>Robert: 06-22442190</li>
+                                        <li>Peter: 06-57915055</li>
+                                        <li>Fax: 0172-218627</li>
+                                        <li>BGG: 0172-217308</li>
+                                    </ul>
+                                </section>                  
+                            </section>
+                        </section>
+
                         <table class="pricelist">
                             <colgroup>
                                 <col class="name"/>
                                 <col class="name"/>
                                 <?php
-                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
-                                {
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     echo "<col class='name'/>";
                                 }
                                 ?>
@@ -74,9 +91,8 @@
                             </colgroup>
                             <tr>
                                 <?php
-                                //Maakt knoppen aan
-                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3)
-                                {
+//Maakt knoppen aan
+                                if (isset($_SESSION['logged_in']) && $_SESSION['toegang'] != 3) {
                                     print("<th rowspan='2' class='noprint'></th>");
                                 }
                                 ?>
@@ -95,9 +111,7 @@
                                 <td>tray</td>
                             </tr>
                             <?php
-                            
                             secondHalf();
-                            
                             ?>
                         </table>
                     </div>
