@@ -40,7 +40,7 @@ function createCatalogAddition()
                     eight += images[i] + "*";
                 }
 
-                var requestString = "../PHP/XMLRequest.php?" +
+                var requestString = "../Php/XMLRequest.php?" +
                         "name=" + one.value +
                         "&groep=" + two.value +
                         "&hoogte_min=" + three.value +
